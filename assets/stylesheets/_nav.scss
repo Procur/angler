@@ -1,0 +1,41 @@
+.navbar-default {
+  background-color: rgba(10, 10, 10, .7);
+  border-color: #0A0A0A;
+
+  .navbar-brand {
+    color: #eee;
+
+    &:hover, &:focus {
+      color: #fff;
+    }
+  }
+
+  .navbar-nav {
+    li {
+      a {
+        color: #eee;
+        font-weight: 300;
+      }
+
+      &.active {
+        a {
+          background-color: #0A0A0A;
+          color: #eee;
+        }
+      }
+
+      &.active:hover {
+        a {
+          background-color: #0A0A0A;
+          color: #fff;
+        }
+      }
+
+      &:hover {
+        a {
+          color: #fff;
+        }
+      }
+    }
+  }
+}
