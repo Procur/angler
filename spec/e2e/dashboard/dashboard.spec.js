@@ -1,13 +1,5 @@
 describe('/dashboard', function() {
 
-  var
-    chai = require('chai'),
-    chaiAsPromised = require('chai-as-promised'),
-    expect;
-
-  chai.use(chaiAsPromised);
-  expect = chai.expect;
-
   beforeEach(function() {
     isAngularSite(true);
   });

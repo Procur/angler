@@ -35,5 +35,10 @@ exports.config = {
     global.baseUrl = function() {
       return baseUrl;
     };
+
+    global.chai = require('chai');
+    global.chaiAsPromised = require('chai-as-promised');
+    global.chai.use(global.chaiAsPromised);
+    global.expect = global.chai.expect;
   }
 };
