@@ -13,7 +13,8 @@ function gruntConfig(grunt) {
     //copy: require('./grunt/copy'),
     sass: require('./grunt/sass'),
     ngtemplates: require('./grunt/ngtemplates'),
-    bgShell: require('./grunt/bgShell')
+    bgShell: require('./grunt/bgShell'),
+    karma: require('./grunt/karma')
 
   });
 
@@ -25,5 +26,6 @@ function gruntConfig(grunt) {
 
   grunt.registerTask('build', ['concat:components', 'ngtemplates:dev', 'concat:dev', 'sass:dev']);
   grunt.registerTask('server', ['bgShell:server']);
+  grunt.registerTask('test:dev', ['build', 'karma:dev']);
   grunt.registerTask('default', ['build', 'server']);
 }

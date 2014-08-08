@@ -14,6 +14,7 @@ module.exports = {
       }
     },
     src: [
+      '<%= jsPath %>/app/third_party/*.js',
       '<%= jsPath %>/app/nav/nav_module.js',
       '<%= jsPath %>/app/nav/*.js',
       '<%= jsPath %>/app/dashboard/dashboard_module.js',
