@@ -26,6 +26,7 @@ function gruntConfig(grunt) {
 
   grunt.registerTask('build', ['concat:components', 'ngtemplates:dev', 'concat:dev', 'sass:dev']);
   grunt.registerTask('server', ['bgShell:server']);
-  grunt.registerTask('test:dev', ['build', 'karma:dev']);
+  grunt.registerTask('protractor', ['bgShell:protractor']);
+  grunt.registerTask('test:dev', ['build', 'karma:dev', 'protractor']);
   grunt.registerTask('default', ['build', 'server']);
 }
