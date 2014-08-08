@@ -1,0 +1,35 @@
+{
+  "name": "Kraken",
+  "homepage": "https://github.com/Procur/Kraken",
+  "description": "Procur's base CSS framework",
+  "main": "dist/css/kraken.min.css",
+  "authors": [
+    "Angler Procur Team"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "Gemfile",
+    "Gemfile.lock",
+    "Gruntfile.js",
+    "index.html",
+    "package.json",
+    "README.md",
+    "src",
+    "node_modules",
+    "bower.json",
+    "Grunt",
+    ".sass-cache"
+  ],
+  "_release": "6ba9aa93ad",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "6ba9aa93adc140dd401d925f0f1c61a77475baed"
+  },
+  "_source": "git@github.com:Procur/kraken.git",
+  "_target": "*",
+  "_originalSource": "git@github.com:Procur/kraken.git",
+  "_direct": true
+}
