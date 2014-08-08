@@ -1,4 +1,4 @@
-//blocked!
+//unblocked!
 (function(angular) {
   var
     definition;
