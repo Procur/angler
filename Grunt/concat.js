@@ -26,5 +26,12 @@ module.exports = {
       '<%= jsPath %>/app/**/*.js',
     ],
     dest: '<%= jsPath %>/app.js'
+  },
+  dist: {
+    src: [
+      '<%= jsPath %>/components.js',
+      '<%= jsPath %>/app.js'
+    ],
+    dest: 'dist/javascripts/build.js'
   }
 };

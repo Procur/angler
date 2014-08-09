@@ -1,0 +1,29 @@
+{
+  "name": "Angler",
+  "version": "0.0.1",
+  "homepage": "https://github.com/Procur/Angler",
+  "description": "Procur's core client-side JavaScript MVC framework",
+  "authors": [
+    "Angler Procur Team"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    ".sass-cache",
+    "assets",
+    "Grunt",
+    "node_modules",
+    "spec",
+    "views",
+    ".bowerrc",
+    ".gitignore",
+    "bower.json",
+    "Gemfile",
+    "Gemfile.lock",
+    "Gruntfile.js",
+    "package.json",
+    "README.md",
+    "server.js"
+  ]
+}

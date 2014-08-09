@@ -10,9 +10,10 @@ function gruntConfig(grunt) {
     htmlPath: 'assets/templates',
 
     concat: require('./grunt/concat'),
-    //copy: require('./grunt/copy'),
+    copy: require('./grunt/copy'),
     sass: require('./grunt/sass'),
     ngtemplates: require('./grunt/ngtemplates'),
+    uglify: require('./grunt/uglify'),
     bgShell: require('./grunt/bgShell'),
     karma: require('./grunt/karma')
 
@@ -24,9 +25,10 @@ function gruntConfig(grunt) {
     }
   }
 
-  grunt.registerTask('build', ['concat:components', 'ngtemplates:dev', 'concat:dev', 'sass:dev']);
+  grunt.registerTask('build:dev', ['concat:components', 'ngtemplates:dev', 'concat:dev', 'sass:dev']);
+  grunt.registerTask('build:dist', ['build:dev', 'concat:dist', 'uglify:dist', 'copy:styles', 'sass:dist']);
   grunt.registerTask('server', ['bgShell:server']);
   grunt.registerTask('protractor', ['bgShell:protractor']);
-  grunt.registerTask('test:dev', ['build', 'karma:dev', 'protractor']);
-  grunt.registerTask('default', ['build', 'server']);
+  grunt.registerTask('test:dev', ['build:dev', 'karma:dev', 'protractor']);
+  grunt.registerTask('default', ['build:dev', 'server']);
 }
