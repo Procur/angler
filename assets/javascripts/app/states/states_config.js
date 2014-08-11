@@ -37,7 +37,18 @@
       .state('userAccountSettings', {
         url: '/userAccountSettings',
         templateUrl: 'userAccountSettings.html',
-        controller: 'userAccountSettingsController'
+        controller: 'userAccountSettingsController',
+        abstract: true
+      })
+      .state('userAccountSettings.updateSettings', {
+        url: '/updateSettings',
+        templateUrl: 'userUpdateSettings.html',
+        controller: 'userUpdateSettings'
+      })
+      .state('userAccountSettings.updatePassword', {
+        url: '/updatePassword',
+        templateUrl: 'userUpdatePassword.html',
+        controller: 'userUpdatePassword'
       });
   }
 

@@ -1,38 +1,15 @@
-
+<div id="userAccountSettings">
 <div class="row">
   <div class="col-sm-4">
-    <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all" role="tablist">
-      <li>Update Settings</li>
-      <li>Change Password</li>
+    <ul>
+      <li><a ui-sref="userAccountSettings.updateSettings">Update Settings</a></li>
+      <li><a ui-sref="userAccountSettings.updatePassword">Change Password</a></li>
     </ul>
   </div>
 
-  <div class="col-sm-8">
-    <div class="row">
-      Contact Information
-    </div>
-    <div class="row">
-      <div class="col-md-6">
-      <h4>Contact Name*</h4>
-      <input>
-      <input>
+  <div ui-view=""></div>
 
-      <h4>Current Email Address</h4>
-      <input>
+  
 
-      <h4>Update Email Address</h4>
-      <input>
-      <input>
-
-      </div>
-      <div class="col-md-6">
-
-      <h4>Job Title</h4>
-      <input>
-
-      <h4>Update Profile Picture</h4>
-      <input type="file">
-      </div>
-    </div>
-  </div>
+</div>
 </div>

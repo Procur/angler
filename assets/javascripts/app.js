@@ -120,18 +120,53 @@
 
   definitions = [
     '$scope',
-    'user',
-    'company',
     userAccountSettingsController
   ];
 
   angular.module('pc.UserAccountSettings')
     .controller('userAccountSettingsController', definitions);
 
-  function userAccountSettingsController($scope, user, company) {
-    $scope.user = user;
-    $scope.user.profile.createdYear = new Date(user.profile.createdDT).getFullYear();
-    $scope.company = company;
+  function userAccountSettingsController($scope) {
+  }
+
+})(angular);
+
+// assets/javascripts/app/userAccountSettings/userUpdatePassword_controller.js
+(function(angular) {
+
+  var
+    definitions;
+
+  definitions = [
+    '$scope',
+    userUpdatePassword
+  ];
+
+  angular.module('pc.UserAccountSettings')
+    .controller('userUpdatePassword', definitions);
+
+  function userUpdatePassword($scope) {
+    
+  }
+
+})(angular);
+
+// assets/javascripts/app/userAccountSettings/userUpdateSettings_controller.js
+(function(angular) {
+
+  var
+    definitions;
+
+  definitions = [
+    '$scope',
+    userUpdateSettings
+  ];
+
+  angular.module('pc.UserAccountSettings')
+    .controller('userUpdateSettings', definitions);
+
+  function userUpdateSettings($scope) {
+    
   }
 
 })(angular);
@@ -189,7 +224,18 @@
       .state('userAccountSettings', {
         url: '/userAccountSettings',
         templateUrl: 'userAccountSettings.html',
-        controller: 'userAccountSettingsController'
+        controller: 'userAccountSettingsController',
+        abstract: true
+      })
+      .state('userAccountSettings.updateSettings', {
+        url: '/updateSettings',
+        templateUrl: 'userUpdateSettings.html',
+        controller: 'userUpdateSettings'
+      })
+      .state('userAccountSettings.updatePassword', {
+        url: '/updatePassword',
+        templateUrl: 'userUpdatePassword.html',
+        controller: 'userUpdatePassword'
       });
   }
 
@@ -205,12 +251,22 @@ angular.module('pc.Templates', []).run(['$templateCache', function($templateCach
 
 
   $templateCache.put('nav.html',
-    "<nav class=\"navbar navbar-default navbar-fixed-top\" role=\"navigation\"><div class=\"container-fluid\"><div class=\"navbar-header\"><a class=\"navbar-brand\" href=\"#\">My Procur</a></div><div class=\"collapse navbar-collapse\"><ul class=\"nav navbar-nav navbar-right\"><li pc-nav=\"dashboard\"><a ui-sref=\"dashboard\">Dashboard</a></li><li pc-nav=\"\"><a ui-sref=\"#\">View Company Profile</a></li><li pc-nav=\"\"><a ui-sref=\"#\">Edit Company Profile</a></li><li pc-nav=\"userAccountSettings\"><a ui-sref=\"userAccountSettings\">User Account Settings</a></li></ul></div></div></nav>"
+    "<nav class=\"navbar navbar-default navbar-fixed-top\" role=\"navigation\"><div class=\"container-fluid\"><div class=\"navbar-header\"><a class=\"navbar-brand\" href=\"#\">My Procur</a></div><div class=\"collapse navbar-collapse\"><ul class=\"nav navbar-nav navbar-right\"><li pc-nav=\"dashboard\"><a ui-sref=\"dashboard\">Dashboard</a></li><li pc-nav=\"\"><a ui-sref=\"#\">View Company Profile</a></li><li pc-nav=\"\"><a ui-sref=\"#\">Edit Company Profile</a></li><li pc-nav=\"userAccountSettings.updateSettings\"><a ui-sref=\"userAccountSettings.updateSettings\">User Account Settings</a></li></ul></div></div></nav>"
   );
 
 
   $templateCache.put('userAccountSettings.html',
-    "<div class=\"row\"><div class=\"col-sm-4\"><ul class=\"ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all\" role=\"tablist\"><li>Update Settings</li><li>Change Password</li></ul></div><div class=\"col-sm-8\"><div class=\"row\">Contact Information</div><div class=\"row\"><div class=\"col-md-6\"><h4>Contact Name*</h4><input> <input><h4>Current Email Address</h4><input><h4>Update Email Address</h4><input> <input></div><div class=\"col-md-6\"><h4>Job Title</h4><input><h4>Update Profile Picture</h4><input type=\"file\"></div></div></div></div>"
+    "<div id=\"userAccountSettings\"><div class=\"row\"><div class=\"col-sm-4\"><ul><li><a ui-sref=\"userAccountSettings.updateSettings\">Update Settings</a></li><li><a ui-sref=\"userAccountSettings.updatePassword\">Change Password</a></li></ul></div><div ui-view=\"\"></div></div></div>"
+  );
+
+
+  $templateCache.put('userUpdatePassword.html',
+    "<div class=\"col-sm-8\"><div class=\"row headerRow\"><h4>Update Password</h4></div><div class=\"row updateForm\"><div class=\"col-md-6\"><h5>Enter New Password</h5><input type=\"text\" placeholder=\"First\"><br></div><div class=\"col-md-6\"><h5>Confirm New Password</h5><input type=\"text\" placeholder=\"Job Title\"><br></div></div></div>"
+  );
+
+
+  $templateCache.put('userUpdateSettings.html',
+    "<div class=\"col-sm-8\"><div class=\"row headerRow\"><h4>Contact Information</h4></div><div class=\"row updateForm\"><div class=\"col-md-6\"><h5>Contact Name*</h5><input type=\"text\" placeholder=\"First\"> <input type=\"text\" placeholder=\"Last\"><br><h5>Current Email Address</h5><input type=\"text\" placeholder=\"Current Email\"><br><h5>Update Email Address</h5><input type=\"text\" placeholder=\"Enter New Address\"> <input type=\"text\" placeholder=\"Confirm New Address\"><br></div><div class=\"col-md-6\"><h5>Job Title</h5><input type=\"text\" placeholder=\"Job Title\"><br><h5>Update Profile Picture</h5><input type=\"file\"></div></div></div>"
   );
 
 }]);
