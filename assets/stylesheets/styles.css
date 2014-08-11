@@ -96,29 +96,41 @@ label {
 }
 
 .navbar-default {
-  background-color: rgba(10, 10, 10, 0.7);
-  border-color: #0A0A0A;
+  background-color: #333132;
+  border: none;
+  border-radius: 0;
 }
-.navbar-default .navbar-brand {
-  color: #eee;
+.navbar-default .navbar-header {
+  float: right;
 }
-.navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
-  color: #fff;
+.navbar-default .navbar-header .navbar-brand {
+  color: #c3c3c3;
+  text-transform: uppercase;
+  font-weight: 400;
+  font-family: Montserrat,sans-serif;
+  font-size: 14px;
 }
-.navbar-default .navbar-nav li a {
-  color: #eee;
-  font-weight: 300;
+.navbar-default .navbar-header .navbar-brand:hover, .navbar-default .navbar-header .navbar-brand:focus, .navbar-default .navbar-header .navbar-brand:active {
+  color: #c3c3c3;
 }
-.navbar-default .navbar-nav li.active a {
-  background-color: #0A0A0A;
-  color: #eee;
+.navbar-default .navbar-collapse {
+  float: right;
 }
-.navbar-default .navbar-nav li.active:hover a {
-  background-color: #0A0A0A;
-  color: #fff;
+.navbar-default .navbar-collapse .navbar-nav li a {
+  color: #c3c3c3;
+  font-weight: 200;
+  font-family: 'Open Sans',sans-serif;
 }
-.navbar-default .navbar-nav li:hover a {
-  color: #fff;
+.navbar-default .navbar-collapse .navbar-nav li.active a {
+  background-color: #0a0a0a;
+  color: white;
+}
+.navbar-default .navbar-collapse .navbar-nav li.active:hover a {
+  background-color: #0a0a0a;
+  color: white;
+}
+.navbar-default .navbar-collapse .navbar-nav li:hover a {
+  color: white;
 }
 
 .user-profile img {

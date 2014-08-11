@@ -1,41 +1,55 @@
 
 
 .navbar-default {
-  background-color: rgba(10, 10, 10, .7);
-  border-color: #0A0A0A;
+  background-color: $color-gray-alt-dark;
+  border: none;
+  border-radius: 0;
 
-  .navbar-brand {
-    color: #eee;
+  .navbar-header {
+    float: right;
 
-    &:hover, &:focus {
-      color: #fff;
+    .navbar-brand {
+      color: $color-gray-alt-light;
+      text-transform: uppercase;
+      font-weight: 400;
+      font-family: Montserrat,sans-serif;
+      font-size: 14px;
+
+      &:hover, &:focus, &:active {
+        color: $color-gray-alt-light;
+      }
     }
   }
 
-  .navbar-nav {
-    li {
-      a {
-        color: #eee;
-        font-weight: 300;
-      }
+  .navbar-collapse {
+    float: right;
 
-      &.active {
+    .navbar-nav {
+      li {
         a {
-          background-color: #0A0A0A;
-          color: #eee;
+          color: $color-gray-alt-light;
+          font-weight: 200;
+          font-family: 'Open Sans',sans-serif;
         }
-      }
 
-      &.active:hover {
-        a {
-          background-color: #0A0A0A;
-          color: #fff;
+        &.active {
+          a {
+            background-color: $color-gray-dark;
+            color: $color-white;
+          }
         }
-      }
 
-      &:hover {
-        a {
-          color: #fff;
+        &.active:hover {
+          a {
+            background-color: $color-gray-dark;
+            color: $color-white;
+          }
+        }
+
+        &:hover {
+          a {
+            color: $color-white;
+          }
         }
       }
     }
