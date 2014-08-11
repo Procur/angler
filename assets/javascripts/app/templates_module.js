@@ -7,7 +7,12 @@ angular.module('pc.Templates', []).run(['$templateCache', function($templateCach
 
 
   $templateCache.put('nav.html',
-    "<nav class=\"navbar navbar-default navbar-fixed-top\" role=\"navigation\"><div class=\"container-fluid\"><div class=\"navbar-header\"><a class=\"navbar-brand\" href=\"#\">My Procur</a></div><div class=\"collapse navbar-collapse\"><ul class=\"nav navbar-nav navbar-right\"><li pc-nav=\"dashboard\"><a ui-sref=\"dashboard\">Dashboard</a></li><li pc-nav=\"\"><a ui-sref=\"#\">View Company Profile</a></li><li pc-nav=\"\"><a ui-sref=\"#\">Edit Company Profile</a></li><li pc-nav=\"\"><a ui-sref=\"#\">User Account Settings</a></li></ul></div></div></nav>"
+    "<nav class=\"navbar navbar-default navbar-fixed-top\" role=\"navigation\"><div class=\"container-fluid\"><div class=\"navbar-header\"><a class=\"navbar-brand\" href=\"#\">My Procur</a></div><div class=\"collapse navbar-collapse\"><ul class=\"nav navbar-nav navbar-right\"><li pc-nav=\"dashboard\"><a ui-sref=\"dashboard\">Dashboard</a></li><li pc-nav=\"\"><a ui-sref=\"#\">View Company Profile</a></li><li pc-nav=\"\"><a ui-sref=\"#\">Edit Company Profile</a></li><li pc-nav=\"userAccountSettings\"><a ui-sref=\"userAccountSettings\">User Account Settings</a></li></ul></div></div></nav>"
+  );
+
+
+  $templateCache.put('userAccountSettings.html',
+    "<div class=\"row\"><div class=\"col-sm-4\"><ul class=\"ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all\" role=\"tablist\"><li>Update Settings</li><li>Change Password</li></ul></div><div class=\"col-sm-8\"><div class=\"row\">Contact Information</div><div class=\"row\"><div class=\"col-md-6\"><h4>Contact Name*</h4><input> <input><h4>Current Email Address</h4><input><h4>Update Email Address</h4><input> <input></div><div class=\"col-md-6\"><h4>Job Title</h4><input><h4>Update Profile Picture</h4><input type=\"file\"></div></div></div></div>"
   );
 
 }]);

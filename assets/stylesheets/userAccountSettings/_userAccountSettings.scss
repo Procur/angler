@@ -1,0 +1,23 @@
+.user-profile {
+  img {
+    width: 100%;
+    max-width: 150px;
+  }
+}
+
+.profile-name {
+  padding-bottom: 10px;
+  border-bottom: 1px dotted #e6e7e8;
+}
+
+.text-muted {
+  color: #7f7f7f;
+}
+
+.company-name {
+  text-transform: uppercase;
+  border-bottom: 3px solid #e6e7e8;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  font-weight: bold;
+}

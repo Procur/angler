@@ -33,6 +33,11 @@
               });
           }]
         }
+      })
+      .state('userAccountSettings', {
+        url: '/userAccountSettings',
+        templateUrl: 'userAccountSettings.html',
+        controller: 'userAccountSettingsController'
       });
   }
 
