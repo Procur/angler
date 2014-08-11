@@ -1,7 +1,9 @@
-body {
-  padding-top: 70px;
-  background-color: #fff;
-}
-
+@import 'globals/colors';
+@import 'globals/typography';
+@import 'nav/user_header';
 @import 'nav/nav';
 @import 'dashboard/dashboard';
+
+body {
+  background-color: $color-white;
+}

@@ -1,6 +1,98 @@
-body {
-  padding-top: 70px;
+@import url("https://fonts.googleapis.com/css?family=Open Sans%3A300%2C400%2C600%2C700%2C800");
+@import url("https://fonts.googleapis.com/css?family=Montserrat%3A400%2C700");
+@import url("https://fonts.googleapis.com/css?family=Roboto%3A100%2C300%2C400%2C500%2C700%2C900");
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+button, fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  font-family: "Roboto", sans-serif;
+  font-size: 100%;
+  font-weight: 300;
+  line-height: 1.5;
+  letter-spacing: .05em;
+  color: #231f20;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1.2;
+  font-family: "Open Sans", sans-serif;
+  font-weight: normal;
+  margin-bottom: 1em;
+  padding-top: 1em;
+  word-wrap: break-word;
+  letter-spacing: .06em;
+}
+
+legend,
+label {
+  display: block;
+  font-weight: 300;
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: .06em;
+  padding: 0;
+  margin-bottom: 0.3125em;
+}
+
+.user-header {
+  background-color: #EDECE8;
+  padding: 17px;
+}
+.user-header .user-header-item {
+  height: 32px;
+  padding-right: 0;
+  padding-left: 0;
+  text-align: center;
+}
+.user-header .user-header-item a {
+  display: inline-block;
+  vertical-align: middle;
+  text-transform: lowercase;
+}
+.user-header .user-header-item a:hover, .user-header .user-header-item a:active, .user-header .user-header-item a:focus {
+  text-decoration: none;
+  color: #feac00;
+}
+.user-header .user-header-item a:hover i, .user-header .user-header-item a:active i, .user-header .user-header-item a:focus i {
+  color: #feac00;
+}
+.user-header .user-header-item p {
+  display: inline;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+.user-header .user-header-left .user-header-item:first-child {
+  text-align: right;
+}
+.user-header .user-header-left .user-header-item:last-child {
+  text-align: left;
+}
+.user-header .user-header-left .user-header-item a.early-access {
   background-color: #fff;
+  padding: 5px 10px;
+  text-transform: uppercase;
+  border-radius: 4px;
+  color: #777;
+  font-size: 9px;
+  font-weight: bold;
+}
+.user-header .user-header-left .user-header-item a.early-access:hover, .user-header .user-header-left .user-header-item a.early-access:focus, .user-header .user-header-left .user-header-item a.early-access:active {
+  text-decoration: none;
+}
+.user-header .user-header-left .user-header-item a .procur-logo {
+  height: 26px;
+  margin-top: 7px;
+}
+.user-header .user-header-right .user-header-item {
+  float: right;
 }
 
 .navbar-default {
@@ -49,4 +141,8 @@ body {
   padding-bottom: 10px;
   padding-top: 10px;
   font-weight: bold;
+}
+
+body {
+  background-color: white;
 }

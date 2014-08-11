@@ -10,6 +10,7 @@ function gruntConfig(grunt) {
     htmlPath: 'assets/templates',
 
     concat: require('./grunt/concat'),
+    watch: require('./grunt/watch'),
     copy: require('./grunt/copy'),
     sass: require('./grunt/sass'),
     ngtemplates: require('./grunt/ngtemplates'),
