@@ -15,17 +15,26 @@ figure, figcaption, footer, header, hgroup,
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
   font-family: "Roboto", sans-serif;
-  font-size: 100%;
-  font-weight: 300;
   line-height: 1.5;
   letter-spacing: .06em;
-  color: #231f20;
+  color: #333132;
+}
+
+a, .btn-link {
+  font-weight: 300;
+}
+a:hover, a:active, a:focus, .btn-link:hover, .btn-link:active, .btn-link:focus {
+  text-decoration: none;
+  color: #feac00;
+  cursor: pointer;
+}
+a:hover i, a:active i, a:focus i, .btn-link:hover i, .btn-link:active i, .btn-link:focus i {
+  color: #feac00;
 }
 
 h1, h2, h3, h4, h5, h6 {
   line-height: 1.2;
   font-family: "Open Sans", sans-serif;
-  font-weight: normal;
   margin-bottom: 1em;
   padding-top: 1em;
   word-wrap: break-word;
@@ -35,7 +44,6 @@ h1, h2, h3, h4, h5, h6 {
 legend,
 label {
   display: block;
-  font-weight: 300;
   font-family: 'Montserrat', sans-serif;
   letter-spacing: .06em;
   padding: 0;
@@ -144,6 +152,35 @@ input {
   color: #b3b3b3;
 }
 
+ol.list-separator,
+ul.list-separator {
+  list-style: none;
+  padding: 15px 0;
+}
+ol.list-separator li,
+ul.list-separator li {
+  border-bottom: 1px dotted #e2e2e2;
+  padding: 15px 0;
+}
+ol.list-separator li:first-child,
+ul.list-separator li:first-child {
+  border-top: 1px dotted #e2e2e2;
+}
+
+ol.list-titled,
+ul.list-titled {
+  list-style: none;
+  padding: 15px 0;
+}
+ol.list-titled li.list-title,
+ul.list-titled li.list-title {
+  font-weight: 700;
+  text-transform: capitalize;
+  padding-bottom: 8px;
+  margin-bottom: 8px;
+  border-bottom: 3px solid #e2e2e2;
+}
+
 .user-header {
   background-color: #EDECE8;
   padding: 0;
@@ -184,9 +221,9 @@ input {
 }
 .user-header .user-header-item {
   display: inline-block;
-  margin-right: 20px;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  margin-right: 15px;
+  padding-top: 15px;
+  padding-bottom: 15px;
 }
 .user-header .user-header-item:last-child {
   margin-right: 0;
@@ -200,13 +237,6 @@ input {
 }
 .user-header .user-header-item a i, .user-header .user-header-item .btn-link i {
   color: #5c5c5c;
-}
-.user-header .user-header-item a:hover, .user-header .user-header-item a:active, .user-header .user-header-item a:focus, .user-header .user-header-item .btn-link:hover, .user-header .user-header-item .btn-link:active, .user-header .user-header-item .btn-link:focus {
-  text-decoration: none;
-  color: #feac00;
-}
-.user-header .user-header-item a:hover i, .user-header .user-header-item a:active i, .user-header .user-header-item a:focus i, .user-header .user-header-item .btn-link:hover i, .user-header .user-header-item .btn-link:active i, .user-header .user-header-item .btn-link:focus i {
-  color: #feac00;
 }
 .user-header .user-header-item p {
   display: inline;
@@ -229,9 +259,6 @@ input {
   font-family: Montserrat,sans-serif;
   font-size: 14px;
 }
-.navbar-default .navbar-header .navbar-brand:hover, .navbar-default .navbar-header .navbar-brand:focus, .navbar-default .navbar-header .navbar-brand:active {
-  color: #c3c3c3;
-}
 .navbar-default .navbar-collapse {
   float: right;
 }
@@ -252,26 +279,41 @@ input {
   color: white;
 }
 
-.user-profile img {
-  width: 100%;
+.dashboard .user-profile img {
   max-width: 150px;
+  max-height: 150px;
 }
-
-.profile-name {
-  padding-bottom: 10px;
-  border-bottom: 1px dotted #e6e7e8;
+.dashboard .user-profile .profile-name {
+  padding-bottom: 8px;
+  border-bottom: 1px dotted #e2e2e2;
+  margin-bottom: 8px;
+  font-weight: 600;
 }
-
-.text-muted {
+.dashboard .user-profile .text-muted {
   color: #7f7f7f;
 }
-
-.company-name {
+.dashboard .user-profile .company-name {
   text-transform: uppercase;
-  border-bottom: 3px solid #e6e7e8;
-  padding-bottom: 10px;
-  padding-top: 10px;
+  border-bottom: 3px solid #e2e2e2;
+  padding-bottom: 8px;
+  padding-top: 8px;
   font-weight: bold;
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+.dashboard .user-profile .member-since {
+  margin-top: 8px;
+  font-weight: 600;
+}
+.dashboard .sub-nav .list-separator i {
+  margin-right: 5px;
+}
+.dashboard .external-links .list-titled .list-title {
+  text-transform: uppercase;
+  font-size: 12px;
+}
+.dashboard .external-links .list-titled li {
+  font-size: 12px;
 }
 
 body {

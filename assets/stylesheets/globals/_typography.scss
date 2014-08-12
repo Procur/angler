@@ -16,17 +16,28 @@ figure, figcaption, footer, header, hgroup,
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
   font-family: "Roboto", sans-serif;
-  font-size: 100%;
-  font-weight: 300;
   line-height: 1.5;
   letter-spacing: .06em;
-  color: #231f20;
+  color: $color-gray-alt-dark;
+}
+
+a, .btn-link {
+  font-weight: 300;
+
+  &:hover, &:active, &:focus {
+    text-decoration: none;
+    color: $color-orange-primary;
+    cursor: pointer;
+
+    i {
+      color: $color-orange-primary;
+    }
+  }
 }
 
 h1, h2, h3, h4, h5, h6 {
   line-height: 1.2;
   font-family: "Open Sans", sans-serif;
-  font-weight: normal;
   margin-bottom: 1em;
   padding-top: 1em;
   word-wrap: break-word;
@@ -36,7 +47,6 @@ h1, h2, h3, h4, h5, h6 {
 legend,
 label {
   display: block;
-  font-weight: 300;
   font-family: 'Montserrat', sans-serif;
   letter-spacing: .06em;
   padding: 0;

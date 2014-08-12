@@ -1,0 +1,28 @@
+ol.list-separator,
+ul.list-separator {
+  list-style: none;
+  padding: 15px 0;
+
+  li {
+    border-bottom: 1px dotted lighten($color-gray-alt-light, 12%);
+    padding: 15px 0;
+
+    &:first-child {
+      border-top: 1px dotted lighten($color-gray-alt-light, 12%);
+    }
+  }
+}
+
+ol.list-titled,
+ul.list-titled   {
+  list-style: none;
+  padding: 15px 0;
+
+  li.list-title {
+    font-weight: 700;
+    text-transform: capitalize;
+    padding-bottom: 8px;
+    margin-bottom: 8px;
+    border-bottom: 3px solid lighten($color-gray-alt-light, 12%);
+  }
+}

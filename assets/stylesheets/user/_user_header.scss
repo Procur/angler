@@ -54,9 +54,9 @@
 
   .user-header-item {
     display: inline-block;
-    margin-right: 20px;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    margin-right: 15px;
+    padding-top: 15px;
+    padding-bottom: 15px;
 
     &:last-child {
       margin-right: 0;
@@ -71,15 +71,6 @@
 
       i {
         color: $color-gray-primary;
-      }
-
-      &:hover, &:active, &:focus {
-        text-decoration: none;
-        color: $color-orange-primary;
-
-        i {
-          color: $color-orange-primary;
-        }
       }
     }
 
