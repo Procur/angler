@@ -196,6 +196,21 @@ label {
   margin-top: 0px;
   margin-bottom: 4px;
 }
+#userAccountSettings .navPanel ul {
+  list-style-type: none;
+  padding-left: 0px;
+}
+#userAccountSettings .navPanel a {
+  height: 45px;
+  display: block;
+  background-color: orange;
+}
+#userAccountSettings .navPanel li {
+  height: 45px;
+}
+#userAccountSettings .navPanel span {
+  float: left;
+}
 
 body {
   background-color: white;

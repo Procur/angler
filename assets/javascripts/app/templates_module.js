@@ -17,7 +17,7 @@ angular.module('pc.Templates', []).run(['$templateCache', function($templateCach
 
 
   $templateCache.put('userAccountSettings.html',
-    "<div id=\"userAccountSettings\"><div class=\"row\"><div class=\"col-sm-4\"><ul><li><a ui-sref=\"userAccountSettings.updateSettings\">Update Settings</a></li><li><a ui-sref=\"userAccountSettings.updatePassword\">Change Password</a></li></ul></div><div ui-view=\"\"></div></div></div>"
+    "<div id=\"userAccountSettings\"><div class=\"row\"><div class=\"col-sm-4 navPanel\"><ul><li><div class=\"rightSecBox\"><span class=\"glyphicon glyphicon-asterisk\"></span></div><a ui-sref=\"userAccountSettings.updateSettings\">Update Settings</a></li><li><div class=\"rightSecBox\"><span class=\"glyphicon glyphicon-asterisk\"></span></div><a ui-sref=\"userAccountSettings.updatePassword\">Change Password</a></li></ul></div><div ui-view=\"\"></div></div></div>"
   );
 
 

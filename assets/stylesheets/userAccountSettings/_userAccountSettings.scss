@@ -34,6 +34,7 @@
       font-weight: 300;
     }
 
+
     h5 {
       font-family: 'Montserrat', sans-serif;
       font-weight: 300;
@@ -44,4 +45,33 @@
       margin-bottom: 4px;
     }
   }
+
+  .navPanel {
+
+    ul {
+      list-style-type: none;
+      padding-left: 0px;
+    }
+
+    .rightSecBox {
+
+
+    }
+
+    a {
+      height: 45px;
+      display: block;
+      background-color: orange;
+    }
+
+    li {
+      height: 45px;
+    }
+
+    span {
+      float: left;
+    }
+  }
+
+
 }
