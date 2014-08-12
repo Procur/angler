@@ -155,14 +155,17 @@ label {
   font-weight: bold;
 }
 
-#userAccountSettings {
+#user_account_settings {
   font-family: "Roboto", sans-serif;
 }
-#userAccountSettings .headerRow {
+#user_account_settings .main_row {
+  margin-left: 95px;
+}
+#user_account_settings .headerRow {
   background-color: #333132;
   color: #ffffff;
 }
-#userAccountSettings .headerRow h4 {
+#user_account_settings .headerRow h4 {
   padding: 20px;
   font-family: 'Montserrat', sans-serif;
   font-weight: 300;
@@ -174,11 +177,11 @@ label {
   margin-top: 0px;
   margin-bottom: 0px;
 }
-#userAccountSettings .updateForm {
+#user_account_settings .update_form {
   background-color: #edece7;
   padding: 20px;
 }
-#userAccountSettings .updateForm input {
+#user_account_settings .update_form input {
   border: 0px none;
   margin: 7px 0px;
   width: 100%;
@@ -187,7 +190,7 @@ label {
   padding: 0px 7px;
   font-weight: 300;
 }
-#userAccountSettings .updateForm h5 {
+#user_account_settings .update_form h5 {
   font-family: 'Montserrat', sans-serif;
   font-weight: 300;
   font-size: 11px;
@@ -196,20 +199,34 @@ label {
   margin-top: 0px;
   margin-bottom: 4px;
 }
-#userAccountSettings .navPanel ul {
+#user_account_settings .navPanel ul {
   list-style-type: none;
   padding-left: 0px;
 }
-#userAccountSettings .navPanel a {
+#user_account_settings .navPanel .rightSecBox {
+  float: left;
+  height: 45px;
+  width: 45px;
+  text-align: center;
+}
+#user_account_settings .navPanel a {
+  line-height: 45px;
   height: 45px;
   display: block;
-  background-color: orange;
+  background-color: #edece7;
+  font-size: 10px;
+  text-transform: uppercase;
 }
-#userAccountSettings .navPanel li {
+#user_account_settings .navPanel a:hover {
+  text-decoration: none;
+  background-color: #feac00;
+  color: white;
+}
+#user_account_settings .navPanel li {
   height: 45px;
 }
-#userAccountSettings .navPanel span {
-  float: left;
+#user_account_settings .navPanel span {
+  line-height: 45px;
 }
 
 body {

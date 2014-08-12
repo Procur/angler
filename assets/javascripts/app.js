@@ -142,7 +142,7 @@
 
 })(angular);
 
-// assets/javascripts/app/userAccountSettings/userAccountSettings_module.js
+// assets/javascripts/app/user_account_settings/user_account_settings_module.js
 (function(angular) {
 
   var
@@ -154,7 +154,7 @@
 
 })(angular);
 
-// assets/javascripts/app/userAccountSettings/userAccountSettings_controller.js
+// assets/javascripts/app/user_account_settings/user_account_settings_controller.js
 (function(angular) {
 
   var
@@ -173,7 +173,7 @@
 
 })(angular);
 
-// assets/javascripts/app/userAccountSettings/userUpdatePassword_controller.js
+// assets/javascripts/app/user_account_settings/user_update_password_controller.js
 (function(angular) {
 
   var
@@ -193,7 +193,7 @@
 
 })(angular);
 
-// assets/javascripts/app/userAccountSettings/userUpdateSettings_controller.js
+// assets/javascripts/app/user_account_settings/user_update_settings_controller.js
 (function(angular) {
 
   var
@@ -263,23 +263,24 @@
           }]
         }
       })
-      .state('userAccountSettings', {
-        url: '/userAccountSettings',
-        templateUrl: 'userAccountSettings.html',
+      .state('user_account_settings', {
+        url: '/user_account_settings',
+        templateUrl: 'user_account_settings.html',
         controller: 'userAccountSettingsController',
         abstract: true
       })
-      .state('userAccountSettings.updateSettings', {
-        url: '/updateSettings',
-        templateUrl: 'userUpdateSettings.html',
+      .state('user_account_settings.update_settings', {
+        url: '/update_settings',
+        templateUrl: 'user_update_settings.html',
         controller: 'userUpdateSettings'
       })
-      .state('userAccountSettings.updatePassword', {
-        url: '/updatePassword',
-        templateUrl: 'userUpdatePassword.html',
+      .state('user_account_settings.update_password', {
+        url: '/update_password',
+        templateUrl: 'user_update_password.html',
         controller: 'userUpdatePassword'
       });
   }
+
 
 })(angular);
 
@@ -293,7 +294,7 @@ angular.module('pc.Templates', []).run(['$templateCache', function($templateCach
 
 
   $templateCache.put('nav.html',
-    "<nav class=\"navbar navbar-default\" role=\"navigation\"><div class=\"container-fluid\"><div class=\"collapse navbar-collapse\"><ul class=\"nav navbar-nav navbar-right\"><li pc-nav=\"dashboard\"><a ui-sref=\"dashboard\">Dashboard</a></li><li pc-nav=\"\"><a ui-sref=\"#\">View Company Profile</a></li><li pc-nav=\"\"><a ui-sref=\"#\">Edit Company Profile</a></li><li pc-nav=\"userAccountSettings.updateSettings\"><a ui-sref=\"userAccountSettings.updateSettings\">User Account Settings</a></li></ul></div><div class=\"navbar-header\"><span class=\"navbar-brand\">My Procur:</span></div></div></nav>"
+    "<nav class=\"navbar navbar-default\" role=\"navigation\"><div class=\"container-fluid\"><div class=\"collapse navbar-collapse\"><ul class=\"nav navbar-nav navbar-right\"><li pc-nav=\"dashboard\"><a ui-sref=\"dashboard\">Dashboard</a></li><li pc-nav=\"\"><a ui-sref=\"#\">View Company Profile</a></li><li pc-nav=\"\"><a ui-sref=\"#\">Edit Company Profile</a></li><li pc-nav=\"user_account_settings.update_settings\"><a ui-sref=\"user_account_settings.update_settings\">User Account Settings</a></li></ul></div><div class=\"navbar-header\"><span class=\"navbar-brand\">My Procur:</span></div></div></nav>"
   );
 
 
@@ -302,18 +303,18 @@ angular.module('pc.Templates', []).run(['$templateCache', function($templateCach
   );
 
 
-  $templateCache.put('userAccountSettings.html',
-    "<div id=\"userAccountSettings\"><div class=\"row\"><div class=\"col-sm-4 navPanel\"><ul><li><div class=\"rightSecBox\"><span class=\"glyphicon glyphicon-asterisk\"></span></div><a ui-sref=\"userAccountSettings.updateSettings\">Update Settings</a></li><li><div class=\"rightSecBox\"><span class=\"glyphicon glyphicon-asterisk\"></span></div><a ui-sref=\"userAccountSettings.updatePassword\">Change Password</a></li></ul></div><div ui-view=\"\"></div></div></div>"
+  $templateCache.put('user_account_settings.html',
+    "<div id=\"user_account_settings\"><div class=\"row main_row\"><div class=\"col-sm-4 navPanel\"><ul><li><div class=\"rightSecBox\"><span class=\"glyphicon glyphicon-asterisk\"></span></div><a ui-sref=\"user_account_settings.update_settings\">Update Settings</a></li><li><div class=\"rightSecBox\"><span class=\"glyphicon glyphicon-asterisk\"></span></div><a ui-sref=\"user_account_settings.update_password\">Change Password</a></li></ul></div><div ui-view=\"\"></div></div></div>"
   );
 
 
-  $templateCache.put('userUpdatePassword.html',
-    "<div class=\"col-sm-8\"><div class=\"row headerRow\"><h4>Update Password</h4></div><div class=\"row updateForm\"><div class=\"col-md-6\"><h5>Enter New Password</h5><input type=\"text\" placeholder=\"First\"><br></div><div class=\"col-md-6\"><h5>Confirm New Password</h5><input type=\"text\" placeholder=\"Job Title\"><br></div></div></div>"
+  $templateCache.put('user_update_password.html',
+    "<div class=\"col-sm-8\"><div class=\"row headerRow\"><h4>Update Password</h4></div><div class=\"row update_form\"><div class=\"col-md-6\"><h5>Enter New Password</h5><input type=\"text\" placeholder=\"First\"><br></div><div class=\"col-md-6\"><h5>Confirm New Password</h5><input type=\"text\" placeholder=\"Job Title\"><br></div></div></div>"
   );
 
 
-  $templateCache.put('userUpdateSettings.html',
-    "<div class=\"col-sm-8\"><div class=\"row headerRow\"><h4>Contact Information</h4></div><div class=\"row updateForm\"><div class=\"col-md-6\"><h5>Contact Name*</h5><input type=\"text\" placeholder=\"First\"> <input type=\"text\" placeholder=\"Last\"><br><h5>Current Email Address</h5><input type=\"text\" placeholder=\"Current Email\"><br><h5>Update Email Address</h5><input type=\"text\" placeholder=\"Enter New Address\"> <input type=\"text\" placeholder=\"Confirm New Address\"><br></div><div class=\"col-md-6\"><h5>Job Title</h5><input type=\"text\" placeholder=\"Job Title\"><br><h5>Update Profile Picture</h5><input type=\"file\"></div></div></div>"
+  $templateCache.put('user_update_settings.html',
+    "<div class=\"col-sm-8\"><div class=\"row header_row\"><h4>Contact Information</h4></div><div class=\"row update_form\"><div class=\"col-md-6\"><h5>Contact Name*</h5><input type=\"text\" placeholder=\"First\"> <input type=\"text\" placeholder=\"Last\"><br><h5>Current Email Address</h5><input type=\"text\" placeholder=\"Current Email\"><br><h5>Update Email Address</h5><input type=\"text\" placeholder=\"Enter New Address\"> <input type=\"text\" placeholder=\"Confirm New Address\"><br></div><div class=\"col-md-6\"><h5>Job Title</h5><input type=\"text\" placeholder=\"Job Title\"><br><h5>Update Profile Picture</h5><input type=\"file\"></div></div></div>"
   );
 
 }]);

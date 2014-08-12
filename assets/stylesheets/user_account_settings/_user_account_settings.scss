@@ -1,7 +1,12 @@
-#userAccountSettings {
+#user_account_settings {
 
   font-family: "Roboto", sans-serif;
-  
+
+
+
+  .main_row {
+    margin-left: 95px;
+  }
   .headerRow {
     background-color: #333132;
     color: #ffffff;
@@ -20,7 +25,7 @@
     }
   }
 
-  .updateForm {
+  .update_form {
     background-color: #edece7;
     padding: 20px;
 
@@ -54,14 +59,25 @@
     }
 
     .rightSecBox {
-
-
+      float: left;
+      height: 45px;
+      width: 45px;
+      text-align: center;
     }
 
     a {
+      line-height: 45px;
       height: 45px;
       display: block;
-      background-color: orange;
+      background-color: #edece7;
+      font-size: 10px;
+      text-transform: uppercase;
+    }
+
+    a:hover {
+      text-decoration: none;
+      background-color: $color-orange-primary;
+      color: white;
     }
 
     li {
@@ -69,7 +85,7 @@
     }
 
     span {
-      float: left;
+      line-height: 45px;
     }
   }
 

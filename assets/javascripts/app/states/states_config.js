@@ -34,22 +34,23 @@
           }]
         }
       })
-      .state('userAccountSettings', {
-        url: '/userAccountSettings',
-        templateUrl: 'userAccountSettings.html',
+      .state('user_account_settings', {
+        url: '/user_account_settings',
+        templateUrl: 'user_account_settings.html',
         controller: 'userAccountSettingsController',
         abstract: true
       })
-      .state('userAccountSettings.updateSettings', {
-        url: '/updateSettings',
-        templateUrl: 'userUpdateSettings.html',
+      .state('user_account_settings.update_settings', {
+        url: '/update_settings',
+        templateUrl: 'user_update_settings.html',
         controller: 'userUpdateSettings'
       })
-      .state('userAccountSettings.updatePassword', {
-        url: '/updatePassword',
-        templateUrl: 'userUpdatePassword.html',
+      .state('user_account_settings.update_password', {
+        url: '/update_password',
+        templateUrl: 'user_update_password.html',
         controller: 'userUpdatePassword'
       });
   }
+
 
 })(angular);
