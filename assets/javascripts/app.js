@@ -361,13 +361,16 @@
 
   definitions = [
     '$scope',
+    'user',
     userAccountSettingsController
   ];
 
   angular.module('pc.UserAccountSettings')
     .controller('userAccountSettingsController', definitions);
 
-  function userAccountSettingsController($scope) {
+  function userAccountSettingsController($scope, user) {
+    $scope.user = user;
+
   }
 
 })(angular);
@@ -470,6 +473,9 @@
         url: '/user_account_settings',
         templateUrl: 'user_account_settings.html',
         controller: 'userAccountSettingsController',
+        resolve: {
+          user: user
+        },
         abstract: true
       })
       .state('user_account_settings.update_settings', {
@@ -526,7 +532,7 @@ angular.module('pc.Templates', []).run(['$templateCache', function($templateCach
 
 
   $templateCache.put('user_update_settings.html',
-    "<div class=\"col-sm-8\"><div class=\"row headerRow\"><h4>Contact Information</h4></div><div class=\"row updateForm\"><div class=\"col-md-6\"><h5>Contact Name*</h5><input type=\"text\" placeholder=\"First\" value=\"{{user.firstName}}\"> <input type=\"text\" placeholder=\"Last\"><br><h5>Current Email Address</h5><input type=\"text\" placeholder=\"Current Email\"><br><h5>Update Email Address</h5><input type=\"text\" placeholder=\"Enter New Address\"> <input type=\"text\" placeholder=\"Confirm New Address\"><br></div><div class=\"col-md-6\"><h5>Job Title</h5><input type=\"text\" placeholder=\"Job Title\"><br><h5>Update Profile Picture</h5><input type=\"file\"></div></div><div class=\"row\"><button class=\"continueButton\" type=\"submit\">Save&nbsp;&nbsp; <span class=\"glyphicon glyphicon-ok\"></span></button></div></div>"
+    "<div class=\"col-sm-8\"><div class=\"row headerRow\"><h4>Contact Information</h4></div><div class=\"row updateForm\"><div class=\"col-md-6\"><h5>Contact Name*</h5><input type=\"text\" placeholder=\"First\" value=\"{{user.firstName}}\"> <input type=\"text\" placeholder=\"Last\" value=\"{{user.lastName}}\"><br><h5>Current Email Address</h5><input type=\"text\" placeholder=\"Current Email\" value=\"{{user.email}}\"><br><h5>Update Email Address</h5><input type=\"text\" placeholder=\"Enter New Address\"> <input type=\"text\" placeholder=\"Confirm New Address\"><br></div><div class=\"col-md-6\"><h5>Job Title</h5><input type=\"text\" placeholder=\"Job Title\" value=\"{{user.jobTitle}}\"><br><h5>Update Profile Picture</h5><input type=\"file\"></div></div><div class=\"row\"><button class=\"continueButton\" type=\"submit\">Save&nbsp;&nbsp; <span class=\"glyphicon glyphicon-ok\"></span></button></div></div>"
   );
 
 }]);
