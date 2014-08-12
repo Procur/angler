@@ -13,11 +13,17 @@
 
   function statesConfig($stateProvider, $urlRouterProvider) {
     var
-      user;
+      user,
+      company;
 
     user = [
       'userService',
       resolveUser
+    ];
+
+    company = [
+      'companyService',
+      resolveCompany
     ];
 
     $urlRouterProvider.otherwise('/dashboard');
@@ -29,17 +35,16 @@
         controller: 'dashboardController',
         resolve: {
           user: user,
-          company: ['$http', function resolveCompany($http) {
-            return $http.get('/views/api/company.json')
-              .then(function(response) {
-                return response.data;
-              });
-          }]
+          company: company
         }
       });
 
-    function resolveUser(userService) {
-      return userService.init();
+    function resolveUser(user) {
+      return user.init();
+    }
+
+    function resolveCompany(company) {
+      return company.init();
     }
 
   }

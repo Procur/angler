@@ -146,6 +146,73 @@
 
 })(angular);
 
+// assets/javascripts/app/company/company_module.js
+(function(angular) {
+
+  var
+    dependencies;
+
+  dependencies = [
+    'pc.Ajax'
+  ];
+
+  angular.module('pc.Company', dependencies);
+
+})(angular);
+
+// assets/javascripts/app/company/company_service.js
+(function(angular) {
+
+  var
+    definitions;
+
+  definitions = [
+    'ajaxService',
+    companyService
+  ];
+
+  angular.module('pc.Company')
+    .factory('companyService', definitions);
+
+  function companyService(ajax) {
+    var
+      company;
+
+    return {
+      init: init,
+      get: get,
+      update: update
+    };
+
+    function init() {
+      if (!company) {
+        return ajax.get('/views/api/company.json')
+          .then(function resolveCompany(data) {
+            company = data;
+            return get();
+          });
+      }
+      return get();
+    }
+
+    function get(field) {
+      if (field) {
+        return company[field];
+      }
+      return company;
+    }
+
+    function update(field, value) {
+      if (field && value !== null && value !== undefined) {
+        company[field] = value;
+        return true;
+      }
+      return false;
+    }
+  }
+
+})(angular);
+
 // assets/javascripts/app/nav/nav_module.js
 (function(angular) {
 
@@ -273,6 +340,7 @@
   function dashboardController($scope, user, company) {
     $scope.user = user;
     $scope.user.createdYear = new Date($scope.user.createdDT).getFullYear();
+
     $scope.company = company;
   }
 
@@ -307,11 +375,17 @@
 
   function statesConfig($stateProvider, $urlRouterProvider) {
     var
-      user;
+      user,
+      company;
 
     user = [
       'userService',
       resolveUser
+    ];
+
+    company = [
+      'companyService',
+      resolveCompany
     ];
 
     $urlRouterProvider.otherwise('/dashboard');
@@ -323,17 +397,16 @@
         controller: 'dashboardController',
         resolve: {
           user: user,
-          company: ['$http', function resolveCompany($http) {
-            return $http.get('/views/api/company.json')
-              .then(function(response) {
-                return response.data;
-              });
-          }]
+          company: company
         }
       });
 
-    function resolveUser(userService) {
-      return userService.init();
+    function resolveUser(user) {
+      return user.init();
+    }
+
+    function resolveCompany(company) {
+      return company.init();
     }
 
   }
@@ -371,6 +444,7 @@ angular.module('pc.Templates', []).run(['$templateCache', function($templateCach
     'pc.States',
     'pc.Templates',
     'pc.User',
+    'pc.Company',
     'pc.Nav',
     'pc.Dashboard'
   ];
