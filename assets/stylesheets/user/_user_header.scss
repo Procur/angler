@@ -1,5 +1,5 @@
 .user-header {
-  background-color: #EDECE8;
+  background-color: $color-tan-alt-primary;
   padding: 0;
   margin: 0;
 
@@ -71,6 +71,14 @@
 
       i {
         color: $color-gray-primary;
+      }
+
+      &:hover, &:active, &:focus {
+        color: $color-orange-primary;
+
+        i {
+          color: $color-orange-primary;
+        }
       }
     }
 

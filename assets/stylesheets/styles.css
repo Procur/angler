@@ -60,57 +60,6 @@ input {
   font-weight: 300;
 }
 
-.pcUpdateUserCompany {
-  font-family: "Roboto", sans-serif;
-}
-.pcUpdateUserCompany .main_row {
-  margin-left: 95px;
-}
-.pcUpdateUserCompany .headerRow {
-  background-color: #333132;
-  color: white;
-}
-.pcUpdateUserCompany .headerRow h4 {
-  padding: 20px;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 300;
-  font-size: 12px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  background: #333132;
-  color: white;
-  margin-top: 0px;
-  margin-bottom: 0px;
-}
-.pcUpdateUserCompany .updateForm {
-  background-color: #edece7;
-  padding: 20px;
-}
-.pcUpdateUserCompany .updateForm h5 {
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 300;
-  font-size: 11px;
-  letter-spacing: 0.06em;
-  padding-top: 0px;
-  margin-top: 0px;
-  margin-bottom: 4px;
-}
-.pcUpdateUserCompany .continueButton {
-  float: right;
-  background-color: white;
-  border: 0px none;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 12px;
-  top: 15px;
-  right: 15px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  margin-top: 10px;
-}
-.pcUpdateUserCompany .continueButton span {
-  color: #5cc56c;
-}
-
 .navPanel ul {
   list-style-type: none;
   padding-left: 0px;
@@ -152,6 +101,28 @@ input {
   color: #b3b3b3;
 }
 
+.panel-content .panel-heading {
+  background-color: #333132;
+  color: white;
+  padding: 20px;
+}
+.panel-content .panel-heading h1, .panel-content .panel-heading h2, .panel-content .panel-heading h3, .panel-content .panel-heading h4, .panel-content .panel-heading h5, .panel-content .panel-heading h6 {
+  padding: 0;
+  text-transform: uppercase;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  color: white;
+}
+.panel-content .panel-body {
+  background-color: #f5f4f2;
+  padding: 20px;
+}
+.panel-content .panel-footer {
+  background-color: #eeece9;
+  padding: 20px;
+  border: none;
+}
+
 ol.list-separator,
 ul.list-separator {
   list-style: none;
@@ -182,7 +153,7 @@ ul.list-titled li.list-title {
 }
 
 .user-header {
-  background-color: #EDECE8;
+  background-color: #eeece9;
   padding: 0;
   margin: 0;
 }
@@ -237,6 +208,12 @@ ul.list-titled li.list-title {
 }
 .user-header .user-header-item a i, .user-header .user-header-item .btn-link i {
   color: #5c5c5c;
+}
+.user-header .user-header-item a:hover, .user-header .user-header-item a:active, .user-header .user-header-item a:focus, .user-header .user-header-item .btn-link:hover, .user-header .user-header-item .btn-link:active, .user-header .user-header-item .btn-link:focus {
+  color: #feac00;
+}
+.user-header .user-header-item a:hover i, .user-header .user-header-item a:active i, .user-header .user-header-item a:focus i, .user-header .user-header-item .btn-link:hover i, .user-header .user-header-item .btn-link:active i, .user-header .user-header-item .btn-link:focus i {
+  color: #feac00;
 }
 .user-header .user-header-item p {
   display: inline;
@@ -314,6 +291,79 @@ ul.list-titled li.list-title {
 }
 .dashboard .external-links .list-titled li {
   font-size: 12px;
+}
+.dashboard .action-items .panel-heading {
+  background-color: #5cc672;
+}
+.dashboard .action-items .panel-heading h5 {
+  font-weight: 600;
+}
+.dashboard .action-items .panel-body p {
+  font-weight: 300;
+  color: #7f7f7f;
+}
+.dashboard .action-items .panel-body p.lead {
+  color: black;
+}
+.dashboard .action-items .panel-body a.early-access {
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 12px;
+  color: #fd9237;
+}
+.dashboard .action-items .panel-body a.early-access:focus, .dashboard .action-items .panel-body a.early-access:hover, .dashboard .action-items .panel-body a.early-access:active {
+  text-decoration: underline;
+}
+
+.pcUpdateUserCompany {
+  font-family: "Roboto", sans-serif;
+}
+.pcUpdateUserCompany .main_row {
+  margin-left: 95px;
+}
+.pcUpdateUserCompany .headerRow {
+  background-color: #333132;
+  color: white;
+}
+.pcUpdateUserCompany .headerRow h4 {
+  padding: 20px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: #333132;
+  color: white;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+.pcUpdateUserCompany .updateForm {
+  background-color: #edece7;
+  padding: 20px;
+}
+.pcUpdateUserCompany .updateForm h5 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  padding-top: 0px;
+  margin-top: 0px;
+  margin-bottom: 4px;
+}
+.pcUpdateUserCompany .continueButton {
+  float: right;
+  background-color: white;
+  border: 0px none;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  top: 15px;
+  right: 15px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  margin-top: 10px;
+}
+.pcUpdateUserCompany .continueButton span {
+  color: #5cc56c;
 }
 
 body {

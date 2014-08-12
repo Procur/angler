@@ -1,0 +1,28 @@
+.panel-content {
+
+  .panel-heading {
+    background-color: $color-gray-alt-dark;
+    color: $color-white;
+    padding: 20px;
+
+    h1, h2, h3, h4, h5, h6 {
+      padding: 0;
+      text-transform: uppercase;
+      margin-top: 0px;
+      margin-bottom: 0px;
+      color: $color-white;
+    }
+  }
+
+  .panel-body {
+    background-color: $color-tan-primary;
+    padding: 20px;
+  }
+
+  .panel-footer {
+    background-color: $color-tan-alt-primary;
+    padding: 20px;
+    border: none;
+  }
+
+}
