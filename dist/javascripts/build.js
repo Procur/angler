@@ -505,7 +505,7 @@ var Y=s();typeof define=="function"&&typeof define.amd=="object"&&define.amd?(G.
         if (user.activeMode === 'buyer') {
           user.inactiveMode = 'supplier';
         }
-        else {
+        else if (user.activeMode === 'supplier') {
           user.inactiveMode = 'buyer';
         }
 
