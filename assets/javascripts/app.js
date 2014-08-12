@@ -352,7 +352,7 @@
 
   function dashboardController($scope, user, company) {
     $scope.user = user;
-    $scope.user.createdYear = new Date($scope.user.createdDT).getFullYear();
+    $scope.user.createdYear = new Date($scope.user.createdAt).getFullYear();
 
     $scope.company = company;
   }
@@ -441,7 +441,7 @@ angular.module('pc.Templates', []).run(['$templateCache', function($templateCach
 
 
   $templateCache.put('user_header.html',
-    "<div class=\"user-header row\"><div class=\"user-header-left\"><div class=\"col-md-1 user-header-item\"><a ui-sref=\"dashboard\"><img src=\"/assets/images/procur.png\" class=\"procur-logo\"></a></div><div class=\"col-md-1 user-header-item\"><a href=\"https://procur.com/earlyaccess\" class=\"early-access\">Early Access</a></div><div class=\"col-md-4 user-header-item\"><p class=\"text-lowercase\">{{user.name}}</p><p>·</p><p>{{company.name}}</p></div></div><div class=\"user-header-right\"><div class=\"col-md-1 user-header-item\"><a ui-sref=\"dashboard\"><i class=\"glyphicon glyphicon-log-out\"></i> Logout</a></div></div></div>"
+    "<div class=\"user-header clearfix\"><ul class=\"user-header-left\"><li class=\"user-header-item\"><a ui-sref=\"dashboard\"><img src=\"/assets/images/procur.png\" class=\"procur-logo\"></a></li><li class=\"user-header-item\"><a href=\"https://procur.com/earlyaccess\" class=\"early-access\">Early Access</a></li><li class=\"user-header-item\"><p class=\"text-lowercase\">{{user.name}}</p><p>·</p><p>{{company.name}}</p></li></ul><ul class=\"user-header-right\"><li class=\"user-header-item\"><button class=\"btn btn-link buyer-supplier-switch\">Currently in buyer mode <i class=\"glyphicon glyphicon-transfer\"></i> Switch to supplier</button></li><li class=\"user-header-item\"><a ui-sref=\"dashboard\"><i class=\"glyphicon glyphicon-log-out\"></i> Logout</a></li></ul></div>"
   );
 
 }]);

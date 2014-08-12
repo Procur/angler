@@ -18,7 +18,7 @@ time, mark, audio, video {
   font-size: 100%;
   font-weight: 300;
   line-height: 1.5;
-  letter-spacing: .05em;
+  letter-spacing: .06em;
   color: #231f20;
 }
 
@@ -44,60 +44,72 @@ label {
 
 .user-header {
   background-color: #EDECE8;
-  padding: 15px;
+  padding: 0;
   margin: 0;
 }
-.user-header .user-header-item {
-  height: 32px;
-  padding-right: 0;
-  padding-left: 0;
-  text-align: center;
-}
-.user-header .user-header-item a {
-  display: inline-block;
-  vertical-align: middle;
-  text-transform: lowercase;
-  color: #5c5c5c;
-}
-.user-header .user-header-item a i {
-  color: #5c5c5c;
-}
-.user-header .user-header-item a:hover, .user-header .user-header-item a:active, .user-header .user-header-item a:focus {
-  text-decoration: none;
-  color: #feac00;
-}
-.user-header .user-header-item a:hover i, .user-header .user-header-item a:active i, .user-header .user-header-item a:focus i {
-  color: #feac00;
-}
-.user-header .user-header-item p {
-  display: inline;
-  margin-right: 6px;
-  vertical-align: middle;
-}
-.user-header .user-header-left .user-header-item:first-child {
-  text-align: right;
-}
-.user-header .user-header-left .user-header-item:last-child {
-  text-align: left;
+.user-header .user-header-left {
+  float: left;
+  margin: 0;
 }
 .user-header .user-header-left .user-header-item a.early-access {
   background-color: #fff;
   padding: 5px 10px;
   text-transform: uppercase;
   border-radius: 4px;
-  color: #777;
+  color: #5c5c5c;
   font-size: 9px;
   font-weight: bold;
 }
 .user-header .user-header-left .user-header-item a.early-access:hover, .user-header .user-header-left .user-header-item a.early-access:focus, .user-header .user-header-left .user-header-item a.early-access:active {
   text-decoration: none;
+  background-color: #fcfcfc;
 }
 .user-header .user-header-left .user-header-item a .procur-logo {
   height: 22px;
   margin-top: 6px;
 }
-.user-header .user-header-right .user-header-item {
+.user-header .user-header-right {
   float: right;
+  margin: 0;
+  padding-right: 40px;
+}
+.user-header .user-header-right .user-header-item .buyer-supplier-switch {
+  text-transform: uppercase;
+  font-weight: bold;
+}
+.user-header .user-header-right .user-header-item .buyer-supplier-switch:hover i {
+  color: #5cc672;
+}
+.user-header .user-header-item {
+  display: inline-block;
+  margin-right: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+.user-header .user-header-item:last-child {
+  margin-right: 0;
+}
+.user-header .user-header-item a, .user-header .user-header-item .btn-link {
+  display: inline-block;
+  vertical-align: middle;
+  text-transform: lowercase;
+  color: #5c5c5c;
+  padding: 0;
+}
+.user-header .user-header-item a i, .user-header .user-header-item .btn-link i {
+  color: #5c5c5c;
+}
+.user-header .user-header-item a:hover, .user-header .user-header-item a:active, .user-header .user-header-item a:focus, .user-header .user-header-item .btn-link:hover, .user-header .user-header-item .btn-link:active, .user-header .user-header-item .btn-link:focus {
+  text-decoration: none;
+  color: #feac00;
+}
+.user-header .user-header-item a:hover i, .user-header .user-header-item a:active i, .user-header .user-header-item a:focus i, .user-header .user-header-item .btn-link:hover i, .user-header .user-header-item .btn-link:active i, .user-header .user-header-item .btn-link:focus i {
+  color: #feac00;
+}
+.user-header .user-header-item p {
+  display: inline;
+  margin-right: 6px;
+  vertical-align: middle;
 }
 
 .navbar-default {
