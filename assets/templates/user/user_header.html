@@ -19,7 +19,7 @@
   </ul>
 
   <ul class="user-header-right">
-    <li class="user-header-item" >
+    <li class="user-header-item" ng-if="company.buyer && company.supplier" >
       <button class="btn btn-link buyer-supplier-switch" ng-click="user.toggleActiveMode()">
         Currently in {{user.activeMode}} mode
         <i class="glyphicon glyphicon-transfer"></i>
