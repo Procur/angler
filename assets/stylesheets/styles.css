@@ -56,6 +56,10 @@ label {
   display: inline-block;
   vertical-align: middle;
   text-transform: lowercase;
+  color: #5c5c5c;
+}
+.user-header .user-header-item a i {
+  color: #5c5c5c;
 }
 .user-header .user-header-item a:hover, .user-header .user-header-item a:active, .user-header .user-header-item a:focus {
   text-decoration: none;

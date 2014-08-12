@@ -5,10 +5,144 @@
   var
     dependencies = [];
 
-  angular.module('pc.third_party.LoDash', dependencies)
+  angular.module('pc.thirdParty.LoDash', dependencies)
     .factory('_', lodashFactory);
 
   function lodashFactory() { return window._; }
+
+})(angular);
+
+// assets/javascripts/app/ajax/ajax_module.js
+(function(global, angular) {
+
+  var
+    dependencies;
+
+  dependencies = [];
+
+  angular.module('pc.Ajax', dependencies);
+
+})(window, angular);
+
+// assets/javascripts/app/ajax/ajax_service.js
+(function(angular) {
+  var
+    definition;
+
+  definition = [
+    '$http',
+    ajaxService
+  ];
+
+  angular.module('pc.Ajax')
+    .factory('ajaxService', definition);
+
+  function ajaxService($http) {
+    return {
+      get: get,
+      post: post,
+      put: put,
+      destroy: destroy
+    };
+
+    function get(endpoint) {
+      return $http.get(endpoint)
+        .then(resolveResponse)
+        ['catch'](handleError);
+    }
+
+    function post(endpoint, data) {
+      return $http.post(endpoint, data)
+        .then(resolveResponse)
+        ['catch'](handleError);
+    }
+
+    function put(endpoint, data) {
+      return $http.put(endpoint, data)
+        .then(resolveResponse)
+        ['catch'](handleError);
+    }
+
+    function destroy(endpoint) {
+      return $http['delete'](endpoint)
+        .then(resolveResponse)
+        ['catch'](handleError);
+    }
+
+    function resolveResponse(response) {
+      return response.data;
+    }
+
+    function handleError(err) {
+      console.log('There was an error!', err);
+    }
+  }
+
+})(angular);
+
+// assets/javascripts/app/user/user_module.js
+(function(angular) {
+  var
+    dependencies;
+
+  dependencies = [
+    'pc.Ajax'
+  ];
+
+  angular.module('pc.User', dependencies);
+
+})(angular);
+
+// assets/javascripts/app/user/user_service.js
+(function(angular) {
+
+  var
+    definitions;
+
+  definitions = [
+    'ajaxService',
+    userService
+  ];
+
+  angular.module('pc.User')
+    .factory('userService', definitions);
+
+  function userService(ajax) {
+    var
+      user;
+
+    return {
+      init: init,
+      get: get,
+      update: update
+    };
+
+    function init() {
+      if (!user) {
+        return ajax.get('/views/api/user.json')
+          .then(function resolveProfile(data) {
+            user = data.profile;
+            return get();
+          });
+      }
+      return get();
+    }
+
+    function get(field) {
+      if (field) {
+        return user[field];
+      }
+      return user;
+    }
+
+    function update(field, value) {
+      if (field && value !== null && value !== undefined) {
+        user[field] = value;
+        return true;
+      }
+      return false;
+    }
+  }
 
 })(angular);
 
@@ -112,7 +246,9 @@
   var
     dependencies;
 
-  dependencies = [];
+  dependencies = [
+    'pc.User'
+  ];
 
   angular.module('pc.Dashboard', dependencies);
 
@@ -136,7 +272,7 @@
 
   function dashboardController($scope, user, company) {
     $scope.user = user;
-    $scope.user.profile.createdYear = new Date(user.profile.createdDT).getFullYear();
+    $scope.user.createdYear = new Date($scope.user.createdDT).getFullYear();
     $scope.company = company;
   }
 
@@ -170,6 +306,14 @@
     .config(definition);
 
   function statesConfig($stateProvider, $urlRouterProvider) {
+    var
+      user;
+
+    user = [
+      'userService',
+      resolveUser
+    ];
+
     $urlRouterProvider.otherwise('/dashboard');
 
     $stateProvider
@@ -178,12 +322,7 @@
         templateUrl: 'dashboard.html',
         controller: 'dashboardController',
         resolve: {
-          user: ['$http', function resolveUser($http) {
-            return $http.get('/views/api/user.json')
-              .then(function(response) {
-                return response.data;
-              });
-          }],
+          user: user,
           company: ['$http', function resolveCompany($http) {
             return $http.get('/views/api/company.json')
               .then(function(response) {
@@ -192,6 +331,11 @@
           }]
         }
       });
+
+    function resolveUser(userService) {
+      return userService.init();
+    }
+
   }
 
 })(angular);
@@ -201,7 +345,7 @@ angular.module('pc.Templates', []).run(['$templateCache', function($templateCach
   'use strict';
 
   $templateCache.put('dashboard.html',
-    "<div class=\"row\"><div class=\"col-xs-5\"><div class=\"col-xs-4 user-profile\"><img ng-src=\"{{user.profile.image}}\"></div><div class=\"col-xs-8\"><h3 class=\"text-muted profile-name\">{{user.profile.name}}</h3><h4 class=\"company-name\">{{company.name}}</h4><h5><strong>PROCUR MEMBER SINCE {{user.profile.createdYear}}</strong></h5></div></div><div class=\"col-xs-5\"></div><div class=\"col-xs-2\"></div></div>"
+    "<div class=\"row\"><div class=\"col-xs-5\"><div class=\"col-xs-4 user-profile\"><img ng-src=\"{{user.image}}\"></div><div class=\"col-xs-8\"><h3 class=\"text-muted profile-name\">{{user.name}}</h3><h4 class=\"company-name\">{{company.name}}</h4><h5><strong>PROCUR MEMBER SINCE {{user.createdYear}}</strong></h5></div></div><div class=\"col-xs-5\"></div><div class=\"col-xs-2\"></div></div>"
   );
 
 
@@ -226,6 +370,7 @@ angular.module('pc.Templates', []).run(['$templateCache', function($templateCach
   dependencies = [
     'pc.States',
     'pc.Templates',
+    'pc.User',
     'pc.Nav',
     'pc.Dashboard'
   ];

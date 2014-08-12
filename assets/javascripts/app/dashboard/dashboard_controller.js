@@ -15,7 +15,7 @@
 
   function dashboardController($scope, user, company) {
     $scope.user = user;
-    $scope.user.profile.createdYear = new Date(user.profile.createdDT).getFullYear();
+    $scope.user.createdYear = new Date($scope.user.createdDT).getFullYear();
     $scope.company = company;
   }
 

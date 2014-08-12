@@ -1,3 +1,35 @@
 {
-  "name": "chris-test"
+  "name": "wayne enterprises",
+  "phone": {
+    "country_code": 1,
+    "number": 4045551234,
+    "extension": null
+  },
+  "fax": {
+    "country_code": null,
+    "number": null,
+    "extension": null
+  },
+  "email_address": "info@wayne.com",
+  "website": "http://www.wayneenterprises.com",
+  "employees": "11 - 50",
+  "industry": "technology",
+  "addresses": {
+    "primary": {
+      "address-1": "123 Main Street",
+      "address-2": "Suite 9000",
+      "country": "United States",
+      "state": "Georgia",
+      "city": "Atlanta",
+      "postal_code": "30309"
+    },
+    "headquarters": {
+      "address-1": "123 Main Street",
+      "address-2": "Suite 9000",
+      "country": "United States",
+      "state": "Georgia",
+      "city": "Atlanta",
+      "postal_code": "30309"
+    }
+  }
 }

@@ -12,6 +12,12 @@
       display: inline-block;
       vertical-align: middle;
       text-transform: lowercase;
+      color: $color-gray-primary;
+
+      i {
+        color: $color-gray-primary;
+      }
+
       &:hover, &:active, &:focus {
         text-decoration: none;
         color: $color-orange-primary;

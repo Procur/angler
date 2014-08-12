@@ -12,6 +12,14 @@
     .config(definition);
 
   function statesConfig($stateProvider, $urlRouterProvider) {
+    var
+      user;
+
+    user = [
+      'userService',
+      resolveUser
+    ];
+
     $urlRouterProvider.otherwise('/dashboard');
 
     $stateProvider
@@ -20,12 +28,7 @@
         templateUrl: 'dashboard.html',
         controller: 'dashboardController',
         resolve: {
-          user: ['$http', function resolveUser($http) {
-            return $http.get('/views/api/user.json')
-              .then(function(response) {
-                return response.data;
-              });
-          }],
+          user: user,
           company: ['$http', function resolveCompany($http) {
             return $http.get('/views/api/company.json')
               .then(function(response) {
@@ -34,6 +37,11 @@
           }]
         }
       });
+
+    function resolveUser(userService) {
+      return userService.init();
+    }
+
   }
 
 })(angular);

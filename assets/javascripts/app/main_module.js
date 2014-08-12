@@ -6,6 +6,7 @@
   dependencies = [
     'pc.States',
     'pc.Templates',
+    'pc.User',
     'pc.Nav',
     'pc.Dashboard'
   ];

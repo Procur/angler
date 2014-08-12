@@ -3,7 +3,7 @@
   var
     dependencies = [];
 
-  angular.module('pc.third_party.LoDash', dependencies)
+  angular.module('pc.thirdParty.LoDash', dependencies)
     .factory('_', lodashFactory);
 
   function lodashFactory() { return window._; }
