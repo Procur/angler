@@ -24,7 +24,7 @@
       scope.$on('$stateChangeSuccess', setActiveNav);
 
       function setActiveNav(event, toState, toParams, fromState, fromParams) {
-        if (toState.name === scope.state) {
+        if (toState.name.indexOf(scope.state) >= 0) {
           element.addClass('active');
         }
         else {

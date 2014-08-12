@@ -1,0 +1,92 @@
+.user-header {
+  background-color: #EDECE8;
+  padding: 0;
+  margin: 0;
+
+  .user-header-left {
+    float: left;
+    margin: 0;
+
+    .user-header-item {
+
+      a {
+        &.early-access {
+          background-color: #fff;
+          padding: 5px 10px;
+          text-transform: uppercase;
+          border-radius: 4px;
+          color: $color-gray-primary;
+          font-size: 9px;
+          font-weight: bold;
+
+          &:hover, &:focus, &:active {
+            text-decoration: none;
+            background-color: darken($color-white, 1%);
+          }
+        }
+
+        .procur-logo {
+          height: 22px;
+          margin-top: 6px;
+        }
+      }
+    }
+  }
+
+  .user-header-right {
+    float: right;
+    margin: 0;
+    padding-right: 40px;
+
+    .user-header-item {
+      .buyer-supplier-switch {
+        text-transform: uppercase;
+        font-weight: bold;
+
+        &:hover {
+          i {
+            color: $color-green-primary;
+          }
+        }
+      }
+    }
+  }
+
+  .user-header-item {
+    display: inline-block;
+    margin-right: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    a, .btn-link {
+      display: inline-block;
+      vertical-align: middle;
+      text-transform: lowercase;
+      color: $color-gray-primary;
+      padding: 0;
+
+      i {
+        color: $color-gray-primary;
+      }
+
+      &:hover, &:active, &:focus {
+        text-decoration: none;
+        color: $color-orange-primary;
+
+        i {
+          color: $color-orange-primary;
+        }
+      }
+    }
+
+    p {
+      display: inline;
+      margin-right: 6px;
+      vertical-align: middle;
+    }
+  }
+}

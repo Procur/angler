@@ -15,6 +15,12 @@ module.exports = {
     },
     src: [
       '<%= jsPath %>/app/third_party/*.js',
+      '<%= jsPath %>/app/ajax/ajax_module.js',
+      '<%= jsPath %>/app/ajax/*.js',
+      '<%= jsPath %>/app/company/company_module.js',
+      '<%= jsPath %>/app/company/*.js',
+      '<%= jsPath %>/app/user/user_module.js',
+      '<%= jsPath %>/app/user/*.js',
       '<%= jsPath %>/app/nav/nav_module.js',
       '<%= jsPath %>/app/nav/*.js',
       '<%= jsPath %>/app/dashboard/dashboard_module.js',

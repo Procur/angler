@@ -1,7 +1,13 @@
 {
-  "profile": {
-    "name": "chris hourihan",
-    "image": "http://res.cloudinary.com/huewqecyr/image/upload/v1407339867/pzwxobgpaqk8b4gemaut.jpg",
-    "createdDT": "2014-08-07T02:15:42.447Z"
-  }
+  "firstName": "bruce",
+  "lastName": "wayne",
+  "email": "notBatman@wayne.com",
+  "emailVerified": true,
+  "profileComplete": false,
+  "active": true,
+  "activeMode": "supplier",
+  "image": "http://static.comicvine.com/uploads/original/11116/111164870/3842465-1216439145-batma.png",
+  "createdAt": "2014-08-07T02:15:42.447Z",
+  "updatedAt": "2014-08-12T04:35:40.447Z",
+  "jobTitle": "philanthropist"
 }

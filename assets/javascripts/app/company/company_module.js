@@ -4,9 +4,9 @@
     dependencies;
 
   dependencies = [
-    'pc.User'
+    'pc.Ajax'
   ];
 
-  angular.module('pc.Dashboard', dependencies);
+  angular.module('pc.Company', dependencies);
 
 })(angular);

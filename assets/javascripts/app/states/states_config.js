@@ -12,6 +12,20 @@
     .config(definition);
 
   function statesConfig($stateProvider, $urlRouterProvider) {
+    var
+      user,
+      company;
+
+    user = [
+      'userService',
+      resolveUser
+    ];
+
+    company = [
+      'companyService',
+      resolveCompany
+    ];
+
     $urlRouterProvider.otherwise('/dashboard');
 
     $stateProvider
@@ -20,18 +34,8 @@
         templateUrl: 'dashboard.html',
         controller: 'dashboardController',
         resolve: {
-          user: ['$http', function resolveUser($http) {
-            return $http.get('/views/api/user.json')
-              .then(function(response) {
-                return response.data;
-              });
-          }],
-          company: ['$http', function resolveCompany($http) {
-            return $http.get('/views/api/company.json')
-              .then(function(response) {
-                return response.data;
-              });
-          }]
+          user: user,
+          company: company
         }
       })
       .state('user_account_settings', {
@@ -50,6 +54,15 @@
         templateUrl: 'user_update_password.html',
         controller: 'userUpdatePassword'
       });
+
+    function resolveUser(user) {
+      return user();
+    }
+
+    function resolveCompany(company) {
+      return company();
+    }
+
   }
 
 

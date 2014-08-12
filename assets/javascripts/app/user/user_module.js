@@ -1,12 +1,12 @@
 (function(angular) {
-
   var
     dependencies;
 
   dependencies = [
-    'pc.User'
+    'pc.Ajax',
+    'pc.Company'
   ];
 
-  angular.module('pc.Dashboard', dependencies);
+  angular.module('pc.User', dependencies);
 
 })(angular);

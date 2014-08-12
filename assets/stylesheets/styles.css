@@ -18,7 +18,7 @@ time, mark, audio, video {
   font-size: 100%;
   font-weight: 300;
   line-height: 1.5;
-  letter-spacing: .05em;
+  letter-spacing: .06em;
   color: #231f20;
 }
 
@@ -42,57 +42,174 @@ label {
   margin-bottom: 0.3125em;
 }
 
+.pcUpdateUserCompany {
+  font-family: "Roboto", sans-serif;
+}
+.pcUpdateUserCompany .main_row {
+  margin-left: 95px;
+}
+.pcUpdateUserCompany .headerRow {
+  background-color: #333132;
+  color: white;
+}
+.pcUpdateUserCompany .headerRow h4 {
+  padding: 20px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: #333132;
+  color: white;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+.pcUpdateUserCompany .updateForm {
+  background-color: #edece7;
+  padding: 20px;
+}
+.pcUpdateUserCompany .updateForm input {
+  border: 0px none;
+  margin: 7px 0px;
+  width: 100%;
+  height: 25px;
+  font-size: 11px;
+  padding: 0px 7px;
+  font-weight: 300;
+}
+.pcUpdateUserCompany .updateForm h5 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  padding-top: 0px;
+  margin-top: 0px;
+  margin-bottom: 4px;
+}
+.pcUpdateUserCompany .continueButton {
+  float: right;
+  background-color: white;
+  border: 0px none;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  top: 15px;
+  right: 15px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  margin-top: 10px;
+}
+.pcUpdateUserCompany .continueButton span {
+  color: #5cc56c;
+}
+.pcUpdateUserCompany .navPanel ul {
+  list-style-type: none;
+  padding-left: 0px;
+}
+.pcUpdateUserCompany .navPanel .rightSecBox {
+  float: left;
+  height: 45px;
+  width: 45px;
+  text-align: center;
+  background-color: #F3F2F0;
+  margin-right: 10px;
+}
+.pcUpdateUserCompany .navPanel a {
+  line-height: 45px;
+  height: 45px;
+  display: block;
+  background-color: #edece7;
+  font-size: 10px;
+  text-transform: uppercase;
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: 0.06em;
+}
+.pcUpdateUserCompany .navPanel li {
+  height: 45px;
+}
+.pcUpdateUserCompany .navPanel li:hover span, .pcUpdateUserCompany .navPanel .active span {
+  color: white;
+}
+.pcUpdateUserCompany .navPanel li:hover .rightSecBox, .pcUpdateUserCompany .navPanel .active .rightSecBox {
+  background-color: #ffc65c;
+}
+.pcUpdateUserCompany .navPanel li:hover a, .pcUpdateUserCompany .navPanel .active a {
+  text-decoration: none;
+  background-color: #feac00;
+  color: white;
+}
+.pcUpdateUserCompany .navPanel span {
+  line-height: 45px;
+  color: #b3b3b3;
+}
+
 .user-header {
   background-color: #EDECE8;
-  padding: 17px;
+  padding: 0;
+  margin: 0;
 }
-.user-header .user-header-item {
-  height: 32px;
-  padding-right: 0;
-  padding-left: 0;
-  text-align: center;
-}
-.user-header .user-header-item a {
-  display: inline-block;
-  vertical-align: middle;
-  text-transform: lowercase;
-}
-.user-header .user-header-item a:hover, .user-header .user-header-item a:active, .user-header .user-header-item a:focus {
-  text-decoration: none;
-  color: #feac00;
-}
-.user-header .user-header-item a:hover i, .user-header .user-header-item a:active i, .user-header .user-header-item a:focus i {
-  color: #feac00;
-}
-.user-header .user-header-item p {
-  display: inline;
-  margin-right: 6px;
-  vertical-align: middle;
-}
-.user-header .user-header-left .user-header-item:first-child {
-  text-align: right;
-}
-.user-header .user-header-left .user-header-item:last-child {
-  text-align: left;
+.user-header .user-header-left {
+  float: left;
+  margin: 0;
 }
 .user-header .user-header-left .user-header-item a.early-access {
   background-color: #fff;
   padding: 5px 10px;
   text-transform: uppercase;
   border-radius: 4px;
-  color: #777;
+  color: #5c5c5c;
   font-size: 9px;
   font-weight: bold;
 }
 .user-header .user-header-left .user-header-item a.early-access:hover, .user-header .user-header-left .user-header-item a.early-access:focus, .user-header .user-header-left .user-header-item a.early-access:active {
   text-decoration: none;
+  background-color: #fcfcfc;
 }
 .user-header .user-header-left .user-header-item a .procur-logo {
-  height: 26px;
-  margin-top: 7px;
+  height: 22px;
+  margin-top: 6px;
 }
-.user-header .user-header-right .user-header-item {
+.user-header .user-header-right {
   float: right;
+  margin: 0;
+  padding-right: 40px;
+}
+.user-header .user-header-right .user-header-item .buyer-supplier-switch {
+  text-transform: uppercase;
+  font-weight: bold;
+}
+.user-header .user-header-right .user-header-item .buyer-supplier-switch:hover i {
+  color: #5cc672;
+}
+.user-header .user-header-item {
+  display: inline-block;
+  margin-right: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+.user-header .user-header-item:last-child {
+  margin-right: 0;
+}
+.user-header .user-header-item a, .user-header .user-header-item .btn-link {
+  display: inline-block;
+  vertical-align: middle;
+  text-transform: lowercase;
+  color: #5c5c5c;
+  padding: 0;
+}
+.user-header .user-header-item a i, .user-header .user-header-item .btn-link i {
+  color: #5c5c5c;
+}
+.user-header .user-header-item a:hover, .user-header .user-header-item a:active, .user-header .user-header-item a:focus, .user-header .user-header-item .btn-link:hover, .user-header .user-header-item .btn-link:active, .user-header .user-header-item .btn-link:focus {
+  text-decoration: none;
+  color: #feac00;
+}
+.user-header .user-header-item a:hover i, .user-header .user-header-item a:active i, .user-header .user-header-item a:focus i, .user-header .user-header-item .btn-link:hover i, .user-header .user-header-item .btn-link:active i, .user-header .user-header-item .btn-link:focus i {
+  color: #feac00;
+}
+.user-header .user-header-item p {
+  display: inline;
+  margin-right: 6px;
+  vertical-align: middle;
 }
 
 .navbar-default {
@@ -104,7 +221,7 @@ label {
   float: right;
 }
 .navbar-default .navbar-header .navbar-brand {
-  color: #c3c3c3;
+  color: white;
   text-transform: uppercase;
   font-weight: 400;
   font-family: Montserrat,sans-serif;
@@ -153,106 +270,6 @@ label {
   padding-bottom: 10px;
   padding-top: 10px;
   font-weight: bold;
-}
-
-#user_account_settings {
-  font-family: "Roboto", sans-serif;
-}
-#user_account_settings .main_row {
-  margin-left: 95px;
-}
-#user_account_settings .headerRow {
-  background-color: #333132;
-  color: white;
-}
-#user_account_settings .headerRow h4 {
-  padding: 20px;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 300;
-  font-size: 12px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  background: #333132;
-  color: white;
-  margin-top: 0px;
-  margin-bottom: 0px;
-}
-#user_account_settings .updateForm {
-  background-color: #edece7;
-  padding: 20px;
-}
-#user_account_settings .updateForm input {
-  border: 0px none;
-  margin: 7px 0px;
-  width: 100%;
-  height: 25px;
-  font-size: 11px;
-  padding: 0px 7px;
-  font-weight: 300;
-}
-#user_account_settings .updateForm h5 {
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 300;
-  font-size: 11px;
-  letter-spacing: 0.06em;
-  padding-top: 0px;
-  margin-top: 0px;
-  margin-bottom: 4px;
-}
-#user_account_settings .continueButton {
-  float: right;
-  background-color: white;
-  border: 0px none;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 12px;
-  top: 15px;
-  right: 15px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  margin-top: 10px;
-}
-#user_account_settings .continueButton span {
-  color: #5cc56c;
-}
-#user_account_settings .navPanel ul {
-  list-style-type: none;
-  padding-left: 0px;
-}
-#user_account_settings .navPanel .rightSecBox {
-  float: left;
-  height: 45px;
-  width: 45px;
-  text-align: center;
-  background-color: #F3F2F0;
-  margin-right: 10px;
-}
-#user_account_settings .navPanel a {
-  line-height: 45px;
-  height: 45px;
-  display: block;
-  background-color: #edece7;
-  font-size: 10px;
-  text-transform: uppercase;
-  font-family: 'Montserrat', sans-serif;
-  letter-spacing: 0.06em;
-}
-#user_account_settings .navPanel li {
-  height: 45px;
-}
-#user_account_settings .navPanel li:hover span {
-  color: white;
-}
-#user_account_settings .navPanel li:hover .rightSecBox {
-  background-color: #ffc65c;
-}
-#user_account_settings .navPanel li:hover a {
-  text-decoration: none;
-  background-color: #feac00;
-  color: white;
-}
-#user_account_settings .navPanel span {
-  line-height: 45px;
-  color: #b3b3b3;
 }
 
 body {

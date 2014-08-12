@@ -1,9 +1,11 @@
 @import 'globals/colors';
 @import 'globals/typography';
-@import 'nav/user_header';
+@import 'components/update_user_company';
+@import 'user/user_header';
 @import 'nav/nav';
 @import 'dashboard/dashboard';
 @import 'user_account_settings/user_account_settings';
+
 
 body {
   background-color: $color-white;
