@@ -1,19 +1,23 @@
 {
+  "active": true,
+  "buyer": true,
+  "supplier": false,
   "name": "wayne enterprises",
+  "createdAt": "2014-08-07T02:15:42.447Z",
+  "email": "info@wayne.com",
+  "employeeCount": "11 - 50",
+  "website": "http://www.wayneenterprises.com",
+  "industry": "technology",
   "phone": {
-    "country_code": 1,
+    "countryCode": 1,
     "number": 4045551234,
     "extension": null
   },
   "fax": {
-    "country_code": null,
+    "countryCode": null,
     "number": null,
     "extension": null
   },
-  "email_address": "info@wayne.com",
-  "website": "http://www.wayneenterprises.com",
-  "employees": "11 - 50",
-  "industry": "technology",
   "addresses": {
     "primary": {
       "address-1": "123 Main Street",
@@ -21,7 +25,7 @@
       "country": "United States",
       "state": "Georgia",
       "city": "Atlanta",
-      "postal_code": "30309"
+      "postalCode": "30309"
     },
     "headquarters": {
       "address-1": "123 Main Street",
@@ -29,7 +33,7 @@
       "country": "United States",
       "state": "Georgia",
       "city": "Atlanta",
-      "postal_code": "30309"
+      "postalCode": "30309"
     }
   }
 }

@@ -34,7 +34,7 @@
 
       function resolveUserName(userProfile) {
         $scope.user = {
-          name: userProfile.first_name + ' ' + userProfile.last_name
+          name: userProfile.firstName + ' ' + userProfile.lastName
         };
       }
 
