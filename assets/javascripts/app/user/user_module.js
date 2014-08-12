@@ -3,7 +3,8 @@
     dependencies;
 
   dependencies = [
-    'pc.Ajax'
+    'pc.Ajax',
+    'pc.Company'
   ];
 
   angular.module('pc.User', dependencies);

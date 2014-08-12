@@ -80,72 +80,6 @@
 
 })(angular);
 
-// assets/javascripts/app/user/user_module.js
-(function(angular) {
-  var
-    dependencies;
-
-  dependencies = [
-    'pc.Ajax'
-  ];
-
-  angular.module('pc.User', dependencies);
-
-})(angular);
-
-// assets/javascripts/app/user/user_service.js
-(function(angular) {
-
-  var
-    definitions;
-
-  definitions = [
-    'ajaxService',
-    userService
-  ];
-
-  angular.module('pc.User')
-    .factory('userService', definitions);
-
-  function userService(ajax) {
-    var
-      user;
-
-    return {
-      init: init,
-      get: get,
-      update: update
-    };
-
-    function init() {
-      if (!user) {
-        return ajax.get('/views/api/user.json')
-          .then(function resolveProfile(data) {
-            user = data.profile;
-            return get();
-          });
-      }
-      return get();
-    }
-
-    function get(field) {
-      if (field) {
-        return user[field];
-      }
-      return user;
-    }
-
-    function update(field, value) {
-      if (field && value !== null && value !== undefined) {
-        user[field] = value;
-        return true;
-      }
-      return false;
-    }
-  }
-
-})(angular);
-
 // assets/javascripts/app/company/company_module.js
 (function(angular) {
 
@@ -213,6 +147,127 @@
 
 })(angular);
 
+// assets/javascripts/app/user/user_module.js
+(function(angular) {
+  var
+    dependencies;
+
+  dependencies = [
+    'pc.Ajax',
+    'pc.Company'
+  ];
+
+  angular.module('pc.User', dependencies);
+
+})(angular);
+
+// assets/javascripts/app/user/user_header_directive.js
+(function(angular) {
+
+  var
+    definitions;
+
+  definitions = [
+    userHeaderDirective
+  ];
+
+  angular.module('pc.User')
+    .directive('pcUserHeader', definitions);
+
+  function userHeaderDirective() {
+    var
+      definitions;
+
+    definitions = [
+      '$scope',
+      'userService',
+      'companyService',
+      controller
+    ];
+
+    return {
+      restrict: 'AC',
+      controller: definitions,
+      templateUrl: 'user_header.html',
+      scope: {}
+    };
+
+    function controller($scope, user, company) {
+      user.init().then(resolveUserName);
+      company.init().then(resolveCompanyName);
+
+      function resolveUserName(userProfile) {
+        $scope.user = {
+          name: userProfile.first_name + ' ' + userProfile.last_name
+        };
+      }
+
+      function resolveCompanyName(companyProfile) {
+        $scope.company = {
+          name: companyProfile.name
+        };
+      }
+    }
+
+  }
+
+})(angular);
+
+// assets/javascripts/app/user/user_service.js
+(function(angular) {
+
+  var
+    definitions;
+
+  definitions = [
+    'ajaxService',
+    userService
+  ];
+
+  angular.module('pc.User')
+    .factory('userService', definitions);
+
+  function userService(ajax) {
+    var
+      deferredUser,
+      user;
+
+    return {
+      init: init,
+      get: get,
+      update: update
+    };
+
+    function init() {
+      if (!deferredUser) {
+        deferredUser = ajax.get('/views/api/user.json')
+          .then(function resolveProfile(data) {
+            user = data.profile;
+            return get();
+          });
+        return deferredUser;
+      }
+      return deferredUser;
+    }
+
+    function get(field) {
+      if (field) {
+        return user[field];
+      }
+      return user;
+    }
+
+    function update(field, value) {
+      if (field && value !== null && value !== undefined) {
+        user[field] = value;
+        return true;
+      }
+      return false;
+    }
+  }
+
+})(angular);
+
 // assets/javascripts/app/nav/nav_module.js
 (function(angular) {
 
@@ -259,48 +314,6 @@
           element.removeClass('active');
         }
       }
-    }
-
-  }
-
-})(angular);
-
-// assets/javascripts/app/nav/user_header_directive.js
-(function(angular) {
-
-  var
-    definitions;
-
-  definitions = [
-    userHeaderDirective
-  ];
-
-  angular.module('pc.Nav')
-    .directive('pcUserHeader', definitions);
-
-  function userHeaderDirective() {
-    var
-      definitions;
-
-    definitions = [
-      '$scope',
-      controller
-    ];
-
-    return {
-      restrict: 'AC',
-      controller: definitions,
-      templateUrl: 'user_header.html'
-    };
-
-    function controller($scope) {
-      $scope.user = {
-        name: 'Chris Hourihan'
-      };
-
-      $scope.company = {
-        name: 'Chris-test'
-      };
     }
 
   }
@@ -418,7 +431,7 @@ angular.module('pc.Templates', []).run(['$templateCache', function($templateCach
   'use strict';
 
   $templateCache.put('dashboard.html',
-    "<div class=\"row\"><div class=\"col-xs-5\"><div class=\"col-xs-4 user-profile\"><img ng-src=\"{{user.image}}\"></div><div class=\"col-xs-8\"><h3 class=\"text-muted profile-name\">{{user.name}}</h3><h4 class=\"company-name\">{{company.name}}</h4><h5><strong>PROCUR MEMBER SINCE {{user.createdYear}}</strong></h5></div></div><div class=\"col-xs-5\"></div><div class=\"col-xs-2\"></div></div>"
+    "<div class=\"row\"><div class=\"col-xs-5\"><div class=\"col-xs-4 user-profile\"><img ng-src=\"{{user.image}}\"></div><div class=\"col-xs-8\"><h3 class=\"text-muted profile-name\">{{user.first_name}} {{user.last_name}}</h3><h4 class=\"company-name\">{{company.name}}</h4><h5><strong>PROCUR MEMBER SINCE {{user.createdYear}}</strong></h5></div></div><div class=\"col-xs-5\"></div><div class=\"col-xs-2\"></div></div>"
   );
 
 
@@ -428,7 +441,7 @@ angular.module('pc.Templates', []).run(['$templateCache', function($templateCach
 
 
   $templateCache.put('user_header.html',
-    "<div class=\"user-header row\"><div class=\"user-header-left\"><div class=\"col-md-1 user-header-item\"><a ui-sref=\"dashboard\"><img src=\"/assets/images/procur.png\" class=\"procur-logo\"></a></div><div class=\"col-md-1 user-header-item\"><a href=\"https://procur.com/earlyaccess\" class=\"early-access\">Early Access</a></div><div class=\"col-md-2 user-header-item\"><p class=\"text-lowercase\">{{user.name}}</p><p>·</p><p>{{company.name}}</p></div></div><div class=\"user-header-right\"><div class=\"col-md-1 user-header-item\"><a ui-sref=\"dashboard\"><i class=\"glyphicon glyphicon-log-out\"></i> Logout</a></div></div></div>"
+    "<div class=\"user-header row\"><div class=\"user-header-left\"><div class=\"col-md-1 user-header-item\"><a ui-sref=\"dashboard\"><img src=\"/assets/images/procur.png\" class=\"procur-logo\"></a></div><div class=\"col-md-1 user-header-item\"><a href=\"https://procur.com/earlyaccess\" class=\"early-access\">Early Access</a></div><div class=\"col-md-4 user-header-item\"><p class=\"text-lowercase\">{{user.name}}</p><p>·</p><p>{{company.name}}</p></div></div><div class=\"user-header-right\"><div class=\"col-md-1 user-header-item\"><a ui-sref=\"dashboard\"><i class=\"glyphicon glyphicon-log-out\"></i> Logout</a></div></div></div>"
   );
 
 }]);

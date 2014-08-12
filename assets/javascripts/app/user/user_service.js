@@ -13,6 +13,7 @@
 
   function userService(ajax) {
     var
+      deferredUser,
       user;
 
     return {
@@ -22,14 +23,15 @@
     };
 
     function init() {
-      if (!user) {
-        return ajax.get('/views/api/user.json')
+      if (!deferredUser) {
+        deferredUser = ajax.get('/views/api/user.json')
           .then(function resolveProfile(data) {
             user = data.profile;
             return get();
           });
+        return deferredUser;
       }
-      return get();
+      return deferredUser;
     }
 
     function get(field) {
