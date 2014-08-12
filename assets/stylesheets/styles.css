@@ -163,7 +163,7 @@ label {
 }
 #user_account_settings .headerRow {
   background-color: #333132;
-  color: #ffffff;
+  color: white;
 }
 #user_account_settings .headerRow h4 {
   padding: 20px;
@@ -177,11 +177,11 @@ label {
   margin-top: 0px;
   margin-bottom: 0px;
 }
-#user_account_settings .update_form {
+#user_account_settings .updateForm {
   background-color: #edece7;
   padding: 20px;
 }
-#user_account_settings .update_form input {
+#user_account_settings .updateForm input {
   border: 0px none;
   margin: 7px 0px;
   width: 100%;
@@ -190,7 +190,7 @@ label {
   padding: 0px 7px;
   font-weight: 300;
 }
-#user_account_settings .update_form h5 {
+#user_account_settings .updateForm h5 {
   font-family: 'Montserrat', sans-serif;
   font-weight: 300;
   font-size: 11px;
@@ -198,6 +198,21 @@ label {
   padding-top: 0px;
   margin-top: 0px;
   margin-bottom: 4px;
+}
+#user_account_settings .continueButton {
+  float: right;
+  background-color: white;
+  border: 0px none;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  top: 15px;
+  right: 15px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  margin-top: 10px;
+}
+#user_account_settings .continueButton span {
+  color: #5cc56c;
 }
 #user_account_settings .navPanel ul {
   list-style-type: none;
@@ -208,6 +223,8 @@ label {
   height: 45px;
   width: 45px;
   text-align: center;
+  background-color: #F3F2F0;
+  margin-right: 10px;
 }
 #user_account_settings .navPanel a {
   line-height: 45px;
@@ -216,17 +233,26 @@ label {
   background-color: #edece7;
   font-size: 10px;
   text-transform: uppercase;
-}
-#user_account_settings .navPanel a:hover {
-  text-decoration: none;
-  background-color: #feac00;
-  color: white;
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: 0.06em;
 }
 #user_account_settings .navPanel li {
   height: 45px;
 }
+#user_account_settings .navPanel li:hover span {
+  color: white;
+}
+#user_account_settings .navPanel li:hover .rightSecBox {
+  background-color: #ffc65c;
+}
+#user_account_settings .navPanel li:hover a {
+  text-decoration: none;
+  background-color: #feac00;
+  color: white;
+}
 #user_account_settings .navPanel span {
   line-height: 45px;
+  color: #b3b3b3;
 }
 
 body {
