@@ -3,7 +3,9 @@
   var
     dependencies;
 
-  dependencies = [];
+  dependencies = [
+    'pc.User'
+  ];
 
   angular.module('pc.UserAccountSettings', dependencies);
 
