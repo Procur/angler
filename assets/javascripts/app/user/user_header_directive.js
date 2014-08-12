@@ -29,19 +29,15 @@
     };
 
     function controller($scope, user, company) {
-      user.init().then(resolveUserName);
-      company.init().then(resolveCompanyName);
+      user().then(resolveUser);
+      company().then(resolveCompany);
 
-      function resolveUserName(userProfile) {
-        $scope.user = {
-          name: userProfile.firstName + ' ' + userProfile.lastName
-        };
+      function resolveUser(userProfile) {
+        $scope.user = userProfile;
       }
 
-      function resolveCompanyName(companyProfile) {
-        $scope.company = {
-          name: companyProfile.name
-        };
+      function resolveCompany(companyProfile) {
+        $scope.company = companyProfile;
       }
     }
 

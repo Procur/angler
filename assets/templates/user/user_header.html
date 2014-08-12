@@ -12,18 +12,18 @@
     </li>
 
     <li class="user-header-item">
-      <p class="text-lowercase">{{user.name}}</p>
+      <p class="text-lowercase">{{user.firstName}} {{user.lastName}}</p>
       <p>·</p>
       <p>{{company.name}}</p>
     </li>
   </ul>
 
   <ul class="user-header-right">
-    <li class="user-header-item">
-      <button class="btn btn-link buyer-supplier-switch">
-        Currently in buyer mode
+    <li class="user-header-item" >
+      <button class="btn btn-link buyer-supplier-switch" ng-click="user.toggleActiveMode()">
+        Currently in {{user.activeMode}} mode
         <i class="glyphicon glyphicon-transfer"></i>
-        Switch to supplier
+        Switch to {{user.inactiveMode}}
       </button>
     </li>
 

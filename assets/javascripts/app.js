@@ -110,38 +110,22 @@
 
   function companyService(ajax) {
     var
+      deferredCompany,
       company;
 
-    return {
-      init: init,
-      get: get,
-      update: update
-    };
+    return init;
 
     function init() {
-      if (!company) {
+      if (!deferredCompany) {
         return ajax.get('/views/api/company.json')
-          .then(function resolveCompany(data) {
-            company = data;
-            return get();
-          });
+          .then(resolveCompany);
       }
-      return get();
-    }
+      return deferredCompany();
 
-    function get(field) {
-      if (field) {
-        return company[field];
+      function resolveCompany(data) {
+        company = data;
+        return company;
       }
-      return company;
-    }
-
-    function update(field, value) {
-      if (field && value !== null && value !== undefined) {
-        company[field] = value;
-        return true;
-      }
-      return false;
     }
   }
 
@@ -193,19 +177,15 @@
     };
 
     function controller($scope, user, company) {
-      user.init().then(resolveUserName);
-      company.init().then(resolveCompanyName);
+      user().then(resolveUser);
+      company().then(resolveCompany);
 
-      function resolveUserName(userProfile) {
-        $scope.user = {
-          name: userProfile.firstName + ' ' + userProfile.lastName
-        };
+      function resolveUser(userProfile) {
+        $scope.user = userProfile;
       }
 
-      function resolveCompanyName(companyProfile) {
-        $scope.company = {
-          name: companyProfile.name
-        };
+      function resolveCompany(companyProfile) {
+        $scope.company = companyProfile;
       }
     }
 
@@ -232,37 +212,37 @@
       deferredUser,
       user;
 
-    return {
-      init: init,
-      get: get,
-      update: update
-    };
+    return init;
 
     function init() {
       if (!deferredUser) {
         deferredUser = ajax.get('/views/api/user.json')
-          .then(function resolveProfile(data) {
-            user = data.profile;
-            return get();
-          });
-        return deferredUser;
+          .then(resolveProfile);
       }
       return deferredUser;
+
+      function resolveProfile(data) {
+        user = data.profile;
+
+        if (user.activeMode === 'buyer') {
+          user.inactiveMode = 'supplier';
+        }
+        else {
+          user.inactiveMode = 'buyer';
+        }
+
+        user.toggleActiveMode = toggleActiveMode;
+        return user;
+      }
     }
 
-    function get(field) {
-      if (field) {
-        return user[field];
-      }
-      return user;
-    }
+    function toggleActiveMode() {
+      var
+        active = user.activeMode,
+        inactive = user.inactiveMode;
 
-    function update(field, value) {
-      if (field && value !== null && value !== undefined) {
-        user[field] = value;
-        return true;
-      }
-      return false;
+      user.activeMode = inactive;
+      user.inactiveMode = active;
     }
   }
 
@@ -415,11 +395,11 @@
       });
 
     function resolveUser(user) {
-      return user.init();
+      return user();
     }
 
     function resolveCompany(company) {
-      return company.init();
+      return company();
     }
 
   }
@@ -441,7 +421,7 @@ angular.module('pc.Templates', []).run(['$templateCache', function($templateCach
 
 
   $templateCache.put('user_header.html',
-    "<div class=\"user-header clearfix\"><ul class=\"user-header-left\"><li class=\"user-header-item\"><a ui-sref=\"dashboard\"><img src=\"/assets/images/procur.png\" class=\"procur-logo\"></a></li><li class=\"user-header-item\"><a href=\"https://procur.com/earlyaccess\" class=\"early-access\">Early Access</a></li><li class=\"user-header-item\"><p class=\"text-lowercase\">{{user.name}}</p><p>·</p><p>{{company.name}}</p></li></ul><ul class=\"user-header-right\"><li class=\"user-header-item\"><button class=\"btn btn-link buyer-supplier-switch\">Currently in buyer mode <i class=\"glyphicon glyphicon-transfer\"></i> Switch to supplier</button></li><li class=\"user-header-item\"><a ui-sref=\"dashboard\"><i class=\"glyphicon glyphicon-log-out\"></i> Logout</a></li></ul></div>"
+    "<div class=\"user-header clearfix\"><ul class=\"user-header-left\"><li class=\"user-header-item\"><a ui-sref=\"dashboard\"><img src=\"/assets/images/procur.png\" class=\"procur-logo\"></a></li><li class=\"user-header-item\"><a href=\"https://procur.com/earlyaccess\" class=\"early-access\">Early Access</a></li><li class=\"user-header-item\"><p class=\"text-lowercase\">{{user.firstName}} {{user.lastName}}</p><p>·</p><p>{{company.name}}</p></li></ul><ul class=\"user-header-right\"><li class=\"user-header-item\"><button class=\"btn btn-link buyer-supplier-switch\" ng-click=\"user.toggleActiveMode()\">Currently in {{user.activeMode}} mode <i class=\"glyphicon glyphicon-transfer\"></i> Switch to {{user.inactiveMode}}</button></li><li class=\"user-header-item\"><a ui-sref=\"dashboard\"><i class=\"glyphicon glyphicon-log-out\"></i> Logout</a></li></ul></div>"
   );
 
 }]);

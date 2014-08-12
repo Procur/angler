@@ -13,38 +13,22 @@
 
   function companyService(ajax) {
     var
+      deferredCompany,
       company;
 
-    return {
-      init: init,
-      get: get,
-      update: update
-    };
+    return init;
 
     function init() {
-      if (!company) {
+      if (!deferredCompany) {
         return ajax.get('/views/api/company.json')
-          .then(function resolveCompany(data) {
-            company = data;
-            return get();
-          });
+          .then(resolveCompany);
       }
-      return get();
-    }
+      return deferredCompany();
 
-    function get(field) {
-      if (field) {
-        return company[field];
+      function resolveCompany(data) {
+        company = data;
+        return company;
       }
-      return company;
-    }
-
-    function update(field, value) {
-      if (field && value !== null && value !== undefined) {
-        company[field] = value;
-        return true;
-      }
-      return false;
     }
   }
 

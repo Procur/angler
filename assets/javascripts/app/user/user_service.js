@@ -16,37 +16,37 @@
       deferredUser,
       user;
 
-    return {
-      init: init,
-      get: get,
-      update: update
-    };
+    return init;
 
     function init() {
       if (!deferredUser) {
         deferredUser = ajax.get('/views/api/user.json')
-          .then(function resolveProfile(data) {
-            user = data.profile;
-            return get();
-          });
-        return deferredUser;
+          .then(resolveProfile);
       }
       return deferredUser;
+
+      function resolveProfile(data) {
+        user = data.profile;
+
+        if (user.activeMode === 'buyer') {
+          user.inactiveMode = 'supplier';
+        }
+        else {
+          user.inactiveMode = 'buyer';
+        }
+
+        user.toggleActiveMode = toggleActiveMode;
+        return user;
+      }
     }
 
-    function get(field) {
-      if (field) {
-        return user[field];
-      }
-      return user;
-    }
+    function toggleActiveMode() {
+      var
+        active = user.activeMode,
+        inactive = user.inactiveMode;
 
-    function update(field, value) {
-      if (field && value !== null && value !== undefined) {
-        user[field] = value;
-        return true;
-      }
-      return false;
+      user.activeMode = inactive;
+      user.inactiveMode = active;
     }
   }
 

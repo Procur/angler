@@ -40,11 +40,11 @@
       });
 
     function resolveUser(user) {
-      return user.init();
+      return user();
     }
 
     function resolveCompany(company) {
-      return company.init();
+      return company();
     }
 
   }
