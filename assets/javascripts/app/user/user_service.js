@@ -26,12 +26,12 @@
       return deferredUser;
 
       function resolveProfile(data) {
-        user = data.profile;
+        user = data;
 
         if (user.activeMode === 'buyer') {
           user.inactiveMode = 'supplier';
         }
-        else {
+        else if (user.activeMode === 'supplier') {
           user.inactiveMode = 'buyer';
         }
 

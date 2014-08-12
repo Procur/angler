@@ -117,10 +117,10 @@
 
     function init() {
       if (!deferredCompany) {
-        return ajax.get('/views/api/company.json')
+        deferredCompany = ajax.get('/views/api/company.json')
           .then(resolveCompany);
       }
-      return deferredCompany();
+      return deferredCompany;
 
       function resolveCompany(data) {
         company = data;
@@ -222,12 +222,12 @@
       return deferredUser;
 
       function resolveProfile(data) {
-        user = data.profile;
+        user = data;
 
         if (user.activeMode === 'buyer') {
           user.inactiveMode = 'supplier';
         }
-        else {
+        else if (user.activeMode === 'supplier') {
           user.inactiveMode = 'buyer';
         }
 

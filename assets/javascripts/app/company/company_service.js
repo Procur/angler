@@ -20,10 +20,10 @@
 
     function init() {
       if (!deferredCompany) {
-        return ajax.get('/views/api/company.json')
+        deferredCompany = ajax.get('/views/api/company.json')
           .then(resolveCompany);
       }
-      return deferredCompany();
+      return deferredCompany;
 
       function resolveCompany(data) {
         company = data;
