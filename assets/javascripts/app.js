@@ -232,6 +232,8 @@
       $scope.company = company;
     }
 
+
+
   }
 
 })(angular);
