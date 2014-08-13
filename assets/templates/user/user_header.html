@@ -1,4 +1,5 @@
-<div class="user-header clearfix">
+
+<div class="user-header clearfix hidden-xs">
   <ul class="user-header-left">
     <li class="user-header-item">
       <a ui-sref="dashboard">
@@ -36,3 +37,57 @@
   </ul>
 
 </div>
+
+<div id="mobile-dash-nav" class="hidden-sm hidden-md hidden-lg"> <!-- Mobile -->
+  <nav class="navbar navbar-default" role="navigation" style="background-color: #EDECE8;">
+    <div class="container">
+
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nav-links">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <div class="ea-logo">
+        <a class="logo-image logo-mobile" id="mobile-fix" href="/"><img src="/assets/images/procur.png" /></a>
+        <a href="https://procur.com/earlyaccess" class="early-access logo-mobile">Early Access</a>
+        </div>
+      </div>
+    </div>
+    <div class="collapse navbar-collapse" style="background-color: #f8f8f8;" id="nav-links">
+      <ul class="nav navbar-nav navbar-right">
+        <li pc-nav="fdf"><a ui-sref="dashboard">Dashboard</a></li>
+        <li pc-nav="dfd"><a ui-sref="fdf">View Company Profile</a></li>
+        <li pc-nav="dfd"><a ui-sref="dfd">Edit Company Profile</a></li>
+        <li pc-nav="dfd"><a ui-sref="user_account_settings.update_settings">User Account Settings</a></li>
+        <li class="divider"></li>
+        <li class="divider"></li>
+        <li><a ui-sref="dashboard">LOGOUT</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+</div>
+
+<nav class="navbar navbar-default hidden-xs" role="navigation">
+  <div class="container-fluid">
+    <div class="collapse navbar-collapse hidden-sm hidden-md hidden-lg">
+      <ul class="nav navbar-nav navbar-right">
+        <li pc-nav="dashboard"><a ui-sref="dashboard">Dashboard</a></li>
+        <li pc-nav="dfd"><a ui-sref="fdf">View Company Profile</a></li>
+        <li pc-nav="dfd"><a ui-sref="dfd">Edit Company Profile</a></li>
+        <li pc-nav="user_account_settings"><a ui-sref="user_account_settings.update_settings">User Account Settings</a></li>
+      </ul>
+    </div>
+
+    <div class="navbar-header">
+      <span class="navbar-brand">My Procur:</span>
+    </div>
+  </div>
+</nav>
+
+
+
+
+
