@@ -1,61 +1,17 @@
-.pcUpdateUserCompany {
-
-  font-family: "Roboto", sans-serif;
-
-  .main_row {
-    margin-left: 95px;
-  }
-  .headerRow {
-    background-color: $color-gray-alt-dark;
-    color: $color-white;
-
-    h4 {
-      padding: 20px;
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 300;
-      font-size: 12px;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      background: $color-gray-alt-dark;
-      color: $color-white;
-      margin-top: 0px;
-      margin-bottom: 0px;
+#user_account_settings {
+    .continue-button {
+        float: right;
+        background-color: $color-white;
+        border: 0px none;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 12px;
+        top: 15px;
+        right: 15px;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        margin-top: 10px;
+        span {
+            color: #5cc56c;
+        }
     }
-  }
-
-  .updateForm {
-    background-color: #edece7;
-    padding: 20px;
-    h5 {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 300;
-      font-size: 11px;
-      letter-spacing: 0.06em;
-      padding-top: 0px;
-      margin-top: 0px;
-      margin-bottom: 4px;
-    }
-
-  }
-
-  .continueButton {
-    float: right;
-    background-color: $color-white;
-    border: 0px none;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 12px;
-    top: 15px;
-    right: 15px;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    margin-top: 10px;
-
-    span {
-      color: #5cc56c;
-    }
-  }
-
-
-
-
 }
