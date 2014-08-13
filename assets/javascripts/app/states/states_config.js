@@ -56,6 +56,21 @@
         url: '/update_password',
         templateUrl: 'user_update_password.html',
         controller: 'userUpdatePassword'
+      })
+      .state('edit_company_profile', {
+        url: '/edit_company_profile',
+        templateUrl: 'edit_company_profile.html',
+        controller: 'editCompanyProfileController',
+        resolve: {
+          user: user,
+          company: company
+        },
+        abstract: true
+      })
+      .state('edit_company_profile.basic_company_details', {
+        url: '/basic_company_details',
+        templateUrl: 'basic_company_details.html',
+        controller: 'basicCompanyDetails'
       });
 
     function resolveUser(user) {

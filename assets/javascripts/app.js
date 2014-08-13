@@ -415,6 +415,63 @@
 
 })(angular);
 
+// assets/javascripts/app/edit_company_profile/edit_company_profile_module.js
+(function(angular) {
+
+  var
+    dependencies;
+
+  dependencies = [
+    'pc.User'
+  ];
+
+  angular.module('pc.EditCompanyProfile', dependencies);
+
+})(angular);
+
+// assets/javascripts/app/edit_company_profile/basic_company_details_controller.js
+(function(angular) {
+
+  var
+    definitions;
+
+  definitions = [
+    '$scope',
+    basicCompanyDetails
+  ];
+
+  angular.module('pc.EditCompanyProfile')
+    .controller('basicCompanyDetails', definitions);
+
+  function basicCompanyDetails($scope) {
+    
+  }
+
+})(angular);
+
+// assets/javascripts/app/edit_company_profile/edit_company_profile_controller.js
+(function(angular) {
+
+  var
+    definitions;
+
+  definitions = [
+    '$scope',
+    'user',
+    'company',
+    editCompanyProfileController
+  ];
+
+  angular.module('pc.EditCompanyProfile')
+    .controller('editCompanyProfileController', definitions);
+
+  function editCompanyProfileController($scope, user, company) {
+    $scope.user = user;
+    $scope.company = company;
+  }
+
+})(angular);
+
 // assets/javascripts/app/states/states_module.js
 (function(angular) {
   var
@@ -487,6 +544,21 @@
         url: '/update_password',
         templateUrl: 'user_update_password.html',
         controller: 'userUpdatePassword'
+      })
+      .state('edit_company_profile', {
+        url: '/edit_company_profile',
+        templateUrl: 'edit_company_profile.html',
+        controller: 'editCompanyProfileController',
+        resolve: {
+          user: user,
+          company: company
+        },
+        abstract: true
+      })
+      .state('edit_company_profile.basic_company_details', {
+        url: '/basic_company_details',
+        templateUrl: 'basic_company_details.html',
+        controller: 'basicCompanyDetails'
       });
 
     function resolveUser(user) {
@@ -511,8 +583,18 @@ angular.module('pc.Templates', []).run(['$templateCache', function($templateCach
   );
 
 
+  $templateCache.put('basic_company_details.html',
+    "<div class=\"col-sm-8 form-panel\"><form class=\"form\"><div class=\"row header-row\"><h4>Basic Company Details</h4></div></form></div>"
+  );
+
+
+  $templateCache.put('edit_company_profile.html',
+    "<div><div class=\"row main-row\"><div class=\"col-sm-4 nav-panel\"><ul><li pc-nav=\"basic_company_details\"><div class=\"left-icon\"><span class=\"glyphicon glyphicon-cog\"></span></div><a ui-sref=\"edit_company_profile.basic_company_details\">Basic Company Details</a></li></ul></div><div ui-view=\"\"></div></div></div>"
+  );
+
+
   $templateCache.put('nav.html',
-    "<nav class=\"navbar navbar-default\" role=\"navigation\"><div class=\"container-fluid\"><div class=\"collapse navbar-collapse\"><ul class=\"nav navbar-nav navbar-right\"><li pc-nav=\"dashboard\"><a ui-sref=\"dashboard\">Dashboard</a></li><li pc-nav=\"dfd\"><a ui-sref=\"fdf\">View Company Profile</a></li><li pc-nav=\"dfd\"><a ui-sref=\"dfd\">Edit Company Profile</a></li><li pc-nav=\"user_account_settings\"><a ui-sref=\"user_account_settings.update_settings\">User Account Settings</a></li></ul></div><div class=\"navbar-header\"><span class=\"navbar-brand\">My Procur:</span></div></div></nav>"
+    "<nav class=\"navbar navbar-default\" role=\"navigation\"><div class=\"container-fluid\"><div class=\"collapse navbar-collapse\"><ul class=\"nav navbar-nav navbar-right\"><li pc-nav=\"dashboard\"><a ui-sref=\"dashboard\">Dashboard</a></li><li pc-nav=\"dfd\"><a ui-sref=\"fdf\">View Company Profile</a></li><li pc-nav=\"edit_company_profile\"><a ui-sref=\"edit_company_profile.basic_company_details\">Edit Company Profile</a></li><li pc-nav=\"user_account_settings\"><a ui-sref=\"user_account_settings.update_settings\">User Account Settings</a></li></ul></div><div class=\"navbar-header\"><span class=\"navbar-brand\">My Procur:</span></div></div></nav>"
   );
 
 
@@ -551,7 +633,8 @@ angular.module('pc.Templates', []).run(['$templateCache', function($templateCach
     'pc.Company',
     'pc.Nav',
     'pc.Dashboard',
-    'pc.UserAccountSettings'
+    'pc.UserAccountSettings',
+    'pc.EditCompanyProfile'
   ];
 
   angular.module('pc.Main', dependencies);

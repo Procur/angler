@@ -10,7 +10,8 @@
     'pc.Company',
     'pc.Nav',
     'pc.Dashboard',
-    'pc.UserAccountSettings'
+    'pc.UserAccountSettings',
+    'pc.EditCompanyProfile'
   ];
 
   angular.module('pc.Main', dependencies);
