@@ -1,44 +1,93 @@
-.nav-panel {
-    ul {
-        list-style-type: none;
-        padding-left: 0px;
-    }
-    .left-icon {
+ul.nav-panel,
+ol.nav-panel {
+  list-style-type: none;
+  padding-left: 0px;
+  margin-bottom: 20px;
+
+  li {
+    height: 45px;
+    background-color: $color-tan-alt-primary;
+    -webkit-transition: background-color 200ms ease-in-out;
+    -moz-transition: background-color 200ms ease-in-out;
+    -ms-transition: background-color 200ms ease-in-out;
+    -o-transition: background-color 200ms ease-in-out;
+    transition: background-color 200ms ease-in-out;
+
+    a {
+      .left-icon {
         float: left;
         height: 45px;
         width: 45px;
         text-align: center;
-        background-color: #F3F2F0;
-        margin-right: 10px;
-    }
-    a {
-        line-height: 45px;
-        height: 45px;
-        display: block;
-        background-color: #edece7;
-        font-size: 10px;
-        text-transform: uppercase;
-        //font-family: 'Montserrat', sans-serif;
-        letter-spacing: 0.06em;
-    }
-    li {
-        height: 45px;
-    }
-    li:hover, .active {
-        span {
-            color: $color-white;
+        background-color: $color-tan-primary;
+        margin-right: 15px;
+        -webkit-transition: background-color 200ms ease-in-out;
+        -moz-transition: background-color 200ms ease-in-out;
+        -ms-transition: background-color 200ms ease-in-out;
+        -o-transition: background-color 200ms ease-in-out;
+        transition: background-color 200ms ease-in-out;
+
+        i {
+          line-height: 45px;
+          color: $color-gray-alt-light;
+          -webkit-transition: color 200ms ease-in-out;
+          -moz-transition: color 200ms ease-in-out;
+          -ms-transition: color 200ms ease-in-out;
+          -o-transition: color 200ms ease-in-out;
+          transition: color 200ms ease-in-out;
         }
-        .left-icon {
-            background-color: #ffc65c;
-        }
-        a {
-            text-decoration: none;
-            background-color: $color-orange-primary;
-            color: $color-white;
-        }
+      }
     }
-    span {
-        line-height: 45px;
-        color: #b3b3b3;
+
+    h1, h2, h3, h4, h5, h6 {
+      text-transform: uppercase;
+      font-size: 11px;
+      line-height: 1;
+      margin: 0;
+      padding: 17px 0;
+      color: $color-gray-dark;
+      -webkit-transition: color 200ms ease-in-out;
+      -moz-transition: color 200ms ease-in-out;
+      -ms-transition: color 200ms ease-in-out;
+      -o-transition: color 200ms ease-in-out;
+      transition: color 200ms ease-in-out;
     }
+
+    &:hover,
+    .active {
+      color: $color-white;
+      text-decoration: none;
+      background-color: $color-orange-primary;
+
+      a .left-icon {
+        background-color: lighten($color-orange-primary, 20%);
+        i {
+          color: $color-white;
+        }
+      }
+
+      h1, h2, h3, h4, h5, h6 {
+        color: $color-white;
+      }
+    }
+
+    &:nth-child(even) {
+      background-color: lighten($color-tan-alt-primary, 3%);
+
+      a .left-icon {
+        background-color: lighten($color-tan-primary, 2%);
+      }
+
+      &:hover,
+      .active {
+        background-color: $color-orange-primary;
+
+        a .left-icon {
+          background-color: lighten($color-orange-primary, 20%);
+        }
+      }
+    }
+  }
+
+
 }

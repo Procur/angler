@@ -24,9 +24,6 @@
         url: '/user_account_settings',
         templateUrl: 'user_account_settings.html',
         controller: 'userAccountSettingsController',
-        resolve: {
-          user: user
-        },
         abstract: true
       })
       .state('user_account_settings.update_settings', {

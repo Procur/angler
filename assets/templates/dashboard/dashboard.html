@@ -87,7 +87,29 @@
       </div>
     </div>
   </div>
-  <div class="col-xs-2">
+  <div class="col-xs-3">
+    <h6 class="features-heading">Currently Accessible:</h6>
+    <ul class="nav-panel">
+      <li>
+        <a ui-sref="edit_company_profile">
+          <div class="left-icon">
+            <i class="glyphicon glyphicon-user"></i>
+          </div>
+          <h6>Company Profile</h6>
+        </a>
+      </li>
+    </ul>
 
+    <h6 class="features-heading">Features coming soon:</h6>
+    <ul class="nav-panel">
+      <li ng-repeat="feature in comingSoon" ng-mouseenter="feature.hover = true" ng-mouseleave="feature.hover = false">
+        <a>
+          <div class="left-icon">
+            <i class="glyphicon {{feature.icon}}"></i>
+          </div>
+          <h6>{{feature.hover ? feature.alt : feature.label}}</h6>
+        </a>
+      </li>
+    </ul>
   </div>
 </div>
