@@ -429,7 +429,7 @@
 
 })(angular);
 
-// assets/javascripts/app/edit_company_profile/basic_company_details_controller.js
+// assets/javascripts/app/edit_company_profile/company_details_controller.js
 (function(angular) {
 
   var
@@ -437,13 +437,53 @@
 
   definitions = [
     '$scope',
-    basicCompanyDetails
+    companyDetails
   ];
 
   angular.module('pc.EditCompanyProfile')
-    .controller('basicCompanyDetails', definitions);
+    .controller('companyDetails', definitions);
 
-  function basicCompanyDetails($scope) {
+  function companyDetails($scope) {
+    
+  }
+
+})(angular);
+
+// assets/javascripts/app/edit_company_profile/company_information_controller.js
+(function(angular) {
+
+  var
+    definitions;
+
+  definitions = [
+    '$scope',
+    companyInformation
+  ];
+
+  angular.module('pc.EditCompanyProfile')
+    .controller('companyInformation', definitions);
+
+  function companyInformation($scope) {
+    
+  }
+
+})(angular);
+
+// assets/javascripts/app/edit_company_profile/descriptions.js
+(function(angular) {
+
+  var
+    definitions;
+
+  definitions = [
+    '$scope',
+    descriptions
+  ];
+
+  angular.module('pc.EditCompanyProfile')
+    .controller('descriptions', definitions);
+
+  function descriptions($scope) {
     
   }
 
@@ -468,6 +508,86 @@
   function editCompanyProfileController($scope, user, company) {
     $scope.user = user;
     $scope.company = company;
+  }
+
+})(angular);
+
+// assets/javascripts/app/edit_company_profile/photos.js
+(function(angular) {
+
+  var
+    definitions;
+
+  definitions = [
+    '$scope',
+    photos
+  ];
+
+  angular.module('pc.EditCompanyProfile')
+    .controller('photos', definitions);
+
+  function photos($scope) {
+    
+  }
+
+})(angular);
+
+// assets/javascripts/app/edit_company_profile/preferences.js
+(function(angular) {
+
+  var
+    definitions;
+
+  definitions = [
+    '$scope',
+    preferences
+  ];
+
+  angular.module('pc.EditCompanyProfile')
+    .controller('preferences', definitions);
+
+  function preferences($scope) {
+    
+  }
+
+})(angular);
+
+// assets/javascripts/app/edit_company_profile/production_details.js
+(function(angular) {
+
+  var
+    definitions;
+
+  definitions = [
+    '$scope',
+    productionDetails
+  ];
+
+  angular.module('pc.EditCompanyProfile')
+    .controller('productionDetails', definitions);
+
+  function productionDetails($scope) {
+    
+  }
+
+})(angular);
+
+// assets/javascripts/app/edit_company_profile/social_media.js
+(function(angular) {
+
+  var
+    definitions;
+
+  definitions = [
+    '$scope',
+    socialMedia
+  ];
+
+  angular.module('pc.EditCompanyProfile')
+    .controller('socialMedia', definitions);
+
+  function socialMedia($scope) {
+    
   }
 
 })(angular);
@@ -555,10 +675,40 @@
         },
         abstract: true
       })
-      .state('edit_company_profile.basic_company_details', {
-        url: '/basic_company_details',
-        templateUrl: 'basic_company_details.html',
-        controller: 'basicCompanyDetails'
+      .state('edit_company_profile.company_details', {
+        url: '/company_details',
+        templateUrl: 'company_details.html',
+        controller: 'companyDetails'
+      })
+      .state('edit_company_profile.company_information', {
+        url: '/company_information',
+        templateUrl: 'company_information.html',
+        controller: 'companyInformation'
+      })
+      .state('edit_company_profile.production_details', {
+        url: '/production_details',
+        templateUrl: 'production_details.html',
+        controller: 'productionDetails'
+      })
+      .state('edit_company_profile.descriptions', {
+        url: '/descriptions',
+        templateUrl: 'descriptions.html',
+        controller: 'descriptions'
+      })
+      .state('edit_company_profile.preferences', {
+        url: '/preferences',
+        templateUrl: 'preferences.html',
+        controller: 'preferences'
+      })
+      .state('edit_company_profile.social_media', {
+        url: '/social_media',
+        templateUrl: 'social_media.html',
+        controller: 'socialMedia'
+      })
+      .state('edit_company_profile.photos', {
+        url: '/photos',
+        templateUrl: 'photos.html',
+        controller: 'photos'
       });
 
     function resolveUser(user) {
@@ -583,13 +733,43 @@ angular.module('pc.Templates', []).run(['$templateCache', function($templateCach
   );
 
 
-  $templateCache.put('basic_company_details.html',
-    "<div class=\"col-sm-8 form-panel\"><form class=\"form\"><div class=\"row header-row\"><h4>Basic Company Details</h4></div></form></div>"
+  $templateCache.put('company_details.html',
+    "<div class=\"col-sm-8 form-panel\"><form class=\"form\"><div class=\"row header-row\"><h4>Basic Company Details</h4></div><div class=\"row form-body\"><div class=\"col-md-6\"><div class=\"form-group\"><label for=\"\">Company Name*</label><input type=\"text\" id=\"companyName\" placeholder=\"Company Name\" value=\"{{company.name}}\"></div><div class=\"form-group\"><label for=\"\">Company Phone*</label><input type=\"text\" placeholder=\"Country Code*\" value=\"{{company.phone.countryCode}}\"> <input type=\"text\" placeholder=\"Phone Number*\" value=\"{{company.phone.number}}\"> <input type=\"text\" placeholder=\"Ext. Number\" value=\"{{company.phone.extension}}\"></div><div class=\"form-group\"><label for=\"\">Company Fax</label><input type=\"text\" placeholder=\"Country Code\" value=\"{{company.fax.countryCode}}\"> <input type=\"text\" placeholder=\"Fax Number\" value=\"{{company.fax.number}}\"> <input type=\"text\" placeholder=\"Ext. Number\" value=\"{{company.fax.extension}}\"></div><div class=\"form-group\"><label for=\"email\">Company Email Address*</label><input type=\"text\" id=\"email\" placeholder=\"info@mycompanyname.com\" value=\"{{company.email}}\"></div><div class=\"form-group\"><label for=\"website\">Official Company Website</label><input type=\"text\" id=\"website\" placeholder=\"www.mycompanyname.com\" value=\"{{company.website}}\"></div><div class=\"form-group\"><label for=\"industry\">Industry*</label><input type=\"text\" id=\"industry\" placeholder=\"dropdown!\" value=\"\"><!-- change to dropdown --></div></div><div class=\"col-md-6\"><div class=\"form-group\"><label for=\"\">Official Business Address*</label><input type=\"text\" placeholder=\"Address Line #1\" value=\"{{company.addresses.primary['address-1']}}\"> <input type=\"text\" placeholder=\"Address Line #2\" value=\"{{company.addresses.primary['address-2']}}\"> <input type=\"text\" placeholder=\"Select Country\" value=\"{{company.addresses.primary.country}}\"><!-- change to dropdown --> <input type=\"text\" placeholder=\"Select Province/State\" value=\"{{company.addresses.primary.state}}\"><!-- change to dropdown --> <input type=\"text\" placeholder=\"City\" value=\"{{company.addresses.primary.city}}\"><!-- change to dropdown --> <input type=\"text\" placeholder=\"Postal Code\" value=\"{{company.addresses.primary.postalCode}}\"></div><div class=\"form-group\"><label for=\"\">Is the above address a headquarters?</label><input type=\"checkbox\" name=\"\"><span>Yes; please copy address below.</span></div><div class=\"form-group\"><label for=\"\">Company Headquarters Address*</label><input type=\"text\" placeholder=\"Address Line #1\" value=\"{{company.addresses.headquarters['address-1']}}\"> <input type=\"text\" placeholder=\"Address Line #2\" value=\"{{company.addresses.headquarters['address-2']}}\"> <input type=\"text\" placeholder=\"Select Country\" value=\"{{company.addresses.headquarters.country}}\"><!-- change to dropdown --> <input type=\"text\" placeholder=\"Select Province/State\" value=\"{{company.addresses.headquarters.state}}\"><!-- change to dropdown --> <input type=\"text\" placeholder=\"City\" value=\"{{company.addresses.headquarters.city}}\"><!-- change to dropdown --> <input type=\"text\" placeholder=\"Postal Code\" value=\"{{company.addresses.headquarters.postalCode}}\"></div><div class=\"form-group\"><label for=\"employeeCount\">Total Number of Employees*</label><input type=\"text\" id=\"employeeCount\" placeholder=\"dropdown!\" value=\"\"><!-- change to dropdown --></div></div></div></form></div>"
+  );
+
+
+  $templateCache.put('company_information.html',
+    "<div class=\"col-sm-8 form-panel\"><form class=\"form\"><div class=\"row header-row\"><h4>[activeMode] Information</h4></div><div class=\"row form-body\"></div></form></div>"
+  );
+
+
+  $templateCache.put('descriptions.html',
+    "<div class=\"col-sm-8 form-panel\"><form class=\"form\"><div class=\"row header-row\"><h4>Descriptions</h4></div><div class=\"row form-body\"></div></form></div>"
   );
 
 
   $templateCache.put('edit_company_profile.html',
-    "<div><div class=\"row main-row\"><div class=\"col-sm-4 nav-panel\"><ul><li pc-nav=\"basic_company_details\"><div class=\"left-icon\"><span class=\"glyphicon glyphicon-cog\"></span></div><a ui-sref=\"edit_company_profile.basic_company_details\">Basic Company Details</a></li></ul></div><div ui-view=\"\"></div></div></div>"
+    "<div><div class=\"row main-row\"><div class=\"col-sm-4 nav-panel\"><ul><li pc-nav=\"company_details\"><div class=\"left-icon\"><span class=\"glyphicon glyphicon-cog\"></span></div><a ui-sref=\"edit_company_profile.company_details\">Company Details</a></li><li pc-nav=\"company_information\"><div class=\"left-icon\"><span class=\"glyphicon glyphicon-cog\"></span></div><a ui-sref=\"edit_company_profile.company_information\">[activeMode] Information</a></li><li pc-nav=\"production_details\"><div class=\"left-icon\"><span class=\"glyphicon glyphicon-cog\"></span></div><a ui-sref=\"edit_company_profile.production_details\">Production Details</a></li><li pc-nav=\"descriptions\"><div class=\"left-icon\"><span class=\"glyphicon glyphicon-cog\"></span></div><a ui-sref=\"edit_company_profile.descriptions\">Descriptions</a></li><li pc-nav=\"preferences\"><div class=\"left-icon\"><span class=\"glyphicon glyphicon-cog\"></span></div><a ui-sref=\"edit_company_profile.preferences\">Preferences</a></li><li pc-nav=\"social_media\"><div class=\"left-icon\"><span class=\"glyphicon glyphicon-cog\"></span></div><a ui-sref=\"edit_company_profile.social_media\">Social Media</a></li><li pc-nav=\"photos\"><div class=\"left-icon\"><span class=\"glyphicon glyphicon-cog\"></span></div><a ui-sref=\"edit_company_profile.photos\">Photos</a></li></ul></div><div ui-view=\"\"></div></div></div>"
+  );
+
+
+  $templateCache.put('photos.html',
+    "<div class=\"col-sm-8 form-panel\"><form class=\"form\"><div class=\"row header-row\"><h4>Photos</h4></div><div class=\"row form-body\"></div></form></div>"
+  );
+
+
+  $templateCache.put('preferences.html',
+    "<div class=\"col-sm-8 form-panel\"><form class=\"form\"><div class=\"row header-row\"><h4>Preferences</h4></div><div class=\"row form-body\"></div></form></div>"
+  );
+
+
+  $templateCache.put('production_details.html',
+    "<div class=\"col-sm-8 form-panel\"><form class=\"form\"><div class=\"row header-row\"><h4>Production Details</h4></div><div class=\"row form-body\"></div></form></div>"
+  );
+
+
+  $templateCache.put('social_media.html',
+    "<div class=\"col-sm-8 form-panel\"><form class=\"form\"><div class=\"row header-row\"><h4>Social Media</h4></div><div class=\"row form-body\"></div></form></div>"
   );
 
 
