@@ -102,11 +102,12 @@ input {
 .pcUpdateUserCompany .continueButton span {
   color: #5cc56c;
 }
-.pcUpdateUserCompany .navPanel ul {
+
+.navPanel ul {
   list-style-type: none;
   padding-left: 0px;
 }
-.pcUpdateUserCompany .navPanel .rightSecBox {
+.navPanel .rightSecBox {
   float: left;
   height: 45px;
   width: 45px;
@@ -114,7 +115,7 @@ input {
   background-color: #F3F2F0;
   margin-right: 10px;
 }
-.pcUpdateUserCompany .navPanel a {
+.navPanel a {
   line-height: 45px;
   height: 45px;
   display: block;
@@ -124,21 +125,21 @@ input {
   font-family: 'Montserrat', sans-serif;
   letter-spacing: 0.06em;
 }
-.pcUpdateUserCompany .navPanel li {
+.navPanel li {
   height: 45px;
 }
-.pcUpdateUserCompany .navPanel li:hover span, .pcUpdateUserCompany .navPanel .active span {
+.navPanel li:hover span, .navPanel .active span {
   color: white;
 }
-.pcUpdateUserCompany .navPanel li:hover .rightSecBox, .pcUpdateUserCompany .navPanel .active .rightSecBox {
+.navPanel li:hover .rightSecBox, .navPanel .active .rightSecBox {
   background-color: #ffc65c;
 }
-.pcUpdateUserCompany .navPanel li:hover a, .pcUpdateUserCompany .navPanel .active a {
+.navPanel li:hover a, .navPanel .active a {
   text-decoration: none;
   background-color: #feac00;
   color: white;
 }
-.pcUpdateUserCompany .navPanel span {
+.navPanel span {
   line-height: 45px;
   color: #b3b3b3;
 }
