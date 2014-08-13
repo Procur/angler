@@ -68,7 +68,22 @@
         <a href="https://procur.com/earlyaccess" class="early-access">Learn more about early access</a>
       </div>
       <div class="panel-footer">
-
+        <ul class="list-checklist">
+          <li ng-repeat="item in actionItems | filter:activeModeFilter()" ng-class="{complete: item.complete, incomplete: !item.complete}">
+            <span ng-switch="item.complete">
+              <span ng-switch-when="false">
+                <a ui-sref="{{item.link}}">
+                  <i class="glyphicon glyphicon-unchecked"></i>
+                  <h5>{{item.action}}</h5>
+                </a>
+              </span>
+              <span ng-switch-when="true">
+                <i class="glyphicon glyphicon-check"></i>
+                <h5>{{item.action}}</h5>
+              </span>
+            </span>
+          </li>
+        </ul>
       </div>
     </div>
   </div>

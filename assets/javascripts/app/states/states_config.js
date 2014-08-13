@@ -12,31 +12,13 @@
     .config(definition);
 
   function statesConfig($stateProvider, $urlRouterProvider) {
-    var
-      user,
-      company;
-
-    user = [
-      'userService',
-      resolveUser
-    ];
-
-    company = [
-      'companyService',
-      resolveCompany
-    ];
-
     $urlRouterProvider.otherwise('/dashboard');
 
     $stateProvider
       .state('dashboard', {
         url: '/dashboard',
         templateUrl: 'dashboard.html',
-        controller: 'dashboardController',
-        resolve: {
-          user: user,
-          company: company
-        }
+        controller: 'dashboardController'
       })
       .state('user_account_settings', {
         url: '/user_account_settings',
@@ -102,14 +84,6 @@
         templateUrl: 'photos.html',
         controller: 'photos'
       });
-
-    function resolveUser(user) {
-      return user();
-    }
-
-    function resolveCompany(company) {
-      return company();
-    }
 
   }
 

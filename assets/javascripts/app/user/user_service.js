@@ -4,41 +4,28 @@
     definitions;
 
   definitions = [
-    'ajaxService',
+    '$window',
+    'companyService',
+    'buyerService',
+    'supplierService',
     userService
   ];
 
   angular.module('pc.User')
     .factory('userService', definitions);
 
-  function userService(ajax) {
+  function userService($window) {
     var
-      deferredUser,
       user;
 
-    return init;
+    user = $window.pc.localData.user;
 
-    function init() {
-      if (!deferredUser) {
-        deferredUser = ajax.get('/views/api/user.json')
-          .then(resolveProfile);
-      }
-      return deferredUser;
+    user.inactiveMode = setInactiveMode();
+    user.toggleActiveMode = toggleActiveMode;
+    user.isBuyerMode = isBuyerMode;
+    user.isSupplierMode = isSupplierMode;
 
-      function resolveProfile(data) {
-        user = data;
-
-        if (user.activeMode === 'buyer') {
-          user.inactiveMode = 'supplier';
-        }
-        else if (user.activeMode === 'supplier') {
-          user.inactiveMode = 'buyer';
-        }
-
-        user.toggleActiveMode = toggleActiveMode;
-        return user;
-      }
-    }
+    return user;
 
     function toggleActiveMode() {
       var
@@ -47,6 +34,23 @@
 
       user.activeMode = inactive;
       user.inactiveMode = active;
+    }
+
+    function isBuyerMode() {
+      return user.activeMode === 'buyer';
+    }
+
+    function isSupplierMode() {
+      return user.activeMode === 'supplier';
+    }
+
+    function setInactiveMode() {
+      if (user.activeMode === 'buyer') {
+        return 'supplier';
+      }
+      else if (user.activeMode === 'supplier') {
+        return 'buyer';
+      }
     }
   }
 

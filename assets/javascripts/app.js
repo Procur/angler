@@ -5,7 +5,7 @@
   var
     dependencies = [];
 
-  angular.module('pc.thirdParty.LoDash', dependencies)
+  angular.module('pc.ThirdParty.LoDash', dependencies)
     .factory('_', lodashFactory);
 
   function lodashFactory() { return window._; }
@@ -87,7 +87,7 @@
     dependencies;
 
   dependencies = [
-    'pc.Ajax'
+
   ];
 
   angular.module('pc.Company', dependencies);
@@ -101,32 +101,82 @@
     definitions;
 
   definitions = [
-    'ajaxService',
+    '$window',
     companyService
   ];
 
   angular.module('pc.Company')
     .factory('companyService', definitions);
 
-  function companyService(ajax) {
+  function companyService($window) {
     var
-      deferredCompany,
       company;
 
-    return init;
+    company = $window.pc.localData.company;
 
-    function init() {
-      if (!deferredCompany) {
-        deferredCompany = ajax.get('/views/api/company.json')
-          .then(resolveCompany);
-      }
-      return deferredCompany;
+    return company;
+  }
 
-      function resolveCompany(data) {
-        company = data;
-        return company;
-      }
-    }
+})(angular);
+
+// assets/javascripts/app/buyer_supplier/buyer_supplier_module.js
+(function(angular) {
+
+  var
+    dependencies = [];
+
+  angular.module('pc.BuyerSupplier', dependencies);
+
+})(angular);
+
+// assets/javascripts/app/buyer_supplier/buyer_service.js
+(function(angular) {
+
+  var
+    definitions;
+
+  definitions = [
+    '$window',
+    buyerService
+  ];
+
+  angular.module('pc.BuyerSupplier')
+    .factory('buyerService', definitions);
+
+  function buyerService($window) {
+    var
+      buyer;
+
+    buyer = $window.pc.localData.buyer || {};
+
+    return buyer;
+
+  }
+
+})(angular);
+
+// assets/javascripts/app/buyer_supplier/supplier_service.js
+(function(angular) {
+
+  var
+    definitions;
+
+  definitions = [
+    '$window',
+    supplierService
+  ];
+
+  angular.module('pc.BuyerSupplier')
+    .factory('supplierService', definitions);
+
+  function supplierService($window) {
+    var
+      supplier;
+
+    supplier = $window.pc.localData.supplier || {};
+
+    return supplier;
+
   }
 
 })(angular);
@@ -137,8 +187,9 @@
     dependencies;
 
   dependencies = [
-    'pc.Ajax',
-    'pc.Company'
+    'pc.ThirdParty.LoDash',
+    'pc.Company',
+    'pc.BuyerSupplier'
   ];
 
   angular.module('pc.User', dependencies);
@@ -177,16 +228,8 @@
     };
 
     function controller($scope, user, company) {
-      user().then(resolveUser);
-      company().then(resolveCompany);
-
-      function resolveUser(userProfile) {
-        $scope.user = userProfile;
-      }
-
-      function resolveCompany(companyProfile) {
-        $scope.company = companyProfile;
-      }
+      $scope.user = user;
+      $scope.company = company;
     }
 
   }
@@ -200,41 +243,28 @@
     definitions;
 
   definitions = [
-    'ajaxService',
+    '$window',
+    'companyService',
+    'buyerService',
+    'supplierService',
     userService
   ];
 
   angular.module('pc.User')
     .factory('userService', definitions);
 
-  function userService(ajax) {
+  function userService($window) {
     var
-      deferredUser,
       user;
 
-    return init;
+    user = $window.pc.localData.user;
 
-    function init() {
-      if (!deferredUser) {
-        deferredUser = ajax.get('/views/api/user.json')
-          .then(resolveProfile);
-      }
-      return deferredUser;
+    user.inactiveMode = setInactiveMode();
+    user.toggleActiveMode = toggleActiveMode;
+    user.isBuyerMode = isBuyerMode;
+    user.isSupplierMode = isSupplierMode;
 
-      function resolveProfile(data) {
-        user = data;
-
-        if (user.activeMode === 'buyer') {
-          user.inactiveMode = 'supplier';
-        }
-        else if (user.activeMode === 'supplier') {
-          user.inactiveMode = 'buyer';
-        }
-
-        user.toggleActiveMode = toggleActiveMode;
-        return user;
-      }
-    }
+    return user;
 
     function toggleActiveMode() {
       var
@@ -243,6 +273,23 @@
 
       user.activeMode = inactive;
       user.inactiveMode = active;
+    }
+
+    function isBuyerMode() {
+      return user.activeMode === 'buyer';
+    }
+
+    function isSupplierMode() {
+      return user.activeMode === 'supplier';
+    }
+
+    function setInactiveMode() {
+      if (user.activeMode === 'buyer') {
+        return 'supplier';
+      }
+      else if (user.activeMode === 'supplier') {
+        return 'buyer';
+      }
     }
   }
 
@@ -307,11 +354,130 @@
     dependencies;
 
   dependencies = [
-    'pc.User'
+    'pc.User',
+    'pc.Company',
+    'pc.BuyerSupplier'
   ];
 
   angular.module('pc.Dashboard', dependencies);
 
+})(angular);
+
+// assets/javascripts/app/dashboard/action_items_service.js
+(function(angular) {
+
+  var
+    definitions;
+
+  definitions = [
+    'userService',
+    'companyService',
+    'buyerService',
+    'supplierService',
+    actionItemsService
+  ];
+
+  angular.module('pc.Dashboard')
+    .factory('actionItemsService', definitions);
+
+  function actionItemsService(user, company, buyer, supplier) {
+    return {
+      get: get,
+      activeMode: activeMode
+    };
+
+    function get() {
+      var
+        actionItems;
+
+      actionItems = [
+        {
+          action: 'Upload a user photo',
+          complete: !!user.image,
+          type: {
+            buyer: true,
+            supplier: true
+          },
+          link: 'user_account_settings'
+        },
+        {
+          action: 'Update your job title',
+          complete: !!user.jobTitle,
+          type: {
+            buyer: true,
+            supplier: true
+          },
+          link: 'user_account_settings'
+        },
+        {
+          action: 'Add your company website',
+          complete: !!company.website,
+          type: {
+            buyer: true,
+            supplier: true
+          },
+          link: 'edit_company_profile'
+        },
+        {
+          action: 'Add your company description',
+          complete: user.isBuyerMode() ? !!buyer.companyDescription : !!supplier.companyDescription,
+          type: {
+            buyer: true,
+            supplier: true
+          },
+          link: 'edit_company_profile'
+        },
+        {
+          action: 'Add your company\'s Statements of Responsibility',
+          complete: user.isBuyerMode() ?
+            !!(buyer.responsibilityStatements.environmentalSustainability && buyer.responsibilityStatements.qualitySourcing && buyer.responsibilityStatements.workplaceSafety && buyer.responsibilityStatements.laborEducationTraining && buyer.responsibilityStatements.reinvestment) :
+            !!(supplier.responsibilityStatements.environmentalSustainability && supplier.responsibilityStatements.qualitySourcing && supplier.responsibilityStatements.workplaceSafety && supplier.responsibilityStatements.laborEducationTraining && supplier.responsibilityStatements.reinvestment),
+          type: {
+            buyer: true,
+            supplier: true
+          },
+          link: 'edit_company_profile'
+        },
+        {
+          action: 'Add your preferred buyer type',
+          complete: !!supplier.tradePreferences.preferredBuyerType,
+          type: {
+            buyer: false,
+            supplier: true
+          },
+          link: 'edit_company_profile'
+        },
+        {
+          action: 'Add your preferred supplier type',
+          complete: !!buyer.tradePreferences.preferredSupplierType,
+          type: {
+            buyer: true,
+            supplier: false
+          },
+          link: 'edit_company_profile'
+        },
+        {
+          action: 'Add your products of interest',
+          complete: !!buyer.productCategories.length,
+          type: {
+            buyer: true,
+            supplier: false
+          },
+          link: 'edit_company_profile'
+        }
+      ];
+
+      return actionItems;
+    }
+
+    function activeMode() {
+      return filterActiveMode;
+
+      function filterActiveMode(actionItem) {
+        return actionItem.type[user.activeMode];
+      }
+    }
+  }
 })(angular);
 
 // assets/javascripts/app/dashboard/dashboard_controller.js
@@ -322,19 +488,23 @@
 
   definitions = [
     '$scope',
-    'user',
-    'company',
+    'userService',
+    'companyService',
+    'actionItemsService',
     dashboardController
   ];
 
   angular.module('pc.Dashboard')
     .controller('dashboardController', definitions);
 
-  function dashboardController($scope, user, company) {
+  function dashboardController($scope, user, company, actionItems) {
     $scope.user = user;
     $scope.user.createdYear = new Date($scope.user.createdAt).getFullYear();
 
     $scope.company = company;
+
+    $scope.actionItems = actionItems.get();
+    $scope.activeModeFilter = actionItems.activeMode;
   }
 
 })(angular);
@@ -620,31 +790,13 @@
     .config(definition);
 
   function statesConfig($stateProvider, $urlRouterProvider) {
-    var
-      user,
-      company;
-
-    user = [
-      'userService',
-      resolveUser
-    ];
-
-    company = [
-      'companyService',
-      resolveCompany
-    ];
-
     $urlRouterProvider.otherwise('/dashboard');
 
     $stateProvider
       .state('dashboard', {
         url: '/dashboard',
         templateUrl: 'dashboard.html',
-        controller: 'dashboardController',
-        resolve: {
-          user: user,
-          company: company
-        }
+        controller: 'dashboardController'
       })
       .state('user_account_settings', {
         url: '/user_account_settings',
@@ -711,14 +863,6 @@
         controller: 'photos'
       });
 
-    function resolveUser(user) {
-      return user();
-    }
-
-    function resolveCompany(company) {
-      return company();
-    }
-
   }
 
 
@@ -729,7 +873,7 @@ angular.module('pc.Templates', []).run(['$templateCache', function($templateCach
   'use strict';
 
   $templateCache.put('dashboard.html',
-    "<div class=\"row dashboard\"><div class=\"col-xs-4\"><div class=\"row user-profile\"><div class=\"col-xs-4\"><img ng-src=\"{{user.image}}\"></div><div class=\"col-xs-8\"><h4 class=\"text-muted profile-name\">{{user.firstName}} {{user.lastName}}</h4><h5 class=\"company-name\">{{company.name}}</h5><h6 class=\"member-since\">Procur member since {{user.createdYear}}</h6></div></div><div class=\"row\"><div class=\"col-xs-12 sub-nav\"><ul class=\"list-separator\"><li><a ui-sref=\"#\"><i class=\"glyphicon glyphicon-cog\"></i> Edit User Account Settings</a></li><li><a ui-sref=\"#\"><i class=\"glyphicon glyphicon-new-window\"></i> View My Company Profile</a></li></ul></div></div><div class=\"row\"><div class=\"col-xs-6 external-links\"><ul class=\"list-titled\"><li class=\"list-title\">Company</li><li><a href=\"https://procur.com/earlyaccess\">Early Access</a></li><li><a href=\"https://procur.com/features\">Upcoming Features</a></li><li><a href=\"https://procur.com/pricing\">Membership & Pricing</a></li><li><a href=\"https://procur.com/about\">About Procur</a></li></ul></div><div class=\"col-xs-6 external-links\"><ul class=\"list-titled\"><li class=\"list-title\">Help & Support</li><li><a href=\"https://procur.com/faq\">FAQ</a></li><li><a href=\"https://procur.com/contact\">Contact Us</a></li><li><a href=\"https://procur.com/support\">Support Topics</a></li><li><a href=\"mailto:support@procur.com\">Email Support</a></li></ul></div></div></div><div class=\"col-xs-5\"><div class=\"panel-content action-items\"><div class=\"panel-heading\"><h5>My Procur Action Items</h5></div><div class=\"panel-body\"><p class=\"lead\">Welcome to Procur Early Access!</p><p>We're inviting select users to register with Procur before opening up our full platform later this summer. During Early Access, account holders will be able to create company profiles, organize products and RFQs, and start engaging with our online community. When we launch our full platform, Early Access suppliers will be the first to connect with global retailers, resellers and distributors looking to fill sourcing requirements.</p><a href=\"https://procur.com/earlyaccess\" class=\"early-access\">Learn more about early access</a></div><div class=\"panel-footer\"></div></div></div><div class=\"col-xs-2\"></div></div>"
+    "<div class=\"row dashboard\"><div class=\"col-xs-4\"><div class=\"row user-profile\"><div class=\"col-xs-4\"><img ng-src=\"{{user.image}}\"></div><div class=\"col-xs-8\"><h4 class=\"text-muted profile-name\">{{user.firstName}} {{user.lastName}}</h4><h5 class=\"company-name\">{{company.name}}</h5><h6 class=\"member-since\">Procur member since {{user.createdYear}}</h6></div></div><div class=\"row\"><div class=\"col-xs-12 sub-nav\"><ul class=\"list-separator\"><li><a ui-sref=\"#\"><i class=\"glyphicon glyphicon-cog\"></i> Edit User Account Settings</a></li><li><a ui-sref=\"#\"><i class=\"glyphicon glyphicon-new-window\"></i> View My Company Profile</a></li></ul></div></div><div class=\"row\"><div class=\"col-xs-6 external-links\"><ul class=\"list-titled\"><li class=\"list-title\">Company</li><li><a href=\"https://procur.com/earlyaccess\">Early Access</a></li><li><a href=\"https://procur.com/features\">Upcoming Features</a></li><li><a href=\"https://procur.com/pricing\">Membership & Pricing</a></li><li><a href=\"https://procur.com/about\">About Procur</a></li></ul></div><div class=\"col-xs-6 external-links\"><ul class=\"list-titled\"><li class=\"list-title\">Help & Support</li><li><a href=\"https://procur.com/faq\">FAQ</a></li><li><a href=\"https://procur.com/contact\">Contact Us</a></li><li><a href=\"https://procur.com/support\">Support Topics</a></li><li><a href=\"mailto:support@procur.com\">Email Support</a></li></ul></div></div></div><div class=\"col-xs-5\"><div class=\"panel-content action-items\"><div class=\"panel-heading\"><h5>My Procur Action Items</h5></div><div class=\"panel-body\"><p class=\"lead\">Welcome to Procur Early Access!</p><p>We're inviting select users to register with Procur before opening up our full platform later this summer. During Early Access, account holders will be able to create company profiles, organize products and RFQs, and start engaging with our online community. When we launch our full platform, Early Access suppliers will be the first to connect with global retailers, resellers and distributors looking to fill sourcing requirements.</p><a href=\"https://procur.com/earlyaccess\" class=\"early-access\">Learn more about early access</a></div><div class=\"panel-footer\"><ul class=\"list-checklist\"><li ng-repeat=\"item in actionItems | filter:activeModeFilter()\" ng-class=\"{complete: item.complete, incomplete: !item.complete}\"><span ng-switch=\"item.complete\"><span ng-switch-when=\"false\"><a ui-sref=\"{{item.link}}\"><i class=\"glyphicon glyphicon-unchecked\"></i><h5>{{item.action}}</h5></a></span> <span ng-switch-when=\"true\"><i class=\"glyphicon glyphicon-check\"></i><h5>{{item.action}}</h5></span></span></li></ul></div></div></div><div class=\"col-xs-2\"></div></div>"
   );
 
 
@@ -809,8 +953,6 @@ angular.module('pc.Templates', []).run(['$templateCache', function($templateCach
   dependencies = [
     'pc.States',
     'pc.Templates',
-    'pc.User',
-    'pc.Company',
     'pc.Nav',
     'pc.Dashboard',
     'pc.UserAccountSettings',
