@@ -42,7 +42,15 @@ label {
   margin-bottom: 0.3125em;
 }
 
-input {
+.form-group label {
+  font-weight: 300;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  padding-top: 0px;
+  margin-top: 0px;
+  margin-bottom: 4px;
+}
+.form-group input {
   border: 0px none;
   margin: 7px 0px;
   width: 100%;
@@ -52,19 +60,12 @@ input {
   font-weight: 300;
 }
 
-.pcUpdateUserCompany {
-  font-family: "Roboto", sans-serif;
-}
-.pcUpdateUserCompany .main_row {
-  margin-left: 95px;
-}
-.pcUpdateUserCompany .headerRow {
+.form-panel .header-row {
   background-color: #333132;
   color: white;
 }
-.pcUpdateUserCompany .headerRow h4 {
+.form-panel .header-row h4 {
   padding: 20px;
-  font-family: 'Montserrat', sans-serif;
   font-weight: 300;
   font-size: 12px;
   letter-spacing: 0.06em;
@@ -74,40 +75,16 @@ input {
   margin-top: 0px;
   margin-bottom: 0px;
 }
-.pcUpdateUserCompany .updateForm {
+.form-panel .form-body {
   background-color: #edece7;
   padding: 20px;
 }
-.pcUpdateUserCompany .updateForm h5 {
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 300;
-  font-size: 11px;
-  letter-spacing: 0.06em;
-  padding-top: 0px;
-  margin-top: 0px;
-  margin-bottom: 4px;
-}
-.pcUpdateUserCompany .continueButton {
-  float: right;
-  background-color: white;
-  border: 0px none;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 12px;
-  top: 15px;
-  right: 15px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  margin-top: 10px;
-}
-.pcUpdateUserCompany .continueButton span {
-  color: #5cc56c;
-}
 
-.navPanel ul {
+.nav-panel ul {
   list-style-type: none;
   padding-left: 0px;
 }
-.navPanel .rightSecBox {
+.nav-panel .left-icon {
   float: left;
   height: 45px;
   width: 45px;
@@ -115,31 +92,30 @@ input {
   background-color: #F3F2F0;
   margin-right: 10px;
 }
-.navPanel a {
+.nav-panel a {
   line-height: 45px;
   height: 45px;
   display: block;
   background-color: #edece7;
   font-size: 10px;
   text-transform: uppercase;
-  font-family: 'Montserrat', sans-serif;
   letter-spacing: 0.06em;
 }
-.navPanel li {
+.nav-panel li {
   height: 45px;
 }
-.navPanel li:hover span, .navPanel .active span {
+.nav-panel li:hover span, .nav-panel .active span {
   color: white;
 }
-.navPanel li:hover .rightSecBox, .navPanel .active .rightSecBox {
+.nav-panel li:hover .left-icon, .nav-panel .active .left-icon {
   background-color: #ffc65c;
 }
-.navPanel li:hover a, .navPanel .active a {
+.nav-panel li:hover a, .nav-panel .active a {
   text-decoration: none;
   background-color: #feac00;
   color: white;
 }
-.navPanel span {
+.nav-panel span {
   line-height: 45px;
   color: #b3b3b3;
 }
@@ -272,6 +248,22 @@ input {
   padding-bottom: 10px;
   padding-top: 10px;
   font-weight: bold;
+}
+
+#user_account_settings .continue-button {
+  float: right;
+  background-color: white;
+  border: 0px none;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  top: 15px;
+  right: 15px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  margin-top: 10px;
+}
+#user_account_settings .continue-button span {
+  color: #5cc56c;
 }
 
 body {

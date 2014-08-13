@@ -1,0 +1,23 @@
+.form-panel {
+    //font-family: "Roboto", sans-serif;
+    .header-row {
+        background-color: $color-gray-alt-dark;
+        color: $color-white;
+        h4 {
+            padding: 20px;
+            //font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            font-size: 12px;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            background: $color-gray-alt-dark;
+            color: $color-white;
+            margin-top: 0px;
+            margin-bottom: 0px;
+        }
+    }
+    .form-body {
+        background-color: #edece7;
+        padding: 20px;
+    }
+}
