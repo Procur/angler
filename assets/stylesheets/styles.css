@@ -136,8 +136,7 @@ ol.list-checklist li .glyphicon,
 ul.list-checklist li .glyphicon {
   margin-right: 10px;
 }
-ol.list-checklist li span, ol.list-checklist li p, ol.list-checklist li a, ol.list-checklist li h1, ol.list-checklist li h2, ol.list-checklist li h3, ol.list-checklist li h4, ol.list-checklist li h5, ol.list-checklist li h6,
-ul.list-checklist li span,
+ol.list-checklist li p, ol.list-checklist li a, ol.list-checklist li h1, ol.list-checklist li h2, ol.list-checklist li h3, ol.list-checklist li h4, ol.list-checklist li h5, ol.list-checklist li h6,
 ul.list-checklist li p,
 ul.list-checklist li a,
 ul.list-checklist li h1,
@@ -154,8 +153,7 @@ ol.list-checklist li.complete .glyphicon,
 ul.list-checklist li.complete .glyphicon {
   color: #5cc672;
 }
-ol.list-checklist li.complete span, ol.list-checklist li.complete p, ol.list-checklist li.complete a, ol.list-checklist li.complete h1, ol.list-checklist li.complete h2, ol.list-checklist li.complete h3, ol.list-checklist li.complete h4, ol.list-checklist li.complete h5, ol.list-checklist li.complete h6,
-ul.list-checklist li.complete span,
+ol.list-checklist li.complete p, ol.list-checklist li.complete a, ol.list-checklist li.complete h1, ol.list-checklist li.complete h2, ol.list-checklist li.complete h3, ol.list-checklist li.complete h4, ol.list-checklist li.complete h5, ol.list-checklist li.complete h6,
 ul.list-checklist li.complete p,
 ul.list-checklist li.complete a,
 ul.list-checklist li.complete h1,
