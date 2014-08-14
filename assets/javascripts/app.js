@@ -423,48 +423,6 @@
 
 })(angular);
 
-// assets/javascripts/app/user/user_header_directive.js
-(function(angular) {
-
-  var
-    definitions;
-
-  definitions = [
-    userHeaderDirective
-  ];
-
-  angular.module('pc.User')
-    .directive('pcUserHeader', definitions);
-
-  function userHeaderDirective() {
-    var
-      definitions;
-
-    definitions = [
-      '$scope',
-      'userService',
-      'companyService',
-      controller
-    ];
-
-    return {
-      restrict: 'AC',
-      controller: definitions,
-      templateUrl: 'user_header.html',
-      scope: {}
-    };
-
-    function controller($scope, user, company) {
-      $scope.user = user;
-      $scope.company = company;
-    }
-
-
-
-  }
-
-})(angular);
-
 // assets/javascripts/app/user/user_service.js
 (function(angular) {
 
@@ -1070,15 +1028,32 @@
     $stateProvider
       .state('dashboard', {
         url: '/dashboard',
-        templateUrl: 'dashboard.html',
-        controller: 'dashboardController'
+        views: {
+          '': {
+            templateUrl: 'dashboard.html',
+            controller: 'dashboardController'
+          },
+          'header': {
+            templateUrl: 'public_view.html',
+            controller: 'myProcurController'
+          }
+        }
+
       })
 
       .state('user_account_settings', {
         url: '/user_account_settings',
-        templateUrl: 'user_account_settings.html',
-        controller: 'userAccountSettingsController',
-        abstract: true
+        views: {
+          '': {
+            templateUrl: 'user_account_settings.html',
+            controller: 'userAccountSettingsController',
+            abstract: true
+          },
+          'header': {
+            templateUrl: 'my_procur.html',
+            controller: 'myProcurController'
+          }
+        }
       })
       .state('user_account_settings.update_settings', {
         url: '/update_settings',
@@ -1093,9 +1068,18 @@
 
       .state('edit_company_profile', {
         url: '/edit_company_profile',
-        templateUrl: 'edit_company_profile.html',
-        controller: 'editCompanyProfileController',
-        abstract: true
+        views: {
+          '': {
+            templateUrl: 'edit_company_profile.html',
+            controller: 'editCompanyProfileController',
+            abstract: true
+          },
+          header: {
+            templateUrl: 'my_procur.html',
+            controller: 'myProcurController'
+          }
+        }
+
       })
       .state('edit_company_profile.company_details', {
         url: '/company_details',
@@ -1187,8 +1171,13 @@ angular.module('pc.Templates', []).run(['$templateCache', function($templateCach
   );
 
 
-  $templateCache.put('user_header.html',
+  $templateCache.put('my_procur.html',
     "<div class=\"user-header clearfix hidden-xs\"><ul class=\"user-header-left\"><li class=\"user-header-item\"><a ui-sref=\"dashboard\"><img src=\"/assets/images/procur.png\" class=\"procur-logo\"></a></li><li class=\"user-header-item\"><a href=\"https://procur.com/earlyaccess\" class=\"early-access\">Early Access</a></li><li class=\"user-header-item\"><p class=\"text-lowercase\">{{user.firstName}} {{user.lastName}}</p><p>·</p><p>{{company.name}}</p></li></ul><ul class=\"user-header-right\"><li class=\"user-header-item\" ng-if=\"company.buyer && company.supplier\"><button class=\"btn btn-link buyer-supplier-switch\" ng-click=\"user.toggleActiveMode()\">Currently in {{user.activeMode}} mode <span class=\"glyphicon glyphicon-transfer\"></span> Switch to {{user.inactiveMode}}</button></li><li class=\"user-header-item\"><a ui-sref=\"dashboard\"><span class=\"glyphicon glyphicon-log-out\"></span> Logout</a></li></ul></div><div id=\"mobile-nav\" class=\"mobile-header hidden-sm hidden-md hidden-lg\"><!-- Mobile --><nav class=\"navbar navbar-default\" role=\"navigation\"><div class=\"container\"><div class=\"navbar-header\"><button type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\"#nav-links\"><span class=\"sr-only\">Toggle navigation</span> <span class=\"icon-bar\"></span> <span class=\"icon-bar\"></span> <span class=\"icon-bar\"></span></button><div class=\"ea-logo\"><a class=\"logo-image logo-mobile\" id=\"mobile-fix\" href=\"/\"><img src=\"/assets/images/procur.png\"></a> <a href=\"https://procur.com/earlyaccess\" class=\"early-access logo-mobile\">Early Access</a></div></div><div class=\"collapse navbar-collapse\" id=\"nav-links\"><ul class=\"nav navbar-nav navbar-right\"><li pc-nav=\"fdf\"><a ui-sref=\"dashboard\">Dashboard</a></li><li pc-nav=\"dfd\"><a ui-sref=\"fdf\">View Company Profile</a></li><li pc-nav=\"gg\"><a ui-sref=\"edit_company_profile.company_details\">Edit Company Profile</a></li><li pc-nav=\"dfd\"><a ui-sref=\"user_account_settings.update_settings\">User Account Settings</a></li><li class=\"divider\"></li><li class=\"divider\"></li><li><a ui-sref=\"dashboard\">LOGOUT</a></li></ul></div></div></nav></div><nav class=\"navbar navbar-default hidden-xs\" role=\"navigation\"><div class=\"container-fluid\"><div id=\"dash-nav\" class=\"collapse navbar-collapse hidden-sm hidden-md hidden-lg\"><ul class=\"nav navbar-nav navbar-right\"><li pc-nav=\"dashboard\"><a ui-sref=\"dashboard\">Dashboard</a></li><li pc-nav=\"dfd\"><a ui-sref=\"fdf\">View Company Profile</a></li><li pc-nav=\"edit_company_profile\"><a ui-sref=\"edit_company_profile.company_details\">Edit Company Profile</a></li><li pc-nav=\"user_account_settings\"><a ui-sref=\"user_account_settings.update_settings\">User Account Settings</a></li></ul></div><div class=\"navbar-header\"><span class=\"navbar-brand\">My Procur:</span></div></div></nav>"
+  );
+
+
+  $templateCache.put('public_view.html',
+    "<div>This is my new header</div>"
   );
 
 
@@ -1219,11 +1208,47 @@ angular.module('pc.Templates', []).run(['$templateCache', function($templateCach
     'pc.States',
     'pc.Templates',
     'pc.Nav',
+    'pc.Header',
     'pc.Dashboard',
     'pc.UserAccountSettings',
     'pc.EditCompanyProfile'
   ];
 
   angular.module('pc.Main', dependencies);
+
+})(angular);
+
+// assets/javascripts/app/header/header_module.js
+(function(angular) {
+
+  var
+    dependencies;
+
+  dependencies = [];
+
+  angular.module('pc.Header', dependencies);
+
+})(angular);
+
+// assets/javascripts/app/header/my_procur_controller.js
+(function(angular) {
+
+  var
+    definitions;
+
+  definitions = [
+    '$scope',
+    'userService',
+    'companyService',
+    myProcurController
+  ];
+
+  angular.module('pc.Header')
+    .controller('myProcurController', definitions);
+
+  function myProcurController($scope, user, company) {
+    $scope.user = user;
+    $scope.company = company;
+  }
 
 })(angular);

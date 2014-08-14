@@ -18,15 +18,32 @@
     $stateProvider
       .state('dashboard', {
         url: '/dashboard',
-        templateUrl: 'dashboard.html',
-        controller: 'dashboardController'
+        views: {
+          '': {
+            templateUrl: 'dashboard.html',
+            controller: 'dashboardController'
+          },
+          'header': {
+            templateUrl: 'my_procur.html',
+            controller: 'myProcurController'
+          }
+        }
+
       })
 
       .state('user_account_settings', {
         url: '/user_account_settings',
-        templateUrl: 'user_account_settings.html',
-        controller: 'userAccountSettingsController',
-        abstract: true
+        views: {
+          '': {
+            templateUrl: 'user_account_settings.html',
+            controller: 'userAccountSettingsController',
+            abstract: true
+          },
+          'header': {
+            templateUrl: 'my_procur.html',
+            controller: 'myProcurController'
+          }
+        }
       })
       .state('user_account_settings.update_settings', {
         url: '/update_settings',
@@ -41,9 +58,18 @@
 
       .state('edit_company_profile', {
         url: '/edit_company_profile',
-        templateUrl: 'edit_company_profile.html',
-        controller: 'editCompanyProfileController',
-        abstract: true
+        views: {
+          '': {
+            templateUrl: 'edit_company_profile.html',
+            controller: 'editCompanyProfileController',
+            abstract: true
+          },
+          header: {
+            templateUrl: 'my_procur.html',
+            controller: 'myProcurController'
+          }
+        }
+
       })
       .state('edit_company_profile.company_details', {
         url: '/company_details',

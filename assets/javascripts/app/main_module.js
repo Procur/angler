@@ -7,6 +7,7 @@
     'pc.States',
     'pc.Templates',
     'pc.Nav',
+    'pc.Header',
     'pc.Dashboard',
     'pc.UserAccountSettings',
     'pc.EditCompanyProfile'
