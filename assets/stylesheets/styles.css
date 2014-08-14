@@ -525,6 +525,20 @@ ol.nav-panel li:nth-child(even).active a .left-icon {
   padding: 10px;
 }
 
+.edit-social-media .input-group {
+  background: #FFF;
+  width: 300px;
+}
+.edit-social-media .input-group-addon {
+  background: #FFF;
+  float: left;
+  border: none;
+}
+.edit-social-media input {
+  background: #FFF;
+  width: auto;
+}
+
 body {
   background-color: white;
 }
