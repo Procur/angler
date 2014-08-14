@@ -179,6 +179,33 @@ ul.list-titled li.list-title {
   color: #b3b3b3;
 }
 
+#mobile-nav {
+  position: relative;
+  height: 64px;
+  width: 100%;
+  background: white;
+  margin-bottom: 0px;
+  z-index: 99999;
+}
+#mobile-nav nav {
+  background-color: #EDECE8;
+}
+#mobile-nav .navbar-collapse {
+  background-color: #f8f8f8;
+}
+#mobile-nav .navbar-header {
+  float: none;
+  margin-left: 15px;
+}
+#mobile-nav .ea-logo {
+  position: relative;
+  top: 17px;
+  display: inline-block;
+}
+#mobile-nav #nav-links {
+  float: none;
+}
+
 .user-header {
   background-color: #eeece9;
   padding: 0;
@@ -246,19 +273,6 @@ ul.list-titled li.list-title {
   display: inline;
   margin-right: 6px;
   vertical-align: middle;
-}
-
-#mobile-dash-nav .navbar-header {
-  float: none;
-  margin-left: 15px;
-}
-#mobile-dash-nav .ea-logo {
-  position: relative;
-  top: 17px;
-  display: inline-block;
-}
-#mobile-dash-nav #nav-links {
-  float: none;
 }
 
 .navbar-default {

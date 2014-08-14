@@ -1,0 +1,26 @@
+#mobile-nav {
+  position: relative;
+  height: 64px;
+  width: 100%;
+  background: white;
+  margin-bottom: 0px;
+  z-index: 99999;
+  nav {
+    background-color: #EDECE8; //color of bar
+  }
+  .navbar-collapse {
+    background-color: #f8f8f8; //color of dropdown
+  }
+  .navbar-header {
+    float: none;
+    margin-left: 15px;
+  }
+  .ea-logo {
+    position: relative;
+    top: 17px;
+    display: inline-block;
+  }
+  #nav-links {
+    float: none;
+  }
+}
