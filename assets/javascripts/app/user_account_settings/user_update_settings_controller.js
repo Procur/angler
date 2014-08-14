@@ -15,8 +15,14 @@
 
   function userUpdateSettings($scope, ajax, FILE_EVENTS) {
 
-    $scope.$on(FILE_EVENTS.SELECTED, function(e, file) {
-      $scope.userProfile = file;
+    $scope.$on(FILE_EVENTS.SELECTED, function(e, file, dataUrl) {
+      $scope.userProfile = {
+        file: file,
+        base64Url: dataUrl
+      };
+
+      console.log($scope.userProfile);
+      $scope.$apply();
     });
 
     $scope.saveProfile = function() {

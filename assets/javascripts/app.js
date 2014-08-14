@@ -31,6 +31,7 @@
     moxieDefinition,
     fileInputDefinition,
     fileDropDefinition,
+    fileReaderDefinition,
     formDataDefinition,
     xhrDefinition;
 
@@ -49,6 +50,11 @@
     fileDrop
   ];
 
+  fileReaderDefinition = [
+    'moxie',
+    fileReader
+  ];
+
   formDataDefinition = [
     'moxie',
     formData
@@ -63,6 +69,7 @@
     .factory('moxie', moxieDefinition)
     .factory('FileInput', fileInputDefinition)
     .factory('FileDrop', fileDropDefinition)
+    .factory('FileReader', fileReaderDefinition)
     .factory('FormData', formDataDefinition)
     .factory('Xhr', xhrDefinition);
 
@@ -75,6 +82,7 @@
 
   function fileInput(moxie) { return moxie.FileInput; }
   function fileDrop(moxie) { return moxie.FileDrop; }
+  function fileReader(moxie) { return moxie.FileReader; }
   function formData(moxie) { return moxie.FormData; }
   function xhr(moxie) { return moxie.XMLHttpRequest; }
 
@@ -234,6 +242,7 @@
   defintitions = [
     '$document',
     'FileInput',
+    'FileReader',
     'FILE_EVENTS',
     pcImageUpload
   ];
@@ -241,7 +250,7 @@
   angular.module('pc.FileUpload')
     .directive('pcImageUpload', defintitions);
 
-  function pcImageUpload($document, FileInput, FILE_EVENTS) {
+  function pcImageUpload($document, FileInput, FileReader, FILE_EVENTS) {
     var
       file;
 
@@ -257,6 +266,7 @@
     function link(scope, elem, attrs) {
       var
         uploader,
+        reader,
         settings;
 
       settings = {
@@ -272,10 +282,11 @@
       };
 
       uploader = new FileInput(settings);
-
       uploader.bind('change', onChange);
-
       uploader.init();
+
+      reader = new FileReader();
+      reader.bind('loadend', onLoadEnd);
 
       function onChange(e) {
         if (!e.target.files.length) {
@@ -283,10 +294,12 @@
         }
 
         file = e.target.files[0];
-
-        scope.$emit(FILE_EVENTS.SELECTED, file);
-
+        reader.readAsDataURL(file);
         return true;
+      }
+
+      function onLoadEnd() {
+        scope.$emit(FILE_EVENTS.SELECTED, file, reader.result);
       }
     }
 
@@ -827,8 +840,14 @@
 
   function userUpdateSettings($scope, ajax, FILE_EVENTS) {
 
-    $scope.$on(FILE_EVENTS.SELECTED, function(e, file) {
-      $scope.userProfile = file;
+    $scope.$on(FILE_EVENTS.SELECTED, function(e, file, dataUrl) {
+      $scope.userProfile = {
+        file: file,
+        base64Url: dataUrl
+      };
+
+      console.log($scope.userProfile);
+      $scope.$apply();
     });
 
     $scope.saveProfile = function() {
@@ -1186,7 +1205,7 @@ angular.module('pc.Templates', []).run(['$templateCache', function($templateCach
 
 
   $templateCache.put('user_update_settings.html',
-    "<div class=\"col-sm-8\"><div class=\"panel-content\"><div class=\"panel-heading\"><h5>Contact Information</h5></div><div class=\"panel-body\"><form class=\"form\"><div class=\"row form-body\"><div class=\"col-md-6\"><div class=\"form-group\"><label for=\"firstName\">Contact Name*</label><input type=\"text\" id=\"firstName\" placeholder=\"First\" ng-model=\"user.firstName\"> <input type=\"text\" id=\"lastName\" placeholder=\"Last\" ng-model=\"user.lastName\"></div><div class=\"form-group\"><label for=\"emailAddress\">Current Email Address</label><input for=\"emailAddress\" type=\"email\" placeholder=\"Current Email\" ng-model=\"user.email\"></div><div class=\"form-group\"><label for=\"newEmailAddress\">Update Email Address</label><input id=\"newEmailAddress\" type=\"email\" placeholder=\"Enter New Address\"> <input type=\"email\" placeholder=\"Confirm New Address\"></div></div><div class=\"col-md-6\"><div class=\"form-group\"><label for=\"jobTitle\">Job Title</label><input id=\"jobTitle\" type=\"text\" placeholder=\"Job Title\" ng-model=\"user.jobTitle\"></div><div class=\"form-group\"><label>Update Profile Picture</label><button class=\"btn\" pc-image-upload>Upload Profile Picture</button></div></div></div></form></div></div><button class=\"continue-button\" type=\"button\" ng-click=\"saveProfile()\">Save <span class=\"glyphicon glyphicon-ok\"></span></button></div>"
+    "<div class=\"col-sm-8\"><div class=\"panel-content\"><div class=\"panel-heading\"><h5>Contact Information</h5></div><div class=\"panel-body\"><form class=\"form\"><div class=\"row form-body\"><div class=\"col-md-6\"><div class=\"form-group\"><label for=\"firstName\">Contact Name*</label><input type=\"text\" id=\"firstName\" placeholder=\"First\" ng-model=\"user.firstName\"> <input type=\"text\" id=\"lastName\" placeholder=\"Last\" ng-model=\"user.lastName\"></div><div class=\"form-group\"><label for=\"emailAddress\">Current Email Address</label><input for=\"emailAddress\" type=\"email\" placeholder=\"Current Email\" ng-model=\"user.email\"></div><div class=\"form-group\"><label for=\"newEmailAddress\">Update Email Address</label><input id=\"newEmailAddress\" type=\"email\" placeholder=\"Enter New Address\"> <input type=\"email\" placeholder=\"Confirm New Address\"></div></div><div class=\"col-md-6\"><div class=\"form-group\"><label for=\"jobTitle\">Job Title</label><input id=\"jobTitle\" type=\"text\" placeholder=\"Job Title\" ng-model=\"user.jobTitle\"></div><div class=\"form-group\"><label>Update Profile Picture</label><button class=\"btn\" pc-image-upload>Upload Profile Picture</button> <img ng-src=\"{{userProfile.base64Url}}\"></div></div></div></form></div></div><button class=\"continue-button\" type=\"button\" ng-click=\"saveProfile()\">Save <span class=\"glyphicon glyphicon-ok\"></span></button></div>"
   );
 
 }]);

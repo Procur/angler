@@ -6,6 +6,7 @@
   defintitions = [
     '$document',
     'FileInput',
+    'FileReader',
     'FILE_EVENTS',
     pcImageUpload
   ];
@@ -13,7 +14,7 @@
   angular.module('pc.FileUpload')
     .directive('pcImageUpload', defintitions);
 
-  function pcImageUpload($document, FileInput, FILE_EVENTS) {
+  function pcImageUpload($document, FileInput, FileReader, FILE_EVENTS) {
     var
       file;
 
@@ -29,6 +30,7 @@
     function link(scope, elem, attrs) {
       var
         uploader,
+        reader,
         settings;
 
       settings = {
@@ -44,10 +46,11 @@
       };
 
       uploader = new FileInput(settings);
-
       uploader.bind('change', onChange);
-
       uploader.init();
+
+      reader = new FileReader();
+      reader.bind('loadend', onLoadEnd);
 
       function onChange(e) {
         if (!e.target.files.length) {
@@ -55,10 +58,12 @@
         }
 
         file = e.target.files[0];
-
-        scope.$emit(FILE_EVENTS.SELECTED, file);
-
+        reader.readAsDataURL(file);
         return true;
+      }
+
+      function onLoadEnd() {
+        scope.$emit(FILE_EVENTS.SELECTED, file, reader.result);
       }
     }
 

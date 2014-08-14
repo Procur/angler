@@ -10,6 +10,7 @@
     moxieDefinition,
     fileInputDefinition,
     fileDropDefinition,
+    fileReaderDefinition,
     formDataDefinition,
     xhrDefinition;
 
@@ -28,6 +29,11 @@
     fileDrop
   ];
 
+  fileReaderDefinition = [
+    'moxie',
+    fileReader
+  ];
+
   formDataDefinition = [
     'moxie',
     formData
@@ -42,6 +48,7 @@
     .factory('moxie', moxieDefinition)
     .factory('FileInput', fileInputDefinition)
     .factory('FileDrop', fileDropDefinition)
+    .factory('FileReader', fileReaderDefinition)
     .factory('FormData', formDataDefinition)
     .factory('Xhr', xhrDefinition);
 
@@ -54,6 +61,7 @@
 
   function fileInput(moxie) { return moxie.FileInput; }
   function fileDrop(moxie) { return moxie.FileDrop; }
+  function fileReader(moxie) { return moxie.FileReader; }
   function formData(moxie) { return moxie.FormData; }
   function xhr(moxie) { return moxie.XMLHttpRequest; }
 
