@@ -4,32 +4,20 @@
     definitions;
 
   definitions = [
-    'ajaxService',
+    '$window',
     companyService
   ];
 
   angular.module('pc.Company')
     .factory('companyService', definitions);
 
-  function companyService(ajax) {
+  function companyService($window) {
     var
-      deferredCompany,
       company;
 
-    return init;
+    company = $window.pc.localData.company;
 
-    function init() {
-      if (!deferredCompany) {
-        deferredCompany = ajax.get('/views/api/company.json')
-          .then(resolveCompany);
-      }
-      return deferredCompany;
-
-      function resolveCompany(data) {
-        company = data;
-        return company;
-      }
-    }
+    return company;
   }
 
 })(angular);

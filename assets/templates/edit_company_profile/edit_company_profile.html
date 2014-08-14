@@ -1,60 +1,64 @@
-<div>
 
-  <div class="row main-row">
-    <div class="col-sm-4 nav-panel">
-      <ul>
-        <li pc-nav="company_details">
+<div class="row main-row">
+  <div class="col-sm-4">
+    <ul class="nav-panel">
+      <li pc-nav="company_details">
+        <a ui-sref="edit_company_profile.company_details">
           <div class="left-icon">
-            <span class="glyphicon glyphicon-cog"></span>
+            <i class="glyphicon glyphicon-user"></i>
           </div>
-          <a ui-sref="edit_company_profile.company_details">Company Details</a>
-        </li>
-
-        <li pc-nav="company_information">
+          <h6>Company Details</h6>
+        </a>
+      </li>
+      <li pc-nav="company_information">
+        <a ui-sref="edit_company_profile.company_information">
           <div class="left-icon">
-            <span class="glyphicon glyphicon-cog"></span>
+            <i class="glyphicon glyphicon-info-sign"></i>
           </div>
-          <a ui-sref="edit_company_profile.company_information">[activeMode] Information</a>
-        </li>
-
-        <li pc-nav="production_details">
+          <h6>[activeMode] Information</h6>
+        </a>
+      </li>
+      <li pc-nav="production_details">
+        <a ui-sref="edit_company_profile.production_details">
           <div class="left-icon">
-            <span class="glyphicon glyphicon-cog"></span>
+            <i class="glyphicon glyphicon-wrench"></i>
           </div>
-          <a ui-sref="edit_company_profile.production_details">Production Details</a>
-        </li>
-
-        <li pc-nav="descriptions">
+          <h6>Production Details</h6>
+        </a>
+      </li>
+      <li pc-nav="descriptions">
+        <a ui-sref="edit_company_profile.descriptions">
           <div class="left-icon">
-            <span class="glyphicon glyphicon-cog"></span>
+            <i class="glyphicon glyphicon-list-alt"></i>
           </div>
-          <a ui-sref="edit_company_profile.descriptions">Descriptions</a>
-        </li>
-
-        <li pc-nav="preferences">
+          <h6>Descriptions</h6>
+        </a>
+      </li>
+      <li pc-nav="preferences">
+        <a ui-sref="edit_company_profile.preferences">
           <div class="left-icon">
-            <span class="glyphicon glyphicon-cog"></span>
+            <i class="glyphicon glyphicon-cog"></i>
           </div>
-          <a ui-sref="edit_company_profile.preferences">Preferences</a>
-        </li>
-
-        <li pc-nav="social_media">
+          <h6>Preferences</h6>
+        </a>
+      </li>
+      <li pc-nav="social_media">
+        <a ui-sref="edit_company_profile.social_media">
           <div class="left-icon">
-            <span class="glyphicon glyphicon-cog"></span>
+            <i class="glyphicon glyphicon-thumbs-up"></i>
           </div>
-          <a ui-sref="edit_company_profile.social_media">Social Media</a>
-        </li>
-
-        <li pc-nav="photos">
+          <h6>Social Media</h6>
+        </a>
+      </li>
+      <li pc-nav="photos">
+        <a ui-sref="edit_company_profile.photos">
           <div class="left-icon">
-            <span class="glyphicon glyphicon-cog"></span>
+            <i class="glyphicon glyphicon-picture"></i>
           </div>
-          <a ui-sref="edit_company_profile.photos">Photos</a>
-        </li>
-      </ul>
-    </div>
-
-    <div ui-view=""></div>
+          <h6>[activeMode] Photos</h6>
+        </a>
+      </li>
+    </ul>
   </div>
-
+  <div ui-view></div>
 </div>

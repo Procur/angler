@@ -4,7 +4,7 @@
     dependencies;
 
   dependencies = [
-    'pc.Ajax'
+
   ];
 
   angular.module('pc.Company', dependencies);

@@ -23,14 +23,14 @@
     <li class="user-header-item" ng-if="company.buyer && company.supplier" >
       <button class="btn btn-link buyer-supplier-switch" ng-click="user.toggleActiveMode()">
         Currently in {{user.activeMode}} mode
-        <i class="glyphicon glyphicon-transfer"></i>
+        <span class="glyphicon glyphicon-transfer"></span>
         Switch to {{user.inactiveMode}}
       </button>
     </li>
 
     <li class="user-header-item">
       <a ui-sref="dashboard">
-        <i class="glyphicon glyphicon-log-out"></i>
+        <span class="glyphicon glyphicon-log-out"></span>
         Logout
       </a>
     </li>

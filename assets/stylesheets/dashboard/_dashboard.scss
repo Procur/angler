@@ -10,7 +10,7 @@
       padding-bottom: 8px;
       border-bottom: 1px dotted lighten($color-gray-alt-light, 12%);
       margin-bottom: 8px;
-      font-weight: 600;
+      font-weight: 400;
     }
 
     .text-muted {
@@ -36,7 +36,7 @@
 
   .sub-nav {
     .list-separator {
-      i {
+      .glyphicon {
         margin-right: 5px;
       }
     }
@@ -85,5 +85,31 @@
         }
       }
     }
+
+    .panel-footer {
+      .list-checklist {
+        padding: 0;
+        margin: 0;
+
+        li, a {
+          font-weight: bold;
+        }
+
+        a:hover, a:focus, a:active {
+          h5 {
+            color: $color-orange-primary;
+          }
+        }
+      }
+    }
+  }
+
+  .features-heading {
+    padding-top: 0;
+    margin-top: 0;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 11px;
+
   }
 }

@@ -4,7 +4,9 @@
     dependencies;
 
   dependencies = [
-    'pc.User'
+    'pc.User',
+    'pc.Company',
+    'pc.BuyerSupplier'
   ];
 
   angular.module('pc.Dashboard', dependencies);

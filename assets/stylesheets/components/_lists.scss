@@ -26,3 +26,42 @@ ul.list-titled   {
     border-bottom: 3px solid lighten($color-gray-alt-light, 12%);
   }
 }
+
+ol.list-checklist,
+ul.list-checklist {
+  list-style: none;
+  padding: 15px 0;
+
+  li {
+    padding: 0;
+    padding-bottom: 10px;
+
+    .glyphicon {
+      margin-right: 10px;
+    }
+
+    span, p, a, h1, h2, h3, h4, h5, h6 {
+        display: inline-block;
+        padding: 0;
+        margin: 0;
+      }
+
+    &.complete {
+      .glyphicon {
+        color: $color-green-primary;
+      }
+
+      span, p, a, h1, h2, h3, h4, h5, h6 {
+        text-decoration: line-through;
+        color: $color-gray-light;
+      }
+    }
+
+    &.incomplete {
+      .glyphicon {
+        color: $color-gray-light;
+      }
+    }
+
+  }
+}

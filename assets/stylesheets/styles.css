@@ -34,7 +34,7 @@ a:hover i, a:active i, a:focus i, .btn-link:hover i, .btn-link:active i, .btn-li
 
 h1, h2, h3, h4, h5, h6 {
   line-height: 1.2;
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Montserrat', sans-serif;
   margin-bottom: 1em;
   padding-top: 1em;
   word-wrap: break-word;
@@ -72,6 +72,7 @@ label {
   background-color: #333132;
   color: white;
   padding: 20px;
+  border-radius: 0;
 }
 .panel-content .panel-heading h1, .panel-content .panel-heading h2, .panel-content .panel-heading h3, .panel-content .panel-heading h4, .panel-content .panel-heading h5, .panel-content .panel-heading h6 {
   padding: 0;
@@ -83,11 +84,13 @@ label {
 .panel-content .panel-body {
   background-color: #f5f4f2;
   padding: 20px;
+  border-radius: 0;
 }
 .panel-content .panel-footer {
   background-color: #eeece9;
   padding: 20px;
   border: none;
+  border-radius: 0;
 }
 
 ol.list-separator,
@@ -119,64 +122,164 @@ ul.list-titled li.list-title {
   border-bottom: 3px solid #e2e2e2;
 }
 
-.form-panel .header-row {
-  background-color: #333132;
-  color: white;
+ol.list-checklist,
+ul.list-checklist {
+  list-style: none;
+  padding: 15px 0;
 }
-.form-panel .header-row h4 {
-  padding: 20px;
-  font-weight: 300;
-  font-size: 12px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  background: #333132;
-  color: white;
-  margin-top: 0px;
-  margin-bottom: 0px;
+ol.list-checklist li,
+ul.list-checklist li {
+  padding: 0;
+  padding-bottom: 10px;
 }
-.form-panel .form-body {
-  background-color: #edece7;
-  padding: 20px;
+ol.list-checklist li .glyphicon,
+ul.list-checklist li .glyphicon {
+  margin-right: 10px;
+}
+ol.list-checklist li span, ol.list-checklist li p, ol.list-checklist li a, ol.list-checklist li h1, ol.list-checklist li h2, ol.list-checklist li h3, ol.list-checklist li h4, ol.list-checklist li h5, ol.list-checklist li h6,
+ul.list-checklist li span,
+ul.list-checklist li p,
+ul.list-checklist li a,
+ul.list-checklist li h1,
+ul.list-checklist li h2,
+ul.list-checklist li h3,
+ul.list-checklist li h4,
+ul.list-checklist li h5,
+ul.list-checklist li h6 {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
+ol.list-checklist li.complete .glyphicon,
+ul.list-checklist li.complete .glyphicon {
+  color: #5cc672;
+}
+ol.list-checklist li.complete span, ol.list-checklist li.complete p, ol.list-checklist li.complete a, ol.list-checklist li.complete h1, ol.list-checklist li.complete h2, ol.list-checklist li.complete h3, ol.list-checklist li.complete h4, ol.list-checklist li.complete h5, ol.list-checklist li.complete h6,
+ul.list-checklist li.complete span,
+ul.list-checklist li.complete p,
+ul.list-checklist li.complete a,
+ul.list-checklist li.complete h1,
+ul.list-checklist li.complete h2,
+ul.list-checklist li.complete h3,
+ul.list-checklist li.complete h4,
+ul.list-checklist li.complete h5,
+ul.list-checklist li.complete h6 {
+  text-decoration: line-through;
+  color: #7f7f7f;
+}
+ol.list-checklist li.incomplete .glyphicon,
+ul.list-checklist li.incomplete .glyphicon {
+  color: #7f7f7f;
 }
 
-.nav-panel ul {
+ul.nav-panel,
+ol.nav-panel {
   list-style-type: none;
   padding-left: 0px;
+  margin-bottom: 20px;
 }
-.nav-panel .left-icon {
+ul.nav-panel li,
+ol.nav-panel li {
+  height: 45px;
+  background-color: #eeece9;
+  -webkit-transition: background-color 200ms ease-in-out;
+  -moz-transition: background-color 200ms ease-in-out;
+  -ms-transition: background-color 200ms ease-in-out;
+  -o-transition: background-color 200ms ease-in-out;
+  transition: background-color 200ms ease-in-out;
+}
+ul.nav-panel li a .left-icon,
+ol.nav-panel li a .left-icon {
   float: left;
   height: 45px;
   width: 45px;
   text-align: center;
-  background-color: #F3F2F0;
-  margin-right: 10px;
+  background-color: #f5f4f2;
+  margin-right: 15px;
+  -webkit-transition: background-color 200ms ease-in-out;
+  -moz-transition: background-color 200ms ease-in-out;
+  -ms-transition: background-color 200ms ease-in-out;
+  -o-transition: background-color 200ms ease-in-out;
+  transition: background-color 200ms ease-in-out;
 }
-.nav-panel a {
+ul.nav-panel li a .left-icon .glyphicon,
+ol.nav-panel li a .left-icon .glyphicon {
   line-height: 45px;
-  height: 45px;
-  display: block;
-  background-color: #edece7;
-  font-size: 10px;
+  color: #c3c3c3;
+  -webkit-transition: color 200ms ease-in-out;
+  -moz-transition: color 200ms ease-in-out;
+  -ms-transition: color 200ms ease-in-out;
+  -o-transition: color 200ms ease-in-out;
+  transition: color 200ms ease-in-out;
+}
+ul.nav-panel li h1, ul.nav-panel li h2, ul.nav-panel li h3, ul.nav-panel li h4, ul.nav-panel li h5, ul.nav-panel li h6,
+ol.nav-panel li h1,
+ol.nav-panel li h2,
+ol.nav-panel li h3,
+ol.nav-panel li h4,
+ol.nav-panel li h5,
+ol.nav-panel li h6 {
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  font-size: 11px;
+  line-height: 1;
+  margin: 0;
+  padding: 17px 0;
+  color: #0a0a0a;
+  -webkit-transition: color 200ms ease-in-out;
+  -moz-transition: color 200ms ease-in-out;
+  -ms-transition: color 200ms ease-in-out;
+  -o-transition: color 200ms ease-in-out;
+  transition: color 200ms ease-in-out;
 }
-.nav-panel li {
-  height: 45px;
-}
-.nav-panel li:hover span, .nav-panel .active span {
+ul.nav-panel li:hover, ul.nav-panel li.active,
+ol.nav-panel li:hover,
+ol.nav-panel li.active {
   color: white;
-}
-.nav-panel li:hover .left-icon, .nav-panel .active .left-icon {
-  background-color: #ffc65c;
-}
-.nav-panel li:hover a, .nav-panel .active a {
   text-decoration: none;
   background-color: #feac00;
+}
+ul.nav-panel li:hover a .left-icon, ul.nav-panel li.active a .left-icon,
+ol.nav-panel li:hover a .left-icon,
+ol.nav-panel li.active a .left-icon {
+  background-color: #ffcd65;
+}
+ul.nav-panel li:hover a .left-icon .glyphicon, ul.nav-panel li.active a .left-icon .glyphicon,
+ol.nav-panel li:hover a .left-icon .glyphicon,
+ol.nav-panel li.active a .left-icon .glyphicon {
   color: white;
 }
-.nav-panel span {
-  line-height: 45px;
-  color: #b3b3b3;
+ul.nav-panel li:hover h1, ul.nav-panel li:hover h2, ul.nav-panel li:hover h3, ul.nav-panel li:hover h4, ul.nav-panel li:hover h5, ul.nav-panel li:hover h6, ul.nav-panel li.active h1, ul.nav-panel li.active h2, ul.nav-panel li.active h3, ul.nav-panel li.active h4, ul.nav-panel li.active h5, ul.nav-panel li.active h6,
+ol.nav-panel li:hover h1,
+ol.nav-panel li:hover h2,
+ol.nav-panel li:hover h3,
+ol.nav-panel li:hover h4,
+ol.nav-panel li:hover h5,
+ol.nav-panel li:hover h6,
+ol.nav-panel li.active h1,
+ol.nav-panel li.active h2,
+ol.nav-panel li.active h3,
+ol.nav-panel li.active h4,
+ol.nav-panel li.active h5,
+ol.nav-panel li.active h6 {
+  color: white;
+}
+ul.nav-panel li:nth-child(even),
+ol.nav-panel li:nth-child(even) {
+  background-color: #f5f3f2;
+}
+ul.nav-panel li:nth-child(even) a .left-icon,
+ol.nav-panel li:nth-child(even) a .left-icon {
+  background-color: #f9f9f8;
+}
+ul.nav-panel li:nth-child(even):hover, ul.nav-panel li:nth-child(even).active,
+ol.nav-panel li:nth-child(even):hover,
+ol.nav-panel li:nth-child(even).active {
+  background-color: #feac00;
+}
+ul.nav-panel li:nth-child(even):hover a .left-icon, ul.nav-panel li:nth-child(even).active a .left-icon,
+ol.nav-panel li:nth-child(even):hover a .left-icon,
+ol.nav-panel li:nth-child(even).active a .left-icon {
+  background-color: #ffcd65;
 }
 
 #mobile-nav {
@@ -204,6 +307,23 @@ ul.list-titled li.list-title {
 }
 #mobile-nav #nav-links {
   float: none;
+}
+
+.continue-button {
+  float: right;
+  background-color: white;
+  border: 0px none;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  top: 15px;
+  right: 15px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  margin-top: 10px;
+}
+.continue-button .glyphicon {
+  color: #5cc56c;
+  margin-left: 10px;
 }
 
 .user-header {
@@ -241,7 +361,7 @@ ul.list-titled li.list-title {
   text-transform: uppercase;
   font-weight: bold;
 }
-.user-header .user-header-right .user-header-item .buyer-supplier-switch:hover i {
+.user-header .user-header-right .user-header-item .buyer-supplier-switch:hover .glyphicon {
   color: #5cc672;
 }
 .user-header .user-header-item {
@@ -260,13 +380,13 @@ ul.list-titled li.list-title {
   color: #5c5c5c;
   padding: 0;
 }
-.user-header .user-header-item a i, .user-header .user-header-item .btn-link i {
+.user-header .user-header-item a .glyphicon, .user-header .user-header-item .btn-link .glyphicon {
   color: #5c5c5c;
 }
 .user-header .user-header-item a:hover, .user-header .user-header-item a:active, .user-header .user-header-item a:focus, .user-header .user-header-item .btn-link:hover, .user-header .user-header-item .btn-link:active, .user-header .user-header-item .btn-link:focus {
   color: #feac00;
 }
-.user-header .user-header-item a:hover i, .user-header .user-header-item a:active i, .user-header .user-header-item a:focus i, .user-header .user-header-item .btn-link:hover i, .user-header .user-header-item .btn-link:active i, .user-header .user-header-item .btn-link:focus i {
+.user-header .user-header-item a:hover .glyphicon, .user-header .user-header-item a:active .glyphicon, .user-header .user-header-item a:focus .glyphicon, .user-header .user-header-item .btn-link:hover .glyphicon, .user-header .user-header-item .btn-link:active .glyphicon, .user-header .user-header-item .btn-link:focus .glyphicon {
   color: #feac00;
 }
 .user-header .user-header-item p {
@@ -318,7 +438,7 @@ ul.list-titled li.list-title {
   padding-bottom: 8px;
   border-bottom: 1px dotted #e2e2e2;
   margin-bottom: 8px;
-  font-weight: 600;
+  font-weight: 400;
 }
 .dashboard .user-profile .text-muted {
   color: #7f7f7f;
@@ -336,7 +456,7 @@ ul.list-titled li.list-title {
   margin-top: 8px;
   font-weight: 600;
 }
-.dashboard .sub-nav .list-separator i {
+.dashboard .sub-nav .list-separator .glyphicon {
   margin-right: 5px;
 }
 .dashboard .external-links .list-titled .list-title {
@@ -368,21 +488,22 @@ ul.list-titled li.list-title {
 .dashboard .action-items .panel-body a.early-access:focus, .dashboard .action-items .panel-body a.early-access:hover, .dashboard .action-items .panel-body a.early-access:active {
   text-decoration: underline;
 }
-
-#user_account_settings .continue-button {
-  float: right;
-  background-color: white;
-  border: 0px none;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 12px;
-  top: 15px;
-  right: 15px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  margin-top: 10px;
+.dashboard .action-items .panel-footer .list-checklist {
+  padding: 0;
+  margin: 0;
 }
-#user_account_settings .continue-button span {
-  color: #5cc56c;
+.dashboard .action-items .panel-footer .list-checklist li, .dashboard .action-items .panel-footer .list-checklist a {
+  font-weight: bold;
+}
+.dashboard .action-items .panel-footer .list-checklist a:hover h5, .dashboard .action-items .panel-footer .list-checklist a:focus h5, .dashboard .action-items .panel-footer .list-checklist a:active h5 {
+  color: #feac00;
+}
+.dashboard .features-heading {
+  padding-top: 0;
+  margin-top: 0;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 11px;
 }
 
 body {

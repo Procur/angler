@@ -5,14 +5,14 @@
 
   definitions = [
     '$scope',
-    photos
+    preferencesController
   ];
 
   angular.module('pc.EditCompanyProfile')
-    .controller('photos', definitions);
+    .controller('preferencesController', definitions);
 
-  function photos($scope) {
-    
+  function preferencesController($scope) {
+
   }
 
 })(angular);

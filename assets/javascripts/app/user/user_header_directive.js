@@ -29,16 +29,8 @@
     };
 
     function controller($scope, user, company) {
-      user().then(resolveUser);
-      company().then(resolveCompany);
-
-      function resolveUser(userProfile) {
-        $scope.user = userProfile;
-      }
-
-      function resolveCompany(companyProfile) {
-        $scope.company = companyProfile;
-      }
+      $scope.user = user;
+      $scope.company = company;
     }
 
   }

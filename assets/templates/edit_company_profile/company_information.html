@@ -1,154 +1,164 @@
-<div class="col-sm-8 form-panel">
-  <form class="form">
-    <div class="row header-row">
-      <h4>[activeMode] Information</h4>
+
+<div class="col-sm-8">
+  <div class="panel-content">
+    <div class="panel-heading">
+      <h5>[activeMode] Information</h5>
     </div>
-    <div class="row form-body">
+    <div class="panel-body">
+      <form class="form">
+        <div class="row form-body">
 
-      <div class="col-md-6">
-        <div class="form-group">
-          <label for="">Logo Image</label>
-          <img ng-src="http://res.cloudinary.com/huewqecyr/image/upload/v1404414400/dhemkcar246mvbm8wmcs.jpg">
-          <input type="file">
-          <input type="submit" value="Update Logo Image">
-        </div>
-
-        <div class="form-group">
-          <label for="">Type of Company</label>
-          <input type="text" placeholder="City" value=""><!-- change to dropdown -->
-        </div>
-
-        <div class="form-group">
-          <label for="">Contact Name</label>
-          <input type="text" id="" placeholder="Contact Name" value="">
-        </div>
-
-        <div class="form-group">
-          <label for="">Contact Position</label>
-          <input type="text" id="" placeholder="Contact Position" value="">
-        </div>
-
-        <div class="form-group">
-          <label for="">Contact Email</label>
-          <input type="text" id="" placeholder="Contact Email" value="">
-        </div>
-
-        <div class="form-group"><!-- SUPPLIER ONLY -->
-          <label for="">Private Labeler</label>
-          <input type="checkbox" id="" placeholder="Private Labeler" value=""><span>Private labeling</span>
-        </div>
-
-        <div class="form-group"><!-- SUPPLIER ONLY -->
-          <label for="">GSA Approved Supplier</label>
-          <input type="checkbox" id="" placeholder="GSA Approved Supplier" value=""><span>GSA Approved Supplier</span>
-        </div>
-
-        <div class="form-group">
-          <label for="">DUNS Number</label>
-          <input type="text" id="" placeholder="DUNS Number" value="">
-        </div>
-
-        <div class="form-group"><!-- SUPPLIER ONLY -->
-          <label for="">CAGE Code</label>
-          <input type="text" id="" placeholder="CAGE Code" value="">
-        </div>
-
-        <div class="form-group"><!-- BUYER ONLY -->
-          <label for="">Secondary Location</label>
-          <input type="text" placeholder="Location Title" value="">
-          <input type="text" placeholder="Select Location Type" value=""><!-- change to dropdown -->
-          <input type="text" placeholder="Select Country" value=""><!-- change to dropdown -->
-          <input type="text" placeholder="Select Province/State" value=""><!-- change to dropdown -->
-          <input type="text" placeholder="City" value="">
-        </div>
-
-        <div class="form-group"><!-- BUYER ONLY -->
-          <label for="">Nearest Port</label>
-          <input type="text" placeholder="City" value="">
-          <input type="text" placeholder="Select Country" value=""><!-- change to dropdown -->
-          <input type="text" placeholder="Select Province/State" value=""><!-- change to dropdown -->
-        </div>
-      </div>
-
-      <div class="col-md-6">
-        <div class="form-group">
-          <label for="">DBA Name</label>
-          <input type="text" placeholder="Alternate Company Name" value="">
-        </div>
-
-        <div class="form-group">
-          <label for="">Language*</label>
-          <input type="text" placeholder="Select Language" value=""><!-- change to dropdown -->
-        </div>
-
-        <div class="form-group">
-          <label for="">Accepted Currencies*</label>
           <div class="col-md-6">
-            <input type="checkbox"><span>USD</span>
-            <input type="checkbox"><span>JPY</span>
-            <input type="checkbox"><span>AUD</span>
-            <input type="checkbox"><span>CAD</span>
-            <input type="checkbox"><span>CNY</span>
-            <input type="checkbox"><span>SEK</span>
-            <input type="checkbox"><span>HKD</span>
-          </div>
-          <div class="col-md-6">
-            <input type="checkbox"><span>EUR</span>
-            <input type="checkbox"><span>GBP</span>
-            <input type="checkbox"><span>CHF</span>
-            <input type="checkbox"><span>MXN</span>
-            <input type="checkbox"><span>NZD</span>
-            <input type="checkbox"><span>RUB</span>
-            <input type="checkbox"><span>SGD</span>
-          </div>
-        </div>
+            <div class="form-group">
+              <label for="">Logo Image</label>
+              <img ng-src="http://res.cloudinary.com/huewqecyr/image/upload/v1404414400/dhemkcar246mvbm8wmcs.jpg">
+              <input type="file">
+              <input type="submit" value="Update Logo Image">
+            </div>
 
-        <div class="form-group">
-          <label for="">Accepted Payment Terms*</label>
-          <div class="col-md-6">
-            <input type="checkbox"><span>MoneyGram</span>
-            <input type="checkbox"><span>T/T</span>
-            <input type="checkbox"><span>Escrow</span>
-            <input type="checkbox"><span>D/P D/A</span>
-          </div>
-          <div class="col-md-6">
-            <input type="checkbox"><span>Western Union</span>
-            <input type="checkbox"><span>Credit Card</span>
-            <input type="checkbox"><span>PayPal</span>
-            <input type="checkbox"><span>Cash</span>
-          </div>
-        </div>
+            <div class="form-group">
+              <label for="">Type of Company</label>
+              <input type="text" placeholder="City" value=""><!-- change to dropdown -->
+            </div>
 
-        <div class="form-group">
-          <label for="">Accepted Delivery Terms</label>
-          <div class="col-md-6">
-            <input type="checkbox"><span>EXW</span>
-            <input type="checkbox"><span>CPT</span>
-            <input type="checkbox"><span>DAT</span>
-            <input type="checkbox"><span>DDP</span>
-            <input type="checkbox"><span>FOB</span>
-            <input type="checkbox"><span>CIF</span>
-          </div>
-          <div class="col-md-6">
-            <input type="checkbox"><span>FCA</span>
-            <input type="checkbox"><span>CIP</span>
-            <input type="checkbox"><span>DAP</span>
-            <input type="checkbox"><span>FAS</span>
-            <input type="checkbox"><span>CFR</span>
-            <input type="checkbox"><span>Custom</span>
-          </div>
-        </div>
-      </div>
+            <div class="form-group">
+              <label for="">Contact Name</label>
+              <input type="text" id="" placeholder="Contact Name" value="">
+            </div>
 
-      <div class="col-md-12">
-        <div class="form-group">
-          <label for="">Enter Product Categories of Interest</label>
-          <input type="text" placeholder="Begin typing to search categories..." value=""><!-- change to dropdown -->
-          <input type="text" placeholder="Begin typing to search categories..." value=""><!-- change to dropdown -->
-          <input type="text" placeholder="Begin typing to search categories..." value=""><!-- change to dropdown -->
-        </div>
-      </div>
+            <div class="form-group">
+              <label for="">Contact Position</label>
+              <input type="text" id="" placeholder="Contact Position" value="">
+            </div>
 
+            <div class="form-group">
+              <label for="">Contact Email</label>
+              <input type="text" id="" placeholder="Contact Email" value="">
+            </div>
+
+            <div class="form-group"><!-- SUPPLIER ONLY -->
+              <label for="">Private Labeler</label>
+              <input type="checkbox" id="" placeholder="Private Labeler" value=""><span>Private labeling</span>
+            </div>
+
+            <div class="form-group"><!-- SUPPLIER ONLY -->
+              <label for="">GSA Approved Supplier</label>
+              <input type="checkbox" id="" placeholder="GSA Approved Supplier" value=""><span>GSA Approved Supplier</span>
+            </div>
+
+            <div class="form-group">
+              <label for="">DUNS Number</label>
+              <input type="text" id="" placeholder="DUNS Number" value="">
+            </div>
+
+            <div class="form-group"><!-- SUPPLIER ONLY -->
+              <label for="">CAGE Code</label>
+              <input type="text" id="" placeholder="CAGE Code" value="">
+            </div>
+
+            <div class="form-group"><!-- BUYER ONLY -->
+              <label for="">Secondary Location</label>
+              <input type="text" placeholder="Location Title" value="">
+              <input type="text" placeholder="Select Location Type" value=""><!-- change to dropdown -->
+              <input type="text" placeholder="Select Country" value=""><!-- change to dropdown -->
+              <input type="text" placeholder="Select Province/State" value=""><!-- change to dropdown -->
+              <input type="text" placeholder="City" value="">
+            </div>
+
+            <div class="form-group"><!-- BUYER ONLY -->
+              <label for="">Nearest Port</label>
+              <input type="text" placeholder="City" value="">
+              <input type="text" placeholder="Select Country" value=""><!-- change to dropdown -->
+              <input type="text" placeholder="Select Province/State" value=""><!-- change to dropdown -->
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="">DBA Name</label>
+              <input type="text" placeholder="Alternate Company Name" value="">
+            </div>
+
+            <div class="form-group">
+              <label for="">Language*</label>
+              <input type="text" placeholder="Select Language" value=""><!-- change to dropdown -->
+            </div>
+
+            <div class="form-group">
+              <label for="">Accepted Currencies*</label>
+              <div class="col-md-6">
+                <input type="checkbox"><span>USD</span>
+                <input type="checkbox"><span>JPY</span>
+                <input type="checkbox"><span>AUD</span>
+                <input type="checkbox"><span>CAD</span>
+                <input type="checkbox"><span>CNY</span>
+                <input type="checkbox"><span>SEK</span>
+                <input type="checkbox"><span>HKD</span>
+              </div>
+              <div class="col-md-6">
+                <input type="checkbox"><span>EUR</span>
+                <input type="checkbox"><span>GBP</span>
+                <input type="checkbox"><span>CHF</span>
+                <input type="checkbox"><span>MXN</span>
+                <input type="checkbox"><span>NZD</span>
+                <input type="checkbox"><span>RUB</span>
+                <input type="checkbox"><span>SGD</span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="">Accepted Payment Terms*</label>
+              <div class="col-md-6">
+                <input type="checkbox"><span>MoneyGram</span>
+                <input type="checkbox"><span>T/T</span>
+                <input type="checkbox"><span>Escrow</span>
+                <input type="checkbox"><span>D/P D/A</span>
+              </div>
+              <div class="col-md-6">
+                <input type="checkbox"><span>Western Union</span>
+                <input type="checkbox"><span>Credit Card</span>
+                <input type="checkbox"><span>PayPal</span>
+                <input type="checkbox"><span>Cash</span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="">Accepted Delivery Terms</label>
+              <div class="col-md-6">
+                <input type="checkbox"><span>EXW</span>
+                <input type="checkbox"><span>CPT</span>
+                <input type="checkbox"><span>DAT</span>
+                <input type="checkbox"><span>DDP</span>
+                <input type="checkbox"><span>FOB</span>
+                <input type="checkbox"><span>CIF</span>
+              </div>
+              <div class="col-md-6">
+                <input type="checkbox"><span>FCA</span>
+                <input type="checkbox"><span>CIP</span>
+                <input type="checkbox"><span>DAP</span>
+                <input type="checkbox"><span>FAS</span>
+                <input type="checkbox"><span>CFR</span>
+                <input type="checkbox"><span>Custom</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-12">
+            <div class="form-group">
+              <label for="">Enter Product Categories of Interest</label>
+              <input type="text" placeholder="Begin typing to search categories..." value=""><!-- change to dropdown -->
+              <input type="text" placeholder="Begin typing to search categories..." value=""><!-- change to dropdown -->
+              <input type="text" placeholder="Begin typing to search categories..." value=""><!-- change to dropdown -->
+            </div>
+          </div>
+
+        </div>
+      </form>
     </div>
-  </form>
+  </div>
+
+  <button class="continue-button" type="submit">
+    Save
+    <span class="glyphicon glyphicon-ok"></span>
+  </button>
 </div>

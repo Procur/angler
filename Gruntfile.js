@@ -20,7 +20,7 @@ function gruntConfig(grunt) {
 
   });
 
-  for(var task in pkg.devDependencies) {
+  for (var task in pkg.devDependencies) {
     if (task !== 'grunt' && !task.indexOf('grunt')) {
       grunt.loadNpmTasks(task);
     }
