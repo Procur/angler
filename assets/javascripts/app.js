@@ -20,20 +20,63 @@
 
 // assets/javascripts/app/third_party/moxie_module.js
 (function(angular) {
+  /**
+  * mOxie provides a polyfill for doing XHR and File uploads that is cross-browser (read IE9 and below) compatible
+  * https://github.com/moxiecode/moxie/wiki/API
+  */
+
 
   var
     dependencies = [],
-    factoryDefinition;
+    moxieDefinition,
+    fileInputDefinition,
+    fileDropDefinition,
+    formDataDefinition,
+    xhrDefinition;
 
-  factoryDefinition = [
+  moxieDefinition = [
     '$window',
     moxie
   ];
 
-  angular.module('pc.ThirdParty.Moxie', dependencies)
-    .factory('moxie', factoryDefinition);
+  fileInputDefinition = [
+    'moxie',
+    fileInput
+  ];
 
-  function moxie($window) { return $window.mOxie; }
+  fileDropDefinition = [
+    'moxie',
+    fileDrop
+  ];
+
+  formDataDefinition = [
+    'moxie',
+    formData
+  ];
+
+  xhrDefinition = [
+    'moxie',
+    xhr
+  ];
+
+  angular.module('pc.ThirdParty.Moxie', dependencies)
+    .factory('moxie', moxieDefinition)
+    .factory('FileInput', fileInputDefinition)
+    .factory('FileDrop', fileDropDefinition)
+    .factory('FormData', formDataDefinition)
+    .factory('Xhr', xhrDefinition);
+
+  function moxie($window) {
+    $window.mOxie.Env.swf_url = './Moxie.swf';
+    $window.mOxie.Env.xap_url = './Moxie.xap';
+
+    return $window.mOxie;
+  }
+
+  function fileInput(moxie) { return moxie.FileInput; }
+  function fileDrop(moxie) { return moxie.FileDrop; }
+  function formData(moxie) { return moxie.FormData; }
+  function xhr(moxie) { return moxie.XMLHttpRequest; }
 
 })(angular);
 
@@ -62,9 +105,17 @@
   var
     dependencies;
 
-  dependencies = [];
+  dependencies = [
+    'pc.ThirdParty.Moxie'
+  ];
 
-  angular.module('pc.Ajax', dependencies);
+  angular.module('pc.Ajax', dependencies)
+    .constant('XHR_METHOD', {
+      POST: 'POST',
+      GET: 'GET',
+      PUT: 'PUT',
+      DELETE: 'DELETE'
+    });
 
 })(window, angular);
 
@@ -74,14 +125,18 @@
     definition;
 
   definition = [
-    '$http',
+    '$q',
+    '_',
+    'FormData',
+    'Xhr',
+    'XHR_METHOD',
     ajaxService
   ];
 
   angular.module('pc.Ajax')
     .factory('ajaxService', definition);
 
-  function ajaxService($http) {
+  function ajaxService($q, _, FormData, Xhr, XHR_METHOD) {
     return {
       get: get,
       post: post,
@@ -90,36 +145,65 @@
     };
 
     function get(endpoint) {
-      return $http.get(endpoint)
-        .then(resolveResponse)
-        ['catch'](handleError);
+      return ajax(XHR_METHOD.GET, endpoint)
+        .catch(onXhrError);
     }
 
-    function post(endpoint, data) {
-      return $http.post(endpoint, data)
-        .then(resolveResponse)
-        ['catch'](handleError);
+    function post(endpoint, postData) {
+      return ajax(XHR_METHOD.POST, endpoint, postData)
+        .catch(onXhrError);
     }
 
-    function put(endpoint, data) {
-      return $http.put(endpoint, data)
-        .then(resolveResponse)
-        ['catch'](handleError);
+    function put(endpoint, putData) {
+      return ajax(XHR_METHOD.PUT, endpoint, putData)
+        .catch(onXhrError);
     }
 
     function destroy(endpoint) {
-      return $http['delete'](endpoint)
-        .then(resolveResponse)
-        ['catch'](handleError);
+      return ajax(XHR_METHOD.PUT, endpoint)
+        .catch(onXhrError);
     }
 
-    function resolveResponse(response) {
-      return response.data;
+    function ajax(method, endpoint, data) {
+      var
+        deferred = $q.defer(),
+        xhr = new Xhr(),
+        formData = new FormData();
+
+      xhr.bind('load', onComplete);
+      xhr.bind('error', onComplete);
+
+      if (data && method !== XHR_METHOD.GET) {
+        _.each(data, addDataParam);
+      }
+
+      xhr.open(method, endpoint, true);
+      xhr.send();
+
+      return deferred.promise;
+
+      function addDataParam(val, key) {
+        formData.append(key, val);
+      }
+
+      function onComplete(data) {
+        var
+          request = data.target;
+
+        console.log(data);
+        if (request.status === 200 || request.status === 201) {
+          deferred.resolve(JSON.parse(request.responseText));
+        }
+        else {
+          deferred.reject(request.responseText);
+        }
+      }
     }
 
-    function handleError(err) {
-      console.log('There was an error!', err);
+    function onXhrError(err) {
+      console.log(err);
     }
+
   }
 
 })(angular);
@@ -134,7 +218,10 @@
     'pc.ThirdParty.Moxie'
   ];
 
-  angular.module('pc.FileUpload', dependencies);
+  angular.module('pc.FileUpload', dependencies)
+    .constant('FILE_EVENTS', {
+      SELECTED: 'SELECTED'
+    });
 
 })(angular);
 
@@ -146,14 +233,15 @@
 
   defintitions = [
     '$document',
-    'moxie',
+    'FileInput',
+    'FILE_EVENTS',
     pcImageUpload
   ];
 
   angular.module('pc.FileUpload')
     .directive('pcImageUpload', defintitions);
 
-  function pcImageUpload($document, moxie) {
+  function pcImageUpload($document, FileInput, FILE_EVENTS) {
     var
       file;
 
@@ -161,7 +249,9 @@
       restrict: 'AC',
       replace: false,
       link: link,
-      scope: {}
+      scope: {
+
+      }
     };
 
     function link(scope, elem, attrs) {
@@ -181,7 +271,7 @@
         multiple: false
       };
 
-      uploader = new moxie.FileInput(settings);
+      uploader = new FileInput(settings);
 
       uploader.bind('change', onChange);
 
@@ -194,7 +284,7 @@
 
         file = e.target.files[0];
 
-        console.log(file);
+        scope.$emit(FILE_EVENTS.SELECTED, file);
 
         return true;
       }
@@ -671,7 +761,8 @@
     dependencies;
 
   dependencies = [
-    'pc.FileUpload'
+    'pc.FileUpload',
+    'pc.Ajax'
   ];
 
   angular.module('pc.UserAccountSettings', dependencies);
@@ -726,13 +817,26 @@
 
   definitions = [
     '$scope',
+    'ajaxService',
+    'FILE_EVENTS',
     userUpdateSettings
   ];
 
   angular.module('pc.UserAccountSettings')
     .controller('userUpdateSettings', definitions);
 
-  function userUpdateSettings($scope) {
+  function userUpdateSettings($scope, ajax, FILE_EVENTS) {
+
+    $scope.$on(FILE_EVENTS.SELECTED, function(e, file) {
+      $scope.userProfile = file;
+    });
+
+    $scope.saveProfile = function() {
+      ajax.put('/views/api/update_user.json', {profile: $scope.userProfile})
+        .then(function(res) {
+          console.log(res);
+        });
+    };
   }
 
 })(angular);
@@ -1082,7 +1186,7 @@ angular.module('pc.Templates', []).run(['$templateCache', function($templateCach
 
 
   $templateCache.put('user_update_settings.html',
-    "<div class=\"col-sm-8\"><div class=\"panel-content\"><div class=\"panel-heading\"><h5>Contact Information</h5></div><div class=\"panel-body\"><form class=\"form\"><div class=\"row form-body\"><div class=\"col-md-6\"><div class=\"form-group\"><label for=\"firstName\">Contact Name*</label><input type=\"text\" id=\"firstName\" placeholder=\"First\" ng-model=\"user.firstName\"> <input type=\"text\" id=\"lastName\" placeholder=\"Last\" ng-model=\"user.lastName\"></div><div class=\"form-group\"><label for=\"emailAddress\">Current Email Address</label><input for=\"emailAddress\" type=\"email\" placeholder=\"Current Email\" ng-model=\"user.email\"></div><div class=\"form-group\"><label for=\"newEmailAddress\">Update Email Address</label><input id=\"newEmailAddress\" type=\"email\" placeholder=\"Enter New Address\"> <input type=\"email\" placeholder=\"Confirm New Address\"></div></div><div class=\"col-md-6\"><div class=\"form-group\"><label for=\"jobTitle\">Job Title</label><input id=\"jobTitle\" type=\"text\" placeholder=\"Job Title\" ng-model=\"user.jobTitle\"></div><div class=\"form-group\"><label>Update Profile Picture</label><button class=\"btn\" pc-image-upload>Upload Profile Picture</button></div></div></div></form></div></div><button class=\"continue-button\" type=\"submit\">Save <span class=\"glyphicon glyphicon-ok\"></span></button></div>"
+    "<div class=\"col-sm-8\"><div class=\"panel-content\"><div class=\"panel-heading\"><h5>Contact Information</h5></div><div class=\"panel-body\"><form class=\"form\"><div class=\"row form-body\"><div class=\"col-md-6\"><div class=\"form-group\"><label for=\"firstName\">Contact Name*</label><input type=\"text\" id=\"firstName\" placeholder=\"First\" ng-model=\"user.firstName\"> <input type=\"text\" id=\"lastName\" placeholder=\"Last\" ng-model=\"user.lastName\"></div><div class=\"form-group\"><label for=\"emailAddress\">Current Email Address</label><input for=\"emailAddress\" type=\"email\" placeholder=\"Current Email\" ng-model=\"user.email\"></div><div class=\"form-group\"><label for=\"newEmailAddress\">Update Email Address</label><input id=\"newEmailAddress\" type=\"email\" placeholder=\"Enter New Address\"> <input type=\"email\" placeholder=\"Confirm New Address\"></div></div><div class=\"col-md-6\"><div class=\"form-group\"><label for=\"jobTitle\">Job Title</label><input id=\"jobTitle\" type=\"text\" placeholder=\"Job Title\" ng-model=\"user.jobTitle\"></div><div class=\"form-group\"><label>Update Profile Picture</label><button class=\"btn\" pc-image-upload>Upload Profile Picture</button></div></div></div></form></div></div><button class=\"continue-button\" type=\"button\" ng-click=\"saveProfile()\">Save <span class=\"glyphicon glyphicon-ok\"></span></button></div>"
   );
 
 }]);

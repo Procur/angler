@@ -4,7 +4,8 @@
     dependencies;
 
   dependencies = [
-    'pc.FileUpload'
+    'pc.FileUpload',
+    'pc.Ajax'
   ];
 
   angular.module('pc.UserAccountSettings', dependencies);

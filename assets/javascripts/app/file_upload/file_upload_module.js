@@ -7,6 +7,9 @@
     'pc.ThirdParty.Moxie'
   ];
 
-  angular.module('pc.FileUpload', dependencies);
+  angular.module('pc.FileUpload', dependencies)
+    .constant('FILE_EVENTS', {
+      SELECTED: 'SELECTED'
+    });
 
 })(angular);

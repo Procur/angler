@@ -1,4 +1,24 @@
 module.exports = {
+  moxie: {
+    expand: true,
+    src: [
+      '<%= componentsPath %>/plupload/js/Moxie.swf',
+      '<%= componentsPath %>/plupload/js/Moxie.xap'
+    ],
+    dest: '<%= jsPath %>/',
+    flatten: true,
+    filter: 'isFile'
+  },
+  moxieDist: {
+    expand: true,
+    src: [
+      '<%= componentsPath %>/plupload/js/Moxie.swf',
+      '<%= componentsPath %>/plupload/js/Moxie.xap'
+    ],
+    dest: 'dist/javascripts/',
+    flatten: true,
+    filter: 'isFile'
+  },
   styles: {
     expand: true,
     src: '<%= cssPath %>/styles.css',

@@ -44938,12 +44938,56 @@ window.plupload = plupload;
 (function(angular) {
 
   var
-    dependencies = [];
+    dependencies = [],
+    factoryDefinition;
+
+  factoryDefinition = [
+    '$window',
+    lodash
+  ];
 
   angular.module('pc.ThirdParty.LoDash', dependencies)
-    .factory('_', lodashFactory);
+    .factory('_', factoryDefinition);
 
-  function lodashFactory() { return window._; }
+  function lodash($window) { return $window._; }
+
+})(angular);
+
+// assets/javascripts/app/third_party/moxie_module.js
+(function(angular) {
+
+  var
+    dependencies = [],
+    factoryDefinition;
+
+  factoryDefinition = [
+    '$window',
+    moxie
+  ];
+
+  angular.module('pc.ThirdParty.Moxie', dependencies)
+    .factory('moxie', factoryDefinition);
+
+  function moxie($window) { return $window.mOxie; }
+
+})(angular);
+
+// assets/javascripts/app/third_party/plupload_module.js
+(function(angular) {
+
+  var
+    dependencies = [],
+    factoryDefinition;
+
+  factoryDefinition = [
+    '$window',
+    plupload
+  ];
+
+  angular.module('pc.ThirdParty.Plupload', dependencies)
+    .factory('plupload', factoryDefinition);
+
+  function plupload($window) { return $window.plupload; }
 
 })(angular);
 
@@ -45011,6 +45055,86 @@ window.plupload = plupload;
     function handleError(err) {
       console.log('There was an error!', err);
     }
+  }
+
+})(angular);
+
+// assets/javascripts/app/file_upload/file_upload_module.js
+(function(angular) {
+
+  var
+    dependencies;
+
+  dependencies = [
+    'pc.ThirdParty.Moxie'
+  ];
+
+  angular.module('pc.FileUpload', dependencies);
+
+})(angular);
+
+// assets/javascripts/app/file_upload/image_upload_directive.js
+(function(angular) {
+
+  var
+    defintitions;
+
+  defintitions = [
+    '$document',
+    'moxie',
+    pcImageUpload
+  ];
+
+  angular.module('pc.FileUpload')
+    .directive('pcImageUpload', defintitions);
+
+  function pcImageUpload($document, moxie) {
+    var
+      file;
+
+    return {
+      restrict: 'AC',
+      replace: false,
+      link: link,
+      scope: {}
+    };
+
+    function link(scope, elem, attrs) {
+      var
+        uploader,
+        settings;
+
+      settings = {
+        browse_button: elem[0],
+        container: $document[0].querySelector('body'),
+        accept: [
+          {
+            title: 'Image files',
+            extensions: 'jpg,jpeg,svg,png'
+          }
+        ],
+        multiple: false
+      };
+
+      uploader = new moxie.FileInput(settings);
+
+      uploader.bind('change', onChange);
+
+      uploader.init();
+
+      function onChange(e) {
+        if (!e.target.files.length) {
+          return false;
+        }
+
+        file = e.target.files[0];
+
+        console.log(file);
+
+        return true;
+      }
+    }
+
   }
 
 })(angular);
@@ -45259,6 +45383,7 @@ window.plupload = plupload;
 
     return {
       restrict: 'AC',
+      replace: false,
       link: linker,
       scope: {
         state: '@pcNav'
@@ -45479,6 +45604,7 @@ window.plupload = plupload;
     dependencies;
 
   dependencies = [
+    'pc.FileUpload'
   ];
 
   angular.module('pc.UserAccountSettings', dependencies);
@@ -45540,7 +45666,6 @@ window.plupload = plupload;
     .controller('userUpdateSettings', definitions);
 
   function userUpdateSettings($scope) {
-    
   }
 
 })(angular);
@@ -45885,7 +46010,7 @@ angular.module('pc.Templates', []).run(['$templateCache', function($templateCach
 
 
   $templateCache.put('user_update_settings.html',
-    "<div class=\"col-sm-8\"><div class=\"panel-content\"><div class=\"panel-heading\"><h5>Contact Information</h5></div><div class=\"panel-body\"><form class=\"form\"><div class=\"row form-body\"><div class=\"col-md-6\"><div class=\"form-group\"><label for=\"firstName\">Contact Name*</label><input type=\"text\" id=\"firstName\" placeholder=\"First\" ng-model=\"user.firstName\"> <input type=\"text\" id=\"lastName\" placeholder=\"Last\" ng-model=\"user.lastName\"></div><div class=\"form-group\"><label for=\"emailAddress\">Current Email Address</label><input for=\"emailAddress\" type=\"email\" placeholder=\"Current Email\" ng-model=\"user.email\"></div><div class=\"form-group\"><label for=\"newEmailAddress\">Update Email Address</label><input id=\"newEmailAddress\" type=\"email\" placeholder=\"Enter New Address\"> <input type=\"email\" placeholder=\"Confirm New Address\"></div></div><div class=\"col-md-6\"><div class=\"form-group\"><label for=\"jobTitle\">Job Title</label><input id=\"jobTitle\" type=\"text\" placeholder=\"Job Title\" ng-model=\"user.jobTitle\"></div><div class=\"form-group\"><label>Update Profile Picture</label><input type=\"file\"></div></div></div></form></div></div><button class=\"continue-button\" type=\"submit\">Save <span class=\"glyphicon glyphicon-ok\"></span></button></div>"
+    "<div class=\"col-sm-8\"><div class=\"panel-content\"><div class=\"panel-heading\"><h5>Contact Information</h5></div><div class=\"panel-body\"><form class=\"form\"><div class=\"row form-body\"><div class=\"col-md-6\"><div class=\"form-group\"><label for=\"firstName\">Contact Name*</label><input type=\"text\" id=\"firstName\" placeholder=\"First\" ng-model=\"user.firstName\"> <input type=\"text\" id=\"lastName\" placeholder=\"Last\" ng-model=\"user.lastName\"></div><div class=\"form-group\"><label for=\"emailAddress\">Current Email Address</label><input for=\"emailAddress\" type=\"email\" placeholder=\"Current Email\" ng-model=\"user.email\"></div><div class=\"form-group\"><label for=\"newEmailAddress\">Update Email Address</label><input id=\"newEmailAddress\" type=\"email\" placeholder=\"Enter New Address\"> <input type=\"email\" placeholder=\"Confirm New Address\"></div></div><div class=\"col-md-6\"><div class=\"form-group\"><label for=\"jobTitle\">Job Title</label><input id=\"jobTitle\" type=\"text\" placeholder=\"Job Title\" ng-model=\"user.jobTitle\"></div><div class=\"form-group\"><label>Update Profile Picture</label><button class=\"btn\" pc-image-upload>Upload Profile Picture</button></div></div></div></form></div></div><button class=\"continue-button\" type=\"submit\">Save <span class=\"glyphicon glyphicon-ok\"></span></button></div>"
   );
 
 }]);

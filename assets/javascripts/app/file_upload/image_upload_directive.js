@@ -5,14 +5,15 @@
 
   defintitions = [
     '$document',
-    'moxie',
+    'FileInput',
+    'FILE_EVENTS',
     pcImageUpload
   ];
 
   angular.module('pc.FileUpload')
     .directive('pcImageUpload', defintitions);
 
-  function pcImageUpload($document, moxie) {
+  function pcImageUpload($document, FileInput, FILE_EVENTS) {
     var
       file;
 
@@ -20,7 +21,9 @@
       restrict: 'AC',
       replace: false,
       link: link,
-      scope: {}
+      scope: {
+
+      }
     };
 
     function link(scope, elem, attrs) {
@@ -40,7 +43,7 @@
         multiple: false
       };
 
-      uploader = new moxie.FileInput(settings);
+      uploader = new FileInput(settings);
 
       uploader.bind('change', onChange);
 
@@ -53,7 +56,7 @@
 
         file = e.target.files[0];
 
-        console.log(file);
+        scope.$emit(FILE_EVENTS.SELECTED, file);
 
         return true;
       }
