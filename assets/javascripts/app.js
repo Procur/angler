@@ -1034,7 +1034,7 @@
             controller: 'dashboardController'
           },
           'header': {
-            templateUrl: 'public_view.html',
+            templateUrl: 'my_procur.html',
             controller: 'myProcurController'
           }
         }
