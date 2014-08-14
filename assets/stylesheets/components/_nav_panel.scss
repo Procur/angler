@@ -27,7 +27,7 @@ ol.nav-panel {
         -o-transition: background-color 200ms ease-in-out;
         transition: background-color 200ms ease-in-out;
 
-        i {
+        .glyphicon {
           line-height: 45px;
           color: $color-gray-alt-light;
           -webkit-transition: color 200ms ease-in-out;
@@ -54,14 +54,14 @@ ol.nav-panel {
     }
 
     &:hover,
-    .active {
+    &.active {
       color: $color-white;
       text-decoration: none;
       background-color: $color-orange-primary;
 
       a .left-icon {
         background-color: lighten($color-orange-primary, 20%);
-        i {
+        .glyphicon {
           color: $color-white;
         }
       }
@@ -79,7 +79,7 @@ ol.nav-panel {
       }
 
       &:hover,
-      .active {
+      &.active {
         background-color: $color-orange-primary;
 
         a .left-icon {

@@ -1,38 +1,44 @@
-<div class="col-sm-8 form-panel">
-  <form class="form">
-    <div class="row header-row">
-      <h4>Contact Information</h4>
+
+<div class="col-sm-8">
+  <div class="panel-content">
+    <div class="panel-heading">
+      <h5>Contact Information</h5>
     </div>
-    <div class="row form-body">
-      <div class="col-md-6">
-        <div class="form-group">
-          <label for="name">Contact Name*</label>
-          <input type="text" id="firstName" placeholder="First" value="{{user.firstName}}">
-          <input type="text" id="lastName" placeholder="Last" value="{{user.lastName}}">
+    <div class="panel-body">
+      <form class="form">
+        <div class="row form-body">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="firstName">Contact Name*</label>
+              <input type="text" id="firstName" placeholder="First" ng-model="user.firstName">
+              <input type="text" id="lastName" placeholder="Last" ng-model="user.lastName">
+            </div>
+            <div class="form-group">
+              <label for="emailAddress">Current Email Address</label>
+              <input for="emailAddress" type="email" placeholder="Current Email" ng-model="user.email">
+            </div>
+            <div class="form-group">
+              <label for="newEmailAddress">Update Email Address</label>
+              <input id="newEmailAddress" type="email" placeholder="Enter New Address">
+              <input type="email" placeholder="Confirm New Address">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="jobTitle">Job Title</label>
+              <input id="jobTitle" type="text" placeholder="Job Title" ng-model="user.jobTitle">
+            </div>
+            <div class="form-group">
+              <label>Update Profile Picture</label>
+              <input type="file">
+            </div>
+          </div>
         </div>
-        <div class="form-group">
-          <label>Current Email Address</label>
-          <input type="text" placeholder="Current Email" value="{{user.email}}">
-        </div>
-        <div class="form-group">
-          <label>Update Email Address</label>
-          <input type="text" placeholder="Enter New Address">
-          <input type="text" placeholder="Confirm New Address">
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="form-group">
-          <label>Job Title</label>
-          <input type="text" placeholder="Job Title" value="{{user.jobTitle}}">
-        </div>
-        <div class="form-group">
-          <label>Update Profile Picture</label>
-          <input type="file">
-        </div>
-      </div>
+      </form>
     </div>
-    <div class="row submit-button-row">
-      <button class="continue-button" type="submit">Save&nbsp;&nbsp; <span class="glyphicon glyphicon-ok"></span></button>
-    </div>
-  </form>
+  </div>
+  <button class="continue-button" type="submit">
+    Save
+    <span class="glyphicon glyphicon-ok"></span>
+  </button>
 </div>

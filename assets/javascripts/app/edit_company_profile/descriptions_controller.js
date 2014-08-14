@@ -5,14 +5,14 @@
 
   definitions = [
     '$scope',
-    descriptions
+    descriptionsController
   ];
 
   angular.module('pc.EditCompanyProfile')
-    .controller('descriptions', definitions);
+    .controller('descriptionsController', definitions);
 
-  function descriptions($scope) {
-    
+  function descriptionsController($scope) {
+
   }
 
 })(angular);

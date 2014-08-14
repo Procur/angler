@@ -5,14 +5,14 @@
 
   definitions = [
     '$scope',
-    socialMedia
+    socialMediaController
   ];
 
   angular.module('pc.EditCompanyProfile')
-    .controller('socialMedia', definitions);
+    .controller('socialMediaController', definitions);
 
-  function socialMedia($scope) {
-    
+  function socialMediaController($scope) {
+
   }
 
 })(angular);
