@@ -1,5 +1,5 @@
 
-describe.only('dashboardController', function() {
+describe('dashboardController', function() {
 
   var
     scope,

@@ -3,20 +3,14 @@ describe('pcUserHeader Directive', function() {
   var
     scope,
     mockUser,
-    mockUserData,
-    deferredUser,
     mockCompany,
-    mockCompanyData,
-    deferredCompany,
     userHeaderElement;
 
   beforeEach(module('pc.User'));
   beforeEach(module('pc.Templates'));
 
   beforeEach(module(function($provide) {
-    deferredUser = undefined;
-
-    mockUserData = {
+    mockUser = {
       firstName: 'bruce',
       lastName: 'wayne',
       activeMode: 'supplier',
@@ -24,30 +18,10 @@ describe('pcUserHeader Directive', function() {
       toggleActiveMode: sinon.spy()
     };
 
-    mockUser = function() {
-      return {
-        then: function(cb) {
-          deferredUser = cb(mockUserData);
-          return deferredUser;
-        }
-      };
-    };
-
-    deferredCompany = undefined;
-
-    mockCompanyData = {
+    mockCompany = {
       buyer: true,
       supplier: true,
       name: 'wayne enterprises',
-    };
-
-    mockCompany = function() {
-      return {
-        then: function(cb) {
-          deferredCompany = cb(mockCompanyData);
-          return deferredCompany;
-        }
-      };
     };
 
     $provide.value('userService', mockUser);
@@ -76,18 +50,12 @@ describe('pcUserHeader Directive', function() {
       localScope = userHeaderElement.isolateScope();
     });
 
-    it('should have a user object with a first and last name', function() {
-      expect(localScope.user.firstName).to.equal(mockUserData.firstName);
-      expect(localScope.user.lastName).to.equal(mockUserData.lastName);
+    it('should have a user object', function() {
+      expect(localScope.user).to.equal(mockUser);
     });
 
-    it('should have a user object with an active and inactiveMode', function() {
-      expect(localScope.user.activeMode).to.equal(mockUserData.activeMode);
-      expect(localScope.user.inactiveMode).to.equal(mockUserData.inactiveMode);
-    });
-
-    it('should have a user object with a toggleActiveMode function', function() {
-      expect(localScope.user.toggleActiveMode).to.equal(mockUserData.toggleActiveMode);
+    it('should have a company object', function() {
+      expect(localScope.company).to.equal(mockCompany);
     });
   });
 

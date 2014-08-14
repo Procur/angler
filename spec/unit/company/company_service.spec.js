@@ -2,8 +2,7 @@ describe('companyService', function() {
   var
     company,
     mockCompanyData,
-    deferredResult,
-    mockAjax;
+    mockWindow;
 
   beforeEach(module('pc.Company'));
 
@@ -12,19 +11,15 @@ describe('companyService', function() {
       foo: 'bar'
     };
 
-    deferredResult = undefined;
-
-    mockAjax = {
-      get: function() {
-        return {
-          then: function(cb) {
-            deferredResult = cb(mockCompanyData);
-          }
-        };
+    mockWindow = {
+      pc: {
+        localData: {
+          company: mockCompanyData
+        }
       }
     };
 
-    $provide.value('ajaxService', mockAjax);
+    $provide.value('$window', mockWindow);
   }));
 
   beforeEach(inject(function($injector){
@@ -35,13 +30,8 @@ describe('companyService', function() {
     expect(company).to.not.be.undefined;
   });
 
-  describe('init', function() {
-    it('should return a promise the resolves to company data', function() {
-      expect(deferredResult).to.be.undefined;
-
-      company();
-
-      expect(deferredResult).to.equal(mockCompanyData);
-    });
+  it('should be the company data', function() {
+    expect(company).to.equal(mockCompanyData);
   });
+
 });
