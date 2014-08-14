@@ -39,6 +39,13 @@
         controller: 'userUpdatePassword'
       })
 
+      /*TREY LOOK HERE*/
+      .state('view_company_profile', {
+        url: '/view_company_profile',
+        templateURL: 'view_company_profile.html',
+        controller: 'viewCompanyProfileController'
+      })
+
       .state('edit_company_profile', {
         url: '/edit_company_profile',
         templateUrl: 'edit_company_profile.html',
