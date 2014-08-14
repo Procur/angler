@@ -920,7 +920,7 @@ angular.module('pc.Templates', []).run(['$templateCache', function($templateCach
 
 
   $templateCache.put('preferences.html',
-    "<div class=\"col-sm-8\"><div class=\"panel-content\"><div class=\"panel-heading\"><h5>Preferences</h5></div><div class=\"panel-body\"><form class=\"form\"><div class=\"row form-body\"></div></form></div></div><button class=\"continue-button\" type=\"submit\">Save <span class=\"glyphicon glyphicon-ok\"></span></button></div>"
+    "<div class=\"col-sm-8\"><div class=\"panel-content\"><div class=\"panel-heading\"><h5>Preferences</h5></div><div class=\"panel-body\"><form class=\"form\"><div class=\"row form-body\"><div class=\"col-md-6\"><div class=\"form-group\"><label for=\"\">Preferred [activeMode] Type*</label><input type=\"text\" placeholder=\"Preferred [activeMode] Type*\" ng-model=\"\"><!-- change to dropdown --></div><div class=\"form-group\"><label for=\"\">Preferred [activeMode] Language</label><input type=\"text\" placeholder=\"Preferred [activeMode] Language\" ng-model=\"\"><!-- change to dropdown --></div></div><div class=\"col-md-6\"><div class=\"form-group\"><label for=\"\">Preferred [activeMode] Location</label><input type=\"text\" placeholder=\"Preferred [activeMode] Location\" ng-model=\"\"><!-- change to dropdown --></div></div></div></form></div></div><button class=\"continue-button\" type=\"submit\">Save <span class=\"glyphicon glyphicon-ok\"></span></button></div>"
   );
 
 
