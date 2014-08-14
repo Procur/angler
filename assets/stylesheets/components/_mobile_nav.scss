@@ -7,9 +7,16 @@
   z-index: 99999;
   nav {
     background-color: #EDECE8; //color of bar
+    border-color: #000000;
+    border: 1px solid transparent;
   }
-  .navbar-collapse {
-    background-color: #f8f8f8; //color of dropdown
+  .navbar-collapse { //dropdown
+    float: right;
+    background-color: #f8f8f8; 
+    color: #777; 
+    a {
+      padding-left: 30px;
+    }
   }
   .navbar-header {
     float: none;

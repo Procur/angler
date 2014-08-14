@@ -290,9 +290,16 @@ ol.nav-panel li:nth-child(even).active a .left-icon {
 }
 #mobile-nav nav {
   background-color: #EDECE8;
+  border-color: #000000;
+  border: 1px solid transparent;
 }
 #mobile-nav .navbar-collapse {
+  float: right;
   background-color: #f8f8f8;
+  color: #777;
+}
+#mobile-nav .navbar-collapse a {
+  padding-left: 30px;
 }
 #mobile-nav .navbar-header {
   float: none;
@@ -423,23 +430,23 @@ ol.nav-panel li:nth-child(even).active a .left-icon {
   font-family: Montserrat,sans-serif;
   font-size: 14px;
 }
-.navbar-default .navbar-collapse {
+.navbar-default #dash-nav {
   float: right;
 }
-.navbar-default .navbar-collapse .navbar-nav li a {
+.navbar-default #dash-nav .navbar-nav li a {
   color: #c3c3c3;
   font-weight: 200;
   font-family: 'Open Sans',sans-serif;
 }
-.navbar-default .navbar-collapse .navbar-nav li.active a {
+.navbar-default #dash-nav .navbar-nav li.active a {
   background-color: #0a0a0a;
   color: white;
 }
-.navbar-default .navbar-collapse .navbar-nav li.active:hover a {
+.navbar-default #dash-nav .navbar-nav li.active:hover a {
   background-color: #0a0a0a;
   color: white;
 }
-.navbar-default .navbar-collapse .navbar-nav li:hover a {
+.navbar-default #dash-nav .navbar-nav li:hover a {
   color: white;
 }
 
