@@ -248,6 +248,19 @@ ul.list-titled li.list-title {
   vertical-align: middle;
 }
 
+#mobile-dash-nav .navbar-header {
+  float: none;
+  margin-left: 15px;
+}
+#mobile-dash-nav .ea-logo {
+  position: relative;
+  top: 17px;
+  display: inline-block;
+}
+#mobile-dash-nav #nav-links {
+  float: none;
+}
+
 .navbar-default {
   background-color: #333132;
   border: none;

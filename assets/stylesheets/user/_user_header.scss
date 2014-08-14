@@ -89,3 +89,71 @@
     }
   }
 }
+
+#mobile-dash-nav {
+  .navbar-header {
+    float: none;
+    margin-left: 15px;
+  }
+  .ea-logo {
+    position: relative;
+    top: 17px;
+    display: inline-block;
+  }
+  #nav-links {
+    float: none;
+  }
+}
+
+.navbar-default {
+  background-color: $color-gray-alt-dark;
+  border: none;
+  border-radius: 0;
+
+  .navbar-header {
+    float: right;
+
+    .navbar-brand {
+      color: $color-white;
+      text-transform: uppercase;
+      font-weight: 400;
+      font-family: Montserrat,sans-serif;
+      font-size: 14px;
+
+    }
+  }
+
+  .navbar-collapse {
+    float: right;
+
+    .navbar-nav {
+      li {
+        a {
+          color: $color-gray-alt-light;
+          font-weight: 200;
+          font-family: 'Open Sans',sans-serif;
+        }
+
+        &.active {
+          a {
+            background-color: $color-gray-dark;
+            color: $color-white;
+          }
+        }
+
+        &.active:hover {
+          a {
+            background-color: $color-gray-dark;
+            color: $color-white;
+          }
+        }
+
+        &:hover {
+          a {
+            color: $color-white;
+          }
+        }
+      }
+    }
+  }
+}
