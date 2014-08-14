@@ -72,6 +72,17 @@ label {
   font-weight: 300;
 }
 
+form p.error {
+  color: #FF5A5A;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  text-transform: uppercase;
+  line-height: 1.8em;
+  width: 100%;
+  top: -15px;
+  font-weight: 500;
+}
+
 .panel-content .panel-heading {
   background-color: #333132;
   color: white;

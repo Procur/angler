@@ -5,14 +5,15 @@
 
   definitions = [
     '$scope',
+    'userService',
     userAccountSettingsController
   ];
 
   angular.module('pc.UserAccountSettings')
     .controller('userAccountSettingsController', definitions);
 
-  function userAccountSettingsController($scope) {
-
+  function userAccountSettingsController($scope, userService) {
+    $scope.user = userService;
   }
 
 })(angular);

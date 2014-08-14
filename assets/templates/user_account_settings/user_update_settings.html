@@ -5,21 +5,25 @@
       <h5>Contact Information</h5>
     </div>
     <div class="panel-body">
-      <form class="form">
+      <form name="userForm" class="form" novalidate>
         <div class="row form-body">
           <div class="col-md-6">
             <div class="form-group">
               <label for="firstName">Contact Name*</label>
-              <input type="text" id="firstName" placeholder="First" ng-model="user.firstName">
-              <input type="text" id="lastName" placeholder="Last" ng-model="user.lastName">
+              <input type="text" name="firstName" id="firstName" placeholder="First" ng-model="user.firstName" required>
+              <p ng-show="userForm.firstName.$error.required" class="error">This field is required.</p>
+              <input type="text" name="lastName" id="lastName" placeholder="Last" ng-model="user.lastName" required>
+              <p ng-show="userForm.lastName.$error.required" class="error">This field is required.</p>
             </div>
             <div class="form-group">
               <label for="emailAddress">Current Email Address</label>
               <input id="emailAddress" type="email" placeholder="Current Email" ng-model="user.email">
             </div>
-            <div class="form-group">
+            <div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }">
               <label for="newEmailAddress">Update Email Address</label>
-              <input id="newEmailAddress" type="email" placeholder="Enter New Address">
+              <input type="email" name="email" ng-model="user.email" placeholder="Enter new Email">
+              <p ng-show="userForm.email.$invalid && !userForm.email.$pristine" class="error">Enter a valid email.</p>
+
               <input type="email" placeholder="Confirm New Address">
             </div>
           </div>
