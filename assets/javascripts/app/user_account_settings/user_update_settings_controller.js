@@ -20,9 +20,7 @@
         file: file,
         base64Url: dataUrl
       };
-
-      console.log($scope.userProfile);
-      $scope.$apply();
+      $scope.$digest();
     });
 
     $scope.saveProfile = function() {
