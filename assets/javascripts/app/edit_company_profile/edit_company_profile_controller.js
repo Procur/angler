@@ -5,13 +5,17 @@
 
   definitions = [
     '$scope',
+    'userService',
+    'companyService',
     editCompanyProfileController
   ];
 
   angular.module('pc.EditCompanyProfile')
     .controller('editCompanyProfileController', definitions);
 
-  function editCompanyProfileController($scope) {
+  function editCompanyProfileController($scope, user, company) {
+    $scope.user = user;
+    $scope.company = company;
   }
 
 })(angular);
