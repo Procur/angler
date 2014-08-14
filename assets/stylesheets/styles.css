@@ -324,6 +324,21 @@ ol.nav-panel li:nth-child(even).active a .left-icon {
   margin-left: 10px;
 }
 
+.checkbox-label {
+  display: block;
+  padding-left: 15px;
+  text-indent: -15px;
+}
+.checkbox-label input[type='checkbox'] {
+  width: 13px;
+  height: 13px;
+  padding: 0;
+  margin: 0px 10px 0px 0px;
+  vertical-align: bottom;
+  position: relative;
+  top: -1px;
+}
+
 .user-header {
   background-color: #eeece9;
   padding: 0;
@@ -502,6 +517,12 @@ ol.nav-panel li:nth-child(even).active a .left-icon {
   text-transform: uppercase;
   font-weight: 600;
   font-size: 11px;
+}
+
+.edit-company-descriptions textarea {
+  width: 100%;
+  resize: none;
+  padding: 10px;
 }
 
 body {
