@@ -915,7 +915,7 @@ angular.module('pc.Templates', []).run(['$templateCache', function($templateCach
 
 
   $templateCache.put('photos.html',
-    "<div class=\"col-sm-8\"><div class=\"panel-content\"><div class=\"panel-heading\"><h5>Photos</h5></div><div class=\"panel-body\"><form class=\"form\"><div class=\"row form-body\"></div></form></div></div><button class=\"continue-button\" type=\"submit\">Save <span class=\"glyphicon glyphicon-ok\"></span></button></div>"
+    "<div class=\"col-sm-8\"><div class=\"panel-content\"><div class=\"panel-heading\"><h5>Photos</h5></div><div class=\"panel-body\"><form class=\"form\"><div class=\"row form-body\"></div></form></div><div class=\"panel-heading\"><h5>Your Photos</h5></div><div class=\"panel-body\"><form class=\"form\"><div class=\"row form-body\"></div></form></div></div><button class=\"continue-button\" type=\"submit\">Save <span class=\"glyphicon glyphicon-ok\"></span></button></div>"
   );
 
 
