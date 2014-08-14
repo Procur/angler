@@ -12,7 +12,6 @@
     .controller('userUpdateSettings', definitions);
 
   function userUpdateSettings($scope) {
-    
   }
 
 })(angular);

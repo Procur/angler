@@ -14,6 +14,7 @@
 
     return {
       restrict: 'AC',
+      replace: false,
       link: linker,
       scope: {
         state: '@pcNav'

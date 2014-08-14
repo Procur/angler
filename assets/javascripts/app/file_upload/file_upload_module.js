@@ -4,9 +4,9 @@
     dependencies;
 
   dependencies = [
-    'pc.FileUpload'
+    'pc.ThirdParty.Moxie'
   ];
 
-  angular.module('pc.UserAccountSettings', dependencies);
+  angular.module('pc.FileUpload', dependencies);
 
 })(angular);
