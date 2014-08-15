@@ -545,6 +545,32 @@
 
 })(angular);
 
+// assets/javascripts/app/validation/validation_module.js
+(function(angular) {
+
+  var
+    dependencies;
+
+  dependencies = [
+    
+  ];
+
+  
+
+  angular.module('pc.Validation', []).directive('validPasswordC', function () {
+    return {
+        require: 'ngModel',
+        link: function (scope, elm, attrs, ctrl) {
+            ctrl.$parsers.unshift(function (viewValue, $scope) {
+                var noMatch = viewValue != scope.passForm.password.$viewValue
+                ctrl.$setValidity('noMatch', !noMatch)
+            })
+        }
+    }
+})
+
+})(angular);
+
 // assets/javascripts/app/nav/nav_module.js
 (function(angular) {
 
@@ -845,11 +871,13 @@
 
     'pc.FileUpload',
     'pc.Ajax',
-    'pc.User'
-
+    'pc.User',
+    'pc.Validation'
   ];
 
   angular.module('pc.UserAccountSettings', dependencies);
+
+
 
 })(angular);
 
@@ -871,6 +899,24 @@
   function userAccountSettingsController($scope, userService) {
     $scope.user = userService;
   }
+
+})(angular);
+
+// assets/javascripts/app/user_account_settings/user_account_settings_directive.js
+(function(angular) {
+
+  var
+    definitions;
+
+  definitions = [
+    'pcUserAccountSettings'
+  ];
+
+  angular.module('pc.UserAccountSettings')
+    .directive('pcUserAccountSettings', definitions);
+
+    
+  
 
 })(angular);
 
@@ -1320,7 +1366,17 @@ angular.module('pc.Templates', []).run(['$templateCache', function($templateCach
 
 
   $templateCache.put('user_update_password.html',
-    "<div class=\"col-sm-8\"><div class=\"panel-content\"><div class=\"panel-heading\"><h5>Update Password</h5></div><div class=\"panel-body\"><form class=\"form\"><div class=\"row form-body\"><div class=\"col-md-6\"><div class=\"form-group\"><label for=\"password\">Enter New Password</label><input id=\"password\" type=\"password\" placeholder=\"New Password\"></div></div><div class=\"col-md-6\"><div class=\"form-group\"><label for=\"confirmPassword\">Confirm New Password</label><input id=\"confimPassword\" type=\"password\" placeholder=\"Confirm Password\"></div></div></div></form></div></div><button class=\"btn btn-continue\" type=\"button\">Save <span class=\"glyphicon glyphicon-ok\"></span></button></div>"
+    "<div class=\"col-sm-8\"><div class=\"panel-content\"><div class=\"panel-heading\"><h5>Update Password</h5></div><script type=\"text/javascript\">angular.module('UserValidation', []).directive('validPasswordC', function () {\n" +
+    "    return {\n" +
+    "        require: 'ngModel',\n" +
+    "        link: function (scope, elm, attrs, ctrl) {\n" +
+    "            ctrl.$parsers.unshift(function (viewValue, $scope) {\n" +
+    "                var noMatch = viewValue != scope.myForm.password.$viewValue\n" +
+    "                ctrl.$setValidity('noMatch', !noMatch)\n" +
+    "            })\n" +
+    "        }\n" +
+    "    }\n" +
+    "})</script><div class=\"panel-body\"><form name=\"myForm\" class=\"form\"><label for=\"password\">Password</label><input type=\"password\" id=\"password\" name=\"password\" ng-model=\"formData.password\" ng-minlength=\"8\" ng-maxlength=\"20\" ng-pattern=\"/(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z])/\" required> <span ng-show=\"myForm.password.$error.required && myForm.password.$dirty\">required</span> <span ng-show=\"!myForm.password.$error.required && (myForm.password.$error.minlength || myForm.password.$error.maxlength) && myForm.password.$dirty\">Passwords must be between 8 and 20 characters.</span> <span ng-show=\"!myForm.password.$error.required && !myForm.password.$error.minlength && !myForm.password.$error.maxlength && myForm.password.$error.pattern && myForm.password.$dirty\">Must contain one lower &amp; uppercase letter, and one non-alpha character (a number or a symbol.)</span><br><label for=\"password_c\">Confirm Password</label><input type=\"password\" id=\"password_c\" name=\"password_c\" ng-model=\"formData.password_c\" valid-password-c required> <span ng-show=\"myForm.password_c.$error.required && myForm.password_c.$dirty\">Please confirm your password.</span> <span ng-show=\"!myForm.password_c.$error.required && myForm.password_c.$error.noMatch && myForm.password.$dirty\">Passwords do not match.</span><br></form></div></div><button class=\"btn btn-continue\" type=\"button\">Save <span class=\"glyphicon glyphicon-ok\"></span></button></div>"
   );
 
 

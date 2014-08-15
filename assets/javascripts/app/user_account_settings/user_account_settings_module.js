@@ -7,10 +7,12 @@
 
     'pc.FileUpload',
     'pc.Ajax',
-    'pc.User'
-
+    'pc.User',
+    'pc.Validation'
   ];
 
   angular.module('pc.UserAccountSettings', dependencies);
+
+
 
 })(angular);
