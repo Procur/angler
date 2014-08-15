@@ -17,7 +17,7 @@
             </div>
             <div class="form-group">
               <label for="emailAddress">Current Email Address</label>
-              <input id="emailAddress" type="email" placeholder="Current Email" ng-model="user.email">
+              <input id="emailAddress" type="email" placeholder="Current Email" ng-model="user.email" readonly>
             </div>
             <div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }">
               <label for="newEmailAddress">Update Email Address</label>
