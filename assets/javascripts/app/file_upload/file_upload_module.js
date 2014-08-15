@@ -9,7 +9,8 @@
 
   angular.module('pc.FileUpload', dependencies)
     .constant('FILE_EVENTS', {
-      SELECTED: 'SELECTED'
+      SELECTED: 'SELECTED',
+      DROPPED: 'DROPPED'
     });
 
 })(angular);

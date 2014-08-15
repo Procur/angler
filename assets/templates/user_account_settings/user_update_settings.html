@@ -28,12 +28,12 @@
               <label for="jobTitle">Job Title</label>
               <input id="jobTitle" type="text" placeholder="Job Title" ng-model="user.jobTitle">
             </div>
-            <div class="form-group user-profile">
+            <div class="form-group user-profile" pc-image-drop>
               <img ng-src="{{newProfilePicture.base64Url || user.image}}" />
             </div>
             <div class="form-group">
               <label>Update Profile Picture</label>
-              <button class="btn btn-default btn-sm" pc-image-upload>Choose Image</button>
+              <button class="btn btn-default btn-sm" pc-image-select>Choose Image</button>
             </div>
           </div>
         </div>

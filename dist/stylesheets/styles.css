@@ -32,6 +32,10 @@ a:hover i, a:active i, a:focus i, .btn-link:hover i, .btn-link:active i, .btn-li
   color: #feac00;
 }
 
+.btn {
+  font-family: 'Montserrat', sans-serif;
+}
+
 h1, h2, h3, h4, h5, h6 {
   line-height: 1.2;
   font-family: 'Montserrat', sans-serif;
@@ -314,11 +318,17 @@ ol.nav-panel li:nth-child(even).active a .left-icon {
   float: none;
 }
 
-.continue-button {
+.btn,
+.btn-lg,
+.btn-sm,
+.btn-xs {
+  border-radius: 0;
+}
+
+.btn-continue {
   float: right;
   background-color: white;
   border: 0px none;
-  font-family: 'Montserrat', sans-serif;
   font-size: 12px;
   top: 15px;
   right: 15px;
@@ -326,7 +336,7 @@ ol.nav-panel li:nth-child(even).active a .left-icon {
   letter-spacing: 0.04em;
   margin-top: 10px;
 }
-.continue-button .glyphicon {
+.btn-continue .glyphicon {
   color: #5cc56c;
   margin-left: 10px;
 }
@@ -524,6 +534,21 @@ ol.nav-panel li:nth-child(even).active a .left-icon {
   text-transform: uppercase;
   font-weight: 600;
   font-size: 11px;
+}
+
+#user_account_settings .user-profile {
+  height: 150px;
+  width: 150px;
+  background-color: rgba(0, 0, 0, 0.06);
+}
+#user_account_settings .user-profile img {
+  max-height: 150px;
+  max-width: 150px;
+  margin: 0 auto;
+  display: block;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .edit-company-descriptions textarea {

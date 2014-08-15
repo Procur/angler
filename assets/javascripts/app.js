@@ -228,12 +228,13 @@
 
   angular.module('pc.FileUpload', dependencies)
     .constant('FILE_EVENTS', {
-      SELECTED: 'SELECTED'
+      SELECTED: 'SELECTED',
+      DROPPED: 'DROPPED'
     });
 
 })(angular);
 
-// assets/javascripts/app/file_upload/image_upload_directive.js
+// assets/javascripts/app/file_upload/image_drop_directive.js
 (function(angular) {
 
   var
@@ -241,16 +242,16 @@
 
   defintitions = [
     '$document',
-    'FileInput',
+    'FileDrop',
     'FileReader',
     'FILE_EVENTS',
-    pcImageUpload
+    pcImageDrop
   ];
 
   angular.module('pc.FileUpload')
-    .directive('pcImageUpload', defintitions);
+    .directive('pcImageDrop', defintitions);
 
-  function pcImageUpload($document, FileInput, FileReader, FILE_EVENTS) {
+  function pcImageDrop($document, FileDrop, FileReader, FILE_EVENTS) {
     var
       file;
 
@@ -263,7 +264,74 @@
 
     function link(scope, elem, attrs) {
       var
-        uploader,
+        drop,
+        reader,
+        settings;
+
+      settings = {
+        drop_zone: elem[0],
+        accept: [
+          {
+            title: 'Image files',
+            extensions: 'jpg,jpeg,svg,png'
+          }
+        ]
+      };
+
+      drop = new FileDrop(settings);
+      drop.bind('drop', onDrop);
+      drop.init();
+
+      reader = new FileReader();
+      reader.bind('loadend', onLoadEnd);
+
+      function onDrop(e) {
+        if (e.target.files.length) {
+          file = e.target.files[0];
+          reader.readAsDataURL(file);
+        }
+      }
+
+      function onLoadEnd() {
+        scope.$emit(FILE_EVENTS.SELECTED, file, reader.result);
+      }
+    }
+
+  }
+
+})(angular);
+
+// assets/javascripts/app/file_upload/image_select_directive.js
+(function(angular) {
+
+  var
+    defintitions;
+
+  defintitions = [
+    '$document',
+    'FileInput',
+    'FileReader',
+    'FILE_EVENTS',
+    pcImageSelect
+  ];
+
+  angular.module('pc.FileUpload')
+    .directive('pcImageSelect', defintitions);
+
+  function pcImageSelect($document, FileInput, FileReader, FILE_EVENTS) {
+    var
+      file;
+
+    return {
+      restrict: 'AC',
+      replace: false,
+      link: link,
+      scope: {}
+    };
+
+    function link(scope, elem, attrs) {
+      var
+        input,
         reader,
         settings;
 
@@ -279,21 +347,18 @@
         multiple: false
       };
 
-      uploader = new FileInput(settings);
-      uploader.bind('change', onChange);
-      uploader.init();
+      input = new FileInput(settings);
+      input.bind('change', onChange);
+      input.init();
 
       reader = new FileReader();
       reader.bind('loadend', onLoadEnd);
 
       function onChange(e) {
-        if (!e.target.files.length) {
-          return false;
+        if (e.target.files.length) {
+          file = e.target.files[0];
+          reader.readAsDataURL(file);
         }
-
-        file = e.target.files[0];
-        reader.readAsDataURL(file);
-        return true;
       }
 
       function onLoadEnd() {
@@ -1252,7 +1317,7 @@ angular.module('pc.Templates', []).run(['$templateCache', function($templateCach
 
 
   $templateCache.put('user_update_settings.html',
-    "<div class=\"col-sm-8\"><div class=\"panel-content\"><div class=\"panel-heading\"><h5>Contact Information</h5></div><div class=\"panel-body\"><form class=\"form\"><div class=\"row form-body\"><div class=\"col-md-6\"><div class=\"form-group\"><label for=\"firstName\">Contact Name*</label><input type=\"text\" id=\"firstName\" placeholder=\"First\" ng-model=\"user.firstName\"> <input type=\"text\" id=\"lastName\" placeholder=\"Last\" ng-model=\"user.lastName\"></div><div class=\"form-group\"><label for=\"emailAddress\">Current Email Address</label><input id=\"emailAddress\" type=\"email\" placeholder=\"Current Email\" ng-model=\"user.email\"></div><div class=\"form-group\"><label for=\"newEmailAddress\">Update Email Address</label><input id=\"newEmailAddress\" type=\"email\" placeholder=\"Enter New Address\"> <input type=\"email\" placeholder=\"Confirm New Address\"></div></div><div class=\"col-md-6\"><div class=\"form-group\"><label for=\"jobTitle\">Job Title</label><input id=\"jobTitle\" type=\"text\" placeholder=\"Job Title\" ng-model=\"user.jobTitle\"></div><div class=\"form-group user-profile\"><img ng-src=\"{{newProfilePicture.base64Url || user.image}}\"></div><div class=\"form-group\"><label>Update Profile Picture</label><button class=\"btn btn-default btn-sm\" pc-image-upload>Choose Image</button></div></div></div></form></div></div><button class=\"btn btn-continue\" type=\"button\" ng-click=\"saveProfile()\">Save <span class=\"glyphicon glyphicon-ok\"></span></button></div>"
+    "<div class=\"col-sm-8\"><div class=\"panel-content\"><div class=\"panel-heading\"><h5>Contact Information</h5></div><div class=\"panel-body\"><form class=\"form\"><div class=\"row form-body\"><div class=\"col-md-6\"><div class=\"form-group\"><label for=\"firstName\">Contact Name*</label><input type=\"text\" id=\"firstName\" placeholder=\"First\" ng-model=\"user.firstName\"> <input type=\"text\" id=\"lastName\" placeholder=\"Last\" ng-model=\"user.lastName\"></div><div class=\"form-group\"><label for=\"emailAddress\">Current Email Address</label><input id=\"emailAddress\" type=\"email\" placeholder=\"Current Email\" ng-model=\"user.email\"></div><div class=\"form-group\"><label for=\"newEmailAddress\">Update Email Address</label><input id=\"newEmailAddress\" type=\"email\" placeholder=\"Enter New Address\"> <input type=\"email\" placeholder=\"Confirm New Address\"></div></div><div class=\"col-md-6\"><div class=\"form-group\"><label for=\"jobTitle\">Job Title</label><input id=\"jobTitle\" type=\"text\" placeholder=\"Job Title\" ng-model=\"user.jobTitle\"></div><div class=\"form-group user-profile\" pc-image-drop><img ng-src=\"{{newProfilePicture.base64Url || user.image}}\"></div><div class=\"form-group\"><label>Update Profile Picture</label><button class=\"btn btn-default btn-sm\" pc-image-select>Choose Image</button></div></div></div></form></div></div><button class=\"btn btn-continue\" type=\"button\" ng-click=\"saveProfile()\">Save <span class=\"glyphicon glyphicon-ok\"></span></button></div>"
   );
 
 
