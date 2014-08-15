@@ -11,14 +11,13 @@ server.listen(port, host, function() {
 });
 
 function handleHTTP(req, res) {
+  console.log(req.method + ': ' + req.url);
+
   req.on('data', function(chunk) {
-    console.log('Received body data:');
-    console.log(chunk.toString());
+    console.log('Received body data: ', chunk.toString());
   });
 
   req.on('end', function () {
-    console.log(req.method + ': ' + req.url);
-
     fileServer.serve(req, res, handleError);
   }).resume();
 

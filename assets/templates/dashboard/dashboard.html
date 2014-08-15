@@ -69,7 +69,7 @@
       </div>
       <div class="panel-footer">
         <ul class="list-checklist">
-          <li ng-repeat="item in actionItems | filter:activeModeFilter()" ng-class="{complete: item.complete, incomplete: !item.complete}">
+          <li ng-repeat="item in actionItems | filter:activeModeFilter() track by $index" ng-class="{complete: item.complete, incomplete: !item.complete}">
             <span ng-switch="item.complete">
               <span ng-switch-when="false">
                 <a ui-sref="{{item.link}}">
@@ -102,7 +102,7 @@
 
     <h6 class="features-heading">Features coming soon:</h6>
     <ul class="nav-panel">
-      <li ng-repeat="feature in comingSoon" ng-mouseenter="feature.hover = true" ng-mouseleave="feature.hover = false">
+      <li ng-repeat="feature in comingSoon track by $index" ng-mouseenter="feature.hover = true" ng-mouseleave="feature.hover = false">
         <a>
           <div class="left-icon">
             <span class="glyphicon {{feature.icon}}"></span>

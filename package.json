@@ -9,6 +9,7 @@
     "ejs": "^1.0.0"
   },
   "devDependencies": {
+    "busboy": "^0.2.8",
     "chai": "^1.9.1",
     "chai-as-promised": "^4.1.1",
     "grunt": "^0.4.5",

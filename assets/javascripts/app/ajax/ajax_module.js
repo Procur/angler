@@ -3,8 +3,16 @@
   var
     dependencies;
 
-  dependencies = [];
+  dependencies = [
+    'pc.ThirdParty.Moxie'
+  ];
 
-  angular.module('pc.Ajax', dependencies);
+  angular.module('pc.Ajax', dependencies)
+    .constant('XHR_METHOD', {
+      POST: 'POST',
+      GET: 'GET',
+      PUT: 'PUT',
+      DELETE: 'DELETE'
+    });
 
 })(window, angular);

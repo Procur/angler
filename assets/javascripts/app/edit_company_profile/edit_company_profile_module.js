@@ -4,7 +4,8 @@
     dependencies;
 
   dependencies = [
-    'pc.User'
+    'pc.User',
+    'pc.Company'
   ];
 
   angular.module('pc.EditCompanyProfile', dependencies);

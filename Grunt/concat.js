@@ -1,9 +1,11 @@
 module.exports = {
   components: {
     src: [
-      '<%= componentsPath %>/angular/angular.min.js',
-      '<%= componentsPath %>/angular-ui-router/release/angular-ui-router.min.js',
-      '<%= componentsPath %>/lodash/dist/lodash.min.js'
+      '<%= componentsPath %>/angular/angular.js',
+      '<%= componentsPath %>/angular-ui-router/release/angular-ui-router.js',
+      '<%= componentsPath %>/lodash/dist/lodash.js',
+      '<%= componentsPath %>/plupload/js/moxie.js',
+      '<%= componentsPath %>/plupload/js/plupload.dev.js'
     ],
     dest: '<%= jsPath %>/components.js'
   },
@@ -17,6 +19,8 @@ module.exports = {
       '<%= jsPath %>/app/third_party/*.js',
       '<%= jsPath %>/app/ajax/ajax_module.js',
       '<%= jsPath %>/app/ajax/*.js',
+      '<%= jsPath %>/app/file_upload/file_upload_module.js',
+      '<%= jsPath %>/app/file_upload/*.js',
       '<%= jsPath %>/app/company/company_module.js',
       '<%= jsPath %>/app/company/*.js',
       '<%= jsPath %>/app/buyer_supplier/buyer_supplier_module.js',

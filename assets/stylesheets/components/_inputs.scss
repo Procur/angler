@@ -1,0 +1,15 @@
+.checkbox-label {
+  display: block;
+  padding-left: 15px;
+  text-indent: -15px;
+  
+  input[type='checkbox'] {
+    width: 13px;
+    height: 13px;
+    padding: 0;
+    margin: 0px 10px 0px 0px;
+    vertical-align: bottom;
+    position: relative;
+    top: -1px;
+  }
+}
