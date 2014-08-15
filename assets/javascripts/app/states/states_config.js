@@ -22,6 +22,13 @@
         controller: 'dashboardController'
       })
 
+      /*TREY LOOK HERE*/
+      .state('view_company_profile', {
+        url: '/view_company_profile',
+        templateUrl: 'view_company_profile.html',
+        controller: 'viewCompanyProfileController'
+      })
+
       .state('user_account_settings', {
         url: '/user_account_settings',
         templateUrl: 'user_account_settings.html',
@@ -38,14 +45,6 @@
         templateUrl: 'user_update_password.html',
         controller: 'userUpdatePassword'
       })
-
-      /*TREY LOOK HERE*/
-      .state('view_company_profile', {
-        url: '/view_company_profile',
-        templateURL: 'view_company_profile.html',
-        controller: 'viewCompanyProfileController'
-      })
-
       .state('edit_company_profile', {
         url: '/edit_company_profile',
         templateUrl: 'edit_company_profile.html',
