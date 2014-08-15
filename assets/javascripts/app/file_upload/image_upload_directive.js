@@ -22,9 +22,7 @@
       restrict: 'AC',
       replace: false,
       link: link,
-      scope: {
-
-      }
+      scope: {}
     };
 
     function link(scope, elem, attrs) {

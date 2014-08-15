@@ -15,7 +15,7 @@
             </div>
             <div class="form-group">
               <label for="emailAddress">Current Email Address</label>
-              <input for="emailAddress" type="email" placeholder="Current Email" ng-model="user.email">
+              <input id="emailAddress" type="email" placeholder="Current Email" ng-model="user.email">
             </div>
             <div class="form-group">
               <label for="newEmailAddress">Update Email Address</label>
@@ -28,17 +28,19 @@
               <label for="jobTitle">Job Title</label>
               <input id="jobTitle" type="text" placeholder="Job Title" ng-model="user.jobTitle">
             </div>
+            <div class="form-group user-profile">
+              <img ng-src="{{newProfilePicture.base64Url || user.image}}" />
+            </div>
             <div class="form-group">
               <label>Update Profile Picture</label>
-              <button class="btn" pc-image-upload>Upload Profile Picture</button>
-              <img ng-src="{{userProfile.base64Url}}"  style="max-height: 100px; max-width: 100px;"/>
+              <button class="btn btn-default btn-sm" pc-image-upload>Choose Image</button>
             </div>
           </div>
         </div>
       </form>
     </div>
   </div>
-  <button class="continue-button" type="button" ng-click="saveProfile()">
+  <button class="btn btn-continue" type="button" ng-click="saveProfile()">
     Save
     <span class="glyphicon glyphicon-ok"></span>
   </button>

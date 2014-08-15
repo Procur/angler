@@ -1,8 +1,14 @@
-.continue-button {
+.btn,
+.btn-lg,
+.btn-sm,
+.btn-xs {
+  border-radius: 0;
+}
+
+.btn-continue {
   float: right;
   background-color: $color-white;
   border: 0px none;
-  font-family: 'Montserrat', sans-serif;
   font-size: 12px;
   top: 15px;
   right: 15px;

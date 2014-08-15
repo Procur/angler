@@ -7,28 +7,35 @@
     '$scope',
     'ajaxService',
     'FILE_EVENTS',
+    'userService',
     userUpdateSettings
   ];
 
   angular.module('pc.UserAccountSettings')
     .controller('userUpdateSettings', definitions);
 
-  function userUpdateSettings($scope, ajax, FILE_EVENTS) {
+  function userUpdateSettings($scope, ajax, FILE_EVENTS, user) {
+    $scope.user = user;
 
-    $scope.$on(FILE_EVENTS.SELECTED, function(e, file, dataUrl) {
-      $scope.userProfile = {
-        file: file,
-        base64Url: dataUrl
-      };
-      $scope.$digest();
-    });
+    $scope.$on(FILE_EVENTS.SELECTED, onImageSelected);
 
-    $scope.saveProfile = function() {
+    /*$scope.saveProfile = function() {
       ajax.put('/views/api/update_user.json', {profile: $scope.userProfile})
         .then(function(res) {
           console.log(res);
         });
-    };
+    };*/
+
+    function onImageSelected(e, file, dataUrl) {
+      $scope.newProfilePicture = {
+        file: file,
+        base64Url: dataUrl
+      };
+
+      $scope.$digest();
+    }
+
+
   }
 
 })(angular);
