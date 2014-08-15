@@ -35,7 +35,7 @@
 
       settings = {
         browse_button: elem[0],
-        container: $document[0].querySelector('body'),
+        container: elem.parent()[0],
         accept: [
           {
             title: 'Image files',

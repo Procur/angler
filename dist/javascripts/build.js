@@ -44955,20 +44955,71 @@ window.plupload = plupload;
 
 // assets/javascripts/app/third_party/moxie_module.js
 (function(angular) {
+  /**
+  * mOxie provides a polyfill for doing XHR and File uploads that is cross-browser (read IE9 and below) compatible
+  * https://github.com/moxiecode/moxie/wiki/API
+  */
+
 
   var
     dependencies = [],
-    factoryDefinition;
+    moxieDefinition,
+    fileInputDefinition,
+    fileDropDefinition,
+    fileReaderDefinition,
+    formDataDefinition,
+    xhrDefinition;
 
-  factoryDefinition = [
+  moxieDefinition = [
     '$window',
     moxie
   ];
 
-  angular.module('pc.ThirdParty.Moxie', dependencies)
-    .factory('moxie', factoryDefinition);
+  fileInputDefinition = [
+    'moxie',
+    fileInput
+  ];
 
-  function moxie($window) { return $window.mOxie; }
+  fileDropDefinition = [
+    'moxie',
+    fileDrop
+  ];
+
+  fileReaderDefinition = [
+    'moxie',
+    fileReader
+  ];
+
+  formDataDefinition = [
+    'moxie',
+    formData
+  ];
+
+  xhrDefinition = [
+    'moxie',
+    xhr
+  ];
+
+  angular.module('pc.ThirdParty.Moxie', dependencies)
+    .factory('moxie', moxieDefinition)
+    .factory('FileInput', fileInputDefinition)
+    .factory('FileDrop', fileDropDefinition)
+    .factory('FileReader', fileReaderDefinition)
+    .factory('FormData', formDataDefinition)
+    .factory('Xhr', xhrDefinition);
+
+  function moxie($window) {
+    $window.mOxie.Env.swf_url = './Moxie.swf';
+    $window.mOxie.Env.xap_url = './Moxie.xap';
+
+    return $window.mOxie;
+  }
+
+  function fileInput(moxie) { return moxie.FileInput; }
+  function fileDrop(moxie) { return moxie.FileDrop; }
+  function fileReader(moxie) { return moxie.FileReader; }
+  function formData(moxie) { return moxie.FormData; }
+  function xhr(moxie) { return moxie.XMLHttpRequest; }
 
 })(angular);
 
@@ -44997,9 +45048,17 @@ window.plupload = plupload;
   var
     dependencies;
 
-  dependencies = [];
+  dependencies = [
+    'pc.ThirdParty.Moxie'
+  ];
 
-  angular.module('pc.Ajax', dependencies);
+  angular.module('pc.Ajax', dependencies)
+    .constant('XHR_METHOD', {
+      POST: 'POST',
+      GET: 'GET',
+      PUT: 'PUT',
+      DELETE: 'DELETE'
+    });
 
 })(window, angular);
 
@@ -45009,14 +45068,18 @@ window.plupload = plupload;
     definition;
 
   definition = [
-    '$http',
+    '$q',
+    '_',
+    'FormData',
+    'Xhr',
+    'XHR_METHOD',
     ajaxService
   ];
 
   angular.module('pc.Ajax')
     .factory('ajaxService', definition);
 
-  function ajaxService($http) {
+  function ajaxService($q, _, FormData, Xhr, XHR_METHOD) {
     return {
       get: get,
       post: post,
@@ -45025,36 +45088,65 @@ window.plupload = plupload;
     };
 
     function get(endpoint) {
-      return $http.get(endpoint)
-        .then(resolveResponse)
-        ['catch'](handleError);
+      return ajax(XHR_METHOD.GET, endpoint)
+        .catch(onXhrError);
     }
 
-    function post(endpoint, data) {
-      return $http.post(endpoint, data)
-        .then(resolveResponse)
-        ['catch'](handleError);
+    function post(endpoint, postData) {
+      return ajax(XHR_METHOD.POST, endpoint, postData)
+        .catch(onXhrError);
     }
 
-    function put(endpoint, data) {
-      return $http.put(endpoint, data)
-        .then(resolveResponse)
-        ['catch'](handleError);
+    function put(endpoint, putData) {
+      return ajax(XHR_METHOD.PUT, endpoint, putData)
+        .catch(onXhrError);
     }
 
     function destroy(endpoint) {
-      return $http['delete'](endpoint)
-        .then(resolveResponse)
-        ['catch'](handleError);
+      return ajax(XHR_METHOD.PUT, endpoint)
+        .catch(onXhrError);
     }
 
-    function resolveResponse(response) {
-      return response.data;
+    function ajax(method, endpoint, data) {
+      var
+        deferred = $q.defer(),
+        xhr = new Xhr(),
+        formData = new FormData();
+
+      xhr.bind('load', onComplete);
+      xhr.bind('error', onComplete);
+
+      if (data && method !== XHR_METHOD.GET) {
+        _.each(data, addDataParam);
+      }
+
+      xhr.open(method, endpoint, true);
+      xhr.send();
+
+      return deferred.promise;
+
+      function addDataParam(val, key) {
+        formData.append(key, val);
+      }
+
+      function onComplete(data) {
+        var
+          request = data.target;
+
+        console.log(data);
+        if (request.status === 200 || request.status === 201) {
+          deferred.resolve(JSON.parse(request.responseText));
+        }
+        else {
+          deferred.reject(request.responseText);
+        }
+      }
     }
 
-    function handleError(err) {
-      console.log('There was an error!', err);
+    function onXhrError(err) {
+      console.log(err);
     }
+
   }
 
 })(angular);
@@ -45069,7 +45161,10 @@ window.plupload = plupload;
     'pc.ThirdParty.Moxie'
   ];
 
-  angular.module('pc.FileUpload', dependencies);
+  angular.module('pc.FileUpload', dependencies)
+    .constant('FILE_EVENTS', {
+      SELECTED: 'SELECTED'
+    });
 
 })(angular);
 
@@ -45081,14 +45176,16 @@ window.plupload = plupload;
 
   defintitions = [
     '$document',
-    'moxie',
+    'FileInput',
+    'FileReader',
+    'FILE_EVENTS',
     pcImageUpload
   ];
 
   angular.module('pc.FileUpload')
     .directive('pcImageUpload', defintitions);
 
-  function pcImageUpload($document, moxie) {
+  function pcImageUpload($document, FileInput, FileReader, FILE_EVENTS) {
     var
       file;
 
@@ -45096,17 +45193,20 @@ window.plupload = plupload;
       restrict: 'AC',
       replace: false,
       link: link,
-      scope: {}
+      scope: {
+
+      }
     };
 
     function link(scope, elem, attrs) {
       var
         uploader,
+        reader,
         settings;
 
       settings = {
         browse_button: elem[0],
-        container: $document[0].querySelector('body'),
+        container: elem.parent()[0],
         accept: [
           {
             title: 'Image files',
@@ -45116,11 +45216,12 @@ window.plupload = plupload;
         multiple: false
       };
 
-      uploader = new moxie.FileInput(settings);
-
+      uploader = new FileInput(settings);
       uploader.bind('change', onChange);
-
       uploader.init();
+
+      reader = new FileReader();
+      reader.bind('loadend', onLoadEnd);
 
       function onChange(e) {
         if (!e.target.files.length) {
@@ -45128,10 +45229,12 @@ window.plupload = plupload;
         }
 
         file = e.target.files[0];
-
-        console.log(file);
-
+        reader.readAsDataURL(file);
         return true;
+      }
+
+      function onLoadEnd() {
+        scope.$emit(FILE_EVENTS.SELECTED, file, reader.result);
       }
     }
 
@@ -45252,46 +45355,6 @@ window.plupload = plupload;
   ];
 
   angular.module('pc.User', dependencies);
-
-})(angular);
-
-// assets/javascripts/app/user/user_header_directive.js
-(function(angular) {
-
-  var
-    definitions;
-
-  definitions = [
-    userHeaderDirective
-  ];
-
-  angular.module('pc.User')
-    .directive('pcUserHeader', definitions);
-
-  function userHeaderDirective() {
-    var
-      definitions;
-
-    definitions = [
-      '$scope',
-      'userService',
-      'companyService',
-      controller
-    ];
-
-    return {
-      restrict: 'AC',
-      controller: definitions,
-      templateUrl: 'user_header.html',
-      scope: {}
-    };
-
-    function controller($scope, user, company) {
-      $scope.user = user;
-      $scope.company = company;
-    }
-
-  }
 
 })(angular);
 
@@ -45604,7 +45667,8 @@ window.plupload = plupload;
     dependencies;
 
   dependencies = [
-    'pc.FileUpload'
+    'pc.FileUpload',
+    'pc.Ajax'
   ];
 
   angular.module('pc.UserAccountSettings', dependencies);
@@ -45659,13 +45723,30 @@ window.plupload = plupload;
 
   definitions = [
     '$scope',
+    'ajaxService',
+    'FILE_EVENTS',
     userUpdateSettings
   ];
 
   angular.module('pc.UserAccountSettings')
     .controller('userUpdateSettings', definitions);
 
-  function userUpdateSettings($scope) {
+  function userUpdateSettings($scope, ajax, FILE_EVENTS) {
+
+    $scope.$on(FILE_EVENTS.SELECTED, function(e, file, dataUrl) {
+      $scope.userProfile = {
+        file: file,
+        base64Url: dataUrl
+      };
+      $scope.$digest();
+    });
+
+    $scope.saveProfile = function() {
+      ajax.put('/views/api/update_user.json', {profile: $scope.userProfile})
+        .then(function(res) {
+          console.log(res);
+        });
+    };
   }
 
 })(angular);
@@ -45677,7 +45758,8 @@ window.plupload = plupload;
     dependencies;
 
   dependencies = [
-    'pc.User'
+    'pc.User',
+    'pc.Company'
   ];
 
   angular.module('pc.EditCompanyProfile', dependencies);
@@ -45752,13 +45834,17 @@ window.plupload = plupload;
 
   definitions = [
     '$scope',
+    'userService',
+    'companyService',
     editCompanyProfileController
   ];
 
   angular.module('pc.EditCompanyProfile')
     .controller('editCompanyProfileController', definitions);
 
-  function editCompanyProfileController($scope) {
+  function editCompanyProfileController($scope, user, company) {
+    $scope.user = user;
+    $scope.company = company;
   }
 
 })(angular);
@@ -45877,15 +45963,32 @@ window.plupload = plupload;
     $stateProvider
       .state('dashboard', {
         url: '/dashboard',
-        templateUrl: 'dashboard.html',
-        controller: 'dashboardController'
+        views: {
+          '': {
+            templateUrl: 'dashboard.html',
+            controller: 'dashboardController'
+          },
+          'header': {
+            templateUrl: 'my_procur.html',
+            controller: 'myProcurController'
+          }
+        }
+
       })
 
       .state('user_account_settings', {
         url: '/user_account_settings',
-        templateUrl: 'user_account_settings.html',
-        controller: 'userAccountSettingsController',
-        abstract: true
+        views: {
+          '': {
+            templateUrl: 'user_account_settings.html',
+            controller: 'userAccountSettingsController',
+            abstract: true
+          },
+          'header': {
+            templateUrl: 'my_procur.html',
+            controller: 'myProcurController'
+          }
+        }
       })
       .state('user_account_settings.update_settings', {
         url: '/update_settings',
@@ -45900,9 +46003,18 @@ window.plupload = plupload;
 
       .state('edit_company_profile', {
         url: '/edit_company_profile',
-        templateUrl: 'edit_company_profile.html',
-        controller: 'editCompanyProfileController',
-        abstract: true
+        views: {
+          '': {
+            templateUrl: 'edit_company_profile.html',
+            controller: 'editCompanyProfileController',
+            abstract: true
+          },
+          header: {
+            templateUrl: 'my_procur.html',
+            controller: 'myProcurController'
+          }
+        }
+
       })
       .state('edit_company_profile.company_details', {
         url: '/company_details',
@@ -45955,17 +46067,17 @@ angular.module('pc.Templates', []).run(['$templateCache', function($templateCach
 
 
   $templateCache.put('company_details.html',
-    "<div class=\"col-sm-8\"><div class=\"panel-content\"><div class=\"panel-heading\"><h5>Basic Company Details</h5></div><div class=\"panel-body\"><form class=\"form\"><div class=\"row form-body\"><div class=\"col-md-6\"><div class=\"form-group\"><label for=\"\">Company Name*</label><input type=\"text\" id=\"companyName\" placeholder=\"Company Name\" value=\"{{company.name}}\"></div><div class=\"form-group\"><label for=\"\">Company Phone*</label><input type=\"text\" placeholder=\"Country Code*\" value=\"{{company.phone.countryCode}}\"> <input type=\"text\" placeholder=\"Phone Number*\" value=\"{{company.phone.number}}\"> <input type=\"text\" placeholder=\"Ext. Number\" value=\"{{company.phone.extension}}\"></div><div class=\"form-group\"><label for=\"\">Company Fax</label><input type=\"text\" placeholder=\"Country Code\" value=\"{{company.fax.countryCode}}\"> <input type=\"text\" placeholder=\"Fax Number\" value=\"{{company.fax.number}}\"> <input type=\"text\" placeholder=\"Ext. Number\" value=\"{{company.fax.extension}}\"></div><div class=\"form-group\"><label for=\"email\">Company Email Address*</label><input type=\"text\" id=\"email\" placeholder=\"info@mycompanyname.com\" value=\"{{company.email}}\"></div><div class=\"form-group\"><label for=\"website\">Official Company Website</label><input type=\"text\" id=\"website\" placeholder=\"www.mycompanyname.com\" value=\"{{company.website}}\"></div><div class=\"form-group\"><label for=\"industry\">Industry*</label><input type=\"text\" id=\"industry\" placeholder=\"dropdown!\" value=\"\"><!-- change to dropdown --></div></div><div class=\"col-md-6\"><div class=\"form-group\"><label for=\"\">Official Business Address*</label><input type=\"text\" placeholder=\"Address Line #1\" value=\"{{company.addresses.primary['address-1']}}\"> <input type=\"text\" placeholder=\"Address Line #2\" value=\"{{company.addresses.primary['address-2']}}\"> <input type=\"text\" placeholder=\"Select Country\" value=\"{{company.addresses.primary.country}}\"><!-- change to dropdown --> <input type=\"text\" placeholder=\"Select Province/State\" value=\"{{company.addresses.primary.state}}\"><!-- change to dropdown --> <input type=\"text\" placeholder=\"City\" value=\"{{company.addresses.primary.city}}\"><!-- change to dropdown --> <input type=\"text\" placeholder=\"Postal Code\" value=\"{{company.addresses.primary.postalCode}}\"></div><div class=\"form-group\"><label for=\"\">Is the above address a headquarters?</label><input type=\"checkbox\" name=\"\"><span>Yes; please copy address below.</span></div><div class=\"form-group\"><label for=\"\">Company Headquarters Address*</label><input type=\"text\" placeholder=\"Address Line #1\" value=\"{{company.addresses.headquarters['address-1']}}\"> <input type=\"text\" placeholder=\"Address Line #2\" value=\"{{company.addresses.headquarters['address-2']}}\"> <input type=\"text\" placeholder=\"Select Country\" value=\"{{company.addresses.headquarters.country}}\"><!-- change to dropdown --> <input type=\"text\" placeholder=\"Select Province/State\" value=\"{{company.addresses.headquarters.state}}\"><!-- change to dropdown --> <input type=\"text\" placeholder=\"City\" value=\"{{company.addresses.headquarters.city}}\"><!-- change to dropdown --> <input type=\"text\" placeholder=\"Postal Code\" value=\"{{company.addresses.headquarters.postalCode}}\"></div><div class=\"form-group\"><label for=\"employeeCount\">Total Number of Employees*</label><input type=\"text\" id=\"employeeCount\" placeholder=\"dropdown!\" value=\"\"><!-- change to dropdown --></div></div></div></form></div><button class=\"continue-button\" type=\"submit\">Save <span class=\"glyphicon glyphicon-ok\"></span></button></div></div>"
+    "<div class=\"col-sm-8\"><div class=\"panel-content\"><div class=\"panel-heading\"><h5>Basic Company Details</h5></div><div class=\"panel-body\"><form class=\"form\"><div class=\"row form-body\"><div class=\"col-md-6\"><div class=\"form-group\"><label for=\"\">Company Name*</label><input type=\"text\" id=\"companyName\" placeholder=\"\" ng-model=\"company.name\"></div><div class=\"form-group\"><label for=\"\">Company Phone*</label><div class=\"row\"><div class=\"col-md-4\"><input type=\"text\" placeholder=\"Country Code*\" ng-model=\"company.phoneNumberCountryCode\"></div><div class=\"col-md-8\"><input type=\"text\" placeholder=\"Phone Number*\" ng-model=\"company.phoneNumber\"></div></div><div class=\"row\"><div class=\"col-md-8 col-md-offset-4\"><input type=\"text\" placeholder=\"Ext. Number\" ng-model=\"company.phoneExtension\"></div></div></div><div class=\"form-group\"><label for=\"\">Company Fax</label><div class=\"row\"><div class=\"col-md-4\"><input type=\"text\" placeholder=\"Country Code\" ng-model=\"company.faxCountryCode\"></div><div class=\"col-md-8\"><input type=\"text\" placeholder=\"Fax Number\" ng-model=\"company.faxNumber\"></div></div><div class=\"row\"><div class=\"col-md-8 col-md-offset-4\"><input type=\"text\" placeholder=\"Ext. Number\" ng-model=\"company.faxExtension\"></div></div></div><div class=\"form-group\"><label for=\"email\">Company Email Address*</label><input type=\"text\" id=\"email\" placeholder=\"info@mycompanyname.com\" ng-model=\"company.email\"></div><div class=\"form-group\"><label for=\"website\">Official Company Website</label><input type=\"text\" id=\"website\" placeholder=\"www.mycompanyname.com\" ng-model=\"company.website\"></div><div class=\"form-group\"><label for=\"industry\">Industry*</label><input type=\"text\" id=\"industry\" placeholder=\"dropdown!\" ng-model=\"\"><!-- change to dropdown --></div></div><div class=\"col-md-6\"><div class=\"form-group\"><label for=\"\">Official Business Address*</label><input type=\"text\" placeholder=\"Address Line #1\" ng-model=\"\"> <input type=\"text\" placeholder=\"Address Line #2\" ng-model=\"\"> <input type=\"text\" placeholder=\"Select Country\" ng-model=\"\"><!-- change to dropdown --> <input type=\"text\" placeholder=\"Select Province/State\" ng-model=\"\"><!-- change to dropdown --><div class=\"row\"><div class=\"col-md-4\"><input type=\"text\" placeholder=\"City\" ng-model=\"\"><!-- change to dropdown --></div><div class=\"col-md-8\"><input type=\"text\" placeholder=\"Postal Code\" ng-model=\"\"></div></div></div><div class=\"form-group\"><label for=\"\">Is the above address a headquarters?</label><label for=\"is-hq\" class=\"checkbox-label\"><input type=\"checkbox\" id=\"is-hq\" placeholder=\"\" ng-model=\"\">Yes; please copy address below.</label></div><div class=\"form-group\"><label for=\"\">Company Headquarters Address*</label><input type=\"text\" placeholder=\"Address Line #1\" ng-model=\"\"> <input type=\"text\" placeholder=\"Address Line #2\" ng-model=\"\"> <input type=\"text\" placeholder=\"Select Country\" ng-model=\"\"><!-- change to dropdown --> <input type=\"text\" placeholder=\"Select Province/State\" ng-model=\"\"><!-- change to dropdown --><div class=\"row\"><div class=\"col-md-4\"><input type=\"text\" placeholder=\"City\" ng-model=\"\"><!-- change to dropdown --></div><div class=\"col-md-8\"><input type=\"text\" placeholder=\"Postal Code\" ng-model=\"\"></div></div></div><div class=\"form-group\"><label for=\"employeeCount\">Total Number of Employees*</label><input type=\"text\" id=\"employeeCount\" placeholder=\"dropdown!\" ng-model=\"\"><!-- change to dropdown --></div></div></div></form></div><button class=\"continue-button\" type=\"submit\">Save <span class=\"glyphicon glyphicon-ok\"></span></button></div></div>"
   );
 
 
   $templateCache.put('company_information.html',
-    "<div class=\"col-sm-8\"><div class=\"panel-content\"><div class=\"panel-heading\"><h5>[activeMode] Information</h5></div><div class=\"panel-body\"><form class=\"form\"><div class=\"row form-body\"><div class=\"col-md-6\"><div class=\"form-group\"><label for=\"\">Logo Image</label><img ng-src=\"http://res.cloudinary.com/huewqecyr/image/upload/v1404414400/dhemkcar246mvbm8wmcs.jpg\"> <input type=\"file\"> <input type=\"submit\" value=\"Update Logo Image\"></div><div class=\"form-group\"><label for=\"\">Type of Company</label><input type=\"text\" placeholder=\"City\" value=\"\"><!-- change to dropdown --></div><div class=\"form-group\"><label for=\"\">Contact Name</label><input type=\"text\" id=\"\" placeholder=\"Contact Name\" value=\"\"></div><div class=\"form-group\"><label for=\"\">Contact Position</label><input type=\"text\" id=\"\" placeholder=\"Contact Position\" value=\"\"></div><div class=\"form-group\"><label for=\"\">Contact Email</label><input type=\"text\" id=\"\" placeholder=\"Contact Email\" value=\"\"></div><div class=\"form-group\"><!-- SUPPLIER ONLY --><label for=\"\">Private Labeler</label><input type=\"checkbox\" id=\"\" placeholder=\"Private Labeler\" value=\"\"><span>Private labeling</span></div><div class=\"form-group\"><!-- SUPPLIER ONLY --><label for=\"\">GSA Approved Supplier</label><input type=\"checkbox\" id=\"\" placeholder=\"GSA Approved Supplier\" value=\"\"><span>GSA Approved Supplier</span></div><div class=\"form-group\"><label for=\"\">DUNS Number</label><input type=\"text\" id=\"\" placeholder=\"DUNS Number\" value=\"\"></div><div class=\"form-group\"><!-- SUPPLIER ONLY --><label for=\"\">CAGE Code</label><input type=\"text\" id=\"\" placeholder=\"CAGE Code\" value=\"\"></div><div class=\"form-group\"><!-- BUYER ONLY --><label for=\"\">Secondary Location</label><input type=\"text\" placeholder=\"Location Title\" value=\"\"> <input type=\"text\" placeholder=\"Select Location Type\" value=\"\"><!-- change to dropdown --> <input type=\"text\" placeholder=\"Select Country\" value=\"\"><!-- change to dropdown --> <input type=\"text\" placeholder=\"Select Province/State\" value=\"\"><!-- change to dropdown --> <input type=\"text\" placeholder=\"City\" value=\"\"></div><div class=\"form-group\"><!-- BUYER ONLY --><label for=\"\">Nearest Port</label><input type=\"text\" placeholder=\"City\" value=\"\"> <input type=\"text\" placeholder=\"Select Country\" value=\"\"><!-- change to dropdown --> <input type=\"text\" placeholder=\"Select Province/State\" value=\"\"><!-- change to dropdown --></div></div><div class=\"col-md-6\"><div class=\"form-group\"><label for=\"\">DBA Name</label><input type=\"text\" placeholder=\"Alternate Company Name\" value=\"\"></div><div class=\"form-group\"><label for=\"\">Language*</label><input type=\"text\" placeholder=\"Select Language\" value=\"\"><!-- change to dropdown --></div><div class=\"form-group\"><label for=\"\">Accepted Currencies*</label><div class=\"col-md-6\"><input type=\"checkbox\"><span>USD</span> <input type=\"checkbox\"><span>JPY</span> <input type=\"checkbox\"><span>AUD</span> <input type=\"checkbox\"><span>CAD</span> <input type=\"checkbox\"><span>CNY</span> <input type=\"checkbox\"><span>SEK</span> <input type=\"checkbox\"><span>HKD</span></div><div class=\"col-md-6\"><input type=\"checkbox\"><span>EUR</span> <input type=\"checkbox\"><span>GBP</span> <input type=\"checkbox\"><span>CHF</span> <input type=\"checkbox\"><span>MXN</span> <input type=\"checkbox\"><span>NZD</span> <input type=\"checkbox\"><span>RUB</span> <input type=\"checkbox\"><span>SGD</span></div></div><div class=\"form-group\"><label for=\"\">Accepted Payment Terms*</label><div class=\"col-md-6\"><input type=\"checkbox\"><span>MoneyGram</span> <input type=\"checkbox\"><span>T/T</span> <input type=\"checkbox\"><span>Escrow</span> <input type=\"checkbox\"><span>D/P D/A</span></div><div class=\"col-md-6\"><input type=\"checkbox\"><span>Western Union</span> <input type=\"checkbox\"><span>Credit Card</span> <input type=\"checkbox\"><span>PayPal</span> <input type=\"checkbox\"><span>Cash</span></div></div><div class=\"form-group\"><label for=\"\">Accepted Delivery Terms</label><div class=\"col-md-6\"><input type=\"checkbox\"><span>EXW</span> <input type=\"checkbox\"><span>CPT</span> <input type=\"checkbox\"><span>DAT</span> <input type=\"checkbox\"><span>DDP</span> <input type=\"checkbox\"><span>FOB</span> <input type=\"checkbox\"><span>CIF</span></div><div class=\"col-md-6\"><input type=\"checkbox\"><span>FCA</span> <input type=\"checkbox\"><span>CIP</span> <input type=\"checkbox\"><span>DAP</span> <input type=\"checkbox\"><span>FAS</span> <input type=\"checkbox\"><span>CFR</span> <input type=\"checkbox\"><span>Custom</span></div></div></div><div class=\"col-md-12\"><div class=\"form-group\"><label for=\"\">Enter Product Categories of Interest</label><input type=\"text\" placeholder=\"Begin typing to search categories...\" value=\"\"><!-- change to dropdown --> <input type=\"text\" placeholder=\"Begin typing to search categories...\" value=\"\"><!-- change to dropdown --> <input type=\"text\" placeholder=\"Begin typing to search categories...\" value=\"\"><!-- change to dropdown --></div></div></div></form></div></div><button class=\"continue-button\" type=\"submit\">Save <span class=\"glyphicon glyphicon-ok\"></span></button></div>"
+    "<div class=\"col-sm-8\"><div class=\"panel-content\"><div class=\"panel-heading\"><h5>[activeMode] Information</h5></div><div class=\"panel-body\"><form class=\"form\"><div class=\"row form-body\"><div class=\"col-md-6\"><div class=\"form-group\"><label for=\"\">Logo Image</label><img ng-src=\"http://res.cloudinary.com/huewqecyr/image/upload/v1404414400/dhemkcar246mvbm8wmcs.jpg\"> <input type=\"file\"> <input type=\"submit\" ng-model=\"Update Logo Image\"></div><div class=\"form-group\"><label for=\"\">Type of Company</label><input type=\"text\" placeholder=\"City\" ng-model=\"\"><!-- change to dropdown --></div><div class=\"form-group\"><label for=\"\">Contact Name</label><input type=\"text\" id=\"\" placeholder=\"Contact Name\" ng-model=\"\"></div><div class=\"form-group\"><label for=\"\">Contact Position</label><input type=\"text\" id=\"\" placeholder=\"Contact Position\" ng-model=\"\"></div><div class=\"form-group\"><label for=\"\">Contact Email</label><input type=\"text\" id=\"\" placeholder=\"Contact Email\" ng-model=\"\"></div><div class=\"form-group\"><!-- SUPPLIER ONLY --><label for=\"\">Private Labeler</label><label for=\"private-labeler\" class=\"checkbox-label\"><input type=\"checkbox\" id=\"private-labeler\" ng-model=\"\">Private labeling</label></div><div class=\"form-group\"><!-- SUPPLIER ONLY --><label for=\"\">GSA Approved Supplier</label><label for=\"\" class=\"checkbox-label\"><input type=\"checkbox\" id=\"\" ng-model=\"\">GSA Approved Supplier</label></div><div class=\"form-group\"><label for=\"\">DUNS Number</label><input type=\"text\" id=\"\" placeholder=\"DUNS Number\" ng-model=\"\"></div><div class=\"form-group\"><!-- SUPPLIER ONLY --><label for=\"\">CAGE Code</label><input type=\"text\" id=\"\" placeholder=\"CAGE Code\" ng-model=\"\"></div><div class=\"form-group\"><!-- BUYER ONLY --><label for=\"\">Secondary Location</label><input type=\"text\" placeholder=\"Location Title\" ng-model=\"\"> <input type=\"text\" placeholder=\"Select Location Type\" ng-model=\"\"><!-- change to dropdown --> <input type=\"text\" placeholder=\"Select Country\" ng-model=\"\"><!-- change to dropdown --> <input type=\"text\" placeholder=\"Select Province/State\" ng-model=\"\"><!-- change to dropdown --> <input type=\"text\" placeholder=\"City\" ng-model=\"\"></div><div class=\"form-group\"><!-- BUYER ONLY --><label for=\"\">Nearest Port</label><input type=\"text\" placeholder=\"City\" ng-model=\"\"> <input type=\"text\" placeholder=\"Select Country\" ng-model=\"\"><!-- change to dropdown --> <input type=\"text\" placeholder=\"Select Province/State\" ng-model=\"\"><!-- change to dropdown --></div></div><div class=\"col-md-6\"><div class=\"form-group\"><label for=\"\">DBA Name</label><input type=\"text\" placeholder=\"Alternate Company Name\" ng-model=\"\"></div><div class=\"form-group\"><label for=\"\">Language*</label><input type=\"text\" placeholder=\"Select Language\" ng-model=\"\"><!-- change to dropdown --></div><div class=\"form-group\"><label for=\"\">Accepted Currencies*</label><div class=\"col-md-6\"><label for=\"\" class=\"checkbox-label\"><input type=\"checkbox\" id=\"\" ng-model=\"\">USD</label><label for=\"\" class=\"checkbox-label\"><input type=\"checkbox\" id=\"\" ng-model=\"\">JPY</label><label for=\"\" class=\"checkbox-label\"><input type=\"checkbox\" id=\"\" ng-model=\"\">AUD</label><label for=\"\" class=\"checkbox-label\"><input type=\"checkbox\" id=\"\" ng-model=\"\">CAD</label><label for=\"\" class=\"checkbox-label\"><input type=\"checkbox\" id=\"\" ng-model=\"\">CNY</label><label for=\"\" class=\"checkbox-label\"><input type=\"checkbox\" id=\"\" ng-model=\"\">SEK</label><label for=\"\" class=\"checkbox-label\"><input type=\"checkbox\" id=\"\" ng-model=\"\">HKD</label></div><div class=\"col-md-6\"><label for=\"\" class=\"checkbox-label\"><input type=\"checkbox\" id=\"\" ng-model=\"\">EUR</label><label for=\"\" class=\"checkbox-label\"><input type=\"checkbox\" id=\"\" ng-model=\"\">GBP</label><label for=\"\" class=\"checkbox-label\"><input type=\"checkbox\" id=\"\" ng-model=\"\">CHF</label><label for=\"\" class=\"checkbox-label\"><input type=\"checkbox\" id=\"\" ng-model=\"\">MXN</label><label for=\"\" class=\"checkbox-label\"><input type=\"checkbox\" id=\"\" ng-model=\"\">NZD</label><label for=\"\" class=\"checkbox-label\"><input type=\"checkbox\" id=\"\" ng-model=\"\">RUB</label><label for=\"\" class=\"checkbox-label\"><input type=\"checkbox\" id=\"\" ng-model=\"\">SGD</label></div></div><div class=\"form-group\"><label for=\"\">Accepted Payment Terms*</label><div class=\"col-md-6\"><label for=\"\" class=\"checkbox-label\"><input type=\"checkbox\" id=\"\" ng-model=\"\">MoneyGram</label><label for=\"\" class=\"checkbox-label\"><input type=\"checkbox\" id=\"\" ng-model=\"\">T/T</label><label for=\"\" class=\"checkbox-label\"><input type=\"checkbox\" id=\"\" ng-model=\"\">Escrow</label><label for=\"\" class=\"checkbox-label\"><input type=\"checkbox\" id=\"\" ng-model=\"\">D/P D/A</label></div><div class=\"col-md-6\"><label for=\"\" class=\"checkbox-label\"><input type=\"checkbox\" id=\"\" ng-model=\"\">Western Union</label><label for=\"\" class=\"checkbox-label\"><input type=\"checkbox\" id=\"\" ng-model=\"\">Credit Card</label><label for=\"\" class=\"checkbox-label\"><input type=\"checkbox\" id=\"\" ng-model=\"\">PayPal</label><label for=\"\" class=\"checkbox-label\"><input type=\"checkbox\" id=\"\" ng-model=\"\">Cash</label></div></div><div class=\"form-group\"><label for=\"\">Accepted Delivery Terms</label><div class=\"col-md-6\"><label for=\"\" class=\"checkbox-label\"><input type=\"checkbox\" id=\"\" ng-model=\"\">EXW</label><label for=\"\" class=\"checkbox-label\"><input type=\"checkbox\" id=\"\" ng-model=\"\">CPT</label><label for=\"\" class=\"checkbox-label\"><input type=\"checkbox\" id=\"\" ng-model=\"\">DAT</label><label for=\"\" class=\"checkbox-label\"><input type=\"checkbox\" id=\"\" ng-model=\"\">DDP</label><label for=\"\" class=\"checkbox-label\"><input type=\"checkbox\" id=\"\" ng-model=\"\">FOB</label><label for=\"\" class=\"checkbox-label\"><input type=\"checkbox\" id=\"\" ng-model=\"\">CIF</label></div><div class=\"col-md-6\"><label for=\"\" class=\"checkbox-label\"><input type=\"checkbox\" id=\"\" ng-model=\"\">FCA</label><label for=\"\" class=\"checkbox-label\"><input type=\"checkbox\" id=\"\" ng-model=\"\">CIP</label><label for=\"\" class=\"checkbox-label\"><input type=\"checkbox\" id=\"\" ng-model=\"\">DAP</label><label for=\"\" class=\"checkbox-label\"><input type=\"checkbox\" id=\"\" ng-model=\"\">FAS</label><label for=\"\" class=\"checkbox-label\"><input type=\"checkbox\" id=\"\" ng-model=\"\">CFR</label><label for=\"\" class=\"checkbox-label\"><input type=\"checkbox\" id=\"\" ng-model=\"\">Custom</label></div></div></div><div class=\"col-md-12\"><div class=\"form-group\"><label for=\"\">Enter Product Categories of Interest</label><input type=\"text\" placeholder=\"Begin typing to search categories...\" ng-model=\"\"><!-- change to dropdown --> <input type=\"text\" placeholder=\"Begin typing to search categories...\" ng-model=\"\"><!-- change to dropdown --> <input type=\"text\" placeholder=\"Begin typing to search categories...\" ng-model=\"\"><!-- change to dropdown --></div></div></div></form></div></div><button class=\"continue-button\" type=\"submit\">Save <span class=\"glyphicon glyphicon-ok\"></span></button></div>"
   );
 
 
   $templateCache.put('descriptions.html',
-    "<div class=\"col-sm-8\"><div class=\"panel-content\"><div class=\"panel-heading\"><h5>Descriptions</h5></div><div class=\"panel-body\"><form class=\"form\"><div class=\"row form-body\"></div></form></div></div><button class=\"continue-button\" type=\"submit\">Save <span class=\"glyphicon glyphicon-ok\"></span></button></div>"
+    "<div class=\"col-sm-8 edit-company-descriptions\"><div class=\"panel-content\"><div class=\"panel-heading\"><h5>Descriptions</h5></div><div class=\"panel-body\"><form class=\"form\"><div class=\"row form-body\"><div class=\"form-group\"><label for=\"\">Company Description</label><textarea name=\"\" id=\"\" rows=\"5\">Company Description</textarea></div><div class=\"form-group\"><label for=\"\">Products Overview</label><textarea name=\"\" id=\"\" rows=\"5\">Products Overview</textarea></div><label>Statements of Responsibility</label><div class=\"form-group\"><label for=\"\">Environmental Sustainability</label><textarea name=\"\" id=\"\" rows=\"5\">Environmental Sustainability</textarea></div><div class=\"form-group\"><label for=\"\">Quality Sourcing</label><textarea name=\"\" id=\"\" rows=\"5\">Quality Sourcing</textarea></div><div class=\"form-group\"><label for=\"\">Workplace Safety</label><textarea name=\"\" id=\"\" rows=\"5\">Workplace Safety</textarea></div><div class=\"form-group\"><label for=\"\">Labor Education &amp; Training</label><textarea name=\"\" id=\"\" rows=\"5\">Labor Education &amp; Training</textarea></div><div class=\"form-group\"><label for=\"\">Community Reinvestment</label><textarea name=\"\" id=\"\" rows=\"5\">Community Reinvestment</textarea></div></div></form></div></div><button class=\"continue-button\" type=\"submit\">Save <span class=\"glyphicon glyphicon-ok\"></span></button></div>"
   );
 
 
@@ -45975,27 +46087,32 @@ angular.module('pc.Templates', []).run(['$templateCache', function($templateCach
 
 
   $templateCache.put('photos.html',
-    "<div class=\"col-sm-8\"><div class=\"panel-content\"><div class=\"panel-heading\"><h5>Photos</h5></div><div class=\"panel-body\"><form class=\"form\"><div class=\"row form-body\"></div></form></div></div><button class=\"continue-button\" type=\"submit\">Save <span class=\"glyphicon glyphicon-ok\"></span></button></div>"
+    "<div class=\"col-sm-8\"><div class=\"panel-content\"><div class=\"panel-heading\"><h5>Photos</h5></div><div class=\"panel-body\"><form class=\"form\"><div class=\"row form-body\"></div></form></div><div class=\"panel-heading\"><h5>Your Photos</h5></div><div class=\"panel-body\"><form class=\"form\"><div class=\"row form-body\"></div></form></div></div><button class=\"continue-button\" type=\"submit\">Save <span class=\"glyphicon glyphicon-ok\"></span></button></div>"
   );
 
 
   $templateCache.put('preferences.html',
-    "<div class=\"col-sm-8\"><div class=\"panel-content\"><div class=\"panel-heading\"><h5>Preferences</h5></div><div class=\"panel-body\"><form class=\"form\"><div class=\"row form-body\"></div></form></div></div><button class=\"continue-button\" type=\"submit\">Save <span class=\"glyphicon glyphicon-ok\"></span></button></div>"
+    "<div class=\"col-sm-8\"><div class=\"panel-content\"><div class=\"panel-heading\"><h5>Preferences</h5></div><div class=\"panel-body\"><form class=\"form\"><div class=\"row form-body\"><div class=\"col-md-6\"><div class=\"form-group\"><label for=\"\">Preferred [activeMode] Type*</label><input type=\"text\" placeholder=\"Preferred [activeMode] Type*\" ng-model=\"\"><!-- change to dropdown --></div><div class=\"form-group\"><label for=\"\">Preferred [activeMode] Language</label><input type=\"text\" placeholder=\"Preferred [activeMode] Language\" ng-model=\"\"><!-- change to dropdown --></div></div><div class=\"col-md-6\"><div class=\"form-group\"><label for=\"\">Preferred [activeMode] Location</label><input type=\"text\" placeholder=\"Preferred [activeMode] Location\" ng-model=\"\"><!-- change to dropdown --></div></div></div></form></div></div><button class=\"continue-button\" type=\"submit\">Save <span class=\"glyphicon glyphicon-ok\"></span></button></div>"
   );
 
 
   $templateCache.put('production_details.html',
-    "<div class=\"col-sm-8\"><div class=\"panel-content\"><div class=\"panel-heading\"><h5>Production Details</h5></div><div class=\"panel-body\"><form class=\"form\"><div class=\"row form-body\"></div></form></div></div><button class=\"continue-button\" type=\"submit\">Save <span class=\"glyphicon glyphicon-ok\"></span></button></div>"
+    "<div class=\"col-sm-8\"><div class=\"panel-content\"><div class=\"panel-heading\"><h5>Production Details</h5></div><div class=\"panel-body\"><form class=\"form\"><div class=\"row form-body\"><div class=\"col-md-6\"><div class=\"form-group\"><label for=\"\">Annual Sales Value*</label><input type=\"text\" placeholder=\"Select Value\" ng-model=\"\"><!-- change to dropdown --></div><div class=\"form-group\"><label for=\"\">Total Factory Size</label><input type=\"text\" placeholder=\"Select Factory Size\" ng-model=\"\"><!-- change to dropdown --></div><div class=\"form-group\"><label for=\"\">Total Quality Control Staff</label><input type=\"text\" placeholder=\"Select Total Quality Control Staff\" ng-model=\"\"></div><div class=\"form-group\"><label for=\"\">Nearest Port</label><input type=\"text\" placeholder=\"City\" ng-model=\"\"> <input type=\"text\" placeholder=\"Select Country\" ng-model=\"\"><!-- change to dropdown --> <input type=\"text\" placeholder=\"Select Province/State\" ng-model=\"\"><!-- change to dropdown --></div></div><div class=\"col-md-6\"><div class=\"form-group\"><label for=\"\">Secondary Location</label><input type=\"text\" placeholder=\"Location Title\" ng-model=\"\"> <input type=\"text\" placeholder=\"Select Location Type\" ng-model=\"\"><!-- change to dropdown --> <input type=\"text\" placeholder=\"Select Country\" ng-model=\"\"><!-- change to dropdown --> <input type=\"text\" placeholder=\"Select Province/State\" ng-model=\"\"><!-- change to dropdown --> <input type=\"text\" placeholder=\"City\" ng-model=\"\"></div></div></div></form></div></div><button class=\"continue-button\" type=\"submit\">Save <span class=\"glyphicon glyphicon-ok\"></span></button></div>"
   );
 
 
   $templateCache.put('social_media.html',
-    "<div class=\"col-sm-8\"><div class=\"panel-content\"><div class=\"panel-heading\"><h5>Social Media</h5></div><div class=\"panel-body\"><form class=\"form\"><div class=\"row form-body\"></div></form></div></div><button class=\"continue-button\" type=\"submit\">Save <span class=\"glyphicon glyphicon-ok\"></span></button></div>"
+    "<div class=\"col-sm-8 edit-social-media\"><div class=\"panel-content\"><div class=\"panel-heading\"><h5>Social Outlets</h5></div><div class=\"panel-body\"><form class=\"form\"><div class=\"row form-body\"><div class=\"col-md-6\"><div class=\"form-group\"><label for=\"\">Facebook</label><div class=\"input-group\"><div class=\"input-group-addon\">facebook.com/<input type=\"text\" placeholder=\"Facebook\" ng-model=\"\"></div></div></div><div class=\"form-group\"><label for=\"\">Twitter</label><div class=\"input-group\"><div class=\"input-group-addon\">twitter.com/<input type=\"text\" placeholder=\"Twitter\" ng-model=\"\"></div></div></div><div class=\"form-group\"><label for=\"\">Google+</label><div class=\"input-group\"><div class=\"input-group-addon\">plus.google.com/+<input type=\"text\" placeholder=\"Google\" ng-model=\"\"></div></div></div><div class=\"form-group\"><label for=\"\">LinkedIn</label><div class=\"input-group\"><div class=\"input-group-addon\">linkedin.com/company/<input type=\"text\" placeholder=\"LinkedIn\" ng-model=\"\"></div></div></div></div><div class=\"col-md-6\"><div class=\"form-group\"><label for=\"\">Pinterest</label><div class=\"input-group\"><div class=\"input-group-addon\">pinterest.com/<input type=\"text\" placeholder=\"Pinterest\" ng-model=\"\"></div></div></div><div class=\"form-group\"><label for=\"\">Instagram</label><div class=\"input-group\"><div class=\"input-group-addon\">instagram.com/<input type=\"text\" placeholder=\"Instagram\" ng-model=\"\"></div></div></div><div class=\"form-group\"><label for=\"\">Tumblr</label><div class=\"input-group\"><div class=\"input-group-addon\">Tumblr<input type=\"text\" placeholder=\"Tumblr\" ng-model=\"\"></div></div></div></div></div></form></div></div><button class=\"continue-button\" type=\"submit\">Save <span class=\"glyphicon glyphicon-ok\"></span></button></div>"
   );
 
 
-  $templateCache.put('user_header.html',
-    "<div class=\"user-header clearfix hidden-xs\"><ul class=\"user-header-left\"><li class=\"user-header-item\"><a ui-sref=\"dashboard\"><img src=\"/assets/images/procur.png\" class=\"procur-logo\"></a></li><li class=\"user-header-item\"><a href=\"https://procur.com/earlyaccess\" class=\"early-access\">Early Access</a></li><li class=\"user-header-item\"><p class=\"text-lowercase\">{{user.firstName}} {{user.lastName}}</p><p>·</p><p>{{company.name}}</p></li></ul><ul class=\"user-header-right\"><li class=\"user-header-item\" ng-if=\"company.buyer && company.supplier\"><button class=\"btn btn-link buyer-supplier-switch\" ng-click=\"user.toggleActiveMode()\">Currently in {{user.activeMode}} mode <span class=\"glyphicon glyphicon-transfer\"></span> Switch to {{user.inactiveMode}}</button></li><li class=\"user-header-item\"><a ui-sref=\"dashboard\"><span class=\"glyphicon glyphicon-log-out\"></span> Logout</a></li></ul></div><div id=\"mobile-nav\" class=\"mobile-header hidden-sm hidden-md hidden-lg\"><!-- Mobile --><nav class=\"navbar navbar-default\" role=\"navigation\"><div class=\"container\"><div class=\"navbar-header\"><button type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\"#nav-links\"><span class=\"sr-only\">Toggle navigation</span> <span class=\"icon-bar\"></span> <span class=\"icon-bar\"></span> <span class=\"icon-bar\"></span></button><div class=\"ea-logo\"><a class=\"logo-image logo-mobile\" id=\"mobile-fix\" href=\"/\"><img src=\"/assets/images/procur.png\"></a> <a href=\"https://procur.com/earlyaccess\" class=\"early-access logo-mobile\">Early Access</a></div></div><div class=\"collapse navbar-collapse\" id=\"nav-links\"><ul class=\"nav navbar-nav navbar-right\"><li pc-nav=\"fdf\"><a ui-sref=\"dashboard\">Dashboard</a></li><li pc-nav=\"dfd\"><a ui-sref=\"fdf\">View Company Profile</a></li><li pc-nav=\"gg\"><a ui-sref=\"edit_company_profile.company_details\">Edit Company Profile</a></li><li pc-nav=\"dfd\"><a ui-sref=\"user_account_settings.update_settings\">User Account Settings</a></li><li class=\"divider\"></li><li class=\"divider\"></li><li><a ui-sref=\"dashboard\">LOGOUT</a></li></ul></div></div></nav></div><nav class=\"navbar navbar-default hidden-xs\" role=\"navigation\"><div class=\"container-fluid\"><div class=\"collapse navbar-collapse hidden-sm hidden-md hidden-lg\"><ul class=\"nav navbar-nav navbar-right\"><li pc-nav=\"dashboard\"><a ui-sref=\"dashboard\">Dashboard</a></li><li pc-nav=\"dfd\"><a ui-sref=\"fdf\">View Company Profile</a></li><li pc-nav=\"edit_company_profile\"><a ui-sref=\"edit_company_profile.company_details\">Edit Company Profile</a></li><li pc-nav=\"user_account_settings\"><a ui-sref=\"user_account_settings.update_settings\">User Account Settings</a></li></ul></div><div class=\"navbar-header\"><span class=\"navbar-brand\">My Procur:</span></div></div></nav>"
+  $templateCache.put('my_procur.html',
+    "<div class=\"user-header clearfix hidden-xs\"><ul class=\"user-header-left\"><li class=\"user-header-item\"><a ui-sref=\"dashboard\"><img src=\"/assets/images/procur.png\" class=\"procur-logo\"></a></li><li class=\"user-header-item\"><a href=\"https://procur.com/earlyaccess\" class=\"early-access\">Early Access</a></li><li class=\"user-header-item\"><p class=\"text-lowercase\">{{user.firstName}} {{user.lastName}}</p><p>·</p><p>{{company.name}}</p></li></ul><ul class=\"user-header-right\"><li class=\"user-header-item\" ng-if=\"company.buyer && company.supplier\"><button class=\"btn btn-link buyer-supplier-switch\" ng-click=\"user.toggleActiveMode()\">Currently in {{user.activeMode}} mode <span class=\"glyphicon glyphicon-transfer\"></span> Switch to {{user.inactiveMode}}</button></li><li class=\"user-header-item\"><a ui-sref=\"dashboard\"><span class=\"glyphicon glyphicon-log-out\"></span> Logout</a></li></ul></div><div id=\"mobile-nav\" class=\"mobile-header hidden-sm hidden-md hidden-lg\"><!-- Mobile --><nav class=\"navbar navbar-default\" role=\"navigation\"><div class=\"container\"><div class=\"navbar-header\"><button type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\"#nav-links\"><span class=\"sr-only\">Toggle navigation</span> <span class=\"icon-bar\"></span> <span class=\"icon-bar\"></span> <span class=\"icon-bar\"></span></button><div class=\"ea-logo\"><a class=\"logo-image logo-mobile\" id=\"mobile-fix\" href=\"/\"><img src=\"/assets/images/procur.png\"></a> <a href=\"https://procur.com/earlyaccess\" class=\"early-access logo-mobile\">Early Access</a></div></div><div class=\"collapse navbar-collapse\" id=\"nav-links\"><ul class=\"nav navbar-nav navbar-right\"><li pc-nav=\"fdf\"><a ui-sref=\"dashboard\">Dashboard</a></li><li pc-nav=\"dfd\"><a ui-sref=\"fdf\">View Company Profile</a></li><li pc-nav=\"gg\"><a ui-sref=\"edit_company_profile.company_details\">Edit Company Profile</a></li><li pc-nav=\"dfd\"><a ui-sref=\"user_account_settings.update_settings\">User Account Settings</a></li><li class=\"divider\"></li><li class=\"divider\"></li><li><a ui-sref=\"dashboard\">LOGOUT</a></li></ul></div></div></nav></div><nav class=\"navbar navbar-default hidden-xs\" role=\"navigation\"><div class=\"container-fluid\"><div id=\"dash-nav\" class=\"collapse navbar-collapse hidden-sm hidden-md hidden-lg\"><ul class=\"nav navbar-nav navbar-right\"><li pc-nav=\"dashboard\"><a ui-sref=\"dashboard\">Dashboard</a></li><li pc-nav=\"dfd\"><a ui-sref=\"fdf\">View Company Profile</a></li><li pc-nav=\"edit_company_profile\"><a ui-sref=\"edit_company_profile.company_details\">Edit Company Profile</a></li><li pc-nav=\"user_account_settings\"><a ui-sref=\"user_account_settings.update_settings\">User Account Settings</a></li></ul></div><div class=\"navbar-header\"><span class=\"navbar-brand\">My Procur:</span></div></div></nav>"
+  );
+
+
+  $templateCache.put('public_view.html',
+    "<div>This is my new header</div>"
   );
 
 
@@ -46010,7 +46127,7 @@ angular.module('pc.Templates', []).run(['$templateCache', function($templateCach
 
 
   $templateCache.put('user_update_settings.html',
-    "<div class=\"col-sm-8\"><div class=\"panel-content\"><div class=\"panel-heading\"><h5>Contact Information</h5></div><div class=\"panel-body\"><form class=\"form\"><div class=\"row form-body\"><div class=\"col-md-6\"><div class=\"form-group\"><label for=\"firstName\">Contact Name*</label><input type=\"text\" id=\"firstName\" placeholder=\"First\" ng-model=\"user.firstName\"> <input type=\"text\" id=\"lastName\" placeholder=\"Last\" ng-model=\"user.lastName\"></div><div class=\"form-group\"><label for=\"emailAddress\">Current Email Address</label><input for=\"emailAddress\" type=\"email\" placeholder=\"Current Email\" ng-model=\"user.email\"></div><div class=\"form-group\"><label for=\"newEmailAddress\">Update Email Address</label><input id=\"newEmailAddress\" type=\"email\" placeholder=\"Enter New Address\"> <input type=\"email\" placeholder=\"Confirm New Address\"></div></div><div class=\"col-md-6\"><div class=\"form-group\"><label for=\"jobTitle\">Job Title</label><input id=\"jobTitle\" type=\"text\" placeholder=\"Job Title\" ng-model=\"user.jobTitle\"></div><div class=\"form-group\"><label>Update Profile Picture</label><button class=\"btn\" pc-image-upload>Upload Profile Picture</button></div></div></div></form></div></div><button class=\"continue-button\" type=\"submit\">Save <span class=\"glyphicon glyphicon-ok\"></span></button></div>"
+    "<div class=\"col-sm-8\"><div class=\"panel-content\"><div class=\"panel-heading\"><h5>Contact Information</h5></div><div class=\"panel-body\"><form class=\"form\"><div class=\"row form-body\"><div class=\"col-md-6\"><div class=\"form-group\"><label for=\"firstName\">Contact Name*</label><input type=\"text\" id=\"firstName\" placeholder=\"First\" ng-model=\"user.firstName\"> <input type=\"text\" id=\"lastName\" placeholder=\"Last\" ng-model=\"user.lastName\"></div><div class=\"form-group\"><label for=\"emailAddress\">Current Email Address</label><input for=\"emailAddress\" type=\"email\" placeholder=\"Current Email\" ng-model=\"user.email\"></div><div class=\"form-group\"><label for=\"newEmailAddress\">Update Email Address</label><input id=\"newEmailAddress\" type=\"email\" placeholder=\"Enter New Address\"> <input type=\"email\" placeholder=\"Confirm New Address\"></div></div><div class=\"col-md-6\"><div class=\"form-group\"><label for=\"jobTitle\">Job Title</label><input id=\"jobTitle\" type=\"text\" placeholder=\"Job Title\" ng-model=\"user.jobTitle\"></div><div class=\"form-group\"><label>Update Profile Picture</label><button class=\"btn\" pc-image-upload>Upload Profile Picture</button> <img ng-src=\"{{userProfile.base64Url}}\" style=\"max-height: 100px; max-width: 100px\"></div></div></div></form></div></div><button class=\"continue-button\" type=\"button\" ng-click=\"saveProfile()\">Save <span class=\"glyphicon glyphicon-ok\"></span></button></div>"
   );
 
 }]);
@@ -46026,11 +46143,47 @@ angular.module('pc.Templates', []).run(['$templateCache', function($templateCach
     'pc.States',
     'pc.Templates',
     'pc.Nav',
+    'pc.Header',
     'pc.Dashboard',
     'pc.UserAccountSettings',
     'pc.EditCompanyProfile'
   ];
 
   angular.module('pc.Main', dependencies);
+
+})(angular);
+
+// assets/javascripts/app/header/header_module.js
+(function(angular) {
+
+  var
+    dependencies;
+
+  dependencies = [];
+
+  angular.module('pc.Header', dependencies);
+
+})(angular);
+
+// assets/javascripts/app/header/my_procur_controller.js
+(function(angular) {
+
+  var
+    definitions;
+
+  definitions = [
+    '$scope',
+    'userService',
+    'companyService',
+    myProcurController
+  ];
+
+  angular.module('pc.Header')
+    .controller('myProcurController', definitions);
+
+  function myProcurController($scope, user, company) {
+    $scope.user = user;
+    $scope.company = company;
+  }
 
 })(angular);
