@@ -537,6 +537,53 @@
 
 })(angular);
 
+// assets/javascripts/app/view_company_profile/view_company_profile_module.js
+(function(angular) {
+
+  var
+    dependencies;
+
+  dependencies = [
+    'pc.User'
+  ];
+
+  angular.module('pc.ViewCompanyProfile', dependencies);
+
+})(angular);
+
+
+// assets/javascripts/app/view_company_profile/view_company_profile_controller.js
+(function(angular) {
+
+  var
+    definitions;
+
+  definitions = [
+    '$scope',
+    'userService',
+    'companyService',
+    viewCompanyProfileController
+  ];
+
+  angular.module('pc.ViewCompanyProfile')
+    .controller('viewCompanyProfileController', definitions);
+
+
+  function viewCompanyProfileController($scope, user, company) {
+    $scope.user = user;
+    $scope.company = company;
+  }
+
+
+
+
+
+
+
+
+})(angular);
+
+
 // assets/javascripts/app/user_account_settings/user_account_settings_module.js
 (function(angular) {
 
@@ -821,6 +868,13 @@
         controller: 'dashboardController'
       })
 
+      /*TREY LOOK HERE*/
+      .state('view_company_profile', {
+        url: '/view_company_profile',
+        templateUrl: 'view_company_profile.html',
+        controller: 'viewCompanyProfileController'
+      })
+
       .state('user_account_settings', {
         url: '/user_account_settings',
         templateUrl: 'user_account_settings.html',
@@ -837,7 +891,6 @@
         templateUrl: 'user_update_password.html',
         controller: 'userUpdatePassword'
       })
-
       .state('edit_company_profile', {
         url: '/edit_company_profile',
         templateUrl: 'edit_company_profile.html',
@@ -885,12 +938,13 @@
 
 })(angular);
 
+
 // assets/javascripts/app/templates_module.js
 angular.module('pc.Templates', []).run(['$templateCache', function($templateCache) {
   'use strict';
 
   $templateCache.put('dashboard.html',
-    "<div class=\"row dashboard\"><div class=\"col-xs-4\"><div class=\"row user-profile\"><div class=\"col-xs-4\"><img ng-src=\"{{user.image}}\"></div><div class=\"col-xs-8\"><h4 class=\"text-muted profile-name\">{{user.firstName}} {{user.lastName}}</h4><h5 class=\"company-name\">{{company.name}}</h5><h6 class=\"member-since\">Procur member since {{user.createdYear}}</h6></div></div><div class=\"row\"><div class=\"col-xs-12 sub-nav\"><ul class=\"list-separator\"><li><a ui-sref=\"user_account_settings.update_settings\"><span class=\"glyphicon glyphicon-cog\"></span> Edit User Account Settings</a></li><li><a ui-sref=\"#\"><span class=\"glyphicon glyphicon-user\"></span> View My Company Profile</a></li></ul></div></div><div class=\"row\"><div class=\"col-xs-6 external-links\"><ul class=\"list-titled\"><li class=\"list-title\">Company</li><li><a href=\"https://procur.com/earlyaccess\">Early Access</a></li><li><a href=\"https://procur.com/features\">Upcoming Features</a></li><li><a href=\"https://procur.com/pricing\">Membership & Pricing</a></li><li><a href=\"https://procur.com/about\">About Procur</a></li></ul></div><div class=\"col-xs-6 external-links\"><ul class=\"list-titled\"><li class=\"list-title\">Help & Support</li><li><a href=\"https://procur.com/faq\">FAQ</a></li><li><a href=\"https://procur.com/contact\">Contact Us</a></li><li><a href=\"https://procur.com/support\">Support Topics</a></li><li><a href=\"mailto:support@procur.com\">Email Support</a></li></ul></div></div></div><div class=\"col-xs-5\"><div class=\"panel-content action-items\"><div class=\"panel-heading\"><h5>My Procur Action Items</h5></div><div class=\"panel-body\"><p class=\"lead\">Welcome to Procur Early Access!</p><p>We're inviting select users to register with Procur before opening up our full platform later this summer. During Early Access, account holders will be able to create company profiles, organize products and RFQs, and start engaging with our online community. When we launch our full platform, Early Access suppliers will be the first to connect with global retailers, resellers and distributors looking to fill sourcing requirements.</p><a href=\"https://procur.com/earlyaccess\" class=\"early-access\">Learn more about early access</a></div><div class=\"panel-footer\"><ul class=\"list-checklist\"><li ng-repeat=\"item in actionItems | filter:activeModeFilter()\" ng-class=\"{complete: item.complete, incomplete: !item.complete}\"><span ng-switch=\"item.complete\"><span ng-switch-when=\"false\"><a ui-sref=\"{{item.link}}\"><span class=\"glyphicon glyphicon-unchecked\"></span><h5>{{item.action}}</h5></a></span> <span ng-switch-when=\"true\"><span class=\"glyphicon glyphicon-check\"></span><h5>{{item.action}}</h5></span></span></li></ul></div></div></div><div class=\"col-xs-3\"><h6 class=\"features-heading\">Currently Accessible:</h6><ul class=\"nav-panel\"><li><a ui-sref=\"edit_company_profile\"><div class=\"left-icon\"><span class=\"glyphicon glyphicon-user\"></span></div><h6>Company Profile</h6></a></li></ul><h6 class=\"features-heading\">Features coming soon:</h6><ul class=\"nav-panel\"><li ng-repeat=\"feature in comingSoon\" ng-mouseenter=\"feature.hover = true\" ng-mouseleave=\"feature.hover = false\"><a><div class=\"left-icon\"><span class=\"glyphicon {{feature.icon}}\"></span></div><h6>{{feature.hover ? feature.alt : feature.label}}</h6></a></li></ul></div></div>"
+    "<div class=\"row dashboard\"><div class=\"col-xs-4\"><div class=\"row user-profile\"><div class=\"col-xs-4\"><img ng-src=\"{{user.image}}\"></div><div class=\"col-xs-8\"><h4 class=\"text-muted profile-name\">{{user.firstName}} {{user.lastName}}</h4><h5 class=\"company-name\">{{company.name}}</h5><h6 class=\"member-since\">Procur member since {{user.createdYear}}</h6></div></div><div class=\"row\"><div class=\"col-xs-12 sub-nav\"><ul class=\"list-separator\"><li><a ui-sref=\"user_account_settings.update_settings\"><span class=\"glyphicon glyphicon-cog\"></span> Edit User Account Settings</a></li><li><a ui-sref=\"view_company_profile\"><span class=\"glyphicon glyphicon-user\"></span> View My Company Profile</a></li></ul></div></div><div class=\"row\"><div class=\"col-xs-6 external-links\"><ul class=\"list-titled\"><li class=\"list-title\">Company</li><li><a href=\"https://procur.com/earlyaccess\">Early Access</a></li><li><a href=\"https://procur.com/features\">Upcoming Features</a></li><li><a href=\"https://procur.com/pricing\">Membership & Pricing</a></li><li><a href=\"https://procur.com/about\">About Procur</a></li></ul></div><div class=\"col-xs-6 external-links\"><ul class=\"list-titled\"><li class=\"list-title\">Help & Support</li><li><a href=\"https://procur.com/faq\">FAQ</a></li><li><a href=\"https://procur.com/contact\">Contact Us</a></li><li><a href=\"https://procur.com/support\">Support Topics</a></li><li><a href=\"mailto:support@procur.com\">Email Support</a></li></ul></div></div></div><div class=\"col-xs-5\"><div class=\"panel-content action-items\"><div class=\"panel-heading\"><h5>My Procur Action Items</h5></div><div class=\"panel-body\"><p class=\"lead\">Welcome to Procur Early Access!</p><p>We're inviting select users to register with Procur before opening up our full platform later this summer. During Early Access, account holders will be able to create company profiles, organize products and RFQs, and start engaging with our online community. When we launch our full platform, Early Access suppliers will be the first to connect with global retailers, resellers and distributors looking to fill sourcing requirements.</p><a href=\"https://procur.com/earlyaccess\" class=\"early-access\">Learn more about early access</a></div><div class=\"panel-footer\"><ul class=\"list-checklist\"><li ng-repeat=\"item in actionItems | filter:activeModeFilter()\" ng-class=\"{complete: item.complete, incomplete: !item.complete}\"><span ng-switch=\"item.complete\"><span ng-switch-when=\"false\"><a ui-sref=\"{{item.link}}\"><span class=\"glyphicon glyphicon-unchecked\"></span><h5>{{item.action}}</h5></a></span> <span ng-switch-when=\"true\"><span class=\"glyphicon glyphicon-check\"></span><h5>{{item.action}}</h5></span></span></li></ul></div></div></div><div class=\"col-xs-3\"><h6 class=\"features-heading\">Currently Accessible:</h6><ul class=\"nav-panel\"><li><a ui-sref=\"edit_company_profile\"><div class=\"left-icon\"><span class=\"glyphicon glyphicon-user\"></span></div><h6>Company Profile</h6></a></li></ul><h6 class=\"features-heading\">Features coming soon:</h6><ul class=\"nav-panel\"><li ng-repeat=\"feature in comingSoon\" ng-mouseenter=\"feature.hover = true\" ng-mouseleave=\"feature.hover = false\"><a><div class=\"left-icon\"><span class=\"glyphicon {{feature.icon}}\"></span></div><h6>{{feature.hover ? feature.alt : feature.label}}</h6></a></li></ul></div></div>"
   );
 
 
@@ -953,6 +1007,11 @@ angular.module('pc.Templates', []).run(['$templateCache', function($templateCach
     "<div class=\"col-sm-8\"><div class=\"panel-content\"><div class=\"panel-heading\"><h5>Contact Information</h5></div><div class=\"panel-body\"><form class=\"form\"><div class=\"row form-body\"><div class=\"col-md-6\"><div class=\"form-group\"><label for=\"firstName\">Contact Name*</label><input type=\"text\" id=\"firstName\" placeholder=\"First\" ng-model=\"user.firstName\"> <input type=\"text\" id=\"lastName\" placeholder=\"Last\" ng-model=\"user.lastName\"></div><div class=\"form-group\"><label for=\"emailAddress\">Current Email Address</label><input for=\"emailAddress\" type=\"email\" placeholder=\"Current Email\" ng-model=\"user.email\"></div><div class=\"form-group\"><label for=\"newEmailAddress\">Update Email Address</label><input id=\"newEmailAddress\" type=\"email\" placeholder=\"Enter New Address\"> <input type=\"email\" placeholder=\"Confirm New Address\"></div></div><div class=\"col-md-6\"><div class=\"form-group\"><label for=\"jobTitle\">Job Title</label><input id=\"jobTitle\" type=\"text\" placeholder=\"Job Title\" ng-model=\"user.jobTitle\"></div><div class=\"form-group\"><label>Update Profile Picture</label><input type=\"file\"></div></div></div></form></div></div><button class=\"continue-button\" type=\"submit\">Save <span class=\"glyphicon glyphicon-ok\"></span></button></div>"
   );
 
+
+  $templateCache.put('view_company_profile.html',
+    "<div class=\"row company-profile\"><div class=\"col-sm-12 col-md-4\"><!--IMAGE PLACEHOLDER--><div class=\"company-header\"><h2><span>buyer or supplier...</span></h2><h1>company name...</h1></div><div class=\"company-info-box company-business-address\"><h3><i class=\"fa fa-fw fa-map-marker\"></i> <span class=\"info-title\">Official Business Address</span></h3><p>info...</p><p>info...</p><p>info...</p><p>info...</p><p>info...</p></div><div class=\"company-info-box\"><h3><i class=\"fa fa-fw fa-phone\"></i></h3><p>Telephone #...</p></div><div class=\"company-info-box\"><h3><i class=\"fa fa-fw fa-location-arrow\"></i> <span class=\"info-title\">Company Email Address</span></h3><p>Email...</p></div><div class=\"company-info-box\"><h3><i class=\"fa fa-fw fa-location-arrow\"></i> <span class=\"info-title\">Company Website</span></h3><p>Website...</p></div><div class=\"company-detail-box\"><h3><span>Product Categories</span></h3><p>Water Treatment</p></div><div class=\"company-two-col-box\"><h3><span>Buyer or Suppliear Deets.....</span></h3><div class=\"company-col-left\"><div class=\"company-col-detail\"><p class=\"detail-header\">Type of Company</p><p class=\"detail-body\">buyer or supplier...</p></div><div class=\"company-col-detail\"><p class=\"detail-header\">Total # of Employees</p><p class=\"detail-body\">number....</p></div><div class=\"company-col-detail\"><p class=\"detail-header\">Industry</p><p class=\"detail-body\">industry...</p></div><div class=\"company-col-detail\"><p class=\"detail-header\">Languages</p><p class=\"detail-body\">language.....</p></div><div class=\"company-col-detail\"><p class=\"detail-header\">DUNS Number</p><p class=\"detail-body\">number....</p></div></div><div class=\"company-col-right\"><div class=\"company-col-detail\"><p class=\"detail-header\">Links</p><p class=\"detail-body\">link to website...</p></div></div></div></div><div class=\"col-sm-12 col-md-7 col-lg-8 pull-right hidden-xs\"><div class=\"profile-nav\"><ul><div class=\"nav-left\"><li>About</li></div></ul></div><!--PLACEHOLDER for dynamic content--></div></div>"
+  );
+
 }]);
 
 
@@ -968,7 +1027,8 @@ angular.module('pc.Templates', []).run(['$templateCache', function($templateCach
     'pc.Nav',
     'pc.Dashboard',
     'pc.UserAccountSettings',
-    'pc.EditCompanyProfile'
+    'pc.EditCompanyProfile',
+    'pc.ViewCompanyProfile'
   ];
 
   angular.module('pc.Main', dependencies);
