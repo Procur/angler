@@ -13,9 +13,50 @@
 
   function statesConfig($stateProvider, $urlRouterProvider) {
     $urlRouterProvider
-      .otherwise('/dashboard');
+      .otherwise('/welcome/type');
 
     $stateProvider
+      .state('registration',  {
+        url: '/welcome',
+        abstract: true,
+        views: {
+          '': {
+            templateUrl: 'registration.html',
+            controller: 'registrationController'
+          },
+          'header': {
+            templateUrl: 'registration_header.html'
+          }
+        }
+      })
+      .state('registration.type', {
+        url: '/type',
+        templateUrl: 'registration_type.html',
+        controller: 'registrationStepController',
+        data: {
+          leadText: 'Welcome to Procur. Let\'s get started.',
+          progressStep: 0
+        }
+      })
+      .state('registration.finished_product', {
+        url: '/supplier/finished_product',
+        templateUrl: 'registration_finished_product.html',
+        controller: 'registrationStepController',
+        data: {
+          leadText: 'One quick question before we get started.',
+          progressStep: 0
+        }
+      })
+      .state('registration.finished_product_confirmation', {
+        url: '/supplier/finished_product/confirmation',
+        templateUrl: 'registration_finished_product_confirmation.html',
+        controller: 'registrationStepController',
+        data: {
+          leadText: 'Procur may not be right for you.',
+          progressStep: 0
+        }
+      })
+
       .state('dashboard', {
         url: '/dashboard',
         views: {
@@ -28,7 +69,6 @@
             controller: 'myProcurController'
           }
         }
-
       })
 
       /*TREY LOOK HERE*/
@@ -40,11 +80,11 @@
 
       .state('user_account_settings', {
         url: '/user_account_settings',
+        abstract: true,
         views: {
           '': {
             templateUrl: 'user_account_settings.html',
-            controller: 'userAccountSettingsController',
-            abstract: true
+            controller: 'userAccountSettingsController'
           },
           'header': {
             templateUrl: 'my_procur.html',
@@ -62,20 +102,20 @@
         templateUrl: 'user_update_password.html',
         controller: 'userUpdatePassword'
       })
+
       .state('edit_company_profile', {
         url: '/edit_company_profile',
+        abstract: true,
         views: {
           '': {
             templateUrl: 'edit_company_profile.html',
-            controller: 'editCompanyProfileController',
-            abstract: true
+            controller: 'editCompanyProfileController'
           },
           header: {
             templateUrl: 'my_procur.html',
             controller: 'myProcurController'
           }
         }
-
       })
       .state('edit_company_profile.company_details', {
         url: '/company_details',

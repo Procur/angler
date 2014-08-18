@@ -1,0 +1,93 @@
+.registration-wizard {
+  .progress-tracker {
+    position: relative;
+
+    ul {
+
+      li {
+        width: 25%;
+        position: relative;
+
+        .progress-indicator {
+          height: 9px;
+          width: 9px;
+          display: block;
+          border-radius: 50%;
+          margin: 20px auto;
+
+          &.in-progress {
+            background-color: $color-orange-primary;
+          }
+
+          &.completed {
+            background-color: $color-gray-alt-light;
+          }
+
+          &.not-started {
+            border: 1px solid $color-gray-alt-light;
+          }
+        }
+
+        .progress-line {
+          border-bottom: 1px dotted $color-gray-alt-light;
+          position: absolute;
+          top: 24px;
+
+          &.progress-line-right {
+            border-bottom: 1px dotted $color-gray-alt-light;
+            position: absolute;
+            top: 24px;
+            right: 0;
+            left: 55%;
+          }
+
+          &.progress-line-left {
+
+            right: 55%;
+            left: 0;
+          }
+        }
+
+        p {
+          width: 125px;
+          margin: 0 auto;
+          text-transform: uppercase;
+          font-size: 11px;
+          font-weight: normal;
+          color: $color-gray-alt-light;
+
+          &.active {
+            color: $color-black;
+            font-weight: bold;
+          }
+        }
+      }
+    }
+  }
+
+  .panel-content {
+    width: 70%;
+    margin: 0 auto;
+
+    .panel-footer {
+
+      .btn.btn-lg {
+        margin: 20px 0;
+        text-transform: uppercase;
+        font-size: 14px;
+        font-weight: bold;
+      }
+
+      p {
+        a {
+          font-weight: normal;
+          text-decoration: underline;
+
+          &:hover, &:active, &:focus {
+            color: $color-black;
+          }
+        }
+      }
+    }
+  }
+}

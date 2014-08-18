@@ -1,0 +1,40 @@
+.navbar.registration {
+  border-bottom: 2px solid lighten($color-gray-alt-light, 12%);
+
+  .navbar-header {
+    .procur-logo {
+      display: inline-block;
+      margin-right: 15px;
+      padding-top: 15px;
+      padding-bottom: 15px;
+      margin-top: 6px;
+    }
+  }
+
+  .navbar-right {
+    li {
+      text-transform: uppercase;
+      display: inline-block;
+      margin-right: 15px;
+      padding-top: 15px;
+      padding-bottom: 15px;
+
+      h1, h2, h3, h4, h5, h6 {
+        padding: 0;
+        margin: 0;
+        line-height: 2;
+      }
+
+      .early-access {
+        background-color: $color-gray-alt-light;
+        padding: 5px 10px;
+        text-transform: uppercase;
+        border-radius: 4px;
+        color: $color-white;
+        font-size: 9px;
+        font-weight: bold;
+      }
+    }
+  }
+}
+

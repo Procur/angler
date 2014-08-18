@@ -8,6 +8,7 @@
     'pc.Templates',
     'pc.Nav',
     'pc.Header',
+    'pc.Registration',
     'pc.Dashboard',
     'pc.UserAccountSettings',
     'pc.EditCompanyProfile',
