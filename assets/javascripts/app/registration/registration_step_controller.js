@@ -14,6 +14,8 @@
 
   function registrationStepController($scope, $state) {
     $scope.wizard.leadText = $state.current.data.leadText;
+
+
   }
 
 })(angular);
