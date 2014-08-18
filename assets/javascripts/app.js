@@ -114,6 +114,7 @@
     dependencies;
 
   dependencies = [
+    'pc.ThirdParty.LoDash',
     'pc.ThirdParty.Moxie'
   ];
 
@@ -168,7 +169,7 @@
     }
 
     function destroy(endpoint) {
-      return ajax(XHR_METHOD.PUT, endpoint)
+      return ajax(XHR_METHOD.DELETE, endpoint)
         .catch(onXhrError);
     }
 
@@ -186,7 +187,7 @@
       }
 
       xhr.open(method, endpoint, true);
-      xhr.send();
+      xhr.send(formData);
 
       return deferred.promise;
 
@@ -209,6 +210,7 @@
     }
 
     function onXhrError(err) {
+      // TODO: Need to pass this to an error handling and notification service.
       console.log(err);
     }
 

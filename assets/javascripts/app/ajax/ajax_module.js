@@ -4,6 +4,7 @@
     dependencies;
 
   dependencies = [
+    'pc.ThirdParty.LoDash',
     'pc.ThirdParty.Moxie'
   ];
 
