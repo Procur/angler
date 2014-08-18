@@ -45049,6 +45049,7 @@ window.plupload = plupload;
     dependencies;
 
   dependencies = [
+    'pc.ThirdParty.LoDash',
     'pc.ThirdParty.Moxie'
   ];
 
@@ -45103,7 +45104,7 @@ window.plupload = plupload;
     }
 
     function destroy(endpoint) {
-      return ajax(XHR_METHOD.PUT, endpoint)
+      return ajax(XHR_METHOD.DELETE, endpoint)
         .catch(onXhrError);
     }
 
@@ -45121,7 +45122,7 @@ window.plupload = plupload;
       }
 
       xhr.open(method, endpoint, true);
-      xhr.send();
+      xhr.send(formData);
 
       return deferred.promise;
 
@@ -45481,6 +45482,32 @@ window.plupload = plupload;
 
 })(angular);
 
+// assets/javascripts/app/validation/validation_module.js
+(function(angular) {
+
+  var
+    dependencies;
+
+  dependencies = [
+    
+  ];
+
+  
+
+  angular.module('pc.Validation', []).directive('validPasswordC', function () {
+    return {
+        require: 'ngModel',
+        link: function (scope, elm, attrs, ctrl) {
+            ctrl.$parsers.unshift(function (viewValue, $scope) {
+                var noMatch = viewValue != scope.passForm.password.$viewValue
+                ctrl.$setValidity('noMatch', !noMatch)
+            })
+        }
+    }
+})
+
+})(angular);
+
 // assets/javascripts/app/nav/nav_module.js
 (function(angular) {
 
@@ -45778,12 +45805,16 @@ window.plupload = plupload;
     dependencies;
 
   dependencies = [
+
     'pc.FileUpload',
     'pc.Ajax',
-    'pc.User'
+    'pc.User',
+    'pc.Validation'
   ];
 
   angular.module('pc.UserAccountSettings', dependencies);
+
+
 
 })(angular);
 
@@ -45795,15 +45826,34 @@ window.plupload = plupload;
 
   definitions = [
     '$scope',
+    'userService',
     userAccountSettingsController
   ];
 
   angular.module('pc.UserAccountSettings')
     .controller('userAccountSettingsController', definitions);
 
-  function userAccountSettingsController($scope) {
-
+  function userAccountSettingsController($scope, userService) {
+    $scope.user = userService;
   }
+
+})(angular);
+
+// assets/javascripts/app/user_account_settings/user_account_settings_directive.js
+(function(angular) {
+
+  var
+    definitions;
+
+  definitions = [
+    'pcUserAccountSettings'
+  ];
+
+  angular.module('pc.UserAccountSettings')
+    .directive('pcUserAccountSettings', definitions);
+
+    
+  
 
 })(angular);
 
@@ -46253,12 +46303,12 @@ angular.module('pc.Templates', []).run(['$templateCache', function($templateCach
 
 
   $templateCache.put('user_update_password.html',
-    "<div class=\"col-sm-8\"><div class=\"panel-content\"><div class=\"panel-heading\"><h5>Update Password</h5></div><div class=\"panel-body\"><form class=\"form\"><div class=\"row form-body\"><div class=\"col-md-6\"><div class=\"form-group\"><label for=\"password\">Enter New Password</label><input id=\"password\" type=\"password\" placeholder=\"New Password\"></div></div><div class=\"col-md-6\"><div class=\"form-group\"><label for=\"confirmPassword\">Confirm New Password</label><input id=\"confimPassword\" type=\"password\" placeholder=\"Confirm Password\"></div></div></div></form></div></div><button class=\"btn btn-continue\" type=\"button\">Save <span class=\"glyphicon glyphicon-ok\"></span></button></div>"
+    "<div class=\"col-sm-8\"><div class=\"panel-content\"><div class=\"panel-heading\"><h5>Update Password</h5></div><div class=\"panel-body\"><form name=\"passForm\" class=\"form\"><div class=\"row form-body\"><div class=\"col-md-6\"><div class=\"form-group\"><label for=\"password\">Password</label><input type=\"password\" id=\"password\" name=\"password\" ng-model=\"formData.password\" ng-minlength=\"8\" ng-maxlength=\"20\" ng-pattern=\"/(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z])/\" required><p class=\"error\" ng-show=\"passForm.password.$error.required && passForm.password.$dirty\">required</p><p class=\"error\" ng-show=\"!passForm.password.$error.required && (passForm.password.$error.minlength || passForm.password.$error.maxlength) && passForm.password.$dirty\">Passwords must be between 8 and 20 characters.</p><p class=\"error\" ng-show=\"!passForm.password.$error.required && !passForm.password.$error.minlength && !passForm.password.$error.maxlength && passForm.password.$error.pattern && passForm.password.$dirty\">Must contain one lower &amp; uppercase letter, and one non-alpha character (a number or a symbol.)</p><br></div></div><div class=\"col-md-6\"><div class=\"form-group\"><label for=\"password_c\">Confirm Password</label><input type=\"password\" id=\"password_c\" name=\"password_c\" ng-model=\"formData.password_c\" valid-password-c required><p class=\"error\" ng-show=\"passForm.password_c.$error.required && passForm.password_c.$dirty\">Please confirm your password.</p><p class=\"error\" ng-show=\"!passForm.password_c.$error.required && passForm.password_c.$error.noMatch && passForm.password.$dirty\">Passwords do not match.</p></div></div></div></form></div></div><button class=\"btn-continue\" type=\"submit\">Save <span class=\"glyphicon glyphicon-ok\"></span></button></div>"
   );
 
 
   $templateCache.put('user_update_settings.html',
-    "<div class=\"col-sm-8\"><div class=\"panel-content\"><div class=\"panel-heading\"><h5>Contact Information</h5></div><div class=\"panel-body\"><form class=\"form\"><div class=\"row form-body\"><div class=\"col-md-6\"><div class=\"form-group\"><label for=\"firstName\">Contact Name*</label><input type=\"text\" id=\"firstName\" placeholder=\"First\" ng-model=\"user.firstName\"> <input type=\"text\" id=\"lastName\" placeholder=\"Last\" ng-model=\"user.lastName\"></div><div class=\"form-group\"><label for=\"emailAddress\">Current Email Address</label><input id=\"emailAddress\" type=\"email\" placeholder=\"Current Email\" ng-model=\"user.email\"></div><div class=\"form-group\"><label for=\"newEmailAddress\">Update Email Address</label><input id=\"newEmailAddress\" type=\"email\" placeholder=\"Enter New Address\"> <input type=\"email\" placeholder=\"Confirm New Address\"></div></div><div class=\"col-md-6\"><div class=\"form-group\"><label for=\"jobTitle\">Job Title</label><input id=\"jobTitle\" type=\"text\" placeholder=\"Job Title\" ng-model=\"user.jobTitle\"></div><div class=\"form-group user-profile\" pc-image-drop><img ng-src=\"{{newProfilePicture.base64Url || user.image}}\"></div><div class=\"form-group\"><label>Update Profile Picture</label><button class=\"btn btn-default btn-sm\" pc-image-select>Choose Image</button></div></div></div></form></div></div><button class=\"btn btn-continue\" type=\"button\" ng-click=\"saveProfile()\">Save <span class=\"glyphicon glyphicon-ok\"></span></button></div>"
+    "<div class=\"col-sm-8\"><div class=\"panel-content\"><div class=\"panel-heading\"><h5>Contact Information</h5></div><div class=\"panel-body\"><form name=\"userForm\" class=\"form\" novalidate><div class=\"row form-body\"><div class=\"col-md-6\"><div class=\"form-group\"><label for=\"firstName\">Contact Name*</label><input type=\"text\" name=\"firstName\" id=\"firstName\" placeholder=\"First\" ng-model=\"user.firstName\" required><p ng-show=\"userForm.firstName.$error.required\" class=\"error\">This field is required.</p><input type=\"text\" name=\"lastName\" id=\"lastName\" placeholder=\"Last\" ng-model=\"user.lastName\" required><p ng-show=\"userForm.lastName.$error.required\" class=\"error\">This field is required.</p></div><div class=\"form-group\"><label for=\"emailAddress\">Current Email Address</label><input id=\"emailAddress\" type=\"email\" placeholder=\"Current Email\" ng-model=\"user.email\" readonly></div><div class=\"form-group\" ng-class=\"{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }\"><label for=\"newEmailAddress\">Update Email Address</label><input type=\"email\" name=\"email\" ng-model=\"user.email\" placeholder=\"Enter new Email\"><p ng-show=\"userForm.email.$invalid && !userForm.email.$pristine\" class=\"error\">Enter a valid email.</p><input type=\"email\" placeholder=\"Confirm New Address\"></div></div><div class=\"col-md-6\"><div class=\"form-group\"><label for=\"jobTitle\">Job Title</label><input id=\"jobTitle\" type=\"text\" placeholder=\"Job Title\" ng-model=\"user.jobTitle\"></div><div class=\"form-group user-profile\" pc-image-drop><img ng-src=\"{{newProfilePicture.base64Url || user.image}}\"></div><div class=\"form-group\"><label>Update Profile Picture</label><button class=\"btn btn-default btn-sm\" pc-image-select>Choose Image</button></div></div></div></form></div></div><button class=\"btn btn-continue\" type=\"button\" ng-click=\"saveProfile()\">Save <span class=\"glyphicon glyphicon-ok\"></span></button></div>"
   );
 
 
