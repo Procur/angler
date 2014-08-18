@@ -3,6 +3,7 @@
 .btn-sm,
 .btn-xs {
   border-radius: 0;
+  border: 0;
 }
 
 .btn-continue {
@@ -19,5 +20,16 @@
   .glyphicon {
     color: #5cc56c;
     margin-left: 10px;
+  }
+}
+
+.btn-lg.btn-rounded {
+  border-radius: 45px
+}
+
+.btn-default {
+  &:hover, &:active, &:focus {
+    background-color: $color-blue-primary;
+    color: $color-white;
   }
 }

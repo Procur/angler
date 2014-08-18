@@ -334,6 +334,7 @@ ol.nav-panel li:nth-child(even).active a .left-icon {
 .btn-sm,
 .btn-xs {
   border-radius: 0;
+  border: 0;
 }
 
 .btn-continue {
@@ -350,6 +351,15 @@ ol.nav-panel li:nth-child(even).active a .left-icon {
 .btn-continue .glyphicon {
   color: #5cc56c;
   margin-left: 10px;
+}
+
+.btn-lg.btn-rounded {
+  border-radius: 45px;
+}
+
+.btn-default:hover, .btn-default:active, .btn-default:focus {
+  background-color: #3888ce;
+  color: white;
 }
 
 .checkbox-label {
@@ -502,6 +512,107 @@ ol.nav-panel li:nth-child(even).active a .left-icon {
 #public_view_header .edit_profile_text:hover {
   color: #333;
   text-decoration: none;
+}
+
+.navbar.registration {
+  border-bottom: 2px solid #e2e2e2;
+}
+.navbar.registration .navbar-header .procur-logo {
+  display: inline-block;
+  margin-right: 15px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  margin-top: 6px;
+}
+.navbar.registration .navbar-right li {
+  text-transform: uppercase;
+  display: inline-block;
+  margin-right: 15px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+.navbar.registration .navbar-right li h1, .navbar.registration .navbar-right li h2, .navbar.registration .navbar-right li h3, .navbar.registration .navbar-right li h4, .navbar.registration .navbar-right li h5, .navbar.registration .navbar-right li h6 {
+  padding: 0;
+  margin: 0;
+  line-height: 2;
+}
+.navbar.registration .navbar-right li .early-access {
+  background-color: #c3c3c3;
+  padding: 5px 10px;
+  text-transform: uppercase;
+  border-radius: 4px;
+  color: white;
+  font-size: 9px;
+  font-weight: bold;
+}
+
+.registration-wizard .progress-tracker {
+  position: relative;
+}
+.registration-wizard .progress-tracker ul li {
+  width: 25%;
+  position: relative;
+}
+.registration-wizard .progress-tracker ul li .progress-indicator {
+  height: 9px;
+  width: 9px;
+  display: block;
+  border-radius: 50%;
+  margin: 20px auto;
+}
+.registration-wizard .progress-tracker ul li .progress-indicator.in-progress {
+  background-color: #feac00;
+}
+.registration-wizard .progress-tracker ul li .progress-indicator.completed {
+  background-color: #c3c3c3;
+}
+.registration-wizard .progress-tracker ul li .progress-indicator.not-started {
+  border: 1px solid #c3c3c3;
+}
+.registration-wizard .progress-tracker ul li .progress-line {
+  border-bottom: 1px dotted #c3c3c3;
+  position: absolute;
+  top: 24px;
+}
+.registration-wizard .progress-tracker ul li .progress-line.progress-line-right {
+  border-bottom: 1px dotted #c3c3c3;
+  position: absolute;
+  top: 24px;
+  right: 0;
+  left: 55%;
+}
+.registration-wizard .progress-tracker ul li .progress-line.progress-line-left {
+  right: 55%;
+  left: 0;
+}
+.registration-wizard .progress-tracker ul li p {
+  width: 125px;
+  margin: 0 auto;
+  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: normal;
+  color: #c3c3c3;
+}
+.registration-wizard .progress-tracker ul li p.active {
+  color: black;
+  font-weight: bold;
+}
+.registration-wizard .panel-content {
+  width: 70%;
+  margin: 0 auto;
+}
+.registration-wizard .panel-content .panel-footer .btn.btn-lg {
+  margin: 20px 0;
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: bold;
+}
+.registration-wizard .panel-content .panel-footer p a {
+  font-weight: normal;
+  text-decoration: underline;
+}
+.registration-wizard .panel-content .panel-footer p a:hover, .registration-wizard .panel-content .panel-footer p a:active, .registration-wizard .panel-content .panel-footer p a:focus {
+  color: black;
 }
 
 .dashboard .user-profile img {

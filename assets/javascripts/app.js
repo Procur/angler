@@ -626,6 +626,98 @@
 
 })(angular);
 
+// assets/javascripts/app/registration/registration_module.js
+(function(angular) {
+
+  var
+    dependencies;
+
+  dependencies = [
+    'ui.router',
+    'pc.ThirdParty.LoDash'
+  ];
+
+  angular.module('pc.Registration', dependencies);
+
+})(angular);
+
+// assets/javascripts/app/registration/registration_controller.js
+(function(angular) {
+
+  var
+    definitions;
+
+  definitions = [
+    '$scope',
+    '_',
+    registrationController
+  ];
+
+  angular.module('pc.Registration')
+    .controller('registrationController', definitions);
+
+  function registrationController($scope, _) {
+    $scope.wizard = {};
+    $scope.wizard.leadText = 'Welcome to Procur.';
+    $scope.wizard.progressBar = [
+      {
+        label: 'Buyer or supplier selection',
+        status: -1
+      },
+      {
+        label: 'Company information',
+        status: -1
+      },
+      {
+        label: 'Verify email address',
+        status: -1
+      },
+      {
+        label: 'Select your custom link',
+        status: -1
+      }
+    ];
+
+    $scope.wizard.updateProgress = updateProgress;
+
+    function updateProgress(step) {
+      _.each($scope.wizard.progressBar, function(item, index) {
+        if (step < index) {
+          item.status = 1;
+        }
+        else if (step === index) {
+          item.status = 0;
+        }
+        else {
+          return false;
+        }
+      });
+    }
+  }
+
+})(angular);
+
+// assets/javascripts/app/registration/registration_step_controller.js
+(function(angular) {
+
+  var
+    definitions;
+
+  definitions = [
+    '$scope',
+    '$state',
+    registrationStepController
+  ];
+
+  angular.module('pc.Registration')
+    .controller('registrationStepController', definitions);
+
+  function registrationStepController($scope, $state) {
+    $scope.wizard.leadText = $state.current.data.leadText;
+  }
+
+})(angular);
+
 // assets/javascripts/app/dashboard/dashboard_module.js
 (function(angular) {
 
@@ -1254,9 +1346,50 @@
 
   function statesConfig($stateProvider, $urlRouterProvider) {
     $urlRouterProvider
-      .otherwise('/dashboard');
+      .otherwise('/welcome/type');
 
     $stateProvider
+      .state('registration',  {
+        url: '/welcome',
+        abstract: true,
+        views: {
+          '': {
+            templateUrl: 'registration.html',
+            controller: 'registrationController'
+          },
+          'header': {
+            templateUrl: 'registration_header.html'
+          }
+        }
+      })
+      .state('registration.type', {
+        url: '/type',
+        templateUrl: 'registration_type.html',
+        controller: 'registrationStepController',
+        data: {
+          leadText: 'Welcome to Procur. Let\'s get started.',
+          progressStep: 0
+        }
+      })
+      .state('registration.finished_product', {
+        url: '/supplier/finished_product',
+        templateUrl: 'registration_finished_product.html',
+        controller: 'registrationStepController',
+        data: {
+          leadText: 'One quick question before we get started.',
+          progressStep: 0
+        }
+      })
+      .state('registration.finished_product_confirmation', {
+        url: '/supplier/finished_product/confirmation',
+        templateUrl: 'registration_finished_product_confirmation.html',
+        controller: 'registrationStepController',
+        data: {
+          leadText: 'Procur may not be right for you.',
+          progressStep: 0
+        }
+      })
+
       .state('dashboard', {
         url: '/dashboard',
         views: {
@@ -1269,7 +1402,6 @@
             controller: 'myProcurController'
           }
         }
-
       })
 
       /*TREY LOOK HERE*/
@@ -1302,11 +1434,11 @@
 
       .state('user_account_settings', {
         url: '/user_account_settings',
+        abstract: true,
         views: {
           '': {
             templateUrl: 'user_account_settings.html',
-            controller: 'userAccountSettingsController',
-            abstract: true
+            controller: 'userAccountSettingsController'
           },
           'header': {
             templateUrl: 'my_procur.html',
@@ -1324,20 +1456,20 @@
         templateUrl: 'user_update_password.html',
         controller: 'userUpdatePassword'
       })
+
       .state('edit_company_profile', {
         url: '/edit_company_profile',
+        abstract: true,
         views: {
           '': {
             templateUrl: 'edit_company_profile.html',
-            controller: 'editCompanyProfileController',
-            abstract: true
+            controller: 'editCompanyProfileController'
           },
           header: {
             templateUrl: 'my_procur.html',
             controller: 'myProcurController'
           }
         }
-
       })
       .state('edit_company_profile.company_details', {
         url: '/company_details',
@@ -1445,6 +1577,31 @@ angular.module('pc.Templates', []).run(['$templateCache', function($templateCach
   );
 
 
+  $templateCache.put('registration_header.html',
+    "<div class=\"container\"><nav class=\"navbar registration\" role=\"navigation\"><div class=\"container-fluid\"><div class=\"navbar-header\"><button type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\"#bs-example-navbar-collapse-1\"><span class=\"sr-only\">Toggle navigation</span> <span class=\"icon-bar\"></span> <span class=\"icon-bar\"></span> <span class=\"icon-bar\"></span></button> <img src=\"/assets/images/procur.png\" class=\"procur-logo\"></div><div class=\"collapse navbar-collapse\"><ul class=\"nav navbar-nav navbar-right\"><li><span class=\"early-access\">Early Access</span></li><li><h6>Account Registration</h6></li></ul></div></div></nav></div>"
+  );
+
+
+  $templateCache.put('registration.html',
+    "<div class=\"registration-wizard\"><div class=\"row\"><div class=\"col-xs-12\"><p class=\"lead text-center\">{{wizard.leadText}}</p></div></div><div class=\"row progress-tracker hidden-xs\"><div class=\"col-xs-12\"><ul class=\"list-inline\"><li ng-repeat=\"progress in wizard.progressBar track by $index\"><div ng-if=\"!$first\" class=\"progress-line progress-line-left\"></div><span class=\"progress-indicator\" ng-class=\"{'in-progress': progress.status === 0, 'not-started': progress.status === -1, 'completed': progress.status === 1}\"></span><p class=\"text-center\" ng-class=\"{active: progress.status === 0}\">{{progress.label}}</p><div ng-if=\"!$last\" class=\"progress-line progress-line-right\"></div></li></ul></div></div><br><br><div ui-view></div></div>"
+  );
+
+
+  $templateCache.put('registration_finished_product.html',
+    "<div class=\"row\"><div class=\"col-xs-12\"><div class=\"panel-content\"><div class=\"panel-heading\"><h5 class=\"text-center\">Are you a consumer product company?</h5></div><div class=\"panel-footer\"><div class=\"row\"><div class=\"col-xs-12\"><p class=\"text-center\">If you aren't sure if you are a consumer production supplier, read <a href=\"https://procur.com/faq\">some examples of consumer product companies</a> on our FAQ.</p></div></div><div class=\"row\"><div class=\"col-sm-6\"><a class=\"btn btn-lg btn-block btn-rounded btn-default\">Yes</a></div><div class=\"col-sm-6\"><a class=\"btn btn-lg btn-block btn-rounded btn-default\" ui-sref=\"registration.finished_product_confirmation\">No</a></div></div></div></div></div></div>"
+  );
+
+
+  $templateCache.put('registration_finished_product_confirmation.html',
+    "<div class=\"row\"><div class=\"col-xs-12\"><div class=\"panel-content\"><div class=\"panel-heading\"><h5 class=\"text-center\">You are not a consumer product company?</h5></div><div class=\"panel-footer\"><div class=\"row\"><div class=\"col-xs-12\"><p class=\"text-center\">Procur helps consumer product companies sell products that are \"read for retail\".</p><p class=\"text-center\">If you aren't sure if you are a consumer production supplier, read <a href=\"https://procur.com/faq\">some examples of consumer product companies</a> on our FAQ.</p></div></div><div class=\"row\"><div class=\"col-sm-6\"><a class=\"btn btn-lg btn-block btn-rounded btn-default\">Wait - I am!</a></div><div class=\"col-sm-6\"><!-- TODO: Need to delete the session info when this link is clicked --><a class=\"btn btn-lg btn-block btn-rounded btn-default\" href=\"https://procur.com\">No, I'm not</a></div></div></div></div></div></div>"
+  );
+
+
+  $templateCache.put('registration_type.html',
+    "<div class=\"row\"><div class=\"col-xs-12\"><div class=\"panel-content\"><div class=\"panel-heading\"><h5 class=\"text-center\">Select your company type</h5></div><div class=\"panel-footer\"><div class=\"row\"><div class=\"col-sm-6\"><a class=\"btn btn-lg btn-block btn-rounded btn-default\">Buyer</a></div><div class=\"col-sm-6\"><a class=\"btn btn-lg btn-block btn-rounded btn-default\" ui-sref=\"registration.finished_product\">Supplier</a></div></div></div></div></div></div>"
+  );
+
+
   $templateCache.put('user_account_settings.html',
     "<div id=\"user_account_settings\"><div class=\"row main-row\"><div class=\"col-sm-4\"><ul class=\"nav-panel\"><li pc-nav=\"update_settings\"><a ui-sref=\"user_account_settings.update_settings\"><div class=\"left-icon\"><i class=\"glyphicon glyphicon-cog\"></i></div><h6>Update settings</h6></a></li><li pc-nav=\"update_password\"><a ui-sref=\"user_account_settings.update_password\"><div class=\"left-icon\"><i class=\"glyphicon glyphicon-lock\"></i></div><h6>Change password</h6></a></li></ul></div><div ui-view></div></div></div>"
   );
@@ -1488,6 +1645,7 @@ angular.module('pc.Templates', []).run(['$templateCache', function($templateCach
     'pc.Templates',
     'pc.Nav',
     'pc.Header',
+    'pc.Registration',
     'pc.Dashboard',
     'pc.UserAccountSettings',
     'pc.EditCompanyProfile',
