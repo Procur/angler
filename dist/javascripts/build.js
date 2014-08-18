@@ -45681,6 +45681,7 @@ window.plupload = plupload;
 
   function registrationStepController($scope, $state, FILE_EVENTS) {
     $scope.wizard.leadText = $state.current.data.leadText;
+
     $scope.wizard.progressBar.update($state.current.data.progressStep);
 
     $scope.$on(FILE_EVENTS.SELECTED, onImageSelected);
