@@ -56,6 +56,15 @@
           progressStep: 0
         }
       })
+      .state('registration.company_information', {
+        url: '/company_information',
+        templateUrl: 'registration_company_information.html',
+        controller: 'registrationStepController',
+        data: {
+          leadText: 'Excellent. Let\'s start with some basic information.',
+          progressStep: 1
+        }
+      })
 
       .state('dashboard', {
         url: '/dashboard',

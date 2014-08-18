@@ -28,8 +28,13 @@
 }
 
 .btn-default {
-  &:hover, &:active, &:focus {
+  &:hover, &:focus {
     background-color: $color-blue-primary;
+    color: $color-white;
+  }
+
+  &:active {
+    background-color: $color-blue-alt-primary;
     color: $color-white;
   }
 }

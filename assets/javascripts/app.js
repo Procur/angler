@@ -641,6 +641,68 @@
 
 })(angular);
 
+// assets/javascripts/app/registration/progress_service.js
+(function(angular) {
+
+  var
+    definitions;
+
+  definitions = [
+    '_',
+    progressService
+  ];
+
+  angular.module('pc.Registration')
+    .factory('progressService', definitions);
+
+  function progressService(_) {
+    var
+      progressBar = init();
+
+    progressBar.update = updateProgress;
+
+    return progressBar;
+
+    function init() {
+      return [
+        {
+          label: 'Buyer or supplier selection',
+          status: -1
+        },
+        {
+          label: 'Company information',
+          status: -1
+        },
+        {
+          label: 'Verify email address',
+          status: -1
+        },
+        {
+          label: 'Select your custom link',
+          status: -1
+        }
+      ];
+    }
+
+    function updateProgress(step) {
+      _.each(progressBar, updateProgressItem);
+
+      function updateProgressItem(item, index) {
+        if (step > index) {
+          item.status = 1;
+        }
+        else if (step === index) {
+          item.status = 0;
+        }
+        else {
+          item.status = -1;
+        }
+      }
+    }
+  }
+
+})(angular);
+
 // assets/javascripts/app/registration/registration_controller.js
 (function(angular) {
 
@@ -649,50 +711,18 @@
 
   definitions = [
     '$scope',
-    '_',
+    'progressService',
     registrationController
   ];
 
   angular.module('pc.Registration')
     .controller('registrationController', definitions);
 
-  function registrationController($scope, _) {
-    $scope.wizard = {};
-    $scope.wizard.leadText = 'Welcome to Procur.';
-    $scope.wizard.progressBar = [
-      {
-        label: 'Buyer or supplier selection',
-        status: -1
-      },
-      {
-        label: 'Company information',
-        status: -1
-      },
-      {
-        label: 'Verify email address',
-        status: -1
-      },
-      {
-        label: 'Select your custom link',
-        status: -1
-      }
-    ];
-
-    $scope.wizard.updateProgress = updateProgress;
-
-    function updateProgress(step) {
-      _.each($scope.wizard.progressBar, function(item, index) {
-        if (step < index) {
-          item.status = 1;
-        }
-        else if (step === index) {
-          item.status = 0;
-        }
-        else {
-          return false;
-        }
-      });
-    }
+  function registrationController($scope, progressBar) {
+    $scope.wizard = {
+      leadText: 'Welcome to Procur.',
+      progressBar: progressBar
+    };
   }
 
 })(angular);
@@ -706,6 +736,7 @@
   definitions = [
     '$scope',
     '$state',
+
     registrationStepController
   ];
 
@@ -714,6 +745,7 @@
 
   function registrationStepController($scope, $state) {
     $scope.wizard.leadText = $state.current.data.leadText;
+    $scope.wizard.progressBar.update($state.current.data.progressStep);
   }
 
 })(angular);
@@ -1389,6 +1421,15 @@
           progressStep: 0
         }
       })
+      .state('registration.company_information', {
+        url: '/company_information',
+        templateUrl: 'registration_company_information.html',
+        controller: 'registrationStepController',
+        data: {
+          leadText: 'Excellent. Let\'s start with some basic information.',
+          progressStep: 1
+        }
+      })
 
       .state('dashboard', {
         url: '/dashboard',
@@ -1583,22 +1624,27 @@ angular.module('pc.Templates', []).run(['$templateCache', function($templateCach
 
 
   $templateCache.put('registration.html',
-    "<div class=\"registration-wizard\"><div class=\"row\"><div class=\"col-xs-12\"><p class=\"lead text-center\">{{wizard.leadText}}</p></div></div><div class=\"row progress-tracker hidden-xs\"><div class=\"col-xs-12\"><ul class=\"list-inline\"><li ng-repeat=\"progress in wizard.progressBar track by $index\"><div ng-if=\"!$first\" class=\"progress-line progress-line-left\"></div><span class=\"progress-indicator\" ng-class=\"{'in-progress': progress.status === 0, 'not-started': progress.status === -1, 'completed': progress.status === 1}\"></span><p class=\"text-center\" ng-class=\"{active: progress.status === 0}\">{{progress.label}}</p><div ng-if=\"!$last\" class=\"progress-line progress-line-right\"></div></li></ul></div></div><br><br><div ui-view></div></div>"
+    "<div class=\"registration-wizard\"><div class=\"row\"><div class=\"col-xs-12\"><p class=\"lead text-center\">{{wizard.leadText}}</p></div></div><div class=\"row progress-tracker hidden-xs\"><div class=\"col-xs-10 col-xs-offset-1\"><ul class=\"list-inline\"><li ng-repeat=\"progress in wizard.progressBar track by $index\"><div ng-if=\"!$first\" class=\"progress-line progress-line-left\"></div><span class=\"progress-indicator\" ng-class=\"{'in-progress': progress.status === 0, 'not-started': progress.status === -1, 'completed': progress.status === 1}\"></span><p class=\"text-center\" ng-class=\"{active: progress.status === 0}\">{{progress.label}}</p><div ng-if=\"!$last\" class=\"progress-line progress-line-right\"></div></li></ul></div></div><br><br><div ui-view></div></div>"
+  );
+
+
+  $templateCache.put('registration_company_information.html',
+    "<div class=\"row\"><div class=\"col-xs-8 col-xs-offset-2\"><div class=\"panel-content\"><div class=\"panel-heading\"><h5 class=\"text-center\">Please fill out your company information</h5></div><div class=\"panel-footer\"><div class=\"row\"><div class=\"col-xs-12\"><form name=\"passForm\" class=\"form\"><div class=\"row form-body\"><div class=\"col-md-6\"><div class=\"form-group\"><label for=\"company-name\">Company Name*</label><input type=\"text\" id=\"company-name\" required></div><div class=\"form-group\"><label for=\"company-email\">General Company Email*</label><input type=\"email\" id=\"company-email\" required></div><div class=\"form-group\"><label for=\"\">Company Phone*</label><div class=\"row\"><div class=\"col-md-4\"><input type=\"text\" placeholder=\"+\" ng-model=\"company.phoneNumberCountryCode\"></div><div class=\"col-md-8\"><input type=\"text\" id=\"company-phone\" placeholder=\"555-123-4567\" ng-model=\"company.phoneNumber\"></div></div></div></div><div class=\"col-md-6\"><div class=\"form-group\"><label for=\"company-type\">Type of Company</label><select id=\"company-type\" name=\"companyType\" required></div></div></div></form></div></div></div></div><a class=\"btn btn-continue\">Continue <span class=\"glyphicon glyphicon-arrow-right\"></span></a></div></div>"
   );
 
 
   $templateCache.put('registration_finished_product.html',
-    "<div class=\"row\"><div class=\"col-xs-12\"><div class=\"panel-content\"><div class=\"panel-heading\"><h5 class=\"text-center\">Are you a consumer product company?</h5></div><div class=\"panel-footer\"><div class=\"row\"><div class=\"col-xs-12\"><p class=\"text-center\">If you aren't sure if you are a consumer production supplier, read <a href=\"https://procur.com/faq\">some examples of consumer product companies</a> on our FAQ.</p></div></div><div class=\"row\"><div class=\"col-sm-6\"><a class=\"btn btn-lg btn-block btn-rounded btn-default\">Yes</a></div><div class=\"col-sm-6\"><a class=\"btn btn-lg btn-block btn-rounded btn-default\" ui-sref=\"registration.finished_product_confirmation\">No</a></div></div></div></div></div></div>"
+    "<div class=\"row\"><div class=\"col-xs-8 col-xs-offset-2\"><div class=\"panel-content\"><div class=\"panel-heading\"><h5 class=\"text-center\">Are you a consumer product company?</h5></div><div class=\"panel-footer\"><div class=\"row\"><div class=\"col-xs-12\"><p class=\"text-center\">If you aren't sure if you are a consumer production supplier, read <a href=\"https://procur.com/faq\">What are some examples of consumer product companies</a> on our FAQ.</p></div></div><div class=\"row\"><div class=\"col-sm-6\"><a class=\"btn btn-lg btn-block btn-rounded btn-default\" ui-sref=\"registration.company_information\">Yes</a></div><div class=\"col-sm-6\"><a class=\"btn btn-lg btn-block btn-rounded btn-default\" ui-sref=\"registration.finished_product_confirmation\">No</a></div></div></div></div></div></div>"
   );
 
 
   $templateCache.put('registration_finished_product_confirmation.html',
-    "<div class=\"row\"><div class=\"col-xs-12\"><div class=\"panel-content\"><div class=\"panel-heading\"><h5 class=\"text-center\">You are not a consumer product company?</h5></div><div class=\"panel-footer\"><div class=\"row\"><div class=\"col-xs-12\"><p class=\"text-center\">Procur helps consumer product companies sell products that are \"read for retail\".</p><p class=\"text-center\">If you aren't sure if you are a consumer production supplier, read <a href=\"https://procur.com/faq\">some examples of consumer product companies</a> on our FAQ.</p></div></div><div class=\"row\"><div class=\"col-sm-6\"><a class=\"btn btn-lg btn-block btn-rounded btn-default\">Wait - I am!</a></div><div class=\"col-sm-6\"><!-- TODO: Need to delete the session info when this link is clicked --><a class=\"btn btn-lg btn-block btn-rounded btn-default\" href=\"https://procur.com\">No, I'm not</a></div></div></div></div></div></div>"
+    "<div class=\"row\"><div class=\"col-xs-8 col-xs-offset-2\"><div class=\"panel-content\"><div class=\"panel-heading\"><h5 class=\"text-center\">You are not a consumer product company?</h5></div><div class=\"panel-footer\"><div class=\"row\"><div class=\"col-xs-12\"><p class=\"text-center\">Procur helps consumer product companies sell products that are \"read for retail\".</p><p class=\"text-center\">If you aren't sure if you are a consumer production supplier, read <a href=\"https://procur.com/faq\">What are some examples of consumer product companies</a> on our FAQ.</p></div></div><div class=\"row\"><div class=\"col-sm-6\"><a class=\"btn btn-lg btn-block btn-rounded btn-default\" ui-sref=\"registration.company_information\">Wait - I am!</a></div><div class=\"col-sm-6\"><!-- TODO: Need to delete the session info when this link is clicked --><a class=\"btn btn-lg btn-block btn-rounded btn-default\" href=\"https://procur.com\">No, I'm not</a></div></div></div></div></div></div>"
   );
 
 
   $templateCache.put('registration_type.html',
-    "<div class=\"row\"><div class=\"col-xs-12\"><div class=\"panel-content\"><div class=\"panel-heading\"><h5 class=\"text-center\">Select your company type</h5></div><div class=\"panel-footer\"><div class=\"row\"><div class=\"col-sm-6\"><a class=\"btn btn-lg btn-block btn-rounded btn-default\">Buyer</a></div><div class=\"col-sm-6\"><a class=\"btn btn-lg btn-block btn-rounded btn-default\" ui-sref=\"registration.finished_product\">Supplier</a></div></div></div></div></div></div>"
+    "<div class=\"row\"><div class=\"col-xs-8 col-xs-offset-2\"><div class=\"panel-content\"><div class=\"panel-heading\"><h5 class=\"text-center\">Select your company type</h5></div><div class=\"panel-footer\"><div class=\"row\"><div class=\"col-sm-6\"><a class=\"btn btn-lg btn-block btn-rounded btn-default\" ui-sref=\"registration.company_information\">Buyer</a></div><div class=\"col-sm-6\"><a class=\"btn btn-lg btn-block btn-rounded btn-default\" ui-sref=\"registration.finished_product\">Supplier</a></div></div></div></div></div></div>"
   );
 
 
@@ -1608,7 +1654,7 @@ angular.module('pc.Templates', []).run(['$templateCache', function($templateCach
 
 
   $templateCache.put('user_update_password.html',
-    "<div class=\"col-sm-8\"><div class=\"panel-content\"><div class=\"panel-heading\"><h5>Update Password</h5></div><div class=\"panel-body\"><form name=\"passForm\" class=\"form\"><div class=\"row form-body\"><div class=\"col-md-6\"><div class=\"form-group\"><label for=\"password\">Password</label><input type=\"password\" id=\"password\" name=\"password\" ng-model=\"formData.password\" ng-minlength=\"8\" ng-maxlength=\"20\" ng-pattern=\"/(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z])/\" required><p class=\"error\" ng-show=\"passForm.password.$error.required && passForm.password.$dirty\">required</p><p class=\"error\" ng-show=\"!passForm.password.$error.required && (passForm.password.$error.minlength || passForm.password.$error.maxlength) && passForm.password.$dirty\">Passwords must be between 8 and 20 characters.</p><p class=\"error\" ng-show=\"!passForm.password.$error.required && !passForm.password.$error.minlength && !passForm.password.$error.maxlength && passForm.password.$error.pattern && passForm.password.$dirty\">Must contain one lower &amp; uppercase letter, and one non-alpha character (a number or a symbol.)</p><br></div></div><div class=\"col-md-6\"><div class=\"form-group\"><label for=\"password_c\">Confirm Password</label><input type=\"password\" id=\"password_c\" name=\"password_c\" ng-model=\"formData.password_c\" valid-password-c required><p class=\"error\" ng-show=\"passForm.password_c.$error.required && passForm.password_c.$dirty\">Please confirm your password.</p><p class=\"error\" ng-show=\"!passForm.password_c.$error.required && passForm.password_c.$error.noMatch && passForm.password.$dirty\">Passwords do not match.</p></div></div></div></form></div></div><button class=\"btn-continue\" type=\"submit\">Save <span class=\"glyphicon glyphicon-ok\"></span></button></div>"
+    "<div class=\"col-sm-8\"><div class=\"panel-content\"><div class=\"panel-heading\"><h5>Update Password</h5></div><div class=\"panel-body\"><form name=\"passForm\" class=\"form\"><div class=\"row form-body\"><div class=\"col-md-6\"><div class=\"form-group\"><label for=\"password\">Password</label><input type=\"password\" id=\"password\" name=\"password\" ng-model=\"formData.password\" ng-minlength=\"8\" ng-maxlength=\"20\" ng-pattern=\"/(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z])/\" required><p class=\"error\" ng-show=\"passForm.password.$error.required && passForm.password.$dirty\">required</p><p class=\"error\" ng-show=\"!passForm.password.$error.required && (passForm.password.$error.minlength || passForm.password.$error.maxlength) && passForm.password.$dirty\">Passwords must be between 8 and 20 characters.</p><p class=\"error\" ng-show=\"!passForm.password.$error.required && !passForm.password.$error.minlength && !passForm.password.$error.maxlength && passForm.password.$error.pattern && passForm.password.$dirty\">Must contain one lower &amp; uppercase letter, and one non-alpha character (a number or a symbol.)</p><br></div></div><div class=\"col-md-6\"><div class=\"form-group\"><label for=\"password_c\">Confirm Password</label><input type=\"password\" id=\"password_c\" name=\"password_c\" ng-model=\"formData.password_c\" valid-password-c required><p class=\"error\" ng-show=\"passForm.password_c.$error.required && passForm.password_c.$dirty\">Please confirm your password.</p><p class=\"error\" ng-show=\"!passForm.password_c.$error.required && passForm.password_c.$error.noMatch && passForm.password.$dirty\">Passwords do not match.</p></div></div></div></form></div><button class=\"btn-continue\" type=\"submit\">Save <span class=\"glyphicon glyphicon-ok\"></span></button></div></div>"
   );
 
 

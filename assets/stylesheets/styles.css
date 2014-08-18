@@ -357,8 +357,12 @@ ol.nav-panel li:nth-child(even).active a .left-icon {
   border-radius: 45px;
 }
 
-.btn-default:hover, .btn-default:active, .btn-default:focus {
+.btn-default:hover, .btn-default:focus {
   background-color: #3888ce;
+  color: white;
+}
+.btn-default:active {
+  background-color: #2c6ca4;
   color: white;
 }
 
@@ -391,7 +395,7 @@ ol.nav-panel li:nth-child(even).active a .left-icon {
   padding: 5px 10px;
   text-transform: uppercase;
   border-radius: 4px;
-  color: #5c5c5c;
+  color: #4d4d4d;
   font-size: 9px;
   font-weight: bold;
 }
@@ -428,11 +432,11 @@ ol.nav-panel li:nth-child(even).active a .left-icon {
   display: inline-block;
   vertical-align: middle;
   text-transform: lowercase;
-  color: #5c5c5c;
+  color: #4d4d4d;
   padding: 0;
 }
 .user-header .user-header-item a .glyphicon, .user-header .user-header-item .btn-link .glyphicon {
-  color: #5c5c5c;
+  color: #4d4d4d;
 }
 .user-header .user-header-item a:hover, .user-header .user-header-item a:active, .user-header .user-header-item a:focus, .user-header .user-header-item .btn-link:hover, .user-header .user-header-item .btn-link:active, .user-header .user-header-item .btn-link:focus {
   color: #feac00;
@@ -597,10 +601,6 @@ ol.nav-panel li:nth-child(even).active a .left-icon {
   color: black;
   font-weight: bold;
 }
-.registration-wizard .panel-content {
-  width: 70%;
-  margin: 0 auto;
-}
 .registration-wizard .panel-content .panel-footer .btn.btn-lg {
   margin: 20px 0;
   text-transform: uppercase;
@@ -612,7 +612,7 @@ ol.nav-panel li:nth-child(even).active a .left-icon {
   text-decoration: underline;
 }
 .registration-wizard .panel-content .panel-footer p a:hover, .registration-wizard .panel-content .panel-footer p a:active, .registration-wizard .panel-content .panel-footer p a:focus {
-  color: black;
+  color: #4d4d4d;
 }
 
 .dashboard .user-profile img {
