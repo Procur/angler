@@ -116,4 +116,39 @@
       margin-bottom: 20px;
     }
   }
+  .nav-left {
+    float: left;
+    font-weight: 500;
+  }
+  .nav-right {
+    li {
+      a {
+        font-weight: 500;
+      }
+      margin-left: 10px;
+    }
+    float: right;
+  }
+  .profile-nav {
+    border-bottom: 3px solid #e6e7e8;
+    height: 32px;
+  }
+  .profile-nav li {
+    display: inline;
+    text-transform: uppercase;
+    font-size: 14px;
+
+  }
+  .hint {
+    margin-top: 10px;
+    text-transform: uppercase;
+    font-family: Montserrat,sans-serif;
+    font-size: 12px;
+    a {
+      color: #fbac27;
+      font-weight: 300;
+      font-family: Montserrat,sans-serif;
+      display: inline;
+    }
+  }
 }

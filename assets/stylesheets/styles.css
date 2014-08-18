@@ -686,6 +686,40 @@ ol.nav-panel li:nth-child(even).active a .left-icon {
 .company-profile .company-detail-box .company-col-detail {
   margin-bottom: 20px;
 }
+.company-profile .nav-left {
+  float: left;
+  font-weight: 500;
+}
+.company-profile .nav-right {
+  float: right;
+}
+.company-profile .nav-right li {
+  margin-left: 10px;
+}
+.company-profile .nav-right li a {
+  font-weight: 500;
+}
+.company-profile .profile-nav {
+  border-bottom: 3px solid #e6e7e8;
+  height: 32px;
+}
+.company-profile .profile-nav li {
+  display: inline;
+  text-transform: uppercase;
+  font-size: 14px;
+}
+.company-profile .hint {
+  margin-top: 10px;
+  text-transform: uppercase;
+  font-family: Montserrat,sans-serif;
+  font-size: 12px;
+}
+.company-profile .hint a {
+  color: #fbac27;
+  font-weight: 300;
+  font-family: Montserrat,sans-serif;
+  display: inline;
+}
 
 body {
   background-color: white;
