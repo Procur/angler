@@ -56,10 +56,6 @@ describe('dashboardController', function() {
       expect(scope.user).to.equal(mockUser);
     });
 
-    it('should add the year created property to user', function() {
-      expect(scope.user.createdYear).to.equal(2014);
-    });
-
     it('should add the company object', function() {
       expect(scope.company).to.equal(mockCompany);
     });
