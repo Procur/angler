@@ -45568,10 +45568,73 @@ window.plupload = plupload;
     dependencies;
 
   dependencies = [
-    'ui.router'
+    'ui.router',
+    'pc.ThirdParty.LoDash'
   ];
 
   angular.module('pc.Registration', dependencies);
+
+})(angular);
+
+// assets/javascripts/app/registration/progress_service.js
+(function(angular) {
+
+  var
+    definitions;
+
+  definitions = [
+    '_',
+    progressService
+  ];
+
+  angular.module('pc.Registration')
+    .factory('progressService', definitions);
+
+  function progressService(_) {
+    var
+      progressBar = init();
+
+    progressBar.update = updateProgress;
+
+    return progressBar;
+
+    function init() {
+      return [
+        {
+          label: 'Buyer or supplier selection',
+          status: -1
+        },
+        {
+          label: 'Company information',
+          status: -1
+        },
+        {
+          label: 'Verify email address',
+          status: -1
+        },
+        {
+          label: 'Select your custom link',
+          status: -1
+        }
+      ];
+    }
+
+    function updateProgress(step) {
+      _.each(progressBar, updateProgressItem);
+
+      function updateProgressItem(item, index) {
+        if (step > index) {
+          item.status = 1;
+        }
+        else if (step === index) {
+          item.status = 0;
+        }
+        else {
+          return false;
+        }
+      }
+    }
+  }
 
 })(angular);
 
@@ -45583,38 +45646,23 @@ window.plupload = plupload;
 
   definitions = [
     '$scope',
+    'progressService',
     registrationController
   ];
 
   angular.module('pc.Registration')
     .controller('registrationController', definitions);
 
-  function registrationController($scope) {
-    $scope.wizard = {};
-    $scope.wizard.leadText = 'Welcome to Procur.';
-    $scope.progressBar = [
-      {
-        label: 'Buyer or supplier selection',
-        status: 0
-      },
-      {
-        label: 'Company information',
-        status: -1
-      },
-      {
-        label: 'Verify email address',
-        status: -1
-      },
-      {
-        label: 'Select your custom link',
-        status: -1
-      }
-    ];
+  function registrationController($scope, progressBar) {
+    $scope.wizard = {
+      leadText: 'Welcome to Procur.',
+      progressBar: progressBar
+    };
   }
 
 })(angular);
 
-// assets/javascripts/app/registration/registration_finished_product_confirmation_controller.js
+// assets/javascripts/app/registration/registration_step_controller.js
 (function(angular) {
 
   var
@@ -45623,56 +45671,16 @@ window.plupload = plupload;
   definitions = [
     '$scope',
     '$state',
-    registrationFinishedProductConfirmationController
+
+    registrationStepController
   ];
 
   angular.module('pc.Registration')
-    .controller('registrationFinishedProductConfirmationController', definitions);
+    .controller('registrationStepController', definitions);
 
-  function registrationFinishedProductConfirmationController($scope, $state) {
+  function registrationStepController($scope, $state) {
     $scope.wizard.leadText = $state.current.data.leadText;
-  }
-
-})(angular);
-
-// assets/javascripts/app/registration/registration_finished_product_controller.js
-(function(angular) {
-
-  var
-    definitions;
-
-  definitions = [
-    '$scope',
-    '$state',
-    registrationFinishedProductController
-  ];
-
-  angular.module('pc.Registration')
-    .controller('registrationFinishedProductController', definitions);
-
-  function registrationFinishedProductController($scope, $state) {
-    $scope.wizard.leadText = $state.current.data.leadText;
-  }
-
-})(angular);
-
-// assets/javascripts/app/registration/registration_type_controller.js
-(function(angular) {
-
-  var
-    definitions;
-
-  definitions = [
-    '$scope',
-    '$state',
-    registrationTypeController
-  ];
-
-  angular.module('pc.Registration')
-    .controller('registrationTypeController', definitions);
-
-  function registrationTypeController($scope, $state) {
-    $scope.wizard.leadText = $state.current.data.leadText;
+    $scope.wizard.progressBar.update($state.current.data.progressStep);
   }
 
 })(angular);
@@ -46260,25 +46268,37 @@ window.plupload = plupload;
       .state('registration.type', {
         url: '/type',
         templateUrl: 'registration_type.html',
-        controller: 'registrationTypeController',
+        controller: 'registrationStepController',
         data: {
-          leadText: 'Welcome to Procur. Let\'s get started.'
+          leadText: 'Welcome to Procur. Let\'s get started.',
+          progressStep: 0
         }
       })
       .state('registration.finished_product', {
         url: '/supplier/finished_product',
         templateUrl: 'registration_finished_product.html',
-        controller: 'registrationFinishedProductController',
+        controller: 'registrationStepController',
         data: {
-          leadText: 'One quick question before we get started.'
+          leadText: 'One quick question before we get started.',
+          progressStep: 0
         }
       })
-      .state('registration.finished_product.confirmation', {
-        url: '/confirmation',
+      .state('registration.finished_product_confirmation', {
+        url: '/supplier/finished_product/confirmation',
         templateUrl: 'registration_finished_product_confirmation.html',
-        controller: 'registrationFinishedProductConfirmationController',
+        controller: 'registrationStepController',
         data: {
-          leadText: 'Procur may not be right for you.'
+          leadText: 'Procur may not be right for you.',
+          progressStep: 0
+        }
+      })
+      .state('registration.company_information', {
+        url: '/company_information',
+        templateUrl: 'registration_company_information.html',
+        controller: 'registrationStepController',
+        data: {
+          leadText: 'Excellent. Let\'s start with some basic information.',
+          progressStep: 1
         }
       })
 
@@ -46454,22 +46474,27 @@ angular.module('pc.Templates', []).run(['$templateCache', function($templateCach
 
 
   $templateCache.put('registration.html',
-    "<div class=\"registration-wizard\"><div class=\"row\"><div class=\"col-xs-12\"><p class=\"lead text-center\">{{wizard.leadText}}</p></div></div><div class=\"row progress-tracker hidden-xs\"><div class=\"col-xs-12\"><ul class=\"list-inline\"><li ng-repeat=\"progress in progressBar track by $index\"><div ng-if=\"!$first\" class=\"progress-line progress-line-left\"></div><span class=\"progress-indicator\" ng-class=\"{'in-progress': progress.status === 0, 'not-started': progress.status === -1, 'completed': progress.status === 1}\"></span><p class=\"text-center\" ng-class=\"{active: progress.status === 0}\">{{progress.label}}</p><div ng-if=\"!$last\" class=\"progress-line progress-line-right\"></div></li></ul></div></div><br><br><div ui-view></div></div>"
+    "<div class=\"registration-wizard\"><div class=\"row\"><div class=\"col-xs-12\"><p class=\"lead text-center\">{{wizard.leadText}}</p></div></div><div class=\"row progress-tracker hidden-xs\"><div class=\"col-xs-12\"><ul class=\"list-inline\"><li ng-repeat=\"progress in wizard.progressBar track by $index\"><div ng-if=\"!$first\" class=\"progress-line progress-line-left\"></div><span class=\"progress-indicator\" ng-class=\"{'in-progress': progress.status === 0, 'not-started': progress.status === -1, 'completed': progress.status === 1}\"></span><p class=\"text-center\" ng-class=\"{active: progress.status === 0}\">{{progress.label}}</p><div ng-if=\"!$last\" class=\"progress-line progress-line-right\"></div></li></ul></div></div><br><br><div ui-view></div></div>"
+  );
+
+
+  $templateCache.put('registration_company_information.html',
+    "<div class=\"row\"><div class=\"col-xs-12\"><div class=\"panel-content\"><div class=\"panel-heading\"><h5 class=\"text-center\">Please fill out your company information</h5></div><div class=\"panel-footer\"><div class=\"row\"><div class=\"col-xs-12\">Form info</div></div></div></div><a class=\"btn btn-continue\">Continue <span class=\"glyphicon glyphicon-arrow-right\"></span></a></div></div>"
   );
 
 
   $templateCache.put('registration_finished_product.html',
-    "<div class=\"row\"><div class=\"col-xs-12\"><div class=\"panel-content\"><div class=\"panel-heading\"><h5 class=\"text-center\">Are you a consumer product company?</h5></div><div class=\"panel-footer\"><div class=\"row\"><div class=\"col-xs-12\"><p>If you aren't sure if you are a consumer production supplier, read <a href=\"https://procur.com/faq\">some examples of consumer product companies</a> on our FAQ.</p></div></div><div class=\"row\"><div class=\"col-sm-6\"><a class=\"btn btn-lg btn-block btn-rounded btn-default\">Yes</a></div><div class=\"col-sm-6\"><a class=\"btn btn-lg btn-block btn-rounded btn-default\" ui-sref=\"registration.finished_product.confirmation\">No</a></div></div></div></div></div></div>"
+    "<div class=\"row\"><div class=\"col-xs-12\"><div class=\"panel-content\"><div class=\"panel-heading\"><h5 class=\"text-center\">Are you a consumer product company?</h5></div><div class=\"panel-footer\"><div class=\"row\"><div class=\"col-xs-12\"><p class=\"text-center\">If you aren't sure if you are a consumer production supplier, read <a href=\"https://procur.com/faq\">What are some examples of consumer product companies</a> on our FAQ.</p></div></div><div class=\"row\"><div class=\"col-sm-6\"><a class=\"btn btn-lg btn-block btn-rounded btn-default\" ui-sref=\"registration.company_information\">Yes</a></div><div class=\"col-sm-6\"><a class=\"btn btn-lg btn-block btn-rounded btn-default\" ui-sref=\"registration.finished_product_confirmation\">No</a></div></div></div></div></div></div>"
   );
 
 
   $templateCache.put('registration_finished_product_confirmation.html',
-    "<div class=\"row\"><div class=\"col-xs-12\"><div class=\"panel-content\"><div class=\"panel-heading\"><h5 class=\"text-center\">You are not a consumer product company?</h5></div><div class=\"panel-footer\"><div class=\"row\"><div class=\"col-xs-12\"><p>Procur helps consumer product companies sell products that are \"read for retail\".</p><p>If you aren't sure if you are a consumer production supplier, read <a href=\"https://procur.com/faq\">some examples of consumer product companies</a> on our FAQ.</p></div></div><div class=\"row\"><div class=\"col-sm-6\"><a class=\"btn btn-lg btn-block btn-rounded btn-default\">Wait - I am!</a></div><div class=\"col-sm-6\"><a class=\"btn btn-lg btn-block btn-rounded btn-default\" href=\"https://procur.com\">No, I'm not</a></div></div></div></div></div></div>"
+    "<div class=\"row\"><div class=\"col-xs-12\"><div class=\"panel-content\"><div class=\"panel-heading\"><h5 class=\"text-center\">You are not a consumer product company?</h5></div><div class=\"panel-footer\"><div class=\"row\"><div class=\"col-xs-12\"><p class=\"text-center\">Procur helps consumer product companies sell products that are \"read for retail\".</p><p class=\"text-center\">If you aren't sure if you are a consumer production supplier, read <a href=\"https://procur.com/faq\">What are some examples of consumer product companies</a> on our FAQ.</p></div></div><div class=\"row\"><div class=\"col-sm-6\"><a class=\"btn btn-lg btn-block btn-rounded btn-default\" ui-sref=\"registration.company_information\">Wait - I am!</a></div><div class=\"col-sm-6\"><!-- TODO: Need to delete the session info when this link is clicked --><a class=\"btn btn-lg btn-block btn-rounded btn-default\" href=\"https://procur.com\">No, I'm not</a></div></div></div></div></div></div>"
   );
 
 
   $templateCache.put('registration_type.html',
-    "<div class=\"row\"><div class=\"col-xs-12\"><div class=\"panel-content\"><div class=\"panel-heading\"><h5 class=\"text-center\">Select your company type</h5></div><div class=\"panel-footer\"><div class=\"row\"><div class=\"col-sm-6\"><a class=\"btn btn-lg btn-block btn-rounded btn-default\">Buyer</a></div><div class=\"col-sm-6\"><a class=\"btn btn-lg btn-block btn-rounded btn-default\" ui-sref=\"registration.finished_product\">Supplier</a></div></div></div></div></div></div>"
+    "<div class=\"row\"><div class=\"col-xs-12\"><div class=\"panel-content\"><div class=\"panel-heading\"><h5 class=\"text-center\">Select your company type</h5></div><div class=\"panel-footer\"><div class=\"row\"><div class=\"col-sm-6\"><a class=\"btn btn-lg btn-block btn-rounded btn-default\" ui-sref=\"registration.company_information\">Buyer</a></div><div class=\"col-sm-6\"><a class=\"btn btn-lg btn-block btn-rounded btn-default\" ui-sref=\"registration.finished_product\">Supplier</a></div></div></div></div></div></div>"
   );
 
 

@@ -1,0 +1,53 @@
+
+
+<div class="row">
+  <div class="col-xs-8 col-xs-offset-2">
+    <div class="panel-content">
+      <div class="panel-heading">
+        <h5 class="text-center">Please fill out your company information</h5>
+      </div>
+      <div class="panel-footer">
+        <div class="row">
+          <div class="col-xs-12">
+            <form name="passForm" class="form">
+              <div class="row form-body">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="company-name">Company Name*</label>
+                    <input type="text" id="company-name" required  />
+                  </div>
+                  <div class="form-group">
+                    <label for="company-email">General Company Email*</label>
+                    <input type="email" id="company-email" required  />
+                  </div>
+                  <div class="form-group">
+                    <label for="">Company Phone*</label>
+                    <div class="row">
+                      <div class="col-md-4">
+                        <input type="text" placeholder="+" ng-model="company.phoneNumberCountryCode">
+                      </div>
+                      <div class="col-md-8">
+                        <input type="text" id="company-phone" placeholder="555-123-4567" ng-model="company.phoneNumber">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="company-type">Type of Company</label>
+                    <select id="company-type" name="companyType" required  />
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <a class="btn btn-continue">
+      Continue
+      <span class="glyphicon glyphicon-arrow-right"></span>
+    </a>
+  </div>
+</div>

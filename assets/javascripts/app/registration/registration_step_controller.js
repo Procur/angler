@@ -6,6 +6,7 @@
   definitions = [
     '$scope',
     '$state',
+
     registrationStepController
   ];
 
@@ -14,8 +15,7 @@
 
   function registrationStepController($scope, $state) {
     $scope.wizard.leadText = $state.current.data.leadText;
-
-
+    $scope.wizard.progressBar.update($state.current.data.progressStep);
   }
 
 })(angular);

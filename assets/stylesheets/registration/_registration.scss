@@ -66,8 +66,6 @@
   }
 
   .panel-content {
-    width: 70%;
-    margin: 0 auto;
 
     .panel-footer {
 
@@ -84,7 +82,7 @@
           text-decoration: underline;
 
           &:hover, &:active, &:focus {
-            color: $color-black;
+            color: $color-gray-primary;
           }
         }
       }
