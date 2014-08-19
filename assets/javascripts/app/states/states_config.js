@@ -65,6 +65,24 @@
           progressStep: 1
         }
       })
+      .state('registration.email_verification', {
+        url: '/email_verification',
+        templateUrl: 'registration_email_verification.html',
+        controller: 'registrationStepController',
+        data: {
+          leadText: 'Have you checked your email lately?',
+          progressStep: 2
+        }
+      })
+      .state('registration.handle', {
+        url: '/handle',
+        templateUrl: 'registration_handle.html',
+        controller: 'registrationStepController',
+        data: {
+          leadText: 'Set your custom link',
+          progressStep: 3
+        }
+      })
 
       .state('dashboard', {
         url: '/dashboard',
