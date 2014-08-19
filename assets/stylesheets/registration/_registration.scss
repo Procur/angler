@@ -86,6 +86,19 @@
           }
         }
       }
+
+      form {
+        .separator {
+          border-top: 1px solid $color-gray-alt-light;
+
+           h5 {
+            text-transform: uppercase;
+            color: $color-gray-light;
+            font-weight: bold;
+            margin-top: 0;
+          }
+        }
+      }
     }
   }
 }

@@ -26,4 +26,11 @@ module.exports = {
     flatten: true,
     filter: 'isFile'
   },
+  assets: {
+    expand: true,
+    src: '<%= imagePath %>/**/*.png',
+    dest: 'dist/images/',
+    flatten: true,
+    filter: 'isFile'
+  }
 };
