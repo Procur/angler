@@ -143,12 +143,12 @@
       .state('user_account_settings.update_settings', {
         url: '/update_settings',
         templateUrl: 'user_update_settings.html',
-        controller: 'userUpdateSettings'
+        controller: 'userUpdateSettingsController'
       })
       .state('user_account_settings.update_password', {
         url: '/update_password',
         templateUrl: 'user_update_password.html',
-        controller: 'userUpdatePassword'
+        controller: 'userUpdatePasswordController'
       })
 
       .state('edit_company_profile', {
