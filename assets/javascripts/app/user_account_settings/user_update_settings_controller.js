@@ -24,6 +24,7 @@
 
     $scope.$on(FILE_EVENTS.SELECTED, onImageSelected);
 
+
     function onImageSelected(e, file, dataUrl) {
       $scope.newProfilePicture = {
         file: file,
@@ -32,6 +33,7 @@
 
       $scope.$digest();
     }
+
 
 
   }

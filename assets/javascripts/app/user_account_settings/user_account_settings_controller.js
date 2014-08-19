@@ -1,15 +1,16 @@
 (function(angular) {
 
   var
-    definitions;
+  definitions;
 
   definitions = [
     '$scope',
     userAccountSettingsController
+
   ];
 
   angular.module('pc.UserAccountSettings')
-    .controller('userAccountSettingsController', definitions);
+  .controller('userAccountSettingsController', definitions);
 
   function userAccountSettingsController($scope) {
   }
