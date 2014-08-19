@@ -1112,14 +1112,14 @@
 
   definitions = [
     '$scope',
-    userUpdatePassword
+    userUpdatePasswordController
   ];
 
   angular.module('pc.UserAccountSettings')
-    .controller('userUpdatePassword', definitions);
+    .controller('userUpdatePasswordController', definitions);
 
-  function userUpdatePassword($scope) {
-    
+  function userUpdatePasswordController($scope) {
+
   }
 
 })(angular);
@@ -1135,13 +1135,13 @@
     'ajaxService',
     'FILE_EVENTS',
     'userService',
-    userUpdateSettings
+    userUpdateSettingsController
   ];
 
   angular.module('pc.UserAccountSettings')
-    .controller('userUpdateSettings', definitions);
+    .controller('userUpdateSettingsController', definitions);
 
-  function userUpdateSettings($scope, ajax, FILE_EVENTS, user) {
+  function userUpdateSettingsController($scope, ajax, FILE_EVENTS, user) {
     $scope.user = user;
 
     $scope.$on(FILE_EVENTS.SELECTED, onImageSelected);
@@ -1504,12 +1504,12 @@
       .state('user_account_settings.update_settings', {
         url: '/update_settings',
         templateUrl: 'user_update_settings.html',
-        controller: 'userUpdateSettings'
+        controller: 'userUpdateSettingsController'
       })
       .state('user_account_settings.update_password', {
         url: '/update_password',
         templateUrl: 'user_update_password.html',
-        controller: 'userUpdatePassword'
+        controller: 'userUpdatePasswordController'
       })
 
       .state('edit_company_profile', {
