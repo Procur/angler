@@ -4,6 +4,11 @@
 .btn-xs {
   border-radius: 0;
   border: 0;
+  outline: 0;
+
+  &:active, &:focus {
+    outline: 0;
+  }
 }
 
 .btn-continue {

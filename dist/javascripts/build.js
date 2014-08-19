@@ -1,5 +1,5 @@
 /**
- * @license AngularJS v1.2.21
+ * @license AngularJS v1.2.22
  * (c) 2010-2014 Google, Inc. http://angularjs.org
  * License: MIT
  */
@@ -68,7 +68,7 @@ function minErr(module) {
       return match;
     });
 
-    message = message + '\nhttp://errors.angularjs.org/1.2.21/' +
+    message = message + '\nhttp://errors.angularjs.org/1.2.22/' +
       (module ? module + '/' : '') + code;
     for (i = 2; i < arguments.length; i++) {
       message = message + (i == 2 ? '?' : '&') + 'p' + (i-2) + '=' +
@@ -1977,11 +1977,11 @@ function setupModuleLoader(window) {
  * - `codeName` – `{string}` – Code name of the release, such as "jiggling-armfat".
  */
 var version = {
-  full: '1.2.21',    // all of these placeholder strings will be replaced by grunt's
+  full: '1.2.22',    // all of these placeholder strings will be replaced by grunt's
   major: 1,    // package task
   minor: 2,
-  dot: 21,
-  codeName: 'wizard-props'
+  dot: 22,
+  codeName: 'finicky-pleasure'
 };
 
 
@@ -1994,11 +1994,11 @@ function publishExternalAPI(angular){
     'element': jqLite,
     'forEach': forEach,
     'injector': createInjector,
-    'noop':noop,
-    'bind':bind,
+    'noop': noop,
+    'bind': bind,
     'toJson': toJson,
     'fromJson': fromJson,
-    'identity':identity,
+    'identity': identity,
     'isUndefined': isUndefined,
     'isDefined': isDefined,
     'isString': isString,
@@ -3057,21 +3057,37 @@ forEach({
 
   clone: jqLiteClone,
 
-  triggerHandler: function(element, eventName, eventData) {
-    // Copy event handlers in case event handlers array is modified during execution.
-    var eventFns = (jqLiteExpandoStore(element, 'events') || {})[eventName],
-        eventFnsCopy = shallowCopy(eventFns || []);
+  triggerHandler: function(element, event, extraParameters) {
 
-    eventData = eventData || [];
+    var dummyEvent, eventFnsCopy, handlerArgs;
+    var eventName = event.type || event;
+    var eventFns = (jqLiteExpandoStore(element, 'events') || {})[eventName];
 
-    var event = [{
-      preventDefault: noop,
-      stopPropagation: noop
-    }];
+    if (eventFns) {
 
-    forEach(eventFnsCopy, function(fn) {
-      fn.apply(element, event.concat(eventData));
-    });
+      // Create a dummy event to pass to the handlers
+      dummyEvent = {
+        preventDefault: function() { this.defaultPrevented = true; },
+        isDefaultPrevented: function() { return this.defaultPrevented === true; },
+        stopPropagation: noop,
+        type: eventName,
+        target: element
+      };
+
+      // If a custom event was provided then extend our dummy event with it
+      if (event.type) {
+        dummyEvent = extend(dummyEvent, event);
+      }
+
+      // Copy event handlers in case event handlers array is modified during execution.
+      eventFnsCopy = shallowCopy(eventFns);
+      handlerArgs = extraParameters ? [dummyEvent].concat(extraParameters) : [dummyEvent];
+
+      forEach(eventFnsCopy, function(fn) {
+        fn.apply(element, handlerArgs);
+      });
+
+    }
   }
 }, function(fn, name){
   /**
@@ -5316,7 +5332,7 @@ function $TemplateCacheProvider() {
  *
  * #### `template`
  * HTML markup that may:
- * * Replace the contents of the directive's element (defualt).
+ * * Replace the contents of the directive's element (default).
  * * Replace the directive's element itself (if `replace` is true - DEPRECATED).
  * * Wrap the contents of the directive's element (if `transclude` is true).
  *
@@ -6576,7 +6592,7 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
                 if (parentGet.literal) {
                   compare = equals;
                 } else {
-                  compare = function(a,b) { return a === b; };
+                  compare = function(a,b) { return a === b || (a !== a && b !== b); };
                 }
                 parentSet = parentGet.assign || function() {
                   // reset the change, or we will throw this exception on every $digest
@@ -7604,6 +7620,7 @@ function $HttpProvider() {
      * - {@link ng.$http#put $http.put}
      * - {@link ng.$http#delete $http.delete}
      * - {@link ng.$http#jsonp $http.jsonp}
+     * - {@link ng.$http#patch $http.patch}
      *
      *
      * # Setting HTTP Headers
@@ -7905,7 +7922,7 @@ function $HttpProvider() {
      *    - **timeout** – `{number|Promise}` – timeout in milliseconds, or {@link ng.$q promise}
      *      that should abort the request when resolved.
      *    - **withCredentials** - `{boolean}` - whether to set the `withCredentials` flag on the
-     *      XHR object. See [requests with credentials]https://developer.mozilla.org/en/http_access_control#section_5
+     *      XHR object. See [requests with credentials](https://developer.mozilla.org/docs/Web/HTTP/Access_control_CORS#Requests_with_credentials)
      *      for more information.
      *    - **responseType** - `{string}` - see
      *      [requestType](https://developer.mozilla.org/en-US/docs/DOM/XMLHttpRequest#responseType).
@@ -8274,7 +8291,8 @@ function $HttpProvider() {
       promise.then(removePendingReq, removePendingReq);
 
 
-      if ((config.cache || defaults.cache) && config.cache !== false && config.method == 'GET') {
+      if ((config.cache || defaults.cache) && config.cache !== false &&
+          (config.method === 'GET' || config.method === 'JSONP')) {
         cache = isObject(config.cache) ? config.cache
               : isObject(defaults.cache) ? defaults.cache
               : defaultCache;
@@ -9746,6 +9764,8 @@ function $LocationProvider(){
     $location = new LocationMode(appBase, '#' + hashPrefix);
     $location.$$parse($location.$$rewrite(initialUrl));
 
+    var IGNORE_URI_REGEXP = /^\s*(javascript|mailto):/i;
+
     $rootElement.on('click', function(event) {
       // TODO(vojta): rewrite link when opening in new tab/window (in legacy browser)
       // currently we open nice url link and redirect then
@@ -9767,6 +9787,9 @@ function $LocationProvider(){
         // an animation.
         absHref = urlResolve(absHref.animVal).href;
       }
+
+      // Ignore when url is started with javascript: or mailto:
+      if (IGNORE_URI_REGEXP.test(absHref)) return;
 
       // Make relative links work in HTML5 mode for legacy browsers (or at least IE8 & 9)
       // The href should be a regular url e.g. /link/somewhere or link/somewhere or ../somewhere or
@@ -10639,9 +10662,9 @@ Parser.prototype = {
     var middle;
     var token;
     if ((token = this.expect('?'))) {
-      middle = this.ternary();
+      middle = this.assignment();
       if ((token = this.expect(':'))) {
-        return this.ternaryFn(left, middle, this.ternary());
+        return this.ternaryFn(left, middle, this.assignment());
       } else {
         this.throwError('expected :', token);
       }
@@ -10729,7 +10752,9 @@ Parser.prototype = {
       return getter(self || object(scope, locals));
     }, {
       assign: function(scope, value, locals) {
-        return setter(object(scope, locals), field, value, parser.text, parser.options);
+        var o = object(scope, locals);
+        if (!o) object.assign(scope, o = {});
+        return setter(o, field, value, parser.text, parser.options);
       }
     });
   },
@@ -10759,10 +10784,11 @@ Parser.prototype = {
       return v;
     }, {
       assign: function(self, value, locals) {
-        var key = indexFn(self, locals);
+        var key = ensureSafeMemberName(indexFn(self, locals), parser.text);
         // prevent overwriting of Function.constructor which would break ensureSafeObject check
-        var safe = ensureSafeObject(obj(self, locals), parser.text);
-        return safe[key] = value;
+        var o = ensureSafeObject(obj(self, locals), parser.text);
+        if (!o) obj.assign(self, o = {});
+        return o[key] = value;
       }
     });
   },
@@ -15128,7 +15154,7 @@ var DATE_FORMATS_SPLIT = /((?:[^yMdHhmsaZE']+)|(?:'(?:[^']|'')*')|(?:E+|y+|M+|d+
  *   (e.g. `"h 'o''clock'"`).
  *
  * @param {(Date|number|string)} date Date to format either as Date object, milliseconds (string or
- *    number) or various ISO 8601 datetime string formats (e.g. yyyy-MM-ddTHH:mm:ss.SSSZ and its
+ *    number) or various ISO 8601 datetime string formats (e.g. yyyy-MM-ddTHH:mm:ss.sssZ and its
  *    shorter versions like yyyy-MM-ddTHH:mmZ, yyyy-MM-dd or yyyyMMddTHHmmssZ). If no timezone is
  *    specified in the string input, the time is considered to be in the local timezone.
  * @param {string=} format Formatting rules (see Description). If not specified,
@@ -19292,6 +19318,13 @@ forEach(
  * server and reloading the current page), but only if the form does not contain `action`,
  * `data-action`, or `x-action` attributes.
  *
+ * <div class="alert alert-warning">
+ * **Warning:** Be careful not to cause "double-submission" by using both the `ngClick` and
+ * `ngSubmit` handlers together. See the
+ * {@link form#submitting-a-form-and-preventing-the-default-action `form` directive documentation}
+ * for a detailed discussion of when `ngSubmit` may be triggered.
+ * </div>
+ *
  * @element form
  * @priority 0
  * @param {expression} ngSubmit {@link guide/expression Expression} to eval.
@@ -21609,21 +21642,37 @@ var selectDirective = ['$compile', '$parse', function($compile,   $parse) {
                   value = valueFn(scope, locals);
                 }
               }
-              // Update the null option's selected property here so $render cleans it up correctly
-              if (optionGroupsCache[0].length > 1) {
-                if (optionGroupsCache[0][1].id !== key) {
-                  optionGroupsCache[0][1].selected = false;
-                }
-              }
             }
             ctrl.$setViewValue(value);
+            render();
           });
         });
 
         ctrl.$render = render;
 
-        // TODO(vojta): can't we optimize this ?
-        scope.$watch(render);
+        scope.$watchCollection(valuesFn, render);
+        if ( multiple ) {
+          scope.$watchCollection(function() { return ctrl.$modelValue; }, render);
+        }
+
+        function getSelectedSet() {
+          var selectedSet = false;
+          if (multiple) {
+            var modelValue = ctrl.$modelValue;
+            if (trackFn && isArray(modelValue)) {
+              selectedSet = new HashMap([]);
+              var locals = {};
+              for (var trackIndex = 0; trackIndex < modelValue.length; trackIndex++) {
+                locals[valueName] = modelValue[trackIndex];
+                selectedSet.put(trackFn(scope, locals), modelValue[trackIndex]);
+              }
+            } else {
+              selectedSet = new HashMap(modelValue);
+            }
+          }
+          return selectedSet;
+        }
+
 
         function render() {
               // Temporary location for the option groups before we render them
@@ -21641,22 +21690,11 @@ var selectDirective = ['$compile', '$parse', function($compile,   $parse) {
               groupIndex, index,
               locals = {},
               selected,
-              selectedSet = false, // nothing is selected yet
+              selectedSet = getSelectedSet(),
               lastElement,
               element,
               label;
 
-          if (multiple) {
-            if (trackFn && isArray(modelValue)) {
-              selectedSet = new HashMap([]);
-              for (var trackIndex = 0; trackIndex < modelValue.length; trackIndex++) {
-                locals[valueName] = modelValue[trackIndex];
-                selectedSet.put(trackFn(scope, locals), modelValue[trackIndex]);
-              }
-            } else {
-              selectedSet = new HashMap(modelValue);
-            }
-          }
 
           // We now build up the list of options we need (we merge later)
           for (index = 0; length = keys.length, index < length; index++) {
@@ -21752,7 +21790,7 @@ var selectDirective = ['$compile', '$parse', function($compile,   $parse) {
                   lastElement.val(existingOption.id = option.id);
                 }
                 // lastElement.prop('selected') provided by jQuery has side-effects
-                if (existingOption.selected !== option.selected) {
+                if (lastElement[0].selected !== option.selected) {
                   lastElement.prop('selected', (existingOption.selected = option.selected));
                   if (msie) {
                     // See #7692
@@ -21775,6 +21813,7 @@ var selectDirective = ['$compile', '$parse', function($compile,   $parse) {
                   (element = optionTemplate.clone())
                       .val(option.id)
                       .prop('selected', option.selected)
+                      .attr('selected', option.selected)
                       .text(option.label);
                 }
 
@@ -45307,6 +45346,198 @@ window.plupload = plupload;
 
 })(angular);
 
+// assets/javascripts/app/snackbar/snackbar_module.js
+(function(angular) {
+
+  var
+    dependencies;
+
+  dependencies = [
+    'pc.ThirdParty.LoDash'
+  ];
+
+  angular.module('pc.Snackbar', dependencies)
+    .constant('POSITIONS', {
+      'TOP_LEFT': 'TOP_LEFT',
+      'BOTTOM_RIGHT': 'BOTTOM_RIGHT',
+      'TOP_RIGHT': 'TOP_RIGHT',
+      'BOTTOM_LEFT': 'BOTTOM_LEFT'
+    })
+    .constant('POSITION_CLASSES', {
+      'TOP_LEFT': 'snackbar-top-left',
+      'BOTTOM_RIGHT': 'snackbar-bottom-right',
+      'TOP_RIGHT': 'snackbar-top-right',
+      'BOTTOM_LEFT': 'snackbar-bottom-left'
+    });
+
+})(angular);
+
+// assets/javascripts/app/snackbar/snackbar_service.js
+(function(angular) {
+
+  var
+    definitions;
+
+  definitions = [
+    '$document',
+    '$rootScope',
+    '$templateCache',
+    '$compile',
+    '$timeout',
+    '$animate',
+    '_',
+    'POSITIONS',
+    'POSITION_CLASSES',
+    snackbarService
+  ];
+
+  angular.module('pc.Snackbar')
+    .factory('snackbarService', definitions);
+
+  function snackbarService($document, $rootScope, $templateCache, $compile, $timeout, $animate, _, POSITIONS, POSITION_CLASSES) {
+    var
+      templateUrl = 'snackbar.html',
+      template = $templateCache.get(templateUrl),
+      scope = $rootScope.$new(),
+      body = $document.find('body'),
+      queue = [];
+
+    return {
+      success: success,
+      error: error,
+      notice: notice
+    };
+
+    function success(message) {
+      var
+        successConfig;
+
+      successConfig = {
+        'background-color': '#5cc672'
+      };
+
+      notice(message, successConfig);
+    }
+
+    function error(message) {
+      var
+        errorConfig;
+
+      errorConfig = {
+        'background-color': '#FF5A5A'
+      };
+
+      notice(message, errorConfig);
+    }
+
+    function notice(message, config) {
+      var
+        snackbar,
+        styles,
+        position;
+
+      if (message) {
+        styles = getStyles(config);
+        position = getPosition(config);
+        snackbar = $compile(template)(scope)
+          .addClass(position)
+          .css(styles.wrapper);
+        snackbar.find('p')
+          .css(styles.message)
+          .html(message);
+
+        if (queue.length) {
+          _.each(queue, clearSnackbar);
+        }
+
+        insertSnackbar();
+        snackbar.timeout = {
+          popout: $timeout(snackbarPopOut, 4000),
+          remove: $timeout(removeSnackbar, 4200)
+        };
+      }
+
+      function insertSnackbar() {
+        $animate.enter(snackbar, body, null, snackbarPopIn);
+        queue.push(snackbar);
+      }
+
+      function removeSnackbar() {
+        $animate.leave(snackbar);
+        queue.shift();
+      }
+
+      function snackbarPopIn() {
+        snackbar.addClass('pop-up');
+      }
+
+      function snackbarPopOut() {
+        snackbar
+          .addClass('pop-out')
+          .removeClass('pop-up');
+      }
+
+      function clearSnackbar(item, index) {
+        $timeout.cancel(item.timeout.popout);
+        $timeout.cancel(item.timeout.remove);
+        $animate.leave(item);
+        queue.splice(index, 1);
+      }
+
+      /**
+      * Commenting this out for now in preference to clearing out since
+      * clearing is more mobile friendly
+      **
+      function stackSnackbar(item) {
+        if (item.hasClass(POSITION_CLASSES.TOP_LEFT) || item.hasClass(POSITION_CLASSES.TOP_RIGHT)) {
+          item.css('top', getStackHeight('top') + 'px');
+        }
+        else {
+          item.css('bottom', getStackHeight('bottom') + 'px');
+        }
+
+        function getStackHeight(topOrBottom) {
+          var
+            stackMargin = 24,
+            stackbarHeight = 30,
+            currentMargin = parseInt(item.css(topOrBottom), 10),
+            fontSize = parseInt(item.children().css('font-size'), 10);
+
+          return (currentMargin || stackMargin) +
+            (stackbarHeight + fontSize + stackMargin);
+        }
+      }
+      */
+
+    }
+
+    function getStyles(config) {
+      config = config || {};
+
+      return {
+        wrapper: {
+          'background-color': config['background-color'] || '#333132',
+        },
+        message: {
+          'font-size': config['font-size'] || '14px',
+          'font-weight': '300',
+          'color': config.color || '#fff'
+        }
+      };
+    }
+
+    function getPosition(config) {
+      var
+        position;
+
+      config = config || {};
+      position = POSITIONS[config.position];
+      return position ? POSITION_CLASSES[position] : POSITION_CLASSES.BOTTOM_LEFT;
+    }
+  }
+
+})(angular);
+
 // assets/javascripts/app/company/company_module.js
 (function(angular) {
 
@@ -45570,7 +45801,8 @@ window.plupload = plupload;
   dependencies = [
     'ui.router',
     'pc.ThirdParty.LoDash',
-    'pc.FileUpload'
+    'pc.FileUpload',
+    'pc.Snackbar'
   ];
 
   angular.module('pc.Registration', dependencies);
@@ -45672,6 +45904,7 @@ window.plupload = plupload;
   definitions = [
     '$scope',
     '$state',
+    'snackbarService',
     'FILE_EVENTS',
     registrationStepController
   ];
@@ -45679,10 +45912,12 @@ window.plupload = plupload;
   angular.module('pc.Registration')
     .controller('registrationStepController', definitions);
 
-  function registrationStepController($scope, $state, FILE_EVENTS) {
+  function registrationStepController($scope, $state, snackbar, FILE_EVENTS) {
     $scope.wizard.leadText = $state.current.data.leadText;
 
     $scope.wizard.progressBar.update($state.current.data.progressStep);
+
+    $scope.sendEmailVerification = sendEmailVerification;
 
     $scope.$on(FILE_EVENTS.SELECTED, onImageSelected);
 
@@ -45693,6 +45928,15 @@ window.plupload = plupload;
       };
 
       $scope.$digest();
+    }
+
+    function sendEmailVerification() {
+      if (Math.round(Math.random())) {
+        snackbar.success('Resent email verification!');
+      }
+      else {
+        snackbar.error('There was an error sending the verification email. Please try again.');
+      }
     }
 
   }
@@ -46047,14 +46291,14 @@ window.plupload = plupload;
 
   definitions = [
     '$scope',
-    userUpdatePassword
+    userUpdatePasswordController
   ];
 
   angular.module('pc.UserAccountSettings')
-    .controller('userUpdatePassword', definitions);
+    .controller('userUpdatePasswordController', definitions);
 
-  function userUpdatePassword($scope) {
-    
+  function userUpdatePasswordController($scope) {
+
   }
 
 })(angular);
@@ -46070,13 +46314,13 @@ window.plupload = plupload;
     'ajaxService',
     'FILE_EVENTS',
     'userService',
-    userUpdateSettings
+    userUpdateSettingsController
   ];
 
   angular.module('pc.UserAccountSettings')
-    .controller('userUpdateSettings', definitions);
+    .controller('userUpdateSettingsController', definitions);
 
-  function userUpdateSettings($scope, ajax, FILE_EVENTS, user) {
+  function userUpdateSettingsController($scope, ajax, FILE_EVENTS, user) {
     $scope.user = user;
 
     $scope.$on(FILE_EVENTS.SELECTED, onImageSelected);
@@ -46439,12 +46683,12 @@ window.plupload = plupload;
       .state('user_account_settings.update_settings', {
         url: '/update_settings',
         templateUrl: 'user_update_settings.html',
-        controller: 'userUpdateSettings'
+        controller: 'userUpdateSettingsController'
       })
       .state('user_account_settings.update_password', {
         url: '/update_password',
         templateUrl: 'user_update_password.html',
-        controller: 'userUpdatePassword'
+        controller: 'userUpdatePasswordController'
       })
 
       .state('edit_company_profile', {
@@ -46583,7 +46827,7 @@ angular.module('pc.Templates', []).run(['$templateCache', function($templateCach
 
 
   $templateCache.put('registration_email_verification.html',
-    "<div class=\"row\"><div class=\"col-xs-8 col-xs-offset-2\"><div class=\"panel-content\"><div class=\"panel-heading\"><h5 class=\"text-center\">Please verify your email address</h5></div><div class=\"panel-footer\"><div class=\"row\"><div class=\"col-xs-12\"><p class=\"text-center\">Please check your email - you should have a confirmation message from Procur. If you haven't received anything, click 'Resend Email' below.</p></div></div><div class=\"row\"><div class=\"col-sm-6\"><button class=\"btn btn-lg btn-block btn-rounded btn-default\">Resend Email</button></div><div class=\"col-sm-6\"><a class=\"btn btn-lg btn-block btn-rounded btn-default\" ui-sref=\"registration.handle\">I've already verified</a></div></div></div></div></div></div>"
+    "<div class=\"row\"><div class=\"col-xs-8 col-xs-offset-2\"><div class=\"panel-content\"><div class=\"panel-heading\"><h5 class=\"text-center\">Please verify your email address</h5></div><div class=\"panel-footer\"><div class=\"row\"><div class=\"col-xs-12\"><p class=\"text-center\">Please check your email - you should have a confirmation message from Procur. If you haven't received anything, click 'Resend Email' below.</p></div></div><div class=\"row\"><div class=\"col-sm-6\"><button class=\"btn btn-lg btn-block btn-rounded btn-default\" ng-click=\"sendEmailVerification()\">Resend Email</button></div><div class=\"col-sm-6\"><a class=\"btn btn-lg btn-block btn-rounded btn-default\" ui-sref=\"registration.handle\">I've already verified</a></div></div></div></div></div></div>"
   );
 
 
@@ -46604,6 +46848,80 @@ angular.module('pc.Templates', []).run(['$templateCache', function($templateCach
 
   $templateCache.put('registration_type.html',
     "<div class=\"row\"><div class=\"col-xs-8 col-xs-offset-2\"><div class=\"panel-content\"><div class=\"panel-heading\"><h5 class=\"text-center\">Select your company type</h5></div><div class=\"panel-footer\"><div class=\"row\"><div class=\"col-sm-6\"><a class=\"btn btn-lg btn-block btn-rounded btn-default\" ui-sref=\"registration.company_information\">Buyer</a></div><div class=\"col-sm-6\"><a class=\"btn btn-lg btn-block btn-rounded btn-default\" ui-sref=\"registration.finished_product\">Supplier</a></div></div></div></div></div></div>"
+  );
+
+
+  $templateCache.put('snackbar.html',
+    "<style>.snackbar {\n" +
+    "    position: absolute;\n" +
+    "    padding: 15px;\n" +
+    "    min-width: 288px;\n" +
+    "    max-width: 568px;\n" +
+    "    overflow: hidden;\n" +
+    "    opacity: 0;\n" +
+    "    white-space: nowrap;\n" +
+    "    -webkit-transition: 200ms ease-in-out all;\n" +
+    "    -moz-transition: 200ms ease-in-out all;\n" +
+    "    -ms-transition: 200ms ease-in-out all;\n" +
+    "    -o-transition: 200ms ease-in-out all;\n" +
+    "    transition: 200ms ease-in-out all;\n" +
+    "  }\n" +
+    "\n" +
+    "  .snackbar.snackbar-bottom-left {\n" +
+    "    bottom: 0;\n" +
+    "    left: 24px;\n" +
+    "  }\n" +
+    "\n" +
+    "  .snackbar.snackbar-bottom-right {\n" +
+    "    bottom: 0;\n" +
+    "    right: 24px;\n" +
+    "  }\n" +
+    "\n" +
+    "  .snackbar.snackbar-top-left {\n" +
+    "    top: 0;\n" +
+    "    left: 24px;\n" +
+    "  }\n" +
+    "\n" +
+    "  .snackbar.snackbar-top-right {\n" +
+    "    top: 0;\n" +
+    "    right: 24px;\n" +
+    "  }\n" +
+    "\n" +
+    "  .snackbar.pop-up {\n" +
+    "    opacity: 1;\n" +
+    "  }\n" +
+    "\n" +
+    "  .snackbar.snackbar-bottom-left.pop-up,\n" +
+    "  .snackbar.snackbar-bottom-right.pop-up {\n" +
+    "    bottom: 24px;\n" +
+    "  }\n" +
+    "\n" +
+    "  .snackbar.snackbar-top-right.pop-up,\n" +
+    "  .snackbar.snackbar-top-left.pop-up {\n" +
+    "    top: 24px;\n" +
+    "  }\n" +
+    "\n" +
+    "  .snackbar.pop-out {\n" +
+    "    opacity: 0;\n" +
+    "  }\n" +
+    "\n" +
+    "  .snackbar.snackbar-bottom-left.pop-out,\n" +
+    "  .snackbar.snackbar-bottom-right.pop-out {\n" +
+    "    bottom: 24px;\n" +
+    "  }\n" +
+    "\n" +
+    "  .snackbar.snackbar-top-right.pop-out,\n" +
+    "  .snackbar.snackbar-top-left.pop-out {\n" +
+    "    top: 24px;\n" +
+    "  }\n" +
+    "\n" +
+    "  .snackbar > .snackbar-message {\n" +
+    "    text-overflow: ellipsis;\n" +
+    "    white-space: nowrap;\n" +
+    "    overflow: hidden;\n" +
+    "    margin: 0;\n" +
+    "    padding: 0;\n" +
+    "  }</style><div class=\"snackbar\" role=\"alert\"><p class=\"snackbar-message\"></p></div>"
   );
 
 

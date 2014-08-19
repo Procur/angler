@@ -372,6 +372,198 @@
 
 })(angular);
 
+// assets/javascripts/app/snackbar/snackbar_module.js
+(function(angular) {
+
+  var
+    dependencies;
+
+  dependencies = [
+    'pc.ThirdParty.LoDash'
+  ];
+
+  angular.module('pc.Snackbar', dependencies)
+    .constant('POSITIONS', {
+      'TOP_LEFT': 'TOP_LEFT',
+      'BOTTOM_RIGHT': 'BOTTOM_RIGHT',
+      'TOP_RIGHT': 'TOP_RIGHT',
+      'BOTTOM_LEFT': 'BOTTOM_LEFT'
+    })
+    .constant('POSITION_CLASSES', {
+      'TOP_LEFT': 'snackbar-top-left',
+      'BOTTOM_RIGHT': 'snackbar-bottom-right',
+      'TOP_RIGHT': 'snackbar-top-right',
+      'BOTTOM_LEFT': 'snackbar-bottom-left'
+    });
+
+})(angular);
+
+// assets/javascripts/app/snackbar/snackbar_service.js
+(function(angular) {
+
+  var
+    definitions;
+
+  definitions = [
+    '$document',
+    '$rootScope',
+    '$templateCache',
+    '$compile',
+    '$timeout',
+    '$animate',
+    '_',
+    'POSITIONS',
+    'POSITION_CLASSES',
+    snackbarService
+  ];
+
+  angular.module('pc.Snackbar')
+    .factory('snackbarService', definitions);
+
+  function snackbarService($document, $rootScope, $templateCache, $compile, $timeout, $animate, _, POSITIONS, POSITION_CLASSES) {
+    var
+      templateUrl = 'snackbar.html',
+      template = $templateCache.get(templateUrl),
+      scope = $rootScope.$new(),
+      body = $document.find('body'),
+      queue = [];
+
+    return {
+      success: success,
+      error: error,
+      notice: notice
+    };
+
+    function success(message) {
+      var
+        successConfig;
+
+      successConfig = {
+        'background-color': '#5cc672'
+      };
+
+      notice(message, successConfig);
+    }
+
+    function error(message) {
+      var
+        errorConfig;
+
+      errorConfig = {
+        'background-color': '#FF5A5A'
+      };
+
+      notice(message, errorConfig);
+    }
+
+    function notice(message, config) {
+      var
+        snackbar,
+        styles,
+        position;
+
+      if (message) {
+        styles = getStyles(config);
+        position = getPosition(config);
+        snackbar = $compile(template)(scope)
+          .addClass(position)
+          .css(styles.wrapper);
+        snackbar.find('p')
+          .css(styles.message)
+          .html(message);
+
+        if (queue.length) {
+          _.each(queue, clearSnackbar);
+        }
+
+        insertSnackbar();
+        snackbar.timeout = {
+          popout: $timeout(snackbarPopOut, 4000),
+          remove: $timeout(removeSnackbar, 4200)
+        };
+      }
+
+      function insertSnackbar() {
+        $animate.enter(snackbar, body, null, snackbarPopIn);
+        queue.push(snackbar);
+      }
+
+      function removeSnackbar() {
+        $animate.leave(snackbar);
+        queue.shift();
+      }
+
+      function snackbarPopIn() {
+        snackbar.addClass('pop-up');
+      }
+
+      function snackbarPopOut() {
+        snackbar
+          .addClass('pop-out')
+          .removeClass('pop-up');
+      }
+
+      function clearSnackbar(item, index) {
+        $timeout.cancel(item.timeout.popout);
+        $timeout.cancel(item.timeout.remove);
+        $animate.leave(item);
+        queue.splice(index, 1);
+      }
+
+      /**
+      * Commenting this out for now in preference to clearing out since
+      * clearing is more mobile friendly
+      **
+      function stackSnackbar(item) {
+        if (item.hasClass(POSITION_CLASSES.TOP_LEFT) || item.hasClass(POSITION_CLASSES.TOP_RIGHT)) {
+          item.css('top', getStackHeight('top') + 'px');
+        }
+        else {
+          item.css('bottom', getStackHeight('bottom') + 'px');
+        }
+
+        function getStackHeight(topOrBottom) {
+          var
+            stackMargin = 24,
+            stackbarHeight = 30,
+            currentMargin = parseInt(item.css(topOrBottom), 10),
+            fontSize = parseInt(item.children().css('font-size'), 10);
+
+          return (currentMargin || stackMargin) +
+            (stackbarHeight + fontSize + stackMargin);
+        }
+      }
+      */
+
+    }
+
+    function getStyles(config) {
+      config = config || {};
+
+      return {
+        wrapper: {
+          'background-color': config['background-color'] || '#333132',
+        },
+        message: {
+          'font-size': config['font-size'] || '14px',
+          'font-weight': '300',
+          'color': config.color || '#fff'
+        }
+      };
+    }
+
+    function getPosition(config) {
+      var
+        position;
+
+      config = config || {};
+      position = POSITIONS[config.position];
+      return position ? POSITION_CLASSES[position] : POSITION_CLASSES.BOTTOM_LEFT;
+    }
+  }
+
+})(angular);
+
 // assets/javascripts/app/company/company_module.js
 (function(angular) {
 
@@ -635,7 +827,8 @@
   dependencies = [
     'ui.router',
     'pc.ThirdParty.LoDash',
-    'pc.FileUpload'
+    'pc.FileUpload',
+    'pc.Snackbar'
   ];
 
   angular.module('pc.Registration', dependencies);
@@ -737,6 +930,7 @@
   definitions = [
     '$scope',
     '$state',
+    'snackbarService',
     'FILE_EVENTS',
     registrationStepController
   ];
@@ -744,10 +938,12 @@
   angular.module('pc.Registration')
     .controller('registrationStepController', definitions);
 
-  function registrationStepController($scope, $state, FILE_EVENTS) {
+  function registrationStepController($scope, $state, snackbar, FILE_EVENTS) {
     $scope.wizard.leadText = $state.current.data.leadText;
 
     $scope.wizard.progressBar.update($state.current.data.progressStep);
+
+    $scope.sendEmailVerification = sendEmailVerification;
 
     $scope.$on(FILE_EVENTS.SELECTED, onImageSelected);
 
@@ -758,6 +954,15 @@
       };
 
       $scope.$digest();
+    }
+
+    function sendEmailVerification() {
+      if (Math.round(Math.random())) {
+        snackbar.success('Resent email verification!');
+      }
+      else {
+        snackbar.error('There was an error sending the verification email. Please try again.');
+      }
     }
 
   }
@@ -1648,7 +1853,7 @@ angular.module('pc.Templates', []).run(['$templateCache', function($templateCach
 
 
   $templateCache.put('registration_email_verification.html',
-    "<div class=\"row\"><div class=\"col-xs-8 col-xs-offset-2\"><div class=\"panel-content\"><div class=\"panel-heading\"><h5 class=\"text-center\">Please verify your email address</h5></div><div class=\"panel-footer\"><div class=\"row\"><div class=\"col-xs-12\"><p class=\"text-center\">Please check your email - you should have a confirmation message from Procur. If you haven't received anything, click 'Resend Email' below.</p></div></div><div class=\"row\"><div class=\"col-sm-6\"><button class=\"btn btn-lg btn-block btn-rounded btn-default\">Resend Email</button></div><div class=\"col-sm-6\"><a class=\"btn btn-lg btn-block btn-rounded btn-default\" ui-sref=\"registration.handle\">I've already verified</a></div></div></div></div></div></div>"
+    "<div class=\"row\"><div class=\"col-xs-8 col-xs-offset-2\"><div class=\"panel-content\"><div class=\"panel-heading\"><h5 class=\"text-center\">Please verify your email address</h5></div><div class=\"panel-footer\"><div class=\"row\"><div class=\"col-xs-12\"><p class=\"text-center\">Please check your email - you should have a confirmation message from Procur. If you haven't received anything, click 'Resend Email' below.</p></div></div><div class=\"row\"><div class=\"col-sm-6\"><button class=\"btn btn-lg btn-block btn-rounded btn-default\" ng-click=\"sendEmailVerification()\">Resend Email</button></div><div class=\"col-sm-6\"><a class=\"btn btn-lg btn-block btn-rounded btn-default\" ui-sref=\"registration.handle\">I've already verified</a></div></div></div></div></div></div>"
   );
 
 
@@ -1669,6 +1874,80 @@ angular.module('pc.Templates', []).run(['$templateCache', function($templateCach
 
   $templateCache.put('registration_type.html',
     "<div class=\"row\"><div class=\"col-xs-8 col-xs-offset-2\"><div class=\"panel-content\"><div class=\"panel-heading\"><h5 class=\"text-center\">Select your company type</h5></div><div class=\"panel-footer\"><div class=\"row\"><div class=\"col-sm-6\"><a class=\"btn btn-lg btn-block btn-rounded btn-default\" ui-sref=\"registration.company_information\">Buyer</a></div><div class=\"col-sm-6\"><a class=\"btn btn-lg btn-block btn-rounded btn-default\" ui-sref=\"registration.finished_product\">Supplier</a></div></div></div></div></div></div>"
+  );
+
+
+  $templateCache.put('snackbar.html',
+    "<style>.snackbar {\n" +
+    "    position: absolute;\n" +
+    "    padding: 15px;\n" +
+    "    min-width: 288px;\n" +
+    "    max-width: 568px;\n" +
+    "    overflow: hidden;\n" +
+    "    opacity: 0;\n" +
+    "    white-space: nowrap;\n" +
+    "    -webkit-transition: 200ms ease-in-out all;\n" +
+    "    -moz-transition: 200ms ease-in-out all;\n" +
+    "    -ms-transition: 200ms ease-in-out all;\n" +
+    "    -o-transition: 200ms ease-in-out all;\n" +
+    "    transition: 200ms ease-in-out all;\n" +
+    "  }\n" +
+    "\n" +
+    "  .snackbar.snackbar-bottom-left {\n" +
+    "    bottom: 0;\n" +
+    "    left: 24px;\n" +
+    "  }\n" +
+    "\n" +
+    "  .snackbar.snackbar-bottom-right {\n" +
+    "    bottom: 0;\n" +
+    "    right: 24px;\n" +
+    "  }\n" +
+    "\n" +
+    "  .snackbar.snackbar-top-left {\n" +
+    "    top: 0;\n" +
+    "    left: 24px;\n" +
+    "  }\n" +
+    "\n" +
+    "  .snackbar.snackbar-top-right {\n" +
+    "    top: 0;\n" +
+    "    right: 24px;\n" +
+    "  }\n" +
+    "\n" +
+    "  .snackbar.pop-up {\n" +
+    "    opacity: 1;\n" +
+    "  }\n" +
+    "\n" +
+    "  .snackbar.snackbar-bottom-left.pop-up,\n" +
+    "  .snackbar.snackbar-bottom-right.pop-up {\n" +
+    "    bottom: 24px;\n" +
+    "  }\n" +
+    "\n" +
+    "  .snackbar.snackbar-top-right.pop-up,\n" +
+    "  .snackbar.snackbar-top-left.pop-up {\n" +
+    "    top: 24px;\n" +
+    "  }\n" +
+    "\n" +
+    "  .snackbar.pop-out {\n" +
+    "    opacity: 0;\n" +
+    "  }\n" +
+    "\n" +
+    "  .snackbar.snackbar-bottom-left.pop-out,\n" +
+    "  .snackbar.snackbar-bottom-right.pop-out {\n" +
+    "    bottom: 24px;\n" +
+    "  }\n" +
+    "\n" +
+    "  .snackbar.snackbar-top-right.pop-out,\n" +
+    "  .snackbar.snackbar-top-left.pop-out {\n" +
+    "    top: 24px;\n" +
+    "  }\n" +
+    "\n" +
+    "  .snackbar > .snackbar-message {\n" +
+    "    text-overflow: ellipsis;\n" +
+    "    white-space: nowrap;\n" +
+    "    overflow: hidden;\n" +
+    "    margin: 0;\n" +
+    "    padding: 0;\n" +
+    "  }</style><div class=\"snackbar\" role=\"alert\"><p class=\"snackbar-message\"></p></div>"
   );
 
 
