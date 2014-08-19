@@ -9,45 +9,134 @@
       <div class="panel-footer">
         <div class="row">
           <div class="col-xs-12">
-            <form name="passForm" class="form">
-              <div class="row form-body">
+            <form class="form" novalidate>
+              <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="company-name">Company Name*</label>
-                    <input type="text" id="company-name" required  />
+                    <input type="text" id="company-name" placeholder="Acme Co." required  />
                   </div>
                   <div class="form-group">
                     <label for="company-email">General Company Email*</label>
-                    <input type="email" id="company-email" required  />
+                    <input type="email" id="company-email" placeholder="info@company.com" required  />
                   </div>
                   <div class="form-group">
-                    <label for="">Company Phone*</label>
+                    <label for="company-phone">Company Phone*</label>
                     <div class="row">
                       <div class="col-md-4">
-                        <input type="text" placeholder="+" ng-model="company.phoneNumberCountryCode">
+                        <input type="text" placeholder="+">
                       </div>
                       <div class="col-md-8">
-                        <input type="text" id="company-phone" placeholder="555-123-4567" ng-model="company.phoneNumber">
+                        <input type="text" id="company-phone" placeholder="555-123-4567" required>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label for="company-type">Type of Company</label>
-                    <select id="company-type" name="companyType" required  />
+                    <label for="company-type">Type of Company*</label>
+                    <select id="company-type">
+                      <option value="">Select...</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="company-location">Company Location*</label>
+                    <select id="company-location">
+                      <option value="">Select...</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="primary-language">Primary Language*</label>
+                    <select id="primary-language">
+                      <option value="">Select...</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="row separator">
+                <div class="col-md-12">
+                  <h5 class="text-center">Optional Information</h5>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="company-website">Company Website</label>
+                    <input type="url" id="company-website" placeholder="http://www.company.com"  />
+                  </div>
+                  <div class="form-group">
+                    <label for="company-logo">Company Logo</label>
+                    <div class="row">
+                      <div class="col-md-4">
+                        <button class="btn btn-default btn-sm" pc-image-select>Choose Image</button>
+                      </div>
+                      <div class="col-md-8" ng-switch="!!companyLogo.base64Url">
+                        <div class="form-group profile-image" ng-switch-when="true">
+                          <img ng-src="{{companyLogo.base64Url}}" />
+                        </div>
+                        <p class="no-file" ng-switch-when="false">
+                          No file chosen
+                        </p>
+                      </div>
+                    </div>
+
+
+                  </div>
+
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="company-dba">DBA Name</label>
+                    <input type="text" id="company-dba" placeholder="Alternate Business Name"  />
+                  </div>
+                  <div class="form-group">
+                    <label for="industry">Industry</label>
+                    <select id="industry">
+                      <option value="">Select...</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="annual-sales">Annual Sales</label>
+                    <select id="annual-sales">
+                      <option value="">Select...</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="product-specialties">Enter Product Specialties</label>
+                    <input type="text" id="product-specialties" placeholder="Begin typing to search categories..."  />
+                    <input type="text" id="product-specialties" placeholder="Begin typing to search categories..."  />
+                    <input type="text" id="product-specialties" placeholder="Begin typing to search categories..."  />
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="terms" class="checkbox-label">
+                      <input type="checkbox" id="terms">
+                      I have read and agree to the Terms of Service and Privacy Policy
+                    </label>
+                    <label for="authorized-user" class="checkbox-label">
+                      <input type="checkbox" id="authorized-user">
+                      I assert that I am authorized by the company I entered above to use Procur.com
+                      on their behalf in accordance with the Terms of Service and Privacy Policy.
+                    </label>
                   </div>
                 </div>
               </div>
             </form>
           </div>
         </div>
-
       </div>
     </div>
-    <a class="btn btn-continue">
+    <button class="btn btn-continue" type="button">
       Continue
       <span class="glyphicon glyphicon-arrow-right"></span>
-    </a>
+    </button>
   </div>
 </div>

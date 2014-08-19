@@ -54,35 +54,6 @@ label {
   margin-bottom: 0.3125em;
 }
 
-.form-group label {
-  font-weight: 300;
-  font-size: 11px;
-  letter-spacing: 0.06em;
-  padding-top: 0px;
-  margin-top: 0px;
-  margin-bottom: 4px;
-}
-.form-group input {
-  border: 0px none;
-  margin: 7px 0px;
-  width: 100%;
-  height: 25px;
-  font-size: 11px;
-  padding: 0px 7px;
-  font-weight: 300;
-}
-
-form p.error {
-  color: #FF5A5A;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 10px;
-  text-transform: uppercase;
-  line-height: 1.8em;
-  width: 100%;
-  top: -15px;
-  font-weight: 500;
-}
-
 .panel-content .panel-heading {
   background-color: #333132;
   color: white;
@@ -349,7 +320,7 @@ ol.nav-panel li:nth-child(even).active a .left-icon {
   margin-top: 10px;
 }
 .btn-continue .glyphicon {
-  color: #5cc56c;
+  color: #3888ce;
   margin-left: 10px;
 }
 
@@ -366,12 +337,37 @@ ol.nav-panel li:nth-child(even).active a .left-icon {
   color: white;
 }
 
-.checkbox-label {
+.form-group label {
+  font-weight: 300;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  padding-top: 0px;
+  margin-top: 0px;
+  margin-bottom: 4px;
+}
+.form-group input,
+.form-group select {
+  border: 0px none;
+  margin: 7px 0px;
+  width: 100%;
+  height: 25px;
+  font-size: 11px;
+  padding: 0px 7px;
+  font-weight: 300;
+}
+.form-group select {
+  background: url("../img/ddarrow.png") no-repeat white;
+  background-position: right center;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+.form-group .checkbox-label {
   display: block;
   padding-left: 15px;
   text-indent: -15px;
 }
-.checkbox-label input[type='checkbox'] {
+.form-group .checkbox-label input[type='checkbox'] {
   width: 13px;
   height: 13px;
   padding: 0;
@@ -379,6 +375,17 @@ ol.nav-panel li:nth-child(even).active a .left-icon {
   vertical-align: bottom;
   position: relative;
   top: -1px;
+}
+
+form p.error {
+  color: #ff5a5a;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  text-transform: uppercase;
+  line-height: 1.8em;
+  width: 100%;
+  top: -15px;
+  font-weight: 500;
 }
 
 .user-header {
@@ -567,10 +574,6 @@ ol.nav-panel li:nth-child(even).active a .left-icon {
 .registration-wizard .progress-tracker ul li p.active {
   color: black;
   font-weight: bold;
-}
-.registration-wizard .panel-content {
-  width: 70%;
-  margin: 0 auto;
 }
 .registration-wizard .panel-content .panel-footer .btn.btn-lg {
   margin: 20px 0;
