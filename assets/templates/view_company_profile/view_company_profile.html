@@ -4,77 +4,77 @@
     <!--IMAGE PLACEHOLDER-->
     <div class="company-header">
       <h2>
-        <span>buyer or supplier...</span>
+        <span>{{user.activeMode}} profile</span>
       </h2>
-      <h1>company name...</h1>
+      <h1>{{company.name}}</h1>
     </div>
     <div class="company-info-box company-business-address">
       <h3>
-        <i class="fa fa-fw fa-map-marker"></i>
+        <span class="glyphicon glyphicon-map-marker"></span>
         <span class="info-title">Official Business Address</span>
       </h3>
-      <p>info...</p>
-      <p>info...</p>
-      <p>info...</p>
-      <p>info...</p>
-      <p>info...</p>
+      <p>TODO</p>
+      <p>TODO</p>
+      <p>TODO</p>
+      <p>TODO</p>
     </div>
     <div class="company-info-box">
       <h3>
-        <i class="fa fa-fw fa-phone"></i>
+        <span class="glyphicon glyphicon-earphone"></span>
+        <span class="info-title">Company Phone &amp; Fax</span>
       </h3>
-      <p>Telephone #...</p>
+      <p>Telephone: {{company.phoneNumber}}</p>
     </div>
     <div class="company-info-box">
       <h3>
-        <i class="fa fa-fw fa-location-arrow"></i>
+        <span class="glyphicon glyphicon-send"></span>
         <span class="info-title"> Company Email Address </span>
       </h3>
-      <p>Email...</p>
+      <p>{{company.email}}</p>
     </div>
     <div class="company-info-box">
       <h3>
-        <i class="fa fa-fw fa-location-arrow"></i>
+        <span class="glyphicon glyphicon-globe"></span>
         <span class="info-title"> Company Website </span>
       </h3>
-      <p>Website...</p>
+      <a href="{{company.website}}">{{company.website}}</a>
     </div>
     <div class="company-detail-box">
       <h3>
         <span>Product Categories</span>
       </h3>
-      <p>Water Treatment</p>
+      <p>TODO</p>
     </div>
-    <div class="company-two-col-box">
+    <div class="company-detail-box company-two-col-box">
       <h3>
-        <span>Buyer or Suppliear Deets.....</span>
+        <span>{{user.activeMode}} details</span>
       </h3>
-      <div class="company-col-left">
+      <div class="col-xs-12 col-sm-6 company-col-left">
         <div class="company-col-detail">
           <p class="detail-header">Type of Company</p>
-          <p class="detail-body">buyer or supplier...</p>
+          <p class="detail-body">TODO</p>
         </div>
         <div class="company-col-detail">
           <p class="detail-header">Total # of Employees</p>
-          <p class="detail-body">number....</p>
+          <p class="detail-body">{{company.employeeCount}}</p>
         </div>
         <div class="company-col-detail">
           <p class="detail-header">Industry</p>
-          <p class="detail-body">industry...</p>
+          <p class="detail-body">{{company.industry}}</p>
         </div>
         <div class="company-col-detail">
           <p class="detail-header">Languages</p>
-          <p class="detail-body">language.....</p>
+          <p class="detail-body">TODO</p>
         </div>
         <div class="company-col-detail">
           <p class="detail-header">DUNS Number</p>
-          <p class="detail-body">number....</p>
+          <p class="detail-body">TODO</p>
         </div>
       </div>
-      <div class="company-col-right">
+      <div class="col-xs-12 col-sm-6 company-col-right">
         <div class="company-col-detail">
           <p class="detail-header">Links</p>
-          <p class="detail-body">link to website...</p>
+          <a href="{{company.website}}">Our Website</a>
         </div>
       </div>
     </div>
@@ -88,8 +88,12 @@
         <div class="nav-left">
           <li>About</li>
         </div>
+        <div class="nav-right">
+          <li><a ui-sref="view_company_profile.view_company_description">Company Descriptions</a></li>
+          <li><a ui-sref="view_company_profile.view-company_interests">Products of Interest</a></li>
+        </div>
       </ul>
     </div>
-    <!--PLACEHOLDER for dynamic content-->
+    <div ui-view></div>
   </div>
 </div>

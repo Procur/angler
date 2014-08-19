@@ -34,9 +34,30 @@
       /*TREY LOOK HERE*/
       .state('view_company_profile', {
         url: '/view_company_profile',
-        templateUrl: 'view_company_profile.html',
-        controller: 'viewCompanyProfileController'
+        views: {
+          '': {
+            templateUrl: 'view_company_profile.html',
+            controller: 'viewCompanyProfileController',
+            abstract: true
+          },
+          'header': {
+            templateUrl: 'public_view.html',
+            controller: 'myProcurController'
+          }
+        }
       })
+      .state('view_company_profile.view_company_description', {
+        url: '/view_company_description',
+        templateUrl: 'view_company_profile_description.html',
+        controller: 'viewCompanyProfileDescriptionController'
+      })
+      .state('view_company_profile.view-company_interests', {
+        url: '/view_company_interests',
+        templateUrl: 'view_company_profile_interests.html',
+        controller: 'viewCompanyProfileInterestsController'
+      })
+
+
 
       .state('user_account_settings', {
         url: '/user_account_settings',

@@ -8,10 +8,11 @@
 @import 'components/buttons';
 @import 'components/inputs';
 @import 'header/my_procur';
+@import 'header/public_view';
 @import 'dashboard/dashboard';
 @import 'user_account_settings/user_account_settings';
 @import 'edit_company_profile/edit_company_profile';
-
+@import 'view_company_profile/view_company_profile';
 
 body {
   background-color: $color-white;
