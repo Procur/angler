@@ -1282,7 +1282,7 @@
             abstract: true
           },
           'header': {
-            templateUrl: 'my_procur.html',
+            templateUrl: 'public_view.html',
             controller: 'myProcurController'
           }
         }
@@ -1441,7 +1441,7 @@ angular.module('pc.Templates', []).run(['$templateCache', function($templateCach
 
 
   $templateCache.put('public_view.html',
-    "<div>This is my new header</div>"
+    "<div id=\"public_view_header\"><nav class=\"navbar navbar-default\" role=\"navigation\"><div class=\"container\"><div class=\"navbar-header\"><button type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\"#nav-links\"><span class=\"sr-only\">Toggle navigation</span> <span class=\"icon-bar\"></span> <span class=\"icon-bar\"></span> <span class=\"icon-bar\"></span></button> <a class=\"navbar-brand\" href=\"/\"><img src=\"/assets/images/procur.png\"></a></div><div class=\"collapse navbar-collapse\" id=\"nav-links\"><ul class=\"nav navbar-nav navbar-right hidden-xs\"><li class=\"tri\"><a class=\"edit_profile_text\" ui-sref=\"edit_company_profile.company_details\">Edit Profile</a><div class=\"hoverTriContainer\"><div class=\"hoverTri\"></div></div></li><li class=\"tri\"><p class=\"navbar-text account-registration createPill\"><a ui-sref=\"dashboard\">Return to Dashboard</a></p><div class=\"hoverTriContainer\"><div class=\"hoverTri\"></div></div></li></ul><ul class=\"nav navbar-nav hidden-sm hidden-md hidden-lg\"><li class=\"tri\"><a ui-sref=\"edit_company_profile.company_details\">Edit Profile</a><div class=\"hoverTriContainer\"><div class=\"hoverTri\"></div></div></li><li class=\"tri\"><a ui-sref=\"dashboard\">Return to Dashboard</a><div class=\"hoverTriContainer\"><div class=\"hoverTri\"></div></div></li></ul></div></div></nav></div>"
   );
 
 

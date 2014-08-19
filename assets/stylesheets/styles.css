@@ -471,6 +471,39 @@ ol.nav-panel li:nth-child(even).active a .left-icon {
   color: white;
 }
 
+#public_view_header .navbar-default {
+  background-color: white;
+  border-bottom: 3px solid #e7e7e7;
+  margin-bottom: 20px;
+}
+#public_view_header .navbar-header {
+  float: left;
+}
+#public_view_header .createPill a {
+  padding: 3px 20px;
+  margin: 5px 0 0 15px;
+  border: 2px solid #fbac27;
+  border-radius: 30px;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  font-weight: 400;
+  font-family: Montserrat,sans-serif;
+}
+#public_view_header .createPill a:hover {
+  color: #fff;
+  background: #fbac27;
+  text-decoration: none;
+}
+#public_view_header .edit_profile_text {
+  color: #777;
+  font-size: 12px;
+  font-family: Montserrat,sans-serif;
+}
+#public_view_header .edit_profile_text:hover {
+  color: #333;
+  text-decoration: none;
+}
+
 .dashboard .user-profile img {
   max-width: 150px;
   max-height: 150px;

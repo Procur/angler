@@ -41,7 +41,7 @@
             abstract: true
           },
           'header': {
-            templateUrl: 'my_procur.html',
+            templateUrl: 'public_view.html',
             controller: 'myProcurController'
           }
         }
