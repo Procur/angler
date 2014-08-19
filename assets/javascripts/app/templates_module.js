@@ -77,7 +77,7 @@ angular.module('pc.Templates', []).run(['$templateCache', function($templateCach
 
 
   $templateCache.put('registration_email_verification.html',
-    "<div class=\"row\"><div class=\"col-xs-8 col-xs-offset-2\"><div class=\"panel-content\"><div class=\"panel-heading\"><h5 class=\"text-center\">Please verify your email address</h5></div><div class=\"panel-footer\"><div class=\"row\"><div class=\"col-xs-12\"><p class=\"text-center\">Please check your email - you should have a confirmation message from Procur. If you haven't received anything, click 'Resend Email' below.</p></div></div><div class=\"row\"><div class=\"col-sm-6\"><button class=\"btn btn-lg btn-block btn-rounded btn-default\">Resend Email</button></div><div class=\"col-sm-6\"><a class=\"btn btn-lg btn-block btn-rounded btn-default\" ui-sref=\"registration.handle\">I've already verified</a></div></div></div></div></div></div>"
+    "<div class=\"row\"><div class=\"col-xs-8 col-xs-offset-2\"><div class=\"panel-content\"><div class=\"panel-heading\"><h5 class=\"text-center\">Please verify your email address</h5></div><div class=\"panel-footer\"><div class=\"row\"><div class=\"col-xs-12\"><p class=\"text-center\">Please check your email - you should have a confirmation message from Procur. If you haven't received anything, click 'Resend Email' below.</p></div></div><div class=\"row\"><div class=\"col-sm-6\"><button class=\"btn btn-lg btn-block btn-rounded btn-default\" ng-click=\"sendEmailVerification()\">Resend Email</button></div><div class=\"col-sm-6\"><a class=\"btn btn-lg btn-block btn-rounded btn-default\" ui-sref=\"registration.handle\">I've already verified</a></div></div></div></div></div></div>"
   );
 
 
@@ -98,6 +98,80 @@ angular.module('pc.Templates', []).run(['$templateCache', function($templateCach
 
   $templateCache.put('registration_type.html',
     "<div class=\"row\"><div class=\"col-xs-8 col-xs-offset-2\"><div class=\"panel-content\"><div class=\"panel-heading\"><h5 class=\"text-center\">Select your company type</h5></div><div class=\"panel-footer\"><div class=\"row\"><div class=\"col-sm-6\"><a class=\"btn btn-lg btn-block btn-rounded btn-default\" ui-sref=\"registration.company_information\">Buyer</a></div><div class=\"col-sm-6\"><a class=\"btn btn-lg btn-block btn-rounded btn-default\" ui-sref=\"registration.finished_product\">Supplier</a></div></div></div></div></div></div>"
+  );
+
+
+  $templateCache.put('snackbar.html',
+    "<style>.snackbar {\n" +
+    "    position: absolute;\n" +
+    "    padding: 15px;\n" +
+    "    min-width: 288px;\n" +
+    "    max-width: 568px;\n" +
+    "    overflow: hidden;\n" +
+    "    opacity: 0;\n" +
+    "    white-space: nowrap;\n" +
+    "    -webkit-transition: 200ms ease-in-out all;\n" +
+    "    -moz-transition: 200ms ease-in-out all;\n" +
+    "    -ms-transition: 200ms ease-in-out all;\n" +
+    "    -o-transition: 200ms ease-in-out all;\n" +
+    "    transition: 200ms ease-in-out all;\n" +
+    "  }\n" +
+    "\n" +
+    "  .snackbar.snackbar-bottom-left {\n" +
+    "    bottom: 0;\n" +
+    "    left: 24px;\n" +
+    "  }\n" +
+    "\n" +
+    "  .snackbar.snackbar-bottom-right {\n" +
+    "    bottom: 0;\n" +
+    "    right: 24px;\n" +
+    "  }\n" +
+    "\n" +
+    "  .snackbar.snackbar-top-left {\n" +
+    "    top: 0;\n" +
+    "    left: 24px;\n" +
+    "  }\n" +
+    "\n" +
+    "  .snackbar.snackbar-top-right {\n" +
+    "    top: 0;\n" +
+    "    right: 24px;\n" +
+    "  }\n" +
+    "\n" +
+    "  .snackbar.pop-up {\n" +
+    "    opacity: 1;\n" +
+    "  }\n" +
+    "\n" +
+    "  .snackbar.snackbar-bottom-left.pop-up,\n" +
+    "  .snackbar.snackbar-bottom-right.pop-up {\n" +
+    "    bottom: 24px;\n" +
+    "  }\n" +
+    "\n" +
+    "  .snackbar.snackbar-top-right.pop-up,\n" +
+    "  .snackbar.snackbar-top-left.pop-up {\n" +
+    "    top: 24px;\n" +
+    "  }\n" +
+    "\n" +
+    "  .snackbar.pop-out {\n" +
+    "    opacity: 0;\n" +
+    "  }\n" +
+    "\n" +
+    "  .snackbar.snackbar-bottom-left.pop-out,\n" +
+    "  .snackbar.snackbar-bottom-right.pop-out {\n" +
+    "    bottom: 24px;\n" +
+    "  }\n" +
+    "\n" +
+    "  .snackbar.snackbar-top-right.pop-out,\n" +
+    "  .snackbar.snackbar-top-left.pop-out {\n" +
+    "    top: 24px;\n" +
+    "  }\n" +
+    "\n" +
+    "  .snackbar > .snackbar-message {\n" +
+    "    text-overflow: ellipsis;\n" +
+    "    white-space: nowrap;\n" +
+    "    overflow: hidden;\n" +
+    "    margin: 0;\n" +
+    "    padding: 0;\n" +
+    "  }</style><div class=\"snackbar\" role=\"alert\"><p class=\"snackbar-message\"></p></div>"
   );
 
 

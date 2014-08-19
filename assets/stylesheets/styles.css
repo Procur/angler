@@ -306,6 +306,16 @@ ol.nav-panel li:nth-child(even).active a .left-icon {
 .btn-xs {
   border-radius: 0;
   border: 0;
+  outline: 0;
+}
+.btn:active, .btn:focus,
+.btn-lg:active,
+.btn-lg:focus,
+.btn-sm:active,
+.btn-sm:focus,
+.btn-xs:active,
+.btn-xs:focus {
+  outline: 0;
 }
 
 .btn-continue {

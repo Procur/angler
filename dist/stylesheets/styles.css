@@ -346,17 +346,23 @@ ol.nav-panel li:nth-child(even).active a .left-icon {
   margin-bottom: 4px;
 }
 .form-group input,
-.form-group select {
+.form-group select,
+.form-group .input-group-addon {
   border: 0px none;
-  margin: 7px 0px;
-  width: 100%;
-  height: 25px;
+  border-radius: 0;
   font-size: 11px;
   padding: 0px 7px;
   font-weight: 300;
+  letter-spacing: .06em;
+}
+.form-group input,
+.form-group select {
+  width: 100%;
+  height: 25px;
+  margin: 7px 0px;
 }
 .form-group select {
-  background: url("../img/ddarrow.png") no-repeat white;
+  background: url("../images/ddarrow.png") no-repeat white;
   background-position: right center;
   appearance: none;
   -webkit-appearance: none;
@@ -386,6 +392,37 @@ form p.error {
   width: 100%;
   top: -15px;
   font-weight: 500;
+}
+
+.input-group .input-group-addon {
+  background-color: transparent;
+  padding-right: 1px;
+}
+.input-group input {
+  padding-left: 1px;
+}
+
+.profile-image {
+  height: 150px;
+  width: 150px;
+  background-color: rgba(0, 0, 0, 0.06);
+}
+.profile-image img {
+  max-height: 150px;
+  max-width: 150px;
+  margin: 0 auto;
+  display: block;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.no-file {
+  padding-top: 5px;
+  padding-left: 5px;
+  margin: 0;
+  font-size: 12px;
+  color: #7f7f7f;
 }
 
 .user-header {
@@ -588,6 +625,15 @@ form p.error {
 .registration-wizard .panel-content .panel-footer p a:hover, .registration-wizard .panel-content .panel-footer p a:active, .registration-wizard .panel-content .panel-footer p a:focus {
   color: #4d4d4d;
 }
+.registration-wizard .panel-content .panel-footer form .separator {
+  border-top: 1px solid #c3c3c3;
+}
+.registration-wizard .panel-content .panel-footer form .separator h5 {
+  text-transform: uppercase;
+  color: #7f7f7f;
+  font-weight: bold;
+  margin-top: 0;
+}
 
 .dashboard .user-profile img {
   max-width: 150px;
@@ -663,21 +709,6 @@ form p.error {
   text-transform: uppercase;
   font-weight: 600;
   font-size: 11px;
-}
-
-#user_account_settings .user-profile {
-  height: 150px;
-  width: 150px;
-  background-color: rgba(0, 0, 0, 0.06);
-}
-#user_account_settings .user-profile img {
-  max-height: 150px;
-  max-width: 150px;
-  margin: 0 auto;
-  display: block;
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
 }
 
 .edit-company-descriptions textarea {

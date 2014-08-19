@@ -1,0 +1,77 @@
+<style>
+  .snackbar {
+    position: absolute;
+    padding: 15px;
+    min-width: 288px;
+    max-width: 568px;
+    overflow: hidden;
+    opacity: 0;
+    white-space: nowrap;
+    -webkit-transition: 200ms ease-in-out all;
+    -moz-transition: 200ms ease-in-out all;
+    -ms-transition: 200ms ease-in-out all;
+    -o-transition: 200ms ease-in-out all;
+    transition: 200ms ease-in-out all;
+  }
+
+  .snackbar.snackbar-bottom-left {
+    bottom: 0;
+    left: 24px;
+  }
+
+  .snackbar.snackbar-bottom-right {
+    bottom: 0;
+    right: 24px;
+  }
+
+  .snackbar.snackbar-top-left {
+    top: 0;
+    left: 24px;
+  }
+
+  .snackbar.snackbar-top-right {
+    top: 0;
+    right: 24px;
+  }
+
+  .snackbar.pop-up {
+    opacity: 1;
+  }
+
+  .snackbar.snackbar-bottom-left.pop-up,
+  .snackbar.snackbar-bottom-right.pop-up {
+    bottom: 24px;
+  }
+
+  .snackbar.snackbar-top-right.pop-up,
+  .snackbar.snackbar-top-left.pop-up {
+    top: 24px;
+  }
+
+  .snackbar.pop-out {
+    opacity: 0;
+  }
+
+  .snackbar.snackbar-bottom-left.pop-out,
+  .snackbar.snackbar-bottom-right.pop-out {
+    bottom: 24px;
+  }
+
+  .snackbar.snackbar-top-right.pop-out,
+  .snackbar.snackbar-top-left.pop-out {
+    top: 24px;
+  }
+
+  .snackbar > .snackbar-message {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+  }
+</style>
+
+<div class="snackbar" role="alert">
+  <p class="snackbar-message">
+  </p>
+</div>
