@@ -5,14 +5,14 @@
 
   definitions = [
     '$scope',
-    userUpdatePassword
+    userUpdatePasswordController
   ];
 
   angular.module('pc.UserAccountSettings')
-    .controller('userUpdatePassword', definitions);
+    .controller('userUpdatePasswordController', definitions);
 
-  function userUpdatePassword($scope) {
-    
+  function userUpdatePasswordController($scope) {
+
   }
 
 })(angular);

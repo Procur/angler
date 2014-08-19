@@ -8,13 +8,13 @@
     'ajaxService',
     'FILE_EVENTS',
     'userService',
-    userUpdateSettings
+    userUpdateSettingsController
   ];
 
   angular.module('pc.UserAccountSettings')
-    .controller('userUpdateSettings', definitions);
+    .controller('userUpdateSettingsController', definitions);
 
-  function userUpdateSettings($scope, ajax, FILE_EVENTS, user) {
+  function userUpdateSettingsController($scope, ajax, FILE_EVENTS, user) {
     $scope.user = user;
 
     $scope.$on(FILE_EVENTS.SELECTED, onImageSelected);
