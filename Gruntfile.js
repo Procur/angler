@@ -8,6 +8,7 @@ function gruntConfig(grunt) {
     componentsPath: 'assets/components',
     cssPath: 'assets/stylesheets',
     htmlPath: 'assets/templates',
+    imagePath: 'assets/images',
 
     concat: require('./grunt/concat'),
     watch: require('./grunt/watch'),
@@ -27,7 +28,7 @@ function gruntConfig(grunt) {
   }
 
   grunt.registerTask('build:dev', ['concat:components', 'ngtemplates:dev', 'concat:dev', 'sass:dev']);
-  grunt.registerTask('build:dist', ['build:dev', 'concat:dist', 'uglify:dist', 'copy:styles', 'sass:dist']);
+  grunt.registerTask('build:dist', ['build:dev', 'concat:dist', 'uglify:dist', 'copy:styles', 'sass:dist', 'copy:assets']);
   grunt.registerTask('server', ['bgShell:server']);
   grunt.registerTask('protractor', ['bgShell:protractor']);
   grunt.registerTask('test:dev', ['build:dev', 'karma:dev', 'protractor']);
