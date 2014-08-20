@@ -380,14 +380,14 @@ ol.nav-panel li:nth-child(even).active a .left-icon {
 }
 .form-group .checkbox-label {
   display: block;
-  padding-left: 15px;
+  padding-left: 25px;
   text-indent: -15px;
 }
 .form-group .checkbox-label input[type='checkbox'] {
   width: 13px;
   height: 13px;
   padding: 0;
-  margin: 0px 10px 0px 0px;
+  margin: 0 10px 0 -10px;
   vertical-align: bottom;
   position: relative;
   top: -1px;
@@ -406,12 +406,24 @@ form p.error {
 
 .input-group .input-group-addon {
   background-color: transparent;
-  padding-right: 1px;
+  padding-right: 2px;
 }
 .input-group input {
-  padding-left: 1px;
+  padding-left: 2px;
 }
 
+@media (max-width: 768px) {
+  .input-group {
+    display: block;
+  }
+  .input-group .input-group-addon {
+    display: block;
+    width: 100%;
+  }
+  .input-group input {
+    padding: 0 7px;
+  }
+}
 .profile-image {
   height: 150px;
   width: 150px;
@@ -435,6 +447,84 @@ form p.error {
   color: #7f7f7f;
 }
 
+.snackbar {
+  position: absolute;
+  padding: 15px;
+  min-width: 288px;
+  max-width: 568px;
+  overflow: hidden;
+  opacity: 0;
+  white-space: nowrap;
+  -webkit-transition: 200ms ease-in-out all;
+  -moz-transition: 200ms ease-in-out all;
+  -ms-transition: 200ms ease-in-out all;
+  -o-transition: 200ms ease-in-out all;
+  transition: 200ms ease-in-out all;
+}
+.snackbar.snackbar-bottom-left {
+  bottom: -24px;
+  left: 24px;
+}
+.snackbar.snackbar-bottom-right {
+  bottom: -24px;
+  right: 24px;
+}
+.snackbar.snackbar-top-left {
+  top: -24px;
+  left: 24px;
+}
+.snackbar.snackbar-top-right {
+  top: -24px;
+  right: 24px;
+}
+.snackbar.snackbar-pop-up {
+  opacity: 1;
+}
+.snackbar.snackbar-pop-up.snackbar-bottom-left, .snackbar.snackbar-pop-up.snackbar-bottom-right {
+  bottom: 24px;
+}
+.snackbar.snackbar-pop-up.snackbar-top-left, .snackbar.snackbar-pop-up.snackbar-top-right {
+  top: 24px;
+}
+.snackbar.snackbar-pop-out {
+  opacity: 0;
+}
+.snackbar.snackbar-pop-out.snackbar-bottom-left, .snackbar.snackbar-pop-out.snackbar-bottom-right {
+  bottom: 24px;
+}
+.snackbar.snackbar-pop-out.snackbar-top-left, .snackbar.snackbar-pop-out.snackbar-top-right {
+  top: 24px;
+}
+.snackbar .snackbar-message {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+@media (max-width: 768px) {
+  .snackbar {
+    max-width: 100%;
+    width: 100%;
+  }
+  .snackbar.snackbar-bottom-left, .snackbar.snackbar-bottom-right, .snackbar.snackbar-top-left, .snackbar.snackbar-top-right {
+    left: 0;
+    right: 0;
+  }
+  .snackbar.snackbar-pop-up.snackbar-bottom-left, .snackbar.snackbar-pop-up.snackbar-bottom-right {
+    bottom: 0;
+  }
+  .snackbar.snackbar-pop-up.snackbar-top-left, .snackbar.snackbar-pop-up.snackbar-top-right {
+    top: 0;
+  }
+  .snackbar.snackbar-pop-out.snackbar-bottom-left, .snackbar.snackbar-pop-out.snackbar-bottom-right {
+    bottom: 0;
+  }
+  .snackbar.snackbar-pop-out.snackbar-top-left, .snackbar.snackbar-pop-out.snackbar-top-right {
+    top: 0;
+  }
+}
 .user-header {
   background-color: #eeece9;
   padding: 0;
@@ -915,4 +1005,5 @@ form p.error {
 
 body {
   background-color: white;
+  padding-bottom: 20px;
 }

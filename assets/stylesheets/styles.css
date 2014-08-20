@@ -380,14 +380,14 @@ ol.nav-panel li:nth-child(even).active a .left-icon {
 }
 .form-group .checkbox-label {
   display: block;
-  padding-left: 15px;
+  padding-left: 25px;
   text-indent: -15px;
 }
 .form-group .checkbox-label input[type='checkbox'] {
   width: 13px;
   height: 13px;
   padding: 0;
-  margin: 0px 10px 0px 0px;
+  margin: 0 10px 0 -10px;
   vertical-align: bottom;
   position: relative;
   top: -1px;
@@ -406,12 +406,24 @@ form p.error {
 
 .input-group .input-group-addon {
   background-color: transparent;
-  padding-right: 1px;
+  padding-right: 2px;
 }
 .input-group input {
-  padding-left: 1px;
+  padding-left: 2px;
 }
 
+@media (max-width: 768px) {
+  .input-group {
+    display: block;
+  }
+  .input-group .input-group-addon {
+    display: block;
+    width: 100%;
+  }
+  .input-group input {
+    padding: 0 7px;
+  }
+}
 .profile-image {
   height: 150px;
   width: 150px;

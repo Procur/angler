@@ -8,7 +8,7 @@
       <div class="col-xs-12">
         <form class="form" novalidate>
           <div class="row">
-            <div class="col-md-6">
+            <div class="col-sm-6">
               <div class="form-group">
                 <label for="company-name">Company Name*</label>
                 <input type="text" id="company-name" placeholder="Acme Co." required  />
@@ -20,16 +20,16 @@
               <div class="form-group">
                 <label for="company-phone">Company Phone*</label>
                 <div class="row">
-                  <div class="col-md-4">
+                  <div class="col-xs-4">
                     <input type="text" placeholder="+">
                   </div>
-                  <div class="col-md-8">
+                  <div class="col-xs-8">
                     <input type="text" id="company-phone" placeholder="555-123-4567" required>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-sm-6">
               <div class="form-group">
                 <label for="company-type">Type of Company*</label>
                 <select id="company-type">
@@ -51,12 +51,12 @@
             </div>
           </div>
           <div class="row separator">
-            <div class="col-md-12">
+            <div class="col-sm-12">
               <h5 class="text-center">Optional Information</h5>
             </div>
           </div>
           <div class="row">
-            <div class="col-md-6">
+            <div class="col-sm-6">
               <div class="form-group">
                 <label for="company-website">Company Website</label>
                 <input type="url" id="company-website" placeholder="http://www.company.com"  />
@@ -64,10 +64,10 @@
               <div class="form-group">
                 <label for="company-logo">Company Logo</label>
                 <div class="row">
-                  <div class="col-md-4">
+                  <div class="col-sm-4">
                     <button class="btn btn-default btn-sm" pc-image-select>Choose Image</button>
                   </div>
-                  <div class="col-md-8" ng-switch="!!companyLogo.base64Url">
+                  <div class="col-sm-8" ng-switch="!!companyLogo.base64Url">
                     <div class="form-group profile-image" ng-switch-when="true">
                       <img ng-src="{{companyLogo.base64Url}}" />
                     </div>
@@ -81,7 +81,7 @@
               </div>
 
             </div>
-            <div class="col-md-6">
+            <div class="col-sm-6">
               <div class="form-group">
                 <label for="company-dba">DBA Name</label>
                 <input type="text" id="company-dba" placeholder="Alternate Business Name"  />
@@ -101,7 +101,7 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-md-12">
+            <div class="col-sm-12">
               <div class="form-group">
                 <label for="product-specialties">Enter Product Specialties</label>
                 <input type="text" id="product-specialties" placeholder="Begin typing to search categories..."  />
@@ -112,7 +112,7 @@
           </div>
 
           <div class="row">
-            <div class="col-md-12">
+            <div class="col-sm-12">
               <div class="form-group">
                 <label for="terms" class="checkbox-label">
                   <input type="checkbox" id="terms">

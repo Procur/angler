@@ -45358,16 +45358,21 @@ window.plupload = plupload;
 
   angular.module('pc.Snackbar', dependencies)
     .constant('POSITIONS', {
-      'TOP_LEFT': 'TOP_LEFT',
-      'BOTTOM_RIGHT': 'BOTTOM_RIGHT',
-      'TOP_RIGHT': 'TOP_RIGHT',
-      'BOTTOM_LEFT': 'BOTTOM_LEFT'
+      TOP_LEFT: 'TOP_LEFT',
+      BOTTOM_RIGHT: 'BOTTOM_RIGHT',
+      TOP_RIGHT: 'TOP_RIGHT',
+      BOTTOM_LEFT: 'BOTTOM_LEFT'
     })
     .constant('POSITION_CLASSES', {
-      'TOP_LEFT': 'snackbar-top-left',
-      'BOTTOM_RIGHT': 'snackbar-bottom-right',
-      'TOP_RIGHT': 'snackbar-top-right',
-      'BOTTOM_LEFT': 'snackbar-bottom-left'
+      TOP_LEFT: 'snackbar-top-left',
+      BOTTOM_RIGHT: 'snackbar-bottom-right',
+      TOP_RIGHT: 'snackbar-top-right',
+      BOTTOM_LEFT: 'snackbar-bottom-left'
+    })
+    .constant('SNACKBAR_COLORS', {
+      SUCCESS: '#5CC672',
+      ERROR: '#FF5A5A',
+      DEFAULT: '#333132'
     });
 
 })(angular);
@@ -45388,19 +45393,24 @@ window.plupload = plupload;
     '_',
     'POSITIONS',
     'POSITION_CLASSES',
+    'SNACKBAR_COLORS',
     snackbarService
   ];
 
   angular.module('pc.Snackbar')
     .factory('snackbarService', definitions);
 
-  function snackbarService($document, $rootScope, $templateCache, $compile, $timeout, $animate, _, POSITIONS, POSITION_CLASSES) {
+  function snackbarService($document, $rootScope, $templateCache, $compile, $timeout, $animate, _, POSITIONS, POSITION_CLASSES, COLORS) {
     var
       templateUrl = 'snackbar.html',
       template = $templateCache.get(templateUrl),
       scope = $rootScope.$new(),
       body = $document.find('body'),
-      queue = [];
+      POP_UP = 'snackbar-pop-up',
+      POP_OUT = 'snackbar-pop-out',
+      POP_OUT_TIMEOUT = 4000,
+      REMOVE_TIMEOUT = 4200,
+      stack = [];
 
     return {
       success: success,
@@ -45413,7 +45423,7 @@ window.plupload = plupload;
         successConfig;
 
       successConfig = {
-        'background-color': '#5cc672'
+        'background-color': COLORS.SUCCESS
       };
 
       notice(message, successConfig);
@@ -45424,7 +45434,7 @@ window.plupload = plupload;
         errorConfig;
 
       errorConfig = {
-        'background-color': '#FF5A5A'
+        'background-color': COLORS.ERROR
       };
 
       notice(message, errorConfig);
@@ -45436,103 +45446,75 @@ window.plupload = plupload;
         styles,
         position;
 
-      if (message) {
-        styles = getStyles(config);
-        position = getPosition(config);
-        snackbar = $compile(template)(scope)
-          .addClass(position)
-          .css(styles.wrapper);
-        snackbar.find('p')
-          .css(styles.message)
-          .html(message);
+      config = config || {};
 
-        if (queue.length) {
-          _.each(queue, clearSnackbar);
+      if (message) {
+        styles = getStyles();
+        position = getPosition();
+
+        scope.message = message;
+        scope.styles = styles;
+        scope.position = position;
+
+        snackbar = $compile(template)(scope);
+
+        if (stack.length) {
+          _.each(stack, clearSnackbar);
         }
 
         insertSnackbar();
         snackbar.timeout = {
-          popout: $timeout(snackbarPopOut, 4000),
-          remove: $timeout(removeSnackbar, 4200)
+          pop_out: $timeout(snackbarPopOut, POP_OUT_TIMEOUT),
+          remove: $timeout(removeSnackbar, REMOVE_TIMEOUT)
         };
       }
 
       function insertSnackbar() {
         $animate.enter(snackbar, body, null, snackbarPopIn);
-        queue.push(snackbar);
+        stack.push(snackbar);
       }
 
       function removeSnackbar() {
         $animate.leave(snackbar);
-        queue.shift();
+        stack.shift();
       }
 
       function snackbarPopIn() {
-        snackbar.addClass('pop-up');
+        snackbar.addClass(POP_UP);
       }
 
       function snackbarPopOut() {
         snackbar
-          .addClass('pop-out')
-          .removeClass('pop-up');
+          .addClass(POP_OUT)
+          .removeClass(POP_UP);
       }
 
       function clearSnackbar(item, index) {
-        $timeout.cancel(item.timeout.popout);
+        $timeout.cancel(item.timeout.pop_out);
         $timeout.cancel(item.timeout.remove);
         $animate.leave(item);
-        queue.splice(index, 1);
+        stack.splice(index, 1);
       }
 
-      /**
-      * Commenting this out for now in preference to clearing out since
-      * clearing is more mobile friendly
-      **
-      function stackSnackbar(item) {
-        if (item.hasClass(POSITION_CLASSES.TOP_LEFT) || item.hasClass(POSITION_CLASSES.TOP_RIGHT)) {
-          item.css('top', getStackHeight('top') + 'px');
-        }
-        else {
-          item.css('bottom', getStackHeight('bottom') + 'px');
-        }
-
-        function getStackHeight(topOrBottom) {
-          var
-            stackMargin = 24,
-            stackbarHeight = 30,
-            currentMargin = parseInt(item.css(topOrBottom), 10),
-            fontSize = parseInt(item.children().css('font-size'), 10);
-
-          return (currentMargin || stackMargin) +
-            (stackbarHeight + fontSize + stackMargin);
-        }
+      function getStyles() {
+        return {
+          wrapper: {
+            'background-color': config['background-color'] || COLORS.DEFAULT,
+          },
+          message: {
+            'font-size': config['font-size'] || '14px',
+            'font-weight': '300',
+            'color': config.color || '#FFF'
+          }
+        };
       }
-      */
 
-    }
+      function getPosition() {
+        var
+          position = POSITIONS[config.position];
 
-    function getStyles(config) {
-      config = config || {};
-
-      return {
-        wrapper: {
-          'background-color': config['background-color'] || '#333132',
-        },
-        message: {
-          'font-size': config['font-size'] || '14px',
-          'font-weight': '300',
-          'color': config.color || '#fff'
-        }
-      };
-    }
-
-    function getPosition(config) {
-      var
-        position;
-
-      config = config || {};
-      position = POSITIONS[config.position];
-      return position ? POSITION_CLASSES[position] : POSITION_CLASSES.BOTTOM_LEFT;
+        return position ? POSITION_CLASSES[position] : POSITION_CLASSES.BOTTOM_LEFT;
+      }
     }
   }
 
@@ -45932,7 +45914,7 @@ window.plupload = plupload;
 
     function sendEmailVerification() {
       if (Math.round(Math.random())) {
-        snackbar.success('Resent email verification!');
+        snackbar.notice('Resent email verification!');
       }
       else {
         snackbar.error('There was an error sending the verification email. Please try again.');
@@ -46817,111 +46799,42 @@ angular.module('pc.Templates', []).run(['$templateCache', function($templateCach
 
 
   $templateCache.put('registration.html',
-    "<div class=\"registration-wizard\"><div class=\"row\"><div class=\"col-xs-12\"><p class=\"lead text-center\">{{wizard.leadText}}</p></div></div><div class=\"row progress-tracker hidden-xs\"><div class=\"col-xs-10 col-xs-offset-1\"><ul class=\"list-inline\"><li ng-repeat=\"progress in wizard.progressBar track by $index\"><div ng-if=\"!$first\" class=\"progress-line progress-line-left\"></div><span class=\"progress-indicator\" ng-class=\"{'in-progress': progress.status === 0, 'not-started': progress.status === -1, 'completed': progress.status === 1}\"></span><p class=\"text-center\" ng-class=\"{active: progress.status === 0}\">{{progress.label}}</p><div ng-if=\"!$last\" class=\"progress-line progress-line-right\"></div></li></ul></div></div><br><br><div ui-view></div></div>"
+    "<div class=\"registration-wizard\"><div class=\"row\"><div class=\"col-xs-12\"><p class=\"lead text-center\">{{wizard.leadText}}</p></div></div><div class=\"row progress-tracker hidden-xs\"><div class=\"col-xs-10 col-xs-offset-1\"><ul class=\"list-inline\"><li ng-repeat=\"progress in wizard.progressBar track by $index\"><div ng-if=\"!$first\" class=\"progress-line progress-line-left\"></div><span class=\"progress-indicator\" ng-class=\"{'in-progress': progress.status === 0, 'not-started': progress.status === -1, 'completed': progress.status === 1}\"></span><p class=\"text-center\" ng-class=\"{active: progress.status === 0}\">{{progress.label}}</p><div ng-if=\"!$last\" class=\"progress-line progress-line-right\"></div></li></ul></div></div><br><br><div class=\"row\"><div class=\"col-xs-12 col-sm-10 col-sm-offset-1\"><div ui-view></div></div></div></div>"
   );
 
 
   $templateCache.put('registration_company_information.html',
-    "<div class=\"row\"><div class=\"col-xs-8 col-xs-offset-2\"><div class=\"panel-content\"><div class=\"panel-heading\"><h5 class=\"text-center\">Please fill out your company information</h5></div><div class=\"panel-footer\"><div class=\"row\"><div class=\"col-xs-12\"><form class=\"form\" novalidate><div class=\"row\"><div class=\"col-md-6\"><div class=\"form-group\"><label for=\"company-name\">Company Name*</label><input type=\"text\" id=\"company-name\" placeholder=\"Acme Co.\" required></div><div class=\"form-group\"><label for=\"company-email\">General Company Email*</label><input type=\"email\" id=\"company-email\" placeholder=\"info@company.com\" required></div><div class=\"form-group\"><label for=\"company-phone\">Company Phone*</label><div class=\"row\"><div class=\"col-md-4\"><input type=\"text\" placeholder=\"+\"></div><div class=\"col-md-8\"><input type=\"text\" id=\"company-phone\" placeholder=\"555-123-4567\" required></div></div></div></div><div class=\"col-md-6\"><div class=\"form-group\"><label for=\"company-type\">Type of Company*</label><select id=\"company-type\"><option value=\"\">Select...</option></select></div><div class=\"form-group\"><label for=\"company-location\">Company Location*</label><select id=\"company-location\"><option value=\"\">Select...</option></select></div><div class=\"form-group\"><label for=\"primary-language\">Primary Language*</label><select id=\"primary-language\"><option value=\"\">Select...</option></select></div></div></div><div class=\"row separator\"><div class=\"col-md-12\"><h5 class=\"text-center\">Optional Information</h5></div></div><div class=\"row\"><div class=\"col-md-6\"><div class=\"form-group\"><label for=\"company-website\">Company Website</label><input type=\"url\" id=\"company-website\" placeholder=\"http://www.company.com\"></div><div class=\"form-group\"><label for=\"company-logo\">Company Logo</label><div class=\"row\"><div class=\"col-md-4\"><button class=\"btn btn-default btn-sm\" pc-image-select>Choose Image</button></div><div class=\"col-md-8\" ng-switch=\"!!companyLogo.base64Url\"><div class=\"form-group profile-image\" ng-switch-when=\"true\"><img ng-src=\"{{companyLogo.base64Url}}\"></div><p class=\"no-file\" ng-switch-when=\"false\">No file chosen</p></div></div></div></div><div class=\"col-md-6\"><div class=\"form-group\"><label for=\"company-dba\">DBA Name</label><input type=\"text\" id=\"company-dba\" placeholder=\"Alternate Business Name\"></div><div class=\"form-group\"><label for=\"industry\">Industry</label><select id=\"industry\"><option value=\"\">Select...</option></select></div><div class=\"form-group\"><label for=\"annual-sales\">Annual Sales (**Supplier Only**)</label><select id=\"annual-sales\"><option value=\"\">Select...</option></select></div></div></div><div class=\"row\"><div class=\"col-md-12\"><div class=\"form-group\"><label for=\"product-specialties\">Enter Product Specialties</label><input type=\"text\" id=\"product-specialties\" placeholder=\"Begin typing to search categories...\"> <input type=\"text\" id=\"product-specialties\" placeholder=\"Begin typing to search categories...\"> <input type=\"text\" id=\"product-specialties\" placeholder=\"Begin typing to search categories...\"></div></div></div><div class=\"row\"><div class=\"col-md-12\"><div class=\"form-group\"><label for=\"terms\" class=\"checkbox-label\"><input type=\"checkbox\" id=\"terms\"> I have read and agree to the Terms of Service and Privacy Policy</label><label for=\"authorized-user\" class=\"checkbox-label\"><input type=\"checkbox\" id=\"authorized-user\"> I assert that I am authorized by the company I entered above to use Procur.com on their behalf in accordance with the Terms of Service and Privacy Policy.</label></div></div></div></form></div></div></div></div><a class=\"btn btn-continue\" ui-sref=\"registration.email_verification\">Continue <span class=\"glyphicon glyphicon-arrow-right\"></span></a></div></div>"
+    "<div class=\"panel-content\"><div class=\"panel-heading\"><h5 class=\"text-center\">Please fill out your company information</h5></div><div class=\"panel-footer\"><div class=\"row\"><div class=\"col-xs-12\"><form class=\"form\" novalidate><div class=\"row\"><div class=\"col-sm-6\"><div class=\"form-group\"><label for=\"company-name\">Company Name*</label><input type=\"text\" id=\"company-name\" placeholder=\"Acme Co.\" required></div><div class=\"form-group\"><label for=\"company-email\">General Company Email*</label><input type=\"email\" id=\"company-email\" placeholder=\"info@company.com\" required></div><div class=\"form-group\"><label for=\"company-phone\">Company Phone*</label><div class=\"row\"><div class=\"col-xs-4\"><input type=\"text\" placeholder=\"+\"></div><div class=\"col-xs-8\"><input type=\"text\" id=\"company-phone\" placeholder=\"555-123-4567\" required></div></div></div></div><div class=\"col-sm-6\"><div class=\"form-group\"><label for=\"company-type\">Type of Company*</label><select id=\"company-type\"><option value=\"\">Select...</option></select></div><div class=\"form-group\"><label for=\"company-location\">Company Location*</label><select id=\"company-location\"><option value=\"\">Select...</option></select></div><div class=\"form-group\"><label for=\"primary-language\">Primary Language*</label><select id=\"primary-language\"><option value=\"\">Select...</option></select></div></div></div><div class=\"row separator\"><div class=\"col-sm-12\"><h5 class=\"text-center\">Optional Information</h5></div></div><div class=\"row\"><div class=\"col-sm-6\"><div class=\"form-group\"><label for=\"company-website\">Company Website</label><input type=\"url\" id=\"company-website\" placeholder=\"http://www.company.com\"></div><div class=\"form-group\"><label for=\"company-logo\">Company Logo</label><div class=\"row\"><div class=\"col-sm-4\"><button class=\"btn btn-default btn-sm\" pc-image-select>Choose Image</button></div><div class=\"col-sm-8\" ng-switch=\"!!companyLogo.base64Url\"><div class=\"form-group profile-image\" ng-switch-when=\"true\"><img ng-src=\"{{companyLogo.base64Url}}\"></div><p class=\"no-file\" ng-switch-when=\"false\">No file chosen</p></div></div></div></div><div class=\"col-sm-6\"><div class=\"form-group\"><label for=\"company-dba\">DBA Name</label><input type=\"text\" id=\"company-dba\" placeholder=\"Alternate Business Name\"></div><div class=\"form-group\"><label for=\"industry\">Industry</label><select id=\"industry\"><option value=\"\">Select...</option></select></div><div class=\"form-group\"><label for=\"annual-sales\">Annual Sales (**Supplier Only**)</label><select id=\"annual-sales\"><option value=\"\">Select...</option></select></div></div></div><div class=\"row\"><div class=\"col-sm-12\"><div class=\"form-group\"><label for=\"product-specialties\">Enter Product Specialties</label><input type=\"text\" id=\"product-specialties\" placeholder=\"Begin typing to search categories...\"> <input type=\"text\" id=\"product-specialties\" placeholder=\"Begin typing to search categories...\"> <input type=\"text\" id=\"product-specialties\" placeholder=\"Begin typing to search categories...\"></div></div></div><div class=\"row\"><div class=\"col-sm-12\"><div class=\"form-group\"><label for=\"terms\" class=\"checkbox-label\"><input type=\"checkbox\" id=\"terms\"> I have read and agree to the Terms of Service and Privacy Policy</label><label for=\"authorized-user\" class=\"checkbox-label\"><input type=\"checkbox\" id=\"authorized-user\"> I assert that I am authorized by the company I entered above to use Procur.com on their behalf in accordance with the Terms of Service and Privacy Policy.</label></div></div></div></form></div></div></div></div><a class=\"btn btn-continue\" ui-sref=\"registration.email_verification\">Continue <span class=\"glyphicon glyphicon-arrow-right\"></span></a>"
   );
 
 
   $templateCache.put('registration_email_verification.html',
-    "<div class=\"row\"><div class=\"col-xs-8 col-xs-offset-2\"><div class=\"panel-content\"><div class=\"panel-heading\"><h5 class=\"text-center\">Please verify your email address</h5></div><div class=\"panel-footer\"><div class=\"row\"><div class=\"col-xs-12\"><p class=\"text-center\">Please check your email - you should have a confirmation message from Procur. If you haven't received anything, click 'Resend Email' below.</p></div></div><div class=\"row\"><div class=\"col-sm-6\"><button class=\"btn btn-lg btn-block btn-rounded btn-default\" ng-click=\"sendEmailVerification()\">Resend Email</button></div><div class=\"col-sm-6\"><a class=\"btn btn-lg btn-block btn-rounded btn-default\" ui-sref=\"registration.handle\">I've already verified</a></div></div></div></div></div></div>"
+    "<div class=\"panel-content\"><div class=\"panel-heading\"><h5 class=\"text-center\">Please verify your email address</h5></div><div class=\"panel-footer\"><div class=\"row\"><div class=\"col-xs-12\"><p class=\"text-center\">Please check your email - you should have a confirmation message from Procur. If you haven't received anything, click 'Resend Email' below.</p></div></div><div class=\"row\"><div class=\"col-sm-6\"><button class=\"btn btn-lg btn-block btn-rounded btn-default\" ng-click=\"sendEmailVerification()\">Resend Email</button></div><div class=\"col-sm-6\"><a class=\"btn btn-lg btn-block btn-rounded btn-default\" ui-sref=\"registration.handle\">I've already verified</a></div></div></div></div>"
   );
 
 
   $templateCache.put('registration_finished_product.html',
-    "<div class=\"row\"><div class=\"col-xs-8 col-xs-offset-2\"><div class=\"panel-content\"><div class=\"panel-heading\"><h5 class=\"text-center\">Are you a consumer product company?</h5></div><div class=\"panel-footer\"><div class=\"row\"><div class=\"col-xs-12\"><p class=\"text-center\">If you aren't sure if you are a consumer production supplier, read <a href=\"https://procur.com/faq\">What are some examples of consumer product companies</a> on our FAQ.</p></div></div><div class=\"row\"><div class=\"col-sm-6\"><a class=\"btn btn-lg btn-block btn-rounded btn-default\" ui-sref=\"registration.company_information\">Yes</a></div><div class=\"col-sm-6\"><a class=\"btn btn-lg btn-block btn-rounded btn-default\" ui-sref=\"registration.finished_product_confirmation\">No</a></div></div></div></div></div></div>"
+    "<div class=\"panel-content\"><div class=\"panel-heading\"><h5 class=\"text-center\">Are you a consumer product company?</h5></div><div class=\"panel-footer\"><div class=\"row\"><div class=\"col-xs-12\"><p class=\"text-center\">If you aren't sure if you are a consumer production supplier, read <a href=\"https://procur.com/faq\">What are some examples of consumer product companies</a> on our FAQ.</p></div></div><div class=\"row\"><div class=\"col-sm-6\"><a class=\"btn btn-lg btn-block btn-rounded btn-default\" ui-sref=\"registration.company_information\">Yes</a></div><div class=\"col-sm-6\"><a class=\"btn btn-lg btn-block btn-rounded btn-default\" ui-sref=\"registration.finished_product_confirmation\">No</a></div></div></div></div>"
   );
 
 
   $templateCache.put('registration_finished_product_confirmation.html',
-    "<div class=\"row\"><div class=\"col-xs-8 col-xs-offset-2\"><div class=\"panel-content\"><div class=\"panel-heading\"><h5 class=\"text-center\">You are not a consumer product company?</h5></div><div class=\"panel-footer\"><div class=\"row\"><div class=\"col-xs-12\"><p class=\"text-center\">Procur helps consumer product companies sell products that are \"read for retail\".</p><p class=\"text-center\">If you aren't sure if you are a consumer production supplier, read <a href=\"https://procur.com/faq\">What are some examples of consumer product companies</a> on our FAQ.</p></div></div><div class=\"row\"><div class=\"col-sm-6\"><a class=\"btn btn-lg btn-block btn-rounded btn-default\" ui-sref=\"registration.company_information\">Wait - I am!</a></div><div class=\"col-sm-6\"><!-- TODO: Need to delete the session info when this link is clicked --><a class=\"btn btn-lg btn-block btn-rounded btn-default\" href=\"https://procur.com\">No, I'm not</a></div></div></div></div></div></div>"
+    "<div class=\"panel-content\"><div class=\"panel-heading\"><h5 class=\"text-center\">You are not a consumer product company?</h5></div><div class=\"panel-footer\"><div class=\"row\"><div class=\"col-xs-12\"><p class=\"text-center\">Procur helps consumer product companies sell products that are \"read for retail\".</p><p class=\"text-center\">If you aren't sure if you are a consumer production supplier, read <a href=\"https://procur.com/faq\">What are some examples of consumer product companies</a> on our FAQ.</p></div></div><div class=\"row\"><div class=\"col-sm-6\"><a class=\"btn btn-lg btn-block btn-rounded btn-default\" ui-sref=\"registration.company_information\">Wait - I am!</a></div><div class=\"col-sm-6\"><!-- TODO: Need to delete the session info when this link is clicked --><a class=\"btn btn-lg btn-block btn-rounded btn-default\" href=\"https://procur.com\">No, I'm not</a></div></div></div></div>"
   );
 
 
   $templateCache.put('registration_handle.html',
-    "<div class=\"row\"><div class=\"col-xs-8 col-xs-offset-2\"><div class=\"panel-content\"><div class=\"panel-heading\"><h5 class=\"text-center\">Please verify your email address</h5></div><div class=\"panel-footer\"><div class=\"row\"><div class=\"col-xs-12\"><form class=\"form\" novalidate><div class=\"row\"><div class=\"col-xs-12\"><div class=\"form-group\"><div class=\"input-group\"><label class=\"sr-only\" for=\"custom-link\">Custom Link</label><div class=\"input-group-addon\">https://app.procur.com/companies/</div><input type=\"text\" id=\"custom-link\" placeholder=\"YourCustomLinkHere\" required></div></div></div></div></form></div></div></div></div><button class=\"btn btn-continue\" type=\"button\" ui-sref=\"dashboard\">Continue <span class=\"glyphicon glyphicon-arrow-right\"></span></button></div></div>"
+    "<div class=\"panel-content\"><div class=\"panel-heading\"><h5 class=\"text-center\">Please verify your email address</h5></div><div class=\"panel-footer\"><div class=\"row\"><div class=\"col-xs-12\"><form class=\"form\" novalidate><div class=\"row\"><div class=\"col-xs-12\"><div class=\"form-group\"><div class=\"input-group\"><label class=\"sr-only\" for=\"custom-link\">Custom Link</label><div class=\"input-group-addon\">https://app.procur.com/companies/</div><input type=\"text\" id=\"custom-link\" placeholder=\"YourCustomLinkHere\" required></div></div></div></div></form></div></div></div></div><button class=\"btn btn-continue\" type=\"button\" ui-sref=\"dashboard\">Continue <span class=\"glyphicon glyphicon-arrow-right\"></span></button>"
   );
 
 
   $templateCache.put('registration_type.html',
-    "<div class=\"row\"><div class=\"col-xs-8 col-xs-offset-2\"><div class=\"panel-content\"><div class=\"panel-heading\"><h5 class=\"text-center\">Select your company type</h5></div><div class=\"panel-footer\"><div class=\"row\"><div class=\"col-sm-6\"><a class=\"btn btn-lg btn-block btn-rounded btn-default\" ui-sref=\"registration.company_information\">Buyer</a></div><div class=\"col-sm-6\"><a class=\"btn btn-lg btn-block btn-rounded btn-default\" ui-sref=\"registration.finished_product\">Supplier</a></div></div></div></div></div></div>"
+    "<div class=\"panel-content\"><div class=\"panel-heading\"><h5 class=\"text-center\">Select your company type</h5></div><div class=\"panel-footer\"><div class=\"row\"><div class=\"col-sm-6\"><a class=\"btn btn-lg btn-block btn-rounded btn-default\" ui-sref=\"registration.company_information\">Buyer</a></div><div class=\"col-sm-6\"><a class=\"btn btn-lg btn-block btn-rounded btn-default\" ui-sref=\"registration.finished_product\">Supplier</a></div></div></div></div>"
   );
 
 
   $templateCache.put('snackbar.html',
-    "<style>.snackbar {\n" +
-    "    position: absolute;\n" +
-    "    padding: 15px;\n" +
-    "    min-width: 288px;\n" +
-    "    max-width: 568px;\n" +
-    "    overflow: hidden;\n" +
-    "    opacity: 0;\n" +
-    "    white-space: nowrap;\n" +
-    "    -webkit-transition: 200ms ease-in-out all;\n" +
-    "    -moz-transition: 200ms ease-in-out all;\n" +
-    "    -ms-transition: 200ms ease-in-out all;\n" +
-    "    -o-transition: 200ms ease-in-out all;\n" +
-    "    transition: 200ms ease-in-out all;\n" +
-    "  }\n" +
-    "\n" +
-    "  .snackbar.snackbar-bottom-left {\n" +
-    "    bottom: 0;\n" +
-    "    left: 24px;\n" +
-    "  }\n" +
-    "\n" +
-    "  .snackbar.snackbar-bottom-right {\n" +
-    "    bottom: 0;\n" +
-    "    right: 24px;\n" +
-    "  }\n" +
-    "\n" +
-    "  .snackbar.snackbar-top-left {\n" +
-    "    top: 0;\n" +
-    "    left: 24px;\n" +
-    "  }\n" +
-    "\n" +
-    "  .snackbar.snackbar-top-right {\n" +
-    "    top: 0;\n" +
-    "    right: 24px;\n" +
-    "  }\n" +
-    "\n" +
-    "  .snackbar.pop-up {\n" +
-    "    opacity: 1;\n" +
-    "  }\n" +
-    "\n" +
-    "  .snackbar.snackbar-bottom-left.pop-up,\n" +
-    "  .snackbar.snackbar-bottom-right.pop-up {\n" +
-    "    bottom: 24px;\n" +
-    "  }\n" +
-    "\n" +
-    "  .snackbar.snackbar-top-right.pop-up,\n" +
-    "  .snackbar.snackbar-top-left.pop-up {\n" +
-    "    top: 24px;\n" +
-    "  }\n" +
-    "\n" +
-    "  .snackbar.pop-out {\n" +
-    "    opacity: 0;\n" +
-    "  }\n" +
-    "\n" +
-    "  .snackbar.snackbar-bottom-left.pop-out,\n" +
-    "  .snackbar.snackbar-bottom-right.pop-out {\n" +
-    "    bottom: 24px;\n" +
-    "  }\n" +
-    "\n" +
-    "  .snackbar.snackbar-top-right.pop-out,\n" +
-    "  .snackbar.snackbar-top-left.pop-out {\n" +
-    "    top: 24px;\n" +
-    "  }\n" +
-    "\n" +
-    "  .snackbar > .snackbar-message {\n" +
-    "    text-overflow: ellipsis;\n" +
-    "    white-space: nowrap;\n" +
-    "    overflow: hidden;\n" +
-    "    margin: 0;\n" +
-    "    padding: 0;\n" +
-    "  }</style><div class=\"snackbar\" role=\"alert\"><p class=\"snackbar-message\"></p></div>"
+    "<div class=\"snackbar\" role=\"alert\" ng-style=\"styles.wrapper\" ng-class=\"position\"><p class=\"snackbar-message\" ng-style=\"styles.message\">{{message}}</p></div>"
   );
 
 
