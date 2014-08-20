@@ -5,35 +5,53 @@
 
   definitions = [
     '$window',
+    '_',
     'companyService',
-    'buyerService',
-    'supplierService',
     userService
   ];
 
   angular.module('pc.User')
     .factory('userService', definitions);
 
-  function userService($window) {
+  function userService($window, _, company) {
     var
-      user;
+      user,
+      self;
 
-    user = $window.pc.localData.user;
+    user = $window.pc.localData.user ? _.cloneDeep($window.pc.localData.user) : {};
+    setInactiveMode();
 
-    user.inactiveMode = setInactiveMode();
-    user.toggleActiveMode = toggleActiveMode;
-    user.isBuyerMode = isBuyerMode;
-    user.isSupplierMode = isSupplierMode;
+    self = {
+      get: get,
+      set: set,
+      setActiveMode: setActiveMode,
+      toggleActiveMode: toggleActiveMode,
+      isBuyerMode: isBuyerMode,
+      isSupplierMode: isSupplierMode,
+    };
 
-    return user;
+    return self;
+
+    function get(property) {
+      return user[property];
+    }
+
+    function set(property, value) {
+      user[property] = value;
+    }
+
+    function setActiveMode(mode) {
+      if (mode === 'supplier' || mode === 'buyer') {
+        user.activeMode = mode;
+        setInactiveMode();
+      }
+    }
 
     function toggleActiveMode() {
-      var
-        active = user.activeMode,
-        inactive = user.inactiveMode;
-
-      user.activeMode = inactive;
-      user.inactiveMode = active;
+      if (user.inactiveMode) {
+        setActiveMode(user.inactiveMode);
+        setInactiveMode();
+      }
     }
 
     function isBuyerMode() {
@@ -45,11 +63,16 @@
     }
 
     function setInactiveMode() {
-      if (user.activeMode === 'buyer') {
-        return 'supplier';
+      if (company.buyer && company.supplier) {
+        if (user.activeMode === 'buyer') {
+          user.inactiveMode = 'supplier';
+        }
+        else if (user.activeMode === 'supplier') {
+          user.inactiveMode = 'buyer';
+        }
       }
-      else if (user.activeMode === 'supplier') {
-        return 'buyer';
+      else {
+        user.inactiveMode = null;
       }
     }
   }

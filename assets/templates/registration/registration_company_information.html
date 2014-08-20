@@ -6,25 +6,25 @@
   <div class="panel-footer">
     <div class="row">
       <div class="col-xs-12">
-        <form class="form" novalidate>
+        <form class="form" name="companyInformationForm" novalidate>
           <div class="row">
             <div class="col-sm-6">
               <div class="form-group">
                 <label for="company-name">Company Name*</label>
-                <input type="text" id="company-name" placeholder="Acme Co." required  />
+                <input type="text" id="company-name" placeholder="Acme Co." ng-model="companyInformation.name" required />
               </div>
               <div class="form-group">
                 <label for="company-email">General Company Email*</label>
-                <input type="email" id="company-email" placeholder="info@company.com" required  />
+                <input type="email" id="company-email" placeholder="info@company.com" ng-model="companyInformation.email" required  />
               </div>
               <div class="form-group">
                 <label for="company-phone">Company Phone*</label>
                 <div class="row">
                   <div class="col-xs-4">
-                    <input type="text" placeholder="+">
+                    <input type="text" placeholder="+" ng-model="companyInformation.phoneNumberCountryCode">
                   </div>
                   <div class="col-xs-8">
-                    <input type="text" id="company-phone" placeholder="555-123-4567" required>
+                    <input type="text" id="company-phone" placeholder="555-123-4567" ng-model="companyInformation.phoneNumber" required>
                   </div>
                 </div>
               </div>
@@ -32,20 +32,23 @@
             <div class="col-sm-6">
               <div class="form-group">
                 <label for="company-type">Type of Company*</label>
-                <select id="company-type">
+                <select id="company-type" ng-model="companyInformation.type" required>
                   <option value="">Select...</option>
+                  <option value="foo">TEMP VALUE</option>
                 </select>
               </div>
               <div class="form-group">
                 <label for="company-location">Company Location*</label>
-                <select id="company-location">
+                <select id="company-location" ng-model="companyInformation.location" required>
                   <option value="">Select...</option>
+                  <option value="foo">TEMP VALUE</option>
                 </select>
               </div>
               <div class="form-group">
                 <label for="primary-language">Primary Language*</label>
-                <select id="primary-language">
+                <select id="primary-language" ng-model="companyInformation.primaryLanguage" required>
                   <option value="">Select...</option>
+                  <option value="foo">TEMP VALUE</option>
                 </select>
               </div>
             </div>
@@ -59,7 +62,7 @@
             <div class="col-sm-6">
               <div class="form-group">
                 <label for="company-website">Company Website</label>
-                <input type="url" id="company-website" placeholder="http://www.company.com"  />
+                <input type="url" id="company-website" placeholder="http://www.company.com" ng-model="companyInformation.website" />
               </div>
               <div class="form-group">
                 <label for="company-logo">Company Logo</label>
@@ -67,9 +70,9 @@
                   <div class="col-sm-4">
                     <button class="btn btn-default btn-sm" pc-image-select>Choose Image</button>
                   </div>
-                  <div class="col-sm-8" ng-switch="!!companyLogo.base64Url">
+                  <div class="col-sm-8" ng-switch="!!companyInformation.logo.url">
                     <div class="form-group profile-image" ng-switch-when="true">
-                      <img ng-src="{{companyLogo.base64Url}}" />
+                      <img ng-src="{{companyInformation.logo.url}}" />
                     </div>
                     <p class="no-file" ng-switch-when="false">
                       No file chosen
@@ -84,18 +87,20 @@
             <div class="col-sm-6">
               <div class="form-group">
                 <label for="company-dba">DBA Name</label>
-                <input type="text" id="company-dba" placeholder="Alternate Business Name"  />
+                <input type="text" id="company-dba" placeholder="Alternate Business Name" ng-model="companyInformation.dba"  />
               </div>
               <div class="form-group">
                 <label for="industry">Industry</label>
-                <select id="industry">
+                <select id="industry" ng-model="companyInformation.industry">
                   <option value="">Select...</option>
+                  <option value="foo">TEMP VALUE</option>
                 </select>
               </div>
-              <div class="form-group">
-                <label for="annual-sales">Annual Sales (**Supplier Only**)</label>
-                <select id="annual-sales">
+              <div class="form-group" ng-if="isSupplier">
+                <label for="annual-sales">Annual Sales</label>
+                <select id="annual-sales" ng-model="companyInformation.annualSales">
                   <option value="">Select...</option>
+                  <option value="foo">TEMP VALUE</option>
                 </select>
               </div>
             </div>
@@ -104,9 +109,9 @@
             <div class="col-sm-12">
               <div class="form-group">
                 <label for="product-specialties">Enter Product Specialties</label>
-                <input type="text" id="product-specialties" placeholder="Begin typing to search categories..."  />
-                <input type="text" id="product-specialties" placeholder="Begin typing to search categories..."  />
-                <input type="text" id="product-specialties" placeholder="Begin typing to search categories..."  />
+                <input type="text" id="product-specialties" placeholder="Begin typing to search categories..." ng-model="companyInformation.productSpecialties[0]" />
+                <input type="text" placeholder="Begin typing to search categories..." ng-model="companyInformation.productSpecialties[1]" />
+                <input type="text" placeholder="Begin typing to search categories..." ng-model="companyInformation.productSpecialties[2]" />
               </div>
             </div>
           </div>
@@ -115,11 +120,11 @@
             <div class="col-sm-12">
               <div class="form-group">
                 <label for="terms" class="checkbox-label">
-                  <input type="checkbox" id="terms">
+                  <input type="checkbox" id="terms" required>
                   I have read and agree to the Terms of Service and Privacy Policy
                 </label>
                 <label for="authorized-user" class="checkbox-label">
-                  <input type="checkbox" id="authorized-user">
+                  <input type="checkbox" id="authorized-user" required>
                   I assert that I am authorized by the company I entered above to use Procur.com
                   on their behalf in accordance with the Terms of Service and Privacy Policy.
                 </label>
@@ -131,7 +136,7 @@
     </div>
   </div>
 </div>
-<a class="btn btn-continue" ui-sref="registration.email_verification">
+<button class="btn btn-continue" ng-click="submitCompanyInformation()">
   Continue
   <span class="glyphicon glyphicon-arrow-right"></span>
-</a>
+</button>

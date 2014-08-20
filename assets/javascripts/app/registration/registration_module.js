@@ -6,8 +6,11 @@
   dependencies = [
     'ui.router',
     'pc.ThirdParty.LoDash',
+    'pc.Ajax',
     'pc.FileUpload',
-    'pc.Snackbar'
+    'pc.Snackbar',
+    'pc.User',
+    'pc.Company'
   ];
 
   angular.module('pc.Registration', dependencies);

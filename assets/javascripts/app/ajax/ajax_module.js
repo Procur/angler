@@ -5,7 +5,8 @@
 
   dependencies = [
     'pc.ThirdParty.LoDash',
-    'pc.ThirdParty.Moxie'
+    'pc.ThirdParty.Moxie',
+    'pc.Snackbar'
   ];
 
   angular.module('pc.Ajax', dependencies)

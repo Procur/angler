@@ -13,7 +13,8 @@
 
   function statesConfig($stateProvider, $urlRouterProvider) {
     $urlRouterProvider
-      .otherwise('/welcome/type');
+      .otherwise('/welcome/type')
+      .rule(companyTypeRule);
 
     $stateProvider
       .state('registration',  {
@@ -32,7 +33,7 @@
       .state('registration.type', {
         url: '/type',
         templateUrl: 'registration_type.html',
-        controller: 'registrationStepController',
+        controller: 'registrationTypeController',
         data: {
           leadText: 'Welcome to Procur. Let\'s get started.',
           progressStep: 0
@@ -59,7 +60,7 @@
       .state('registration.company_information', {
         url: '/company_information',
         templateUrl: 'registration_company_information.html',
-        controller: 'registrationStepController',
+        controller: 'registrationCompanyInformationController',
         data: {
           leadText: 'Excellent. Let\'s start with some basic information.',
           progressStep: 1
@@ -200,6 +201,15 @@
         templateUrl: 'photos.html',
         controller: 'photosController'
       });
+
+    function companyTypeRule($injector, $location) {
+      var
+        company = $injector.get('companyService');
+
+      if (!company.get('buyer') && !company.get('supplier')) {
+        $location.path('/welcome/type').replace();
+      }
+    }
 
   }
 

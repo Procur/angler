@@ -8,13 +8,14 @@
     'FormData',
     'Xhr',
     'XHR_METHOD',
+    'snackbarService',
     ajaxService
   ];
 
   angular.module('pc.Ajax')
     .factory('ajaxService', definition);
 
-  function ajaxService($q, _, FormData, Xhr, XHR_METHOD) {
+  function ajaxService($q, _, FormData, Xhr, XHR_METHOD, snackbar) {
     return {
       get: get,
       post: post,
@@ -68,7 +69,6 @@
         var
           request = data.target;
 
-        console.log(data);
         if (request.status === 200 || request.status === 201) {
           deferred.resolve(JSON.parse(request.responseText));
         }
@@ -79,8 +79,7 @@
     }
 
     function onXhrError(err) {
-      // TODO: Need to pass this to an error handling and notification service.
-      console.log(err);
+      snackbar.error(err || 'There was an error processing your request at this time. Please try again.');
     }
 
   }

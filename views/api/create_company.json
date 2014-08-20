@@ -1,0 +1,20 @@
+{
+  "active": true,
+  "buyer": true,
+  "supplier": true,
+  "name": "wayne enterprises",
+  "createdAt": "2014-08-07T02:15:42.447Z",
+  "email": "info@wayne.com",
+  "employeeCount": "11 - 50",
+  "website": "http://www.wayneenterprises.com",
+  "logo": {
+      "url": "http://static.comicvine.com/uploads/original/11116/111164870/3842465-1216439145-batma.png"
+  },
+  "industry": "technology",
+  "faxCountryCode": "1",
+  "faxExtension": "",
+  "faxNumber": "5555555555",
+  "phoneExtension": "",
+  "phoneNumber": "4048499521",
+  "phoneNumberCountryCode": "1"
+}

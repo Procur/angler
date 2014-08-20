@@ -4,7 +4,7 @@
     dependencies;
 
   dependencies = [
-
+    'pc.ThirdParty.LoDash'
   ];
 
   angular.module('pc.Company', dependencies);
