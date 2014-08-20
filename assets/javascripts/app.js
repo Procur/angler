@@ -439,7 +439,7 @@
         successConfig;
 
       successConfig = {
-        'background-color': '#5cc672'
+        'background-color': '#5CC672'
       };
 
       notice(message, successConfig);
@@ -462,9 +462,11 @@
         styles,
         position;
 
+      config = config || {};
+
       if (message) {
-        styles = getStyles(config);
-        position = getPosition(config);
+        styles = getStyles();
+        position = getPosition();
         snackbar = $compile(template)(scope)
           .addClass(position)
           .css(styles.wrapper);
@@ -494,13 +496,13 @@
       }
 
       function snackbarPopIn() {
-        snackbar.addClass('pop-up');
+        snackbar.addClass('snackbar-pop-up');
       }
 
       function snackbarPopOut() {
         snackbar
-          .addClass('pop-out')
-          .removeClass('pop-up');
+          .addClass('snackbar-pop-out')
+          .removeClass('snackbar-pop-up');
       }
 
       function clearSnackbar(item, index) {
@@ -510,55 +512,25 @@
         queue.splice(index, 1);
       }
 
-      /**
-      * Commenting this out for now in preference to clearing out since
-      * clearing is more mobile friendly
-      **
-      function stackSnackbar(item) {
-        if (item.hasClass(POSITION_CLASSES.TOP_LEFT) || item.hasClass(POSITION_CLASSES.TOP_RIGHT)) {
-          item.css('top', getStackHeight('top') + 'px');
-        }
-        else {
-          item.css('bottom', getStackHeight('bottom') + 'px');
-        }
-
-        function getStackHeight(topOrBottom) {
-          var
-            stackMargin = 24,
-            stackbarHeight = 30,
-            currentMargin = parseInt(item.css(topOrBottom), 10),
-            fontSize = parseInt(item.children().css('font-size'), 10);
-
-          return (currentMargin || stackMargin) +
-            (stackbarHeight + fontSize + stackMargin);
-        }
+      function getStyles() {
+        return {
+          wrapper: {
+            'background-color': config['background-color'] || '#333132',
+          },
+          message: {
+            'font-size': config['font-size'] || '14px',
+            'font-weight': '300',
+            'color': config.color || '#fff'
+          }
+        };
       }
-      */
 
-    }
+      function getPosition() {
+        var
+          position = POSITIONS[config.position];
 
-    function getStyles(config) {
-      config = config || {};
-
-      return {
-        wrapper: {
-          'background-color': config['background-color'] || '#333132',
-        },
-        message: {
-          'font-size': config['font-size'] || '14px',
-          'font-weight': '300',
-          'color': config.color || '#fff'
-        }
-      };
-    }
-
-    function getPosition(config) {
-      var
-        position;
-
-      config = config || {};
-      position = POSITIONS[config.position];
-      return position ? POSITION_CLASSES[position] : POSITION_CLASSES.BOTTOM_LEFT;
+        return position ? POSITION_CLASSES[position] : POSITION_CLASSES.BOTTOM_LEFT;
+      }
     }
   }
 
@@ -1792,76 +1764,7 @@ angular.module('pc.Templates', []).run(['$templateCache', function($templateCach
 
 
   $templateCache.put('snackbar.html',
-    "<style>.snackbar {\n" +
-    "    position: absolute;\n" +
-    "    padding: 15px;\n" +
-    "    min-width: 288px;\n" +
-    "    max-width: 568px;\n" +
-    "    overflow: hidden;\n" +
-    "    opacity: 0;\n" +
-    "    white-space: nowrap;\n" +
-    "    -webkit-transition: 200ms ease-in-out all;\n" +
-    "    -moz-transition: 200ms ease-in-out all;\n" +
-    "    -ms-transition: 200ms ease-in-out all;\n" +
-    "    -o-transition: 200ms ease-in-out all;\n" +
-    "    transition: 200ms ease-in-out all;\n" +
-    "  }\n" +
-    "\n" +
-    "  .snackbar.snackbar-bottom-left {\n" +
-    "    bottom: 0;\n" +
-    "    left: 24px;\n" +
-    "  }\n" +
-    "\n" +
-    "  .snackbar.snackbar-bottom-right {\n" +
-    "    bottom: 0;\n" +
-    "    right: 24px;\n" +
-    "  }\n" +
-    "\n" +
-    "  .snackbar.snackbar-top-left {\n" +
-    "    top: 0;\n" +
-    "    left: 24px;\n" +
-    "  }\n" +
-    "\n" +
-    "  .snackbar.snackbar-top-right {\n" +
-    "    top: 0;\n" +
-    "    right: 24px;\n" +
-    "  }\n" +
-    "\n" +
-    "  .snackbar.pop-up {\n" +
-    "    opacity: 1;\n" +
-    "  }\n" +
-    "\n" +
-    "  .snackbar.snackbar-bottom-left.pop-up,\n" +
-    "  .snackbar.snackbar-bottom-right.pop-up {\n" +
-    "    bottom: 24px;\n" +
-    "  }\n" +
-    "\n" +
-    "  .snackbar.snackbar-top-right.pop-up,\n" +
-    "  .snackbar.snackbar-top-left.pop-up {\n" +
-    "    top: 24px;\n" +
-    "  }\n" +
-    "\n" +
-    "  .snackbar.pop-out {\n" +
-    "    opacity: 0;\n" +
-    "  }\n" +
-    "\n" +
-    "  .snackbar.snackbar-bottom-left.pop-out,\n" +
-    "  .snackbar.snackbar-bottom-right.pop-out {\n" +
-    "    bottom: 24px;\n" +
-    "  }\n" +
-    "\n" +
-    "  .snackbar.snackbar-top-right.pop-out,\n" +
-    "  .snackbar.snackbar-top-left.pop-out {\n" +
-    "    top: 24px;\n" +
-    "  }\n" +
-    "\n" +
-    "  .snackbar > .snackbar-message {\n" +
-    "    text-overflow: ellipsis;\n" +
-    "    white-space: nowrap;\n" +
-    "    overflow: hidden;\n" +
-    "    margin: 0;\n" +
-    "    padding: 0;\n" +
-    "  }</style><div class=\"snackbar\" role=\"alert\"><p class=\"snackbar-message\"></p></div>"
+    "<div class=\"snackbar\" role=\"alert\"><p class=\"snackbar-message\"></p></div>"
   );
 
 
