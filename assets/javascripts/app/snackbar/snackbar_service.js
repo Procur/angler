@@ -38,7 +38,7 @@
         successConfig;
 
       successConfig = {
-        'background-color': '#5cc672'
+        'background-color': '#5CC672'
       };
 
       notice(message, successConfig);
@@ -61,9 +61,11 @@
         styles,
         position;
 
+      config = config || {};
+
       if (message) {
-        styles = getStyles(config);
-        position = getPosition(config);
+        styles = getStyles();
+        position = getPosition();
         snackbar = $compile(template)(scope)
           .addClass(position)
           .css(styles.wrapper);
@@ -93,13 +95,13 @@
       }
 
       function snackbarPopIn() {
-        snackbar.addClass('pop-up');
+        snackbar.addClass('snackbar-pop-up');
       }
 
       function snackbarPopOut() {
         snackbar
-          .addClass('pop-out')
-          .removeClass('pop-up');
+          .addClass('snackbar-pop-out')
+          .removeClass('snackbar-pop-up');
       }
 
       function clearSnackbar(item, index) {
@@ -109,55 +111,25 @@
         queue.splice(index, 1);
       }
 
-      /**
-      * Commenting this out for now in preference to clearing out since
-      * clearing is more mobile friendly
-      **
-      function stackSnackbar(item) {
-        if (item.hasClass(POSITION_CLASSES.TOP_LEFT) || item.hasClass(POSITION_CLASSES.TOP_RIGHT)) {
-          item.css('top', getStackHeight('top') + 'px');
-        }
-        else {
-          item.css('bottom', getStackHeight('bottom') + 'px');
-        }
-
-        function getStackHeight(topOrBottom) {
-          var
-            stackMargin = 24,
-            stackbarHeight = 30,
-            currentMargin = parseInt(item.css(topOrBottom), 10),
-            fontSize = parseInt(item.children().css('font-size'), 10);
-
-          return (currentMargin || stackMargin) +
-            (stackbarHeight + fontSize + stackMargin);
-        }
+      function getStyles() {
+        return {
+          wrapper: {
+            'background-color': config['background-color'] || '#333132',
+          },
+          message: {
+            'font-size': config['font-size'] || '14px',
+            'font-weight': '300',
+            'color': config.color || '#fff'
+          }
+        };
       }
-      */
 
-    }
+      function getPosition() {
+        var
+          position = POSITIONS[config.position];
 
-    function getStyles(config) {
-      config = config || {};
-
-      return {
-        wrapper: {
-          'background-color': config['background-color'] || '#333132',
-        },
-        message: {
-          'font-size': config['font-size'] || '14px',
-          'font-weight': '300',
-          'color': config.color || '#fff'
-        }
-      };
-    }
-
-    function getPosition(config) {
-      var
-        position;
-
-      config = config || {};
-      position = POSITIONS[config.position];
-      return position ? POSITION_CLASSES[position] : POSITION_CLASSES.BOTTOM_LEFT;
+        return position ? POSITION_CLASSES[position] : POSITION_CLASSES.BOTTOM_LEFT;
+      }
     }
   }
 

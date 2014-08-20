@@ -102,76 +102,7 @@ angular.module('pc.Templates', []).run(['$templateCache', function($templateCach
 
 
   $templateCache.put('snackbar.html',
-    "<style>.snackbar {\n" +
-    "    position: absolute;\n" +
-    "    padding: 15px;\n" +
-    "    min-width: 288px;\n" +
-    "    max-width: 568px;\n" +
-    "    overflow: hidden;\n" +
-    "    opacity: 0;\n" +
-    "    white-space: nowrap;\n" +
-    "    -webkit-transition: 200ms ease-in-out all;\n" +
-    "    -moz-transition: 200ms ease-in-out all;\n" +
-    "    -ms-transition: 200ms ease-in-out all;\n" +
-    "    -o-transition: 200ms ease-in-out all;\n" +
-    "    transition: 200ms ease-in-out all;\n" +
-    "  }\n" +
-    "\n" +
-    "  .snackbar.snackbar-bottom-left {\n" +
-    "    bottom: 0;\n" +
-    "    left: 24px;\n" +
-    "  }\n" +
-    "\n" +
-    "  .snackbar.snackbar-bottom-right {\n" +
-    "    bottom: 0;\n" +
-    "    right: 24px;\n" +
-    "  }\n" +
-    "\n" +
-    "  .snackbar.snackbar-top-left {\n" +
-    "    top: 0;\n" +
-    "    left: 24px;\n" +
-    "  }\n" +
-    "\n" +
-    "  .snackbar.snackbar-top-right {\n" +
-    "    top: 0;\n" +
-    "    right: 24px;\n" +
-    "  }\n" +
-    "\n" +
-    "  .snackbar.pop-up {\n" +
-    "    opacity: 1;\n" +
-    "  }\n" +
-    "\n" +
-    "  .snackbar.snackbar-bottom-left.pop-up,\n" +
-    "  .snackbar.snackbar-bottom-right.pop-up {\n" +
-    "    bottom: 24px;\n" +
-    "  }\n" +
-    "\n" +
-    "  .snackbar.snackbar-top-right.pop-up,\n" +
-    "  .snackbar.snackbar-top-left.pop-up {\n" +
-    "    top: 24px;\n" +
-    "  }\n" +
-    "\n" +
-    "  .snackbar.pop-out {\n" +
-    "    opacity: 0;\n" +
-    "  }\n" +
-    "\n" +
-    "  .snackbar.snackbar-bottom-left.pop-out,\n" +
-    "  .snackbar.snackbar-bottom-right.pop-out {\n" +
-    "    bottom: 24px;\n" +
-    "  }\n" +
-    "\n" +
-    "  .snackbar.snackbar-top-right.pop-out,\n" +
-    "  .snackbar.snackbar-top-left.pop-out {\n" +
-    "    top: 24px;\n" +
-    "  }\n" +
-    "\n" +
-    "  .snackbar > .snackbar-message {\n" +
-    "    text-overflow: ellipsis;\n" +
-    "    white-space: nowrap;\n" +
-    "    overflow: hidden;\n" +
-    "    margin: 0;\n" +
-    "    padding: 0;\n" +
-    "  }</style><div class=\"snackbar\" role=\"alert\"><p class=\"snackbar-message\"></p></div>"
+    "<div class=\"snackbar\" role=\"alert\"><p class=\"snackbar-message\"></p></div>"
   );
 
 
