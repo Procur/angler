@@ -33,7 +33,7 @@
 
     function sendEmailVerification() {
       if (Math.round(Math.random())) {
-        snackbar.notice('Resent email verification!');
+        snackbar.success('Resent email verification!');
       }
       else {
         snackbar.error('There was an error sending the verification email. Please try again.');
