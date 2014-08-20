@@ -9,16 +9,21 @@
 
   angular.module('pc.Snackbar', dependencies)
     .constant('POSITIONS', {
-      'TOP_LEFT': 'TOP_LEFT',
-      'BOTTOM_RIGHT': 'BOTTOM_RIGHT',
-      'TOP_RIGHT': 'TOP_RIGHT',
-      'BOTTOM_LEFT': 'BOTTOM_LEFT'
+      TOP_LEFT: 'TOP_LEFT',
+      BOTTOM_RIGHT: 'BOTTOM_RIGHT',
+      TOP_RIGHT: 'TOP_RIGHT',
+      BOTTOM_LEFT: 'BOTTOM_LEFT'
     })
     .constant('POSITION_CLASSES', {
-      'TOP_LEFT': 'snackbar-top-left',
-      'BOTTOM_RIGHT': 'snackbar-bottom-right',
-      'TOP_RIGHT': 'snackbar-top-right',
-      'BOTTOM_LEFT': 'snackbar-bottom-left'
+      TOP_LEFT: 'snackbar-top-left',
+      BOTTOM_RIGHT: 'snackbar-bottom-right',
+      TOP_RIGHT: 'snackbar-top-right',
+      BOTTOM_LEFT: 'snackbar-bottom-left'
+    })
+    .constant('COLORS', {
+      SUCCESS: '#5CC672',
+      ERROR: '#FF5A5A',
+      DEFAULT: '#333132'
     });
 
 })(angular);

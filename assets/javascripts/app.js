@@ -384,16 +384,21 @@
 
   angular.module('pc.Snackbar', dependencies)
     .constant('POSITIONS', {
-      'TOP_LEFT': 'TOP_LEFT',
-      'BOTTOM_RIGHT': 'BOTTOM_RIGHT',
-      'TOP_RIGHT': 'TOP_RIGHT',
-      'BOTTOM_LEFT': 'BOTTOM_LEFT'
+      TOP_LEFT: 'TOP_LEFT',
+      BOTTOM_RIGHT: 'BOTTOM_RIGHT',
+      TOP_RIGHT: 'TOP_RIGHT',
+      BOTTOM_LEFT: 'BOTTOM_LEFT'
     })
     .constant('POSITION_CLASSES', {
-      'TOP_LEFT': 'snackbar-top-left',
-      'BOTTOM_RIGHT': 'snackbar-bottom-right',
-      'TOP_RIGHT': 'snackbar-top-right',
-      'BOTTOM_LEFT': 'snackbar-bottom-left'
+      TOP_LEFT: 'snackbar-top-left',
+      BOTTOM_RIGHT: 'snackbar-bottom-right',
+      TOP_RIGHT: 'snackbar-top-right',
+      BOTTOM_LEFT: 'snackbar-bottom-left'
+    })
+    .constant('COLORS', {
+      SUCCESS: '#5CC672',
+      ERROR: '#FF5A5A',
+      DEFAULT: '#333132'
     });
 
 })(angular);
@@ -414,19 +419,24 @@
     '_',
     'POSITIONS',
     'POSITION_CLASSES',
+    'COLORS',
     snackbarService
   ];
 
   angular.module('pc.Snackbar')
     .factory('snackbarService', definitions);
 
-  function snackbarService($document, $rootScope, $templateCache, $compile, $timeout, $animate, _, POSITIONS, POSITION_CLASSES) {
+  function snackbarService($document, $rootScope, $templateCache, $compile, $timeout, $animate, _, POSITIONS, POSITION_CLASSES, COLORS) {
     var
       templateUrl = 'snackbar.html',
       template = $templateCache.get(templateUrl),
       scope = $rootScope.$new(),
       body = $document.find('body'),
-      queue = [];
+      POP_UP = 'snackbar-pop-up',
+      POP_OUT = 'snackbar-pop-out',
+      POP_OUT_TIMEOUT = 4000,
+      REMOVE_TIMEOUT = 4200,
+      stack = [];
 
     return {
       success: success,
@@ -439,7 +449,7 @@
         successConfig;
 
       successConfig = {
-        'background-color': '#5CC672'
+        'background-color': COLORS.SUCCESS
       };
 
       notice(message, successConfig);
@@ -450,7 +460,7 @@
         errorConfig;
 
       errorConfig = {
-        'background-color': '#FF5A5A'
+        'background-color': COLORS.ERROR
       };
 
       notice(message, errorConfig);
@@ -467,60 +477,60 @@
       if (message) {
         styles = getStyles();
         position = getPosition();
-        snackbar = $compile(template)(scope)
-          .addClass(position)
-          .css(styles.wrapper);
-        snackbar.find('p')
-          .css(styles.message)
-          .html(message);
 
-        if (queue.length) {
-          _.each(queue, clearSnackbar);
+        scope.message = message;
+        scope.styles = styles;
+        scope.position = position;
+
+        snackbar = $compile(template)(scope);
+
+        if (stack.length) {
+          _.each(stack, clearSnackbar);
         }
 
         insertSnackbar();
         snackbar.timeout = {
-          popout: $timeout(snackbarPopOut, 4000),
-          remove: $timeout(removeSnackbar, 4200)
+          pop_out: $timeout(snackbarPopOut, POP_OUT_TIMEOUT),
+          remove: $timeout(removeSnackbar, REMOVE_TIMEOUT)
         };
       }
 
       function insertSnackbar() {
         $animate.enter(snackbar, body, null, snackbarPopIn);
-        queue.push(snackbar);
+        stack.push(snackbar);
       }
 
       function removeSnackbar() {
         $animate.leave(snackbar);
-        queue.shift();
+        stack.shift();
       }
 
       function snackbarPopIn() {
-        snackbar.addClass('snackbar-pop-up');
+        snackbar.addClass(POP_UP);
       }
 
       function snackbarPopOut() {
         snackbar
-          .addClass('snackbar-pop-out')
-          .removeClass('snackbar-pop-up');
+          .addClass(POP_OUT)
+          .removeClass(POP_UP);
       }
 
       function clearSnackbar(item, index) {
-        $timeout.cancel(item.timeout.popout);
+        $timeout.cancel(item.timeout.pop_out);
         $timeout.cancel(item.timeout.remove);
         $animate.leave(item);
-        queue.splice(index, 1);
+        stack.splice(index, 1);
       }
 
       function getStyles() {
         return {
           wrapper: {
-            'background-color': config['background-color'] || '#333132',
+            'background-color': config['background-color'] || COLORS.DEFAULT,
           },
           message: {
             'font-size': config['font-size'] || '14px',
             'font-weight': '300',
-            'color': config.color || '#fff'
+            'color': config.color || '#FFF'
           }
         };
       }
@@ -929,7 +939,7 @@
 
     function sendEmailVerification() {
       if (Math.round(Math.random())) {
-        snackbar.success('Resent email verification!');
+        snackbar.notice('Resent email verification!');
       }
       else {
         snackbar.error('There was an error sending the verification email. Please try again.');
@@ -1764,7 +1774,7 @@ angular.module('pc.Templates', []).run(['$templateCache', function($templateCach
 
 
   $templateCache.put('snackbar.html',
-    "<div class=\"snackbar\" role=\"alert\"><p class=\"snackbar-message\"></p></div>"
+    "<div class=\"snackbar\" role=\"alert\" ng-style=\"styles.wrapper\" ng-class=\"position\"><p class=\"snackbar-message\" ng-style=\"styles.message\">{{message}}</p></div>"
   );
 
 
