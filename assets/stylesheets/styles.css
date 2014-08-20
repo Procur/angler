@@ -137,7 +137,7 @@ ul.list-checklist li h6 {
 }
 ol.list-checklist li.complete .glyphicon,
 ul.list-checklist li.complete .glyphicon {
-  color: #5cc672;
+  color: #3888ce;
 }
 ol.list-checklist li.complete p, ol.list-checklist li.complete a, ol.list-checklist li.complete h1, ol.list-checklist li.complete h2, ol.list-checklist li.complete h3, ol.list-checklist li.complete h4, ol.list-checklist li.complete h5, ol.list-checklist li.complete h6,
 ul.list-checklist li.complete p,
@@ -455,11 +455,11 @@ form p.error {
   overflow: hidden;
   opacity: 0;
   white-space: nowrap;
+  transition: 200ms ease-in-out all;
   -webkit-transition: 200ms ease-in-out all;
   -moz-transition: 200ms ease-in-out all;
   -ms-transition: 200ms ease-in-out all;
   -o-transition: 200ms ease-in-out all;
-  transition: 200ms ease-in-out all;
 }
 .snackbar.snackbar-bottom-left {
   bottom: -24px;
@@ -900,7 +900,7 @@ form p.error {
   left: 0;
 }
 .registration-wizard .progress-tracker ul li p {
-  width: 125px;
+  width: 120px;
   margin: 0 auto;
   text-transform: uppercase;
   font-size: 11px;
@@ -971,7 +971,7 @@ form p.error {
   font-size: 12px;
 }
 .dashboard .action-items .panel-heading {
-  background-color: #5cc672;
+  background-color: #3888ce;
 }
 .dashboard .action-items .panel-heading h5 {
   font-weight: 600;
@@ -1031,8 +1031,8 @@ form p.error {
 }
 
 .edit-photos .img-preview img {
-  width: 300px;
-  height: 200px;
+  max-width: 300px;
+  max-height: 200px;
 }
 .edit-photos .photo-box {
   width: auto;

@@ -4,7 +4,7 @@
     definitions;
 
   definitions = [
-    
+    passwordConfirmation
   ]; 
 
   angular.module('pc.Validation').directive('passwordConfirmation', definitions);

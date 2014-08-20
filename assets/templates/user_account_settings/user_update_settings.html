@@ -10,10 +10,9 @@
           <div class="col-md-6">
             <div class="form-group">
               <label for="firstName">Contact Name*</label>
-              <input type="text" name="firstName" id="firstName" placeholder="First" ng-model="user.firstName" required>
-              <p ng-show="userForm.firstName.$error.required" class="error">This field is required.</p>
-              <input type="text" name="lastName" id="lastName" placeholder="Last" ng-model="user.lastName" required>
-              <p ng-show="userForm.lastName.$error.required" class="error">This field is required.</p>
+              <input type="text" name="firstName" id="firstName" placeholder="First" ng-model="user.firstName" required field-exist>
+              <input type="text" name="lastName" id="lastName" placeholder="Last" ng-model="user.lastName" required field-exist>
+
             </div>
             <div class="form-group">
               <label for="emailAddress">Current Email Address</label>
@@ -21,9 +20,10 @@
             </div>
             <div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }">
               <label for="newEmailAddress">Update Email Address</label>
-              <input type="email" name="email" placeholder="Enter new Email">
-              <p ng-show="userForm.email.$invalid && !userForm.email.$pristine" class="error">Enter a valid email.</p>
 
+              <input type="email" name="email" ng-model="user.email" placeholder="Enter new Email">
+
+              <p ng-show="isEmail('email')" class="error">Enter a valid email.</p>
               <input type="email" placeholder="Confirm New Address">
             </div>
           </div>
