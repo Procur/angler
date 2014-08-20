@@ -4,14 +4,14 @@
   definitions;
 
   definitions = [
-  minMaxLength
+  fieldConfirm
   ]; 
 
-  angular.module('pc.Validation').directive('minMaxLength', definitions);
+  angular.module('pc.Validation').directive('fieldConfirm', definitions);
 
   var errorElement;
 
-  function minMaxLength() {
+  function fieldConfirm() {
     return {
       require: 'ngModel',
       scope: {
@@ -19,10 +19,10 @@
       },
       link: function (scope, elm, attrs, ctrl) {
         elm.on('blur keyup', function() {
-          if (!ctrl.$error.required && (ctrl.$error.minlength || ctrl.$error.maxlength) && ctrl.$dirty) 
+          if (ctrl.$error.required && ctrl.$error.noMatch && password.value.length != 0) 
           {
             if (!errorElement) {
-              errorElement = elm.after('<p class="error">required</p>').next();
+              errorElement = elm.after('<p class="error">Passwords do not match.</p>').next();
             }
           } 
           else {

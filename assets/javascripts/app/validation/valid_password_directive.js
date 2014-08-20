@@ -4,22 +4,22 @@
   definitions;
 
   definitions = [
-  minMaxLength
+  validPassword
   ]; 
 
-  angular.module('pc.Validation').directive('minMaxLength', definitions);
+  angular.module('pc.Validation').directive('validPassword', definitions);
 
   var errorElement;
 
-  function minMaxLength() {
+  function validPassword() {
     return {
       require: 'ngModel',
       link: function (scope, elm, attrs, ctrl) {
         elm.on('blur keyup', function() {
-          if (!ctrl.$error.required && (ctrl.$error.minlength || ctrl.$error.maxlength) && ctrl.$dirty) 
+          if (!ctrl.$error.required && !ctrl.$error.minlength && !ctrl.$error.maxlength && ctrl.$error.pattern && ctrl.$dirty) 
           {
             if (!errorElement) {
-              errorElement = elm.after('<p class="error">Passwords must be between 8 and 20 characters.</p>').next();
+              errorElement = elm.after('<p class="error">Must contain one lower &amp; uppercase letter, and one non-alpha character (a number or a symbol.)</p>').next();
             }
           } 
           else {
