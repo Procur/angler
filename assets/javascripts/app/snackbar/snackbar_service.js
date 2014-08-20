@@ -13,7 +13,7 @@
     '_',
     'POSITIONS',
     'POSITION_CLASSES',
-    'COLORS',
+    'SNACKBAR_COLORS',
     snackbarService
   ];
 

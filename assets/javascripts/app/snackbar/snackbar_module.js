@@ -20,7 +20,7 @@
       TOP_RIGHT: 'snackbar-top-right',
       BOTTOM_LEFT: 'snackbar-bottom-left'
     })
-    .constant('COLORS', {
+    .constant('SNACKBAR_COLORS', {
       SUCCESS: '#5CC672',
       ERROR: '#FF5A5A',
       DEFAULT: '#333132'

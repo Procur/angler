@@ -1,5 +1,5 @@
-describe.only('viewCompanyProfileController', function() {
-  var 
+describe('viewCompanyProfileController', function() {
+  var
     scope,
     controller,
     mockUser,
@@ -8,7 +8,7 @@ describe.only('viewCompanyProfileController', function() {
 beforeEach(module('pc.ViewCompanyProfile'));
 
 beforeEach(inject(function($rootScope,$controller) {
-	var 
+	var
 		dependencies;
 
 	mockUser = {
@@ -17,7 +17,7 @@ beforeEach(inject(function($rootScope,$controller) {
 
 	mockCompany = {
 		name : 'Procur'
-	}
+	};
 
 	scope = $rootScope.$new();
 
@@ -38,13 +38,13 @@ beforeEach(inject(function($rootScope,$controller) {
 	describe('$scope.user', function() {
   		it('should have user object on scope', function(){
     		expect(scope.user).to.equal(mockUser);
-  		})
+  		});
  	});
 
  	describe('$scope.company', function() {
  		it('should have company object on scope', function() {
  			expect(scope.company).to.equal(mockCompany);
- 		})
+ 		});
  	});
 
 });
