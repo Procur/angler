@@ -28,7 +28,7 @@
           var isConfirm = scope.field === elm.val();
           if (!isConfirm) {
             if (!errorElement) {
-              errorElement = elm.after('<p class="error">bebop</p>').next();
+              errorElement = elm.after('<p class="error">Does not match.</p>').next();
             }
           }  else {
             if (errorElement) {
