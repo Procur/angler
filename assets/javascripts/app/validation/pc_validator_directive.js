@@ -38,7 +38,7 @@
 
             if (ctrl.$error.pcRequired && ctrl.$dirty) {
               if (!errorElement) {
-                errorElement = elm.after('<p class="error">required</p>').next();
+                errorElement = elm.after('<p class="error">Required.</p>').next();
               }
             }  else {
               if (errorElement) {
@@ -52,7 +52,6 @@
             ctrl.$setValidity('pcEmail', reEmail.test(ctrl.$viewValue));
             if (ctrl.$error.pcEmail && ctrl.$dirty && ctrl.$viewValue) {
               if (!errorElement) {
-                console.log(ctrl);
                 errorElement = elm.after('<p class="error">Enter a Valid Email.</p>').next();
               }
             }  else {
@@ -65,7 +64,6 @@
 
           if (scope.validationType === 'password') {
             ctrl.$setValidity('pcPassword', rePassword.test(ctrl.$viewValue));
-
             if (ctrl.$error.pcPassword && ctrl.$dirty && ctrl.$viewValue) {
               if (!errorElement) {
                 errorElement = elm.after('<p class="error">Must contain one lower &amp; uppercase letter, and one non-alpha character (a number or a symbol.)</p>').next();
@@ -76,17 +74,20 @@
                 errorElement = null;
               }
             }
-            if (!ctrl.$error.required && (ctrl.$error.minlength || ctrl.$error.maxlength) && ctrl.$dirty) {
-              if (!errorElement) {
-                errorElement = elm.after('<p class="error">Passwords must be between 8 and 20 characters.</p>').next();
+
+            /**
+              if (!ctrl.$error.required && (ctrl.$error.minlength || ctrl.$error.maxlength) && ctrl.$dirty) {
+                if (!errorElement) {
+                  errorElement = elm.after('<p class="error">Passwords must be between 8 and 20 characters.</p>').next();
+                }
+              } 
+              else {
+                if (errorElement) {
+                  errorElement.remove();
+                  errorElement = null;
+                }
               }
-            } 
-            else {
-              if (errorElement) {
-                errorElement.remove();
-                errorElement = null;
-              }
-            }
+            } */
 
 
           }
