@@ -5,6 +5,7 @@
   dependencies = [
     'pc.Vendor.LoDash',
     'pc.Company'
+    'pc.BuyerSupplier'
   ];
 
   angular.module('pc.User', dependencies)

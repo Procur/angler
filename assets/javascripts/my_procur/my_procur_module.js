@@ -11,7 +11,8 @@
     'pc.Dashboard',
     'pc.UserAccountSettings',
     'pc.EditCompanyProfile',
-    'pc.ViewCompanyProfile'
+    'pc.ViewCompanyProfile',
+    'pc.Location'
   ];
 
   angular.module('pc.MyProcur', dependencies);

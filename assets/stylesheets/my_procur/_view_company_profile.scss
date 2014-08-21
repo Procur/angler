@@ -10,6 +10,7 @@
       padding: 0;
       letter-spacing: 0.05em;
       text-transform: uppercase;
+      margin-top: 20px;
       span {
         font-family: Montserrat,sans-serif;
       }
@@ -150,5 +151,8 @@
       font-family: Montserrat,sans-serif;
       display: inline;
     }
+  }
+  img {
+    width: 100%;
   }
 }

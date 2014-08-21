@@ -7,6 +7,7 @@
     '$scope',
     'userService',
     'companyService',
+    'locationService',
     viewCompanyProfileController
   ];
 
@@ -14,9 +15,13 @@
     .controller('viewCompanyProfileController', definitions);
 
 
-  function viewCompanyProfileController($scope, user, company) {
+  function viewCompanyProfileController($scope, user, company, location) {
+
+
     $scope.user = user;
     $scope.company = company;
+    $scope.location = location;
+    console.log($scope.location);
   }
 
 

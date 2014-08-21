@@ -1,23 +1,51 @@
 
-<div class="row company-profile">
+<div class="row company-profile" ng-controller = 'viewCompanyProfileController'>
   <div class="col-sm-12 col-md-4">
     <!--IMAGE PLACEHOLDER-->
+    <img ng-src="{{user.image}}"/>
     <div class="company-header">
       <h2>
         <span>{{user.activeMode}} profile</span>
       </h2>
       <h1>{{company.name}}</h1>
     </div>
-    <div class="company-info-box company-business-address">
+
+    <div ng-if='location.showHq'>
+    <p>ng-if success{{location.showHq}}</p>
+    </div>
+
+    <!--
+    <div class="company-info-box company-business-address" ng-if="location.showHq === false">
       <h3>
         <span class="fa fa-map-marker"></span>
         <span class="info-title">Official Business Address</span>
       </h3>
-      <p>TODO</p>
-      <p>TODO</p>
-      <p>TODO</p>
-      <p>TODO</p>
+      <p ng-if="locations.company-isHq.addressLine1 !== undefined">{{locations.company-isHq.addressLine1}}</p>
+      <p ng-if="locations.company-isHq.addressLine2 !== undefined">{{locations.company-isHq.addressLine2}}</p>
+      <p ng-if="locations.company-isHq.city !== undefined">{{locations.company-isHq.city}}</p>
+      <p ng-if="locations.company-isHq.province !== undefined">{{locations.company-isHq.province}}</p>
+      <p ng-if="locations.company-isHq.country !== undefined">{{locations.company-isHq.country}}</p>
     </div>
+    <div class="company-info-box company-business-address" ng-if="location.showHq === true">
+      <h3>
+        <span class="glyphicon glyphicon-map-marker"></span>
+        <span class="info-title">Official Business Address</span>
+      </h3>
+      <p ng-if="locations.company.notHq.addressLine1 !== undefined">Testing</p>
+      <p ng-if="locations.company.notHq.addressLine2 !== undefined">Testing</p>
+      <p ng-if="locations.company.notHq.city !== undefined">Testing</p>
+      <p ng-if="locations.company.notHq.province !== undefined">Testing</p>
+      <p ng-if="locations.company.notHq.country !== undefined">Testing</p>
+      <h3>
+        <span class="glyphicon glyphicon-map-marker"></span>
+        <span class="info-title">Headquarters</span>
+      </h3>
+      <p ng-if="locations.company-isHq.addressLine1 !== undefined">{{locations.company-isHq.addressLine1}}</p>
+      <p ng-if="locations.company-isHq.addressLine2 !== undefined">{{locations.company-isHq.addressLine2}}</p>
+      <p ng-if="locations.company-isHq.city !== undefined">{{locations.company-isHq.city}}</p>
+      <p ng-if="locations.company-isHq.province !== undefined">{{locations.company-isHq.province}}</p>
+      <p ng-if="locations.company-isHq.country !== undefined">{{locations.company-isHq.country}}</p>
+    </div>-->
     <div class="company-info-box">
       <h3>
         <span class="fa fa-phone"></span>
