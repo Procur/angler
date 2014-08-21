@@ -3,7 +3,7 @@ node_modules/
 .sass-cache/
 spec/reports/
 *.swp
-assets/styles.css
+assets/stylesheets/styles.css
 assets/javascripts/app.js
 assets/javascripts/app/templates_module.js
 dist/*
