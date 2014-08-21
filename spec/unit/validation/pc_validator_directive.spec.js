@@ -1,4 +1,4 @@
-describe('pcValidator Directive', function() {
+describe.only('pcValidator Directive', function() {
 
   var
   scope,
@@ -17,12 +17,19 @@ describe('pcValidator Directive', function() {
 
   beforeEach(inject(function($compile, $rootScope){
     scope = $rootScope.$new();
-    goodEmailElement = angular.element("<input type='email' name='email' pc-validator='email' ng-model='email' value='blah@gmail.com'/>");
-    badEmailElement = angular.element("<input type='email' name='email' pc-validator='email' ng-model='email' value='blah'/>");
-    scope.model = { email: null }
+    goodEmailElement = angular.element(
+      "<form name='goodForm'>"+
+      "<input type='email' name='email' pc-validator='email' ng-model='email'/>"+
+      "</form>");
+    badEmailElement = angular.element(
+      "<form name='badForm'>"+
+      "<input type='email' name='email' pc-validator='email' ng-model='email'/>"+
+      "</form>");
     $compile(badEmailElement)(scope);
+    $compile(goodEmailElement)(scope);
+    scope.$digest();
     goodForm = scope.goodForm;
-    badForm = scope.email;
+    badForm = scope.badForm;
     
   }));
 
@@ -36,13 +43,26 @@ describe('pcValidator Directive', function() {
   });*/
 
   it('Error message when there is an invalid email ', function() {
-    expect()
-    console.log(badEmailElement);
-    badEmailElement.$setViewValue("blah");
-    scope.$digest();
-    console.log(badEmailElement);
-    expect(badEmailElement.next().html()).to.equal(emailErrorHtml);
+    badForm.email.$setViewValue('blah');
+    badEmailElement.children().trigger("blur");
+    expect(badEmailElement.children()[1].innerHTML).to.equal('Enter a Valid Email.');
   });
+  it('No Error message initially', function() {
+    expect(goodEmailElement.children()[1]).to.be.undefined;
+    goodEmailElement.children().trigger("blur");
+    expect(goodEmailElement.children()[1]).to.be.undefined;
+  });
+  it('No Error message when there is an valid email ', function() {
+    console.log(goodEmailElement.children()[1]);
+    expect(goodEmailElement.children()[1]).to.be.undefined;
+    goodForm.email.$setViewValue('aa@gmail.com');
+    goodEmailElement.children().trigger("blur");
+    console.log(goodEmailElement.children());
+    expect(goodEmailElement.children()[1]).to.be.undefined;
+  });
+
+
+
 
   
 

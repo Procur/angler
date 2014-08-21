@@ -30,7 +30,7 @@
         elm.on('blur keyup', function() {
 
           if (scope.validationType === 'required' ) {
-            if (elm.val()) {
+            if (ctrl.$viewValue) {
               ctrl.$setValidity('pcRequired', true);
             } else {
               ctrl.$setValidity('pcRequired', false);
@@ -49,10 +49,10 @@
           }
           
           if (scope.validationType === 'email') {
-            ctrl.$setValidity('pcEmail', reEmail.test(elm.val()));
-
-            if (ctrl.$error.pcEmail && ctrl.$dirty && elm.val()) {
+            ctrl.$setValidity('pcEmail', reEmail.test(ctrl.$viewValue));
+            if (ctrl.$error.pcEmail && ctrl.$dirty && ctrl.$viewValue) {
               if (!errorElement) {
+                console.log(ctrl);
                 errorElement = elm.after('<p class="error">Enter a Valid Email.</p>').next();
               }
             }  else {
@@ -64,9 +64,9 @@
           }
 
           if (scope.validationType === 'password') {
-            ctrl.$setValidity('pcPassword', rePassword.test(elm.val()));
+            ctrl.$setValidity('pcPassword', rePassword.test(ctrl.$viewValue));
 
-            if (ctrl.$error.pcPassword && ctrl.$dirty && elm.val()) {
+            if (ctrl.$error.pcPassword && ctrl.$dirty && ctrl.$viewValue) {
               if (!errorElement) {
                 errorElement = elm.after('<p class="error">Must contain one lower &amp; uppercase letter, and one non-alpha character (a number or a symbol.)</p>').next();
               }
@@ -92,9 +92,9 @@
           }
 
           if (scope.validationType === 'url') {
-            ctrl.$setValidity('pcUrl', reUrl.test(elm.val()));
+            ctrl.$setValidity('pcUrl', reUrl.test(ctrl.$viewValue));
 
-            if (ctrl.$error.pcUrl && ctrl.$dirty && elm.val()) {
+            if (ctrl.$error.pcUrl && ctrl.$dirty && ctrl.$viewValue) {
               if (!errorElement) {
                 errorElement = elm.after('<p class="error">Enter a Valid Url With http://.</p>').next();
               }
