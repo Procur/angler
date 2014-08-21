@@ -1,11 +1,9 @@
-describe.only('pcValidator Directive', function() {
+describe('pcValidator Directive:', function() {
 
-  describe('email validation', function() {
+  describe('Email validation', function() {
     var
     scope,
     compile,
-    navElement,
-    emailErrorHtml,
     goodEmailElement,
     badEmailElement,
     goodForm,
@@ -58,7 +56,7 @@ describe.only('pcValidator Directive', function() {
   });
 });
 
-describe('password validation', function() {
+describe('Password validation', function() {
   var
   scope,
   compile,
@@ -120,7 +118,7 @@ describe('password validation', function() {
   });
 });
 
-describe('url validation', function() {
+describe('Url validation', function() {
     var
     scope,
     compile,
@@ -178,7 +176,7 @@ describe('url validation', function() {
   });
 });
 
-describe('required validation', function() {
+describe('Required validation', function() {
     var
     scope,
     compile,

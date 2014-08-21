@@ -23,14 +23,17 @@
         var 
         errorElement,
         isConfirm;
-        //email regex
+        
         elm.on('blur keyup', function() {
-          var isConfirm = scope.field === elm.val();
+          console.log(scope.field);
+        console.log(ctrl.$viewValue);
+          var isConfirm = scope.field === ctrl.$viewValue;
           if (!isConfirm) {
             if (!errorElement) {
               errorElement = elm.after('<p class="error">Does not match.</p>').next();
             }
           }  else {
+            console.log("removing");
             if (errorElement) {
               errorElement.remove();
               errorElement = null;
