@@ -6,11 +6,11 @@
   overflow: hidden;
   opacity: 0;
   white-space: nowrap;
+  transition: 200ms ease-in-out all;
   -webkit-transition: 200ms ease-in-out all;
   -moz-transition: 200ms ease-in-out all;
   -ms-transition: 200ms ease-in-out all;
   -o-transition: 200ms ease-in-out all;
-  transition: 200ms ease-in-out all;
 
   &.snackbar-bottom-left {
     bottom: -24px;

@@ -22,7 +22,10 @@
     self = {
       get: get,
       set: set,
-      setAll: setAll
+      setAll: setAll,
+      isBuyer: isBuyer,
+      isSupplier: isSupplier,
+      isBoth: isBoth
     };
 
     return self;
@@ -36,7 +39,19 @@
     }
 
     function setAll(collection) {
-      _.each(collection, function(val, key) { set(key, val); });
+      _.each(collection, function setAllCompany(val, key) { set(key, val); });
+    }
+
+    function isBuyer() {
+      return !!company.buyer;
+    }
+
+    function isSupplier() {
+      return !!company.supplier;
+    }
+
+    function isBoth() {
+      return isSupplier() && isBuyer();
     }
   }
 

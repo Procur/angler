@@ -13,18 +13,18 @@
     </li>
 
     <li class="user-header-item">
-      <p class="text-lowercase">{{user.firstName}} {{user.lastName}}</p>
+      <p class="text-lowercase">{{user.get('firstName')}} {{user.get('lastName')}}</p>
       <p>·</p>
-      <p>{{company.name}}</p>
+      <p>{{company.get('name')}}</p>
     </li>
   </ul>
 
   <ul class="user-header-right">
-    <li class="user-header-item" ng-if="company.buyer && company.supplier" >
+    <li class="user-header-item" ng-if="company.isBoth()" >
       <button class="btn btn-link buyer-supplier-switch" ng-click="user.toggleActiveMode()">
-        Currently in {{user.activeMode}} mode
+        Currently in {{user.get('activeMode')}} mode
         <span class="glyphicon glyphicon-transfer"></span>
-        Switch to {{user.inactiveMode}}
+        Switch to {{user.get('inactiveMode')}}
       </button>
     </li>
 

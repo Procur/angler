@@ -1,42 +1,26 @@
 describe('userAccountSettingsController', function() {
-  var 
+  var
     scope,
-    controller,
-    mockUser;
+    controller;
 
- beforeEach( module('pc.UserAccountSettings'));
+  beforeEach( module('pc.UserAccountSettings'));
 
- beforeEach(inject(function($rootScope, $controller) {
-    var 
+  beforeEach(inject(function($rootScope, $controller) {
+    var
       dependencies;
-
-
-    mockUser = {
-      food: "blah"
-    };
-
-
-
 
     scope = $rootScope.$new();
 
     dependencies = {
-      '$scope': scope,
-      'userService': mockUser
+      '$scope': scope
     };
 
     controller = $controller('userAccountSettingsController', dependencies);
 
   }));
 
- it("should exist", function () {
-  expect(controller).to.not.be.undefined;
- });
-
- describe('$scope.user', function() {
-  it('should have user object on scope', function(){
-    expect(scope.user).to.equal(mockUser);
-  })
- });
+  it('should exist', function () {
+    expect(controller).to.not.be.undefined;
+  });
 
 });

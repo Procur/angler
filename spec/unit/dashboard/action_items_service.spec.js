@@ -1,26 +1,28 @@
 describe('actionItemsService', function() {
   var
     service,
-    mockUser,
-    mockCompany,
-    mockBuyer,
-    mockSupplier;
+    userData,
+    companyData,
+    buyerData,
+    supplierData;
 
   beforeEach(module('pc.Dashboard'));
 
-  beforeEach(module(function($provide) {
-    mockUser = {
+  beforeEach(inject(function($injector) {
+    var
+      window = $injector.get('$window');
+
+    userData = {
       image: 'foo.png',
       jobTitle: 'Engineer',
-      isBuyerMode: sinon.spy(),
       activeMode: 'supplier'
     };
 
-    mockCompany = {
+    companyData = {
       website: 'www.foo.com'
     };
 
-    mockBuyer = {
+    buyerData = {
       companyDescription: 'description',
       responsibilityStatements:  {
         environmentalSustainability: 'yes'
@@ -31,7 +33,7 @@ describe('actionItemsService', function() {
       productCategories: []
     };
 
-    mockSupplier = {
+    supplierData = {
       companyDescription: 'description',
       responsibilityStatements:  {
         environmentalSustainability: 'yes'
@@ -41,13 +43,15 @@ describe('actionItemsService', function() {
       }
     };
 
-    $provide.value('userService', mockUser);
-    $provide.value('companyService', mockCompany);
-    $provide.value('buyerService', mockBuyer);
-    $provide.value('supplierService', mockSupplier);
-  }));
+    window.pc = {
+      localData: {
+        user: userData,
+        company: companyData,
+        buyer: buyerData,
+        supplier: supplierData
+      }
+    };
 
-  beforeEach(inject(function($injector) {
     service = $injector.get('actionItemsService');
   }));
 

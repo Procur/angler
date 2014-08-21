@@ -24,6 +24,7 @@
     self = {
       get: get,
       set: set,
+      setAll: setAll,
       setActiveMode: setActiveMode,
       toggleActiveMode: toggleActiveMode,
       isBuyerMode: isBuyerMode,
@@ -37,7 +38,13 @@
     }
 
     function set(property, value) {
-      user[property] = value;
+      if (property !== 'inactiveMode' && property !== 'activeMode') {
+        user[property] = value;
+      }
+    }
+
+    function setAll(collection) {
+      _.each(collection, function setAllUser(val, key) { set(key, val); });
     }
 
     function setActiveMode(mode) {
@@ -63,7 +70,7 @@
     }
 
     function setInactiveMode() {
-      if (company.buyer && company.supplier) {
+      if (company.isBoth()) {
         if (user.activeMode === 'buyer') {
           user.inactiveMode = 'supplier';
         }

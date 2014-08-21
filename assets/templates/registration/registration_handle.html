@@ -13,7 +13,7 @@
                     <div class="input-group">
                       <label class="sr-only" for="custom-link" >Custom Link</label>
                       <div class="input-group-addon">https://app.procur.com/companies/</div>
-                      <input type="text" id="custom-link"  placeholder="YourCustomLinkHere" required  />
+                      <input type="text" id="custom-link"  placeholder="YourCustomLinkHere" ng-model="handle" required  />
                     </div>
                   </div>
                 </div>
@@ -23,7 +23,7 @@
         </div>
       </div>
     </div>
-    <button class="btn btn-continue" type="button" ui-sref="dashboard">
+    <button class="btn btn-continue" type="button" ng-click="setHandle()">
       Continue
       <span class="glyphicon glyphicon-arrow-right"></span>
     </button>

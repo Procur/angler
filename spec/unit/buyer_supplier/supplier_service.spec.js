@@ -1,28 +1,21 @@
 describe('supplierService', function() {
   var
     supplier,
-    mockSupplierData,
-    mockWindow;
+    mockSupplier;
 
   beforeEach(module('pc.BuyerSupplier'));
 
-  beforeEach(module(function($provide) {
-    mockSupplierData = {
-      foo: 'bar'
-    };
+  beforeEach(inject(function($injector){
+    var
+      window = $injector.get('$window');
 
-    mockWindow = {
-      pc: {
-        localData: {
-          supplier: mockSupplierData
-        }
+    mockSupplier = { foo: 'bar' };
+
+    window.pc = {
+      localData: {
+        supplier: mockSupplier
       }
     };
-
-    $provide.value('$window', mockWindow);
-  }));
-
-  beforeEach(inject(function($injector){
     supplier = $injector.get('supplierService');
   }));
 
@@ -30,8 +23,31 @@ describe('supplierService', function() {
     expect(supplier).to.not.be.undefined;
   });
 
-  it('should be the supplier data', function() {
-    expect(supplier).to.equal(mockSupplierData);
+  describe('get()', function() {
+    it('should get the property from the supplier object', function() {
+      expect(supplier.get('foo')).to.equal(mockSupplier.foo);
+    });
   });
 
+  describe('set()', function() {
+    it('should set the property on the supplier object', function() {
+      expect(supplier.get('baz')).to.be.undefined;
+
+      supplier.set('baz', true);
+
+      expect(supplier.get('baz')).to.be.true;
+    });
+  });
+
+  describe('setAll()', function() {
+    it('should set all proeprties on the supplier object', function() {
+      expect(supplier.get('hello')).to.be.undefined;
+      expect(supplier.get('foo')).to.equal(mockSupplier.foo);
+
+      supplier.setAll({ hello: 'world', foo: 'oof' });
+
+      expect(supplier.get('hello')).to.equal('world');
+      expect(supplier.get('foo')).to.equal('oof');
+    });
+  });
 });

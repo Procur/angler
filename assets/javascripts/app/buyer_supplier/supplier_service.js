@@ -5,20 +5,39 @@
 
   definitions = [
     '$window',
+    '_',
     supplierService
   ];
 
   angular.module('pc.BuyerSupplier')
     .factory('supplierService', definitions);
 
-  function supplierService($window) {
+  function supplierService($window, _) {
     var
-      supplier;
+      supplier,
+      self;
 
-    supplier = $window.pc.localData.supplier || {};
+    supplier = $window.pc.localData.supplier ? _.cloneDeep($window.pc.localData.supplier) : {};
 
-    return supplier;
+    self = {
+      get: get,
+      set: set,
+      setAll: setAll
+    };
 
+    return self;
+
+    function get(property) {
+      return supplier[property];
+    }
+
+    function set(property, value) {
+      supplier[property] = value;
+    }
+
+    function setAll(collection) {
+      _.each(collection, function setAllSupplier(val, key) { set(key, val); });
+    }
   }
 
 })(angular);

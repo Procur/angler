@@ -53,6 +53,21 @@
               </div>
             </div>
           </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-group">
+                <label for="terms" class="checkbox-label">
+                  <input type="checkbox" id="terms" ng-model="agreeTerms">
+                  I have read and agree to the Terms of Service and Privacy Policy
+                </label>
+                <label for="authorized-user" class="checkbox-label">
+                  <input type="checkbox" id="authorized-user" ng-model="agreeAuthorized">
+                  I assert that I am authorized by the company I entered above to use Procur.com
+                  on their behalf in accordance with the Terms of Service and Privacy Policy.
+                </label>
+              </div>
+            </div>
+          </div>
           <div class="row separator">
             <div class="col-sm-12">
               <h5 class="text-center">Optional Information</h5>
@@ -112,22 +127,6 @@
                 <input type="text" id="product-specialties" placeholder="Begin typing to search categories..." ng-model="companyInformation.productSpecialties[0]" />
                 <input type="text" placeholder="Begin typing to search categories..." ng-model="companyInformation.productSpecialties[1]" />
                 <input type="text" placeholder="Begin typing to search categories..." ng-model="companyInformation.productSpecialties[2]" />
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-sm-12">
-              <div class="form-group">
-                <label for="terms" class="checkbox-label">
-                  <input type="checkbox" id="terms" required>
-                  I have read and agree to the Terms of Service and Privacy Policy
-                </label>
-                <label for="authorized-user" class="checkbox-label">
-                  <input type="checkbox" id="authorized-user" required>
-                  I assert that I am authorized by the company I entered above to use Procur.com
-                  on their behalf in accordance with the Terms of Service and Privacy Policy.
-                </label>
               </div>
             </div>
           </div>

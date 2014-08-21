@@ -20,27 +20,28 @@
       get: get,
       post: post,
       put: put,
-      destroy: destroy
+      destroy: destroy,
+      handleError: handleError
     };
 
     function get(endpoint) {
-      return ajax(XHR_METHOD.GET, endpoint)
-        .catch(onXhrError);
+      return ajax(XHR_METHOD.GET, endpoint);
     }
 
     function post(endpoint, postData) {
-      return ajax(XHR_METHOD.POST, endpoint, postData)
-        .catch(onXhrError);
+      return ajax(XHR_METHOD.POST, endpoint, postData);
     }
 
     function put(endpoint, putData) {
-      return ajax(XHR_METHOD.PUT, endpoint, putData)
-        .catch(onXhrError);
+      return ajax(XHR_METHOD.PUT, endpoint, putData);
     }
 
     function destroy(endpoint) {
-      return ajax(XHR_METHOD.DELETE, endpoint)
-        .catch(onXhrError);
+      return ajax(XHR_METHOD.DELETE, endpoint);
+    }
+
+    function handleError(err) {
+      snackbar.error(err || 'There was an error processing your request at this time. Please try again.');
     }
 
     function ajax(method, endpoint, data) {
@@ -76,10 +77,6 @@
           deferred.reject(request.responseText);
         }
       }
-    }
-
-    function onXhrError(err) {
-      snackbar.error(err || 'There was an error processing your request at this time. Please try again.');
     }
 
   }

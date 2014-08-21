@@ -5,6 +5,7 @@
 
   definitions = [
     '$scope',
+    '$filter',
     'userService',
     'companyService',
     'actionItemsService',
@@ -14,9 +15,17 @@
   angular.module('pc.Dashboard')
     .controller('dashboardController', definitions);
 
-  function dashboardController($scope, user, company, actionItems) {
-    $scope.user = user;
-    $scope.company = company;
+  function dashboardController($scope, $filter, user, company, actionItems) {
+    $scope.user = {
+      firstName: user.get('firstName'),
+      lastName: user.get('lastName'),
+      image: user.get('image'),
+      createdYear: $filter('date')(user.get('createdAt'), 'yyyy')
+    };
+
+    $scope.company = {
+      name: company.get('name')
+    };
 
     $scope.actionItems = actionItems.get();
     $scope.activeModeFilter = actionItems.activeMode;

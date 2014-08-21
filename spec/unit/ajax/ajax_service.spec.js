@@ -6,6 +6,7 @@ describe('ajaxService', function() {
     mockXhrObject,
     mockFormData,
     mockFormDataObject,
+    mockSnackbar,
     XHR_METHOD,
     result;
 
@@ -32,8 +33,13 @@ describe('ajaxService', function() {
       this.append =  mockFormDataObject.append;
     };
 
+    mockSnackbar = {
+      error: sinon.spy()
+    };
+
     $provide.value('Xhr', mockXhr);
     $provide.value('FormData', mockFormData);
+    $provide.value('snackbarService', mockSnackbar);
   }));
 
   beforeEach(inject(function($injector){
@@ -145,6 +151,14 @@ describe('ajaxService', function() {
 
     it('should send the xhr data', function() {
       expect(mockXhrObject.send).to.have.been.called;
+    });
+  });
+
+  describe('handleError()', function() {
+    it('should create an error snackbar', function() {
+      ajax.handleError('foobar');
+
+      expect(mockSnackbar.error).to.have.been.calledWith('foobar');
     });
   });
 

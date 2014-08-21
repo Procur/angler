@@ -1,28 +1,21 @@
 describe('buyerService', function() {
   var
     buyer,
-    mockBuyerData,
-    mockWindow;
+    mockBuyerData;
 
   beforeEach(module('pc.BuyerSupplier'));
 
-  beforeEach(module(function($provide) {
-    mockBuyerData = {
-      foo: 'bar'
-    };
+  beforeEach(inject(function($injector){
+    var
+      window = $injector.get('$window');
 
-    mockWindow = {
-      pc: {
-        localData: {
-          buyer: mockBuyerData
-        }
+    mockBuyerData = { foo: 'bar' };
+
+    window.pc = {
+      localData: {
+        buyer: mockBuyerData
       }
     };
-
-    $provide.value('$window', mockWindow);
-  }));
-
-  beforeEach(inject(function($injector){
     buyer = $injector.get('buyerService');
   }));
 
@@ -30,8 +23,31 @@ describe('buyerService', function() {
     expect(buyer).to.not.be.undefined;
   });
 
-  it('should be the buyer data', function() {
-    expect(buyer).to.equal(mockBuyerData);
+  describe('get()', function() {
+    it('should get the property from the buyer object', function() {
+      expect(buyer.get('foo')).to.equal(mockBuyerData.foo);
+    });
   });
 
+  describe('set()', function() {
+    it('should set the property on the buyer object', function() {
+      expect(buyer.get('baz')).to.be.undefined;
+
+      buyer.set('baz', true);
+
+      expect(buyer.get('baz')).to.be.true;
+    });
+  });
+
+  describe('setAll()', function() {
+    it('should set all proeprties on the buyer object', function() {
+      expect(buyer.get('hello')).to.be.undefined;
+      expect(buyer.get('foo')).to.equal(mockBuyerData.foo);
+
+      buyer.setAll({ hello: 'world', foo: 'oof' });
+
+      expect(buyer.get('hello')).to.equal('world');
+      expect(buyer.get('foo')).to.equal('oof');
+    });
+  });
 });

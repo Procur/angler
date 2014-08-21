@@ -21,7 +21,7 @@
 
     $scope.companyInformation = initCompanyInformation();
 
-    $scope.isSupplier = company.get('supplier');
+    $scope.isSupplier = company.isSupplier();
 
     $scope.$on(FILE_EVENTS.SELECTED, onImageSelected);
 
@@ -34,10 +34,17 @@
     }
 
     function submitCompanyInformation() {
-      if ($scope.companyInformationForm.$valid) {
+      if (isFormValid()) {
         ajax.post('/views/api/create_company.json', $scope.companyInformation)
           .then(company.setAll)
-          .then(goToEmailVerification);
+          .then(goToEmailVerification)
+          ['catch'](ajax.handleError);
+      }
+
+      function isFormValid() {
+        return $scope.companyInformationForm.$valid &&
+               $scope.agreeTerms &&
+               $scope.agreeAuthorized;
       }
     }
 
@@ -49,6 +56,8 @@
       return {
         name: company.get('name'),
         email: company.get('email'),
+        buyer: company.get('buyer'),
+        supplier: company.get('supplier'),
         phoneNumberCountryCode: company.get('phoneNumberCountryCode'),
         phoneNumber: company.get('phoneNumber'),
         type: company.get('type'),

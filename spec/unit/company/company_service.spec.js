@@ -1,28 +1,25 @@
 describe('companyService', function() {
   var
     company,
-    mockCompanyData,
-    mockWindow;
+    mockCompanyData;
 
   beforeEach(module('pc.Company'));
 
-  beforeEach(module(function($provide) {
+  beforeEach(inject(function($injector){
+    var
+      window = $injector.get('$window');
+
     mockCompanyData = {
-      foo: 'bar'
+      foo: 'bar',
+      buyer: true,
+      supplier: true
     };
 
-    mockWindow = {
-      pc: {
-        localData: {
-          company: mockCompanyData
-        }
+    window.pc = {
+      localData: {
+        company: mockCompanyData
       }
     };
-
-    $provide.value('$window', mockWindow);
-  }));
-
-  beforeEach(inject(function($injector){
     company = $injector.get('companyService');
   }));
 
@@ -30,8 +27,49 @@ describe('companyService', function() {
     expect(company).to.not.be.undefined;
   });
 
-  it('should be the company data', function() {
-    expect(company).to.equal(mockCompanyData);
+  describe('get()', function() {
+    it('should get the property from the company object', function() {
+      expect(company.get('foo')).to.equal(mockCompanyData.foo);
+    });
   });
 
+  describe('set()', function() {
+    it('should set the property on the company object', function() {
+      expect(company.get('baz')).to.be.undefined;
+
+      company.set('baz', true);
+
+      expect(company.get('baz')).to.be.true;
+    });
+  });
+
+  describe('setAll()', function() {
+    it('should set all proeprties on the company object', function() {
+      expect(company.get('hello')).to.be.undefined;
+      expect(company.get('foo')).to.equal(mockCompanyData.foo);
+
+      company.setAll({ hello: 'world', foo: 'oof' });
+
+      expect(company.get('hello')).to.equal('world');
+      expect(company.get('foo')).to.equal('oof');
+    });
+  });
+
+  describe('isBuyer()', function() {
+    it('should return true if the company is a buyer', function() {
+      expect(company.isBuyer()).to.be.true;
+    });
+  });
+
+  describe('isSupplier()', function() {
+    it('should return true if the company is a supplier', function() {
+      expect(company.isSupplier()).to.be.true;
+    });
+  });
+
+  describe('isBoth()', function() {
+    it('should return true if the company is a supplier and buyer', function() {
+      expect(company.isBoth()).to.be.true;
+    });
+  });
 });

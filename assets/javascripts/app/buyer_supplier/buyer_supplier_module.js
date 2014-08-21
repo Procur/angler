@@ -1,7 +1,9 @@
 (function(angular) {
 
   var
-    dependencies = [];
+    dependencies = [
+      'pc.ThirdParty.LoDash'
+    ];
 
   angular.module('pc.BuyerSupplier', dependencies);
 

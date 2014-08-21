@@ -27,7 +27,7 @@
       actionItems = [
         {
           action: 'Upload a user photo',
-          complete: !!user.image,
+          complete: !!user.get('image'),
           type: {
             buyer: true,
             supplier: true
@@ -36,7 +36,7 @@
         },
         {
           action: 'Update your job title',
-          complete: !!user.jobTitle,
+          complete: !!user.get('jobTitle'),
           type: {
             buyer: true,
             supplier: true
@@ -45,7 +45,7 @@
         },
         {
           action: 'Add your company website',
-          complete: !!company.website,
+          complete: !!company.get('website'),
           type: {
             buyer: true,
             supplier: true
@@ -54,7 +54,7 @@
         },
         {
           action: 'Add your company description',
-          complete: user.isBuyerMode() ? !!buyer.companyDescription : !!supplier.companyDescription,
+          complete: user.isBuyerMode() ? !!buyer.get('companyDescription') : !!supplier.get('companyDescription'),
           type: {
             buyer: true,
             supplier: true
@@ -64,8 +64,18 @@
         {
           action: 'Add your company\'s Statements of Responsibility',
           complete: user.isBuyerMode() ?
-            !!(buyer.responsibilityStatements.environmentalSustainability && buyer.responsibilityStatements.qualitySourcing && buyer.responsibilityStatements.workplaceSafety && buyer.responsibilityStatements.laborEducationTraining && buyer.responsibilityStatements.reinvestment) :
-            !!(supplier.responsibilityStatements.environmentalSustainability && supplier.responsibilityStatements.qualitySourcing && supplier.responsibilityStatements.workplaceSafety && supplier.responsibilityStatements.laborEducationTraining && supplier.responsibilityStatements.reinvestment),
+            !!(buyer.get('responsibilityStatements') &&
+              buyer.get('responsibilityStatements').environmentalSustainability &&
+              buyer.get('responsibilityStatements').qualitySourcing &&
+              buyer.get('responsibilityStatements').workplaceSafety &&
+              buyer.get('responsibilityStatements').laborEducationTraining &&
+              buyer.get('responsibilityStatements').reinvestment) :
+            !!(supplier.get('responsibilityStatements') &&
+              supplier.get('responsibilityStatements').environmentalSustainability &&
+              supplier.get('responsibilityStatements').qualitySourcing &&
+              supplier.get('responsibilityStatements').workplaceSafety &&
+              supplier.get('responsibilityStatements').laborEducationTraining &&
+              supplier.get('responsibilityStatements').reinvestment),
           type: {
             buyer: true,
             supplier: true
@@ -74,7 +84,7 @@
         },
         {
           action: 'Add your preferred buyer type',
-          complete: !!supplier.tradePreferences.preferredBuyerType,
+          complete: !!supplier.get('tradePreferences') && !!supplier.get('tradePreferences').preferredBuyerType,
           type: {
             buyer: false,
             supplier: true
@@ -83,7 +93,7 @@
         },
         {
           action: 'Add your preferred supplier type',
-          complete: !!buyer.tradePreferences.preferredSupplierType,
+          complete: !!buyer.get('tradePreferences') && !!buyer.get('tradePreferences').preferredSupplierType,
           type: {
             buyer: true,
             supplier: false
@@ -92,7 +102,7 @@
         },
         {
           action: 'Add your products of interest',
-          complete: !!buyer.productCategories.length,
+          complete: !!buyer.get('productCategories') && !!buyer.get('productCategories').length,
           type: {
             buyer: true,
             supplier: false
@@ -108,7 +118,7 @@
       return filterActiveMode;
 
       function filterActiveMode(actionItem) {
-        return actionItem.type[user.activeMode];
+        return actionItem.type[user.get('activeMode')];
       }
     }
   }

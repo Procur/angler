@@ -4,7 +4,6 @@
     dependencies;
 
   dependencies = [
-
     'pc.FileUpload',
     'pc.Ajax',
     'pc.User',

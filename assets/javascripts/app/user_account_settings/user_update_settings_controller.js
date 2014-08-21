@@ -5,26 +5,24 @@
 
   definitions = [
     '$scope',
-    'ajaxService',
-    'FILE_EVENTS',
     'userService',
+    'FILE_EVENTS',
     userUpdateSettingsController
   ];
 
   angular.module('pc.UserAccountSettings')
     .controller('userUpdateSettingsController', definitions);
 
-  function userUpdateSettingsController($scope, ajax, FILE_EVENTS, user) {
-    $scope.user = user;
+  function userUpdateSettingsController($scope, user, FILE_EVENTS) {
+    $scope.user = {
+      firstName: user.get('firstName'),
+      lastName: user.get('lastName'),
+      email: user.get('email'),
+      jobTitle: user.get('jobTitle'),
+      image: user.get('image')
+    };
 
     $scope.$on(FILE_EVENTS.SELECTED, onImageSelected);
-
-    /*$scope.saveProfile = function() {
-      ajax.put('/views/api/update_user.json', {profile: $scope.userProfile})
-        .then(function(res) {
-          console.log(res);
-        });
-    };*/
 
     function onImageSelected(e, file, dataUrl) {
       $scope.newProfilePicture = {

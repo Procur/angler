@@ -14,7 +14,7 @@
   function statesConfig($stateProvider, $urlRouterProvider) {
     $urlRouterProvider
       .otherwise('/welcome/type')
-      .rule(companyTypeRule);
+      .rule(registrationWizardRule);
 
     $stateProvider
       .state('registration',  {
@@ -69,7 +69,7 @@
       .state('registration.email_verification', {
         url: '/email_verification',
         templateUrl: 'registration_email_verification.html',
-        controller: 'registrationStepController',
+        controller: 'registrationEmailVerificationController',
         data: {
           leadText: 'Have you checked your email lately?',
           progressStep: 2
@@ -78,7 +78,7 @@
       .state('registration.handle', {
         url: '/handle',
         templateUrl: 'registration_handle.html',
-        controller: 'registrationStepController',
+        controller: 'registrationHandleController',
         data: {
           leadText: 'Set your custom link',
           progressStep: 3
@@ -202,11 +202,11 @@
         controller: 'photosController'
       });
 
-    function companyTypeRule($injector, $location) {
+    function registrationWizardRule($injector, $location) {
       var
         company = $injector.get('companyService');
 
-      if (!company.get('buyer') && !company.get('supplier')) {
+      if (!company.isBuyer() && !company.isSupplier()) {
         $location.path('/welcome/type').replace();
       }
     }

@@ -1,30 +1,36 @@
-
 describe('dashboardController', function() {
 
   var
     scope,
     controller,
-    mockUser,
-    mockCompany,
+    userData,
+    companyData,
     mockActionItems,
     mockActionItemList;
 
   beforeEach(module('pc.Dashboard'));
 
-  beforeEach(inject(function($rootScope, $controller){
+  beforeEach(inject(function($injector, $rootScope, $controller){
     var
-      dependencies;
+      dependencies,
+      window = $injector.get('$window');
 
-    scope = $rootScope.$new();
-
-    mockUser = {
-      name: 'chris hourihan',
+    userData = {
+      firstName: 'chris',
+      lastName: 'hourihan',
       image: 'http://res.cloudinary.com/huewqecyr/image/upload/v1407339867/pzwxobgpaqk8b4gemaut.jpg',
       createdAt: '2014-08-07T02:15:42.447Z'
     };
 
-    mockCompany = {
-      name: 'chris-test'
+    companyData = {
+      name: 'www.foo.com'
+    };
+
+    window.pc = {
+      localData: {
+        user: userData,
+        company: companyData
+      }
     };
 
     mockActionItemList = {
@@ -37,10 +43,12 @@ describe('dashboardController', function() {
     };
     mockActionItems.get.returns(mockActionItemList);
 
+    scope = $rootScope.$new();
+
     dependencies = {
       '$scope': scope,
-      'userService': mockUser,
-      'companyService': mockCompany,
+      'userService': $injector.get('userService'),
+      'companyService': $injector.get('companyService'),
       'actionItemsService': mockActionItems
     };
 
@@ -53,11 +61,14 @@ describe('dashboardController', function() {
 
   describe('$scope', function() {
     it('should set the user object', function() {
-      expect(scope.user).to.equal(mockUser);
+      expect(scope.user.firstName).to.equal(userData.firstName);
+      expect(scope.user.lastName).to.equal(userData.lastName);
+      expect(scope.user.image).to.equal(userData.image);
+      expect(scope.user.createdYear).to.equal('2014');
     });
 
     it('should add the company object', function() {
-      expect(scope.company).to.equal(mockCompany);
+      expect(scope.company.name).to.equal(companyData.name);
     });
 
     it('should add the action items array', function() {
