@@ -21,7 +21,6 @@
     $scope.user = user;
     $scope.company = company;
     $scope.location = location;
-    console.log($scope.location);
   }
 
 
