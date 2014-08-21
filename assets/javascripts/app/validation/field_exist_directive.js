@@ -9,12 +9,13 @@
 
   angular.module('pc.Validation').directive('fieldExist', definitions);
 
-  var errorElement;
+  
 
   function fieldExist() {
     return {
       require: 'ngModel',
       link: function (scope, elm, attrs, ctrl) {
+        var errorElement;
         elm.on('blur keyup', function() {
           if (ctrl.$error.required && ctrl.$dirty) 
           {

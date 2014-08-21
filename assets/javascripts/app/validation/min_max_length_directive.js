@@ -9,12 +9,13 @@
 
   angular.module('pc.Validation').directive('minMaxLength', definitions);
 
-  var errorElement;
+  
 
   function minMaxLength() {
     return {
       require: 'ngModel',
       link: function (scope, elm, attrs, ctrl) {
+        var errorElement;
         elm.on('blur keyup', function() {
           if (!ctrl.$error.required && (ctrl.$error.minlength || ctrl.$error.maxlength) && ctrl.$dirty) 
           {
