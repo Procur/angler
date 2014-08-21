@@ -10,8 +10,8 @@
           <div class="col-md-6">
             <div class="form-group">
               <label for="firstName">Contact Name*</label>
-              <input type="text" name="firstName" id="firstName" placeholder="First" ng-model="user.firstName" pc-validation='required'>
-              <input type="text" name="lastName" id="lastName" placeholder="Last" ng-model="user.lastName" pc-validation="required" >
+              <input type="text" name="firstName" id="firstName" placeholder="First" ng-model="user.firstName" pc-validator='required'>
+              <input type="text" name="lastName" id="lastName" placeholder="Last" ng-model="user.lastName" pc-validator="required" >
 
             </div>
             <div class="form-group">
@@ -22,6 +22,7 @@
               <label for="newEmailAddress">Update Email Address</label>
 
               <input type="email" name="email" ng-model="user.emailTODO" placeholder="Enter new Email" pc-validation="email">
+
               <input type="email" name="email_c" ng-model="user.email_c" placeholder="Confirm New Address" pc-confirm="user.emailTODO">
             </div>
           </div>

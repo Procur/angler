@@ -4,19 +4,19 @@
   definitions;
 
   definitions = [
-  pcValidation
+  pcValidator
   ]; 
 
-  angular.module('pc.Validation').directive('pcValidation', definitions);
+  angular.module('pc.Validation').directive('pcValidator', definitions);
 
   
 
-  function pcValidation() {
+  function pcValidator() {
 
     return {
       require: 'ngModel',
       scope: {
-        validationType: '@pcValidation'
+        validationType: '@pcValidator'
       },
       link: function (scope, elm, attrs, ctrl) {
         var errorElement;
