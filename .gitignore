@@ -2,3 +2,7 @@ node_modules/
 .DS_Store
 .sass-cache/
 spec/reports/
+*.swp
+assets/styles.css
+assets/javascripts/app.js
+assets/javascripts/app/templates_module.js
