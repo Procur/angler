@@ -1,4 +1,5 @@
 
+<h5>Edit Buyer Profile</h5>
 <div class="row main-row">
   <div class="col-sm-4">
     <ul class="nav-panel">
@@ -15,10 +16,10 @@
           <div class="left-icon">
             <i class="glyphicon glyphicon-info-sign"></i>
           </div>
-          <h6>[activeMode] Information</h6>
+          <h6>{{user.activeMode}} Information</h6>
         </a>
       </li>
-      <li pc-nav="production_details">
+      <li pc-nav="production_details" ng-show="user.isSupplierMode()">
         <a ui-sref="edit_company_profile.production_details">
           <div class="left-icon">
             <i class="glyphicon glyphicon-wrench"></i>
@@ -55,7 +56,7 @@
           <div class="left-icon">
             <i class="glyphicon glyphicon-picture"></i>
           </div>
-          <h6>[activeMode] Photos</h6>
+          <h6>{{user.activeMode}} Photos</h6>
         </a>
       </li>
     </ul>

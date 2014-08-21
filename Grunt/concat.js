@@ -5,7 +5,8 @@ module.exports = {
       '<%= componentsPath %>/angular-ui-router/release/angular-ui-router.js',
       '<%= componentsPath %>/lodash/dist/lodash.js',
       '<%= componentsPath %>/plupload/js/moxie.js',
-      '<%= componentsPath %>/plupload/js/plupload.dev.js'
+      '<%= componentsPath %>/plupload/js/plupload.dev.js',
+      '<%= componentsPath %>/jcrop/js/jquery.Jcrop.js'
     ],
     dest: '<%= jsPath %>/components.js'
   },

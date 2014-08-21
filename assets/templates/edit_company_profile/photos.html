@@ -1,21 +1,30 @@
-<div class="col-sm-8">
+
+<div class="col-sm-8 edit-photos">
   <div class="panel-content">
     <div class="panel-heading">
-      <h5>Photos</h5>
+      <h5>{{user.activeMode}} Photos</h5>
     </div>
     <div class="panel-body">
       <form class="form">
         <div class="row form-body">
+          <div class="form-group col-md-6">
+            <label>Update Profile Picture</label>
+            <button class="btn btn-default btn-sm" pc-image-select>Choose Image</button>
+          </div>
+
+          <div class="form-group col-md-6 img-preview">
+            <img ng-src="{{newProfilePicture.base64Url}}" pc-image-crop />
+          </div>
         </div>
       </form>
     </div>
 
-    <div class="panel-heading">
+    <div class="panel-heading" style="margin-top: 40px;">
       <h5>Your Photos</h5>
     </div>
     <div class="panel-body">
       <form class="form">
-        <div class="row form-body">
+        <div class="row form-body img-thumbnail-gallery">
         </div>
       </form>
     </div>

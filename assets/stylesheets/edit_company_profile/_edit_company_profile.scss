@@ -25,3 +25,46 @@
   }
 
 }
+
+.edit-photos {
+
+  .img-preview img {
+    width: 300px;
+    height: 200px;
+  }
+
+  .photo-box {
+    width: auto;
+    height: 145px;
+    background: white;
+    text-align: center;
+
+    .photo-box-header {
+      display: block;
+      height: 25px;
+      background: #333132;
+      margin-bottom: 5px;
+
+      i.fa-times {
+        margin: 2% 2% 0% 0%;
+        float: right;
+        color: white;
+        font-size: 1.2em;
+        cursor: pointer;
+      }
+
+    }
+
+    img {
+      width: 200px;
+      height: 110px;
+      margin: 0px 5px 0px 5px;
+    }
+
+  }
+
+  .img-thumbnail-gallery .col-xs-6:nth-child(n+4) {
+    margin-top: 40px;
+  }
+
+}
