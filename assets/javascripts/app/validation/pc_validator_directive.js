@@ -9,8 +9,6 @@
 
   angular.module('pc.Validation').directive('pcValidator', definitions);
 
-  
-
   function pcValidator() {
 
     return {
@@ -73,10 +71,7 @@
                 errorElement.remove();
                 errorElement = null;
               }
-            }
-
-            /**
-              if (!ctrl.$error.required && (ctrl.$error.minlength || ctrl.$error.maxlength) && ctrl.$dirty) {
+              if (ctrl.$viewValue && (ctrl.$viewValue.length < passMin || ctrl.$viewValue.length >passMax) && ctrl.$dirty) {
                 if (!errorElement) {
                   errorElement = elm.after('<p class="error">Passwords must be between 8 and 20 characters.</p>').next();
                 }
@@ -87,14 +82,10 @@
                   errorElement = null;
                 }
               }
-            } */
-
-
+            }
           }
-
           if (scope.validationType === 'url') {
             ctrl.$setValidity('pcUrl', reUrl.test(ctrl.$viewValue));
-
             if (ctrl.$error.pcUrl && ctrl.$dirty && ctrl.$viewValue) {
               if (!errorElement) {
                 errorElement = elm.after('<p class="error">Enter a Valid Url With http://.</p>').next();
@@ -106,17 +97,8 @@
               }
             }
           }
-
-
-          
-
         });
-
-
-
-
-}
-}
-}
-
+      }
+    }
+  }
 })(angular);

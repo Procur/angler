@@ -25,8 +25,6 @@
         isConfirm;
         
         elm.on('blur keyup', function() {
-          console.log(scope.field);
-        console.log(ctrl.$viewValue);
           var isConfirm = scope.field === ctrl.$viewValue;
           if (!isConfirm) {
             if (!errorElement) {
