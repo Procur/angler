@@ -21,7 +21,7 @@
             <div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }">
               <label for="newEmailAddress">Update Email Address</label>
 
-              <input type="email" name="email" ng-model="user.emailTODO" placeholder="Enter new Email" pc-validation="email">
+              <input type="email" name="email" ng-model="user.emailTODO" placeholder="Enter new Email" pc-validator="email">
 
               <input type="email" name="email_c" ng-model="user.email_c" placeholder="Confirm New Address" pc-confirm="user.emailTODO">
             </div>

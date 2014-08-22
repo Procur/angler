@@ -1,4 +1,4 @@
-describe('pcValidator Directive:', function() {
+describe.only('pcValidator Directive:', function() {
 
   describe('Email validation', function() {
     var
@@ -156,7 +156,6 @@ describe('Required validation', function() {
     var
     scope,
     compile,
-    requiredElement,
     requiredElement,
     form;
 
