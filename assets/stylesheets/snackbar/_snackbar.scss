@@ -1,5 +1,5 @@
 .snackbar {
-  position: absolute;
+  position: fixed;
   padding: 15px;
   min-width: 288px;
   max-width: 568px;
@@ -13,22 +13,22 @@
   -o-transition: 200ms ease-in-out all;
 
   &.snackbar-bottom-left {
-    bottom: -24px;
+    bottom: 0;
     left: 24px;
   }
 
   &.snackbar-bottom-right {
-    bottom: -24px;
+    bottom: 0;
     right: 24px;
   }
 
   &.snackbar-top-left {
-    top: -24px;
+    top: 0;
     left: 24px;
   }
 
   &.snackbar-top-right {
-    top: -24px;
+    top: 0;
     right: 24px;
   }
 

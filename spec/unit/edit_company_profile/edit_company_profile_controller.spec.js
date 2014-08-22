@@ -1,5 +1,5 @@
 
-describe.only('editCompanyProfileController', function() {
+describe('editCompanyProfileController', function() {
 
   var
     scope,

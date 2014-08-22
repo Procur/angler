@@ -100,7 +100,9 @@
       }
 
       function snackbarPopIn() {
-        snackbar.addClass(POP_UP);
+        $timeout(function snackbarPopInTimeout() {
+          snackbar.addClass(POP_UP);
+        }, 0);
       }
 
       function snackbarPopOut() {

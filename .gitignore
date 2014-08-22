@@ -6,4 +6,5 @@ spec/reports/
 assets/stylesheets/styles.css
 assets/javascripts/app.js
 assets/javascripts/app/templates_module.js
+assets/javascripts/app/components.js
 dist/*
