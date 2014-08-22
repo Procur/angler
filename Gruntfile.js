@@ -32,5 +32,5 @@ function gruntConfig(grunt) {
   grunt.registerTask('server', ['bgShell:server']);
   grunt.registerTask('protractor', ['bgShell:protractor']);
   grunt.registerTask('test:dev', ['build:dev', 'karma:dev', 'protractor']);
-  grunt.registerTask('default', ['build:dev', 'server']);
+  grunt.registerTask('default', ['build:dist', 'server']);
 }

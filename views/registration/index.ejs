@@ -1,0 +1,15 @@
+<%- include partials/_header.ejs %>
+
+<div ui-view="header"></div>
+<div class='container'>
+  <div ui-view></div>
+</div>
+
+<script>
+  var
+    pc = window.pc = window.pc || {};
+
+  pc.localData = {};
+</script>
+
+<%- include partials/_footer.ejs %>

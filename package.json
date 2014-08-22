@@ -1,12 +1,20 @@
 {
-  "name": "application-name",
-  "version": "0.0.1",
+  "name": "Angler",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./app"
   },
   "dependencies": {
-    "ejs": "^1.0.0"
+    "bluebird": "^2.3.0",
+    "body-parser": "^1.0.0",
+    "cookie-parser": "^1.0.1",
+    "debug": "^0.7.4",
+    "ejs": "^1.0.0",
+    "express": "^4.2.0",
+    "jade": "^1.5.0",
+    "morgan": "^1.0.0",
+    "serve-favicon": "^2.0.1"
   },
   "devDependencies": {
     "busboy": "^0.2.8",
@@ -31,7 +39,7 @@
     "karma-sinon": "^1.0.3",
     "karma-sinon-chai": "^0.2.0",
     "mocha": "^1.21.4",
-    "node-static": "^0.7.4",
+    "nodemon": "^1.2.1",
     "protractor": "^1.0.0",
     "sinon": "^1.10.3"
   }

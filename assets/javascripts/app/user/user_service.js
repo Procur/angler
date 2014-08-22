@@ -50,9 +50,19 @@
     }
 
     function setActiveMode(mode) {
-      if (mode === 'supplier' || mode === 'buyer') {
-        user.activeMode = mode;
-        setInactiveMode();
+      switch(mode) {
+        case 'supplier':
+          if (company.isSupplier()) {
+            user.activeMode = mode;
+            setInactiveMode();
+          }
+          break;
+        case 'buyer':
+          if (company.isBuyer()) {
+            user.activeMode = mode;
+            setInactiveMode();
+          }
+          break;
       }
     }
 

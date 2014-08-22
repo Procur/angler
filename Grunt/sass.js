@@ -12,7 +12,7 @@ module.exports = {
       style: 'compressed'
     },
     files: {
-      'dist/stylesheets/styles.min.css': 'dist/stylesheets/styles.css'
+      'public/stylesheets/styles.min.css': 'public/stylesheets/styles.css'
     }
   }
 };

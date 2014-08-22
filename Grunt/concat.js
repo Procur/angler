@@ -57,6 +57,6 @@ module.exports = {
       '<%= jsPath %>/components.js',
       '<%= jsPath %>/app.js'
     ],
-    dest: 'dist/javascripts/build.js'
+    dest: 'public/javascripts/build.js'
   }
 };

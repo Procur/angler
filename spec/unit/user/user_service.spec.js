@@ -8,7 +8,9 @@ describe('userService', function() {
 
   beforeEach(module(function($provide) {
     mockCompany = {
-      isBoth: sinon.stub()
+      isBoth: sinon.stub(),
+      isSupplier: sinon.stub(),
+      isBuyer: sinon.stub()
     };
 
     $provide.value('companyService', mockCompany);
@@ -76,16 +78,31 @@ describe('userService', function() {
 
   describe('setActiveMode()', function() {
     it('should set the active mode of the user', function() {
+      mockCompany.isBuyer.returns(true);
+
       expect(user.get('activeMode')).to.not.equal('buyer');
 
       user.setActiveMode('buyer');
 
       expect(user.get('activeMode')).to.equal('buyer');
     });
+
+    it('should not set the active mode of the user if the company does not have that mode', function() {
+      mockCompany.isBuyer.returns(false);
+
+      expect(user.get('activeMode')).to.equal('supplier');
+
+      user.setActiveMode('buyer');
+
+      expect(user.get('activeMode')).to.equal('supplier');
+    });
   });
 
   describe('toggleActiveMode()', function() {
     it('should not toggle the active mode if the user does not have an inactive mode', function() {
+      mockCompany.isBuyer.returns(true);
+      mockCompany.isSupplier.returns(true);
+
       expect(user.get('inactiveMode')).to.not.be.ok;
       expect(user.get('activeMode')).to.equal('supplier');
 
@@ -96,7 +113,10 @@ describe('userService', function() {
     });
 
     it('should toggle the active mode', function() {
+      mockCompany.isBuyer.returns(true);
+      mockCompany.isSupplier.returns(true);
       mockCompany.isBoth.returns(true);
+
       user.setActiveMode('buyer');
 
       expect(user.get('inactiveMode')).to.equal('supplier');
@@ -111,11 +131,15 @@ describe('userService', function() {
 
   describe('isBuyerMode()', function() {
     it('should return true if the active mode is buyer', function() {
+      mockCompany.isBuyer.returns(true);
+
       user.setActiveMode('buyer');
       expect(user.isBuyerMode()).to.be.true;
     });
 
     it('should return false if the active mode is not buyer', function() {
+      mockCompany.isSupplier.returns(true);
+
       user.setActiveMode('supplier');
       expect(user.isBuyerMode()).to.be.false;
     });
@@ -123,11 +147,15 @@ describe('userService', function() {
 
   describe('isSupplierMode()', function() {
     it('should return true if the active mode is supplier', function() {
+      mockCompany.isSupplier.returns(true);
+
       user.setActiveMode('supplier');
       expect(user.isSupplierMode()).to.be.true;
     });
 
     it('should return false if the active mode is not supplier', function() {
+     mockCompany.isBuyer.returns(true);
+
       user.setActiveMode('buyer');
       expect(user.isSupplierMode()).to.be.false;
     });

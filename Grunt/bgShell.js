@@ -1,6 +1,6 @@
 module.exports = {
   server: {
-    cmd: 'node server'
+    cmd: 'nodemon app'
   },
   protractor: {
     cmd: 'protractor spec/config/protractor.conf.js'

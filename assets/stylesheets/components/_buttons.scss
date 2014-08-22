@@ -26,6 +26,14 @@
     color: $color-blue-primary;
     margin-left: 10px;
   }
+
+  &:active {
+    box-shadow: none;
+
+    &:focus {
+      outline: 0;
+    }
+  }
 }
 
 .btn-lg.btn-rounded {

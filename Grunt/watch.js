@@ -1,7 +1,7 @@
 module.exports = {
   scripts: {
     files: ['<%= jsPath %>/app/**/*.js'],
-    tasks: ['concat:dev'],
+    tasks: ['concat:dev', 'concat:dist'],
     options: {
 
     }
@@ -11,7 +11,7 @@ module.exports = {
       '<%= cssPath %>/**/*.scss',
       '!<%= cssPath %>/**/styles.css',
     ],
-    tasks: ['sass:dev']
+    tasks: ['sass:dev', 'sass:dist', 'copy:styles']
   },
   templates:  {
     files: [

@@ -7,4 +7,5 @@ assets/stylesheets/styles.css
 assets/javascripts/app.js
 assets/javascripts/app/templates_module.js
 assets/javascripts/components.js
-dist/*
+public/javascripts/*
+public/stylesheets/*

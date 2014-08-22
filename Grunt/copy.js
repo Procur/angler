@@ -15,21 +15,24 @@ module.exports = {
       '<%= componentsPath %>/plupload/js/Moxie.swf',
       '<%= componentsPath %>/plupload/js/Moxie.xap'
     ],
-    dest: 'dist/javascripts/',
+    dest: 'public/javascripts/',
     flatten: true,
     filter: 'isFile'
   },
   styles: {
     expand: true,
     src: '<%= cssPath %>/styles.css',
-    dest: 'dist/stylesheets/',
+    dest: 'public/stylesheets/',
     flatten: true,
     filter: 'isFile'
   },
   assets: {
     expand: true,
-    src: '<%= imagePath %>/**/*.png',
-    dest: 'dist/images/',
+    src: [
+      '<%= imagePath %>/**/*.png',
+      '<%= imagePath %>/**/*.ico',
+    ],
+    dest: 'public/images/',
     flatten: true,
     filter: 'isFile'
   }
