@@ -5,6 +5,7 @@
 
   definitions = [
     '$scope',
+    'companyService',
     companyDetailsController
   ];
 

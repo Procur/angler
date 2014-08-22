@@ -16,7 +16,7 @@
           <div class="left-icon">
             <i class="glyphicon glyphicon-info-sign"></i>
           </div>
-          <h6>{{user.activeMode}} Information</h6>
+          <h6>{{user.activeMode()}} Information</h6>
         </a>
       </li>
       <li pc-nav="production_details" ng-show="user.isSupplierMode()">
@@ -56,7 +56,7 @@
           <div class="left-icon">
             <i class="glyphicon glyphicon-picture"></i>
           </div>
-          <h6>{{user.activeMode}} Photos</h6>
+          <h6>{{user.activeMode()}} Photos</h6>
         </a>
       </li>
     </ul>

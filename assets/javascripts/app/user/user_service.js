@@ -29,6 +29,7 @@
       toggleActiveMode: toggleActiveMode,
       isBuyerMode: isBuyerMode,
       isSupplierMode: isSupplierMode,
+      activeMode: activeMode
     };
 
     return self;
@@ -67,6 +68,10 @@
 
     function isSupplierMode() {
       return user.activeMode === 'supplier';
+    }
+
+    function activeMode() {
+      return user.activeMode;
     }
 
     function setInactiveMode() {

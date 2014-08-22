@@ -4,8 +4,6 @@
     dependencies;
 
   dependencies = [
-    'pc.User',
-    'pc.Company',
     'pc.FileUpload',
     'pc.Ajax',
     'pc.Snackbar'
