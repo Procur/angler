@@ -3,7 +3,7 @@ var
   router = express.Router();
 
 router.get('/', function(req, res) {
-  res.render('registration/index');
+  res.render('index', {localData: null});
 });
 
 module.exports = router;

@@ -35,7 +35,7 @@
 
     function submitCompanyInformation() {
       if (isFormValid()) {
-        ajax.post('/views/api/create_company.json', $scope.companyInformation)
+        ajax.post('/api/company', $scope.companyInformation)
           .then(company.setAll)
           .then(goToEmailVerification)
           ['catch'](ajax.handleError);

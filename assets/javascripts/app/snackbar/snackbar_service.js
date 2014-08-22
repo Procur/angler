@@ -124,8 +124,6 @@
             'background-color': config['background-color'] || COLORS.DEFAULT,
           },
           message: {
-            'font-size': config['font-size'] || '14px',
-            'font-weight': '300',
             'color': config.color || '#FFF'
           }
         };

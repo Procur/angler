@@ -1,9 +1,17 @@
 var
   express = require('express'),
-  router = express.Router();
+  router = express.Router(),
+  env = process.env.NODE_ENV || 'production';
 
 router.get('/', function(req, res) {
-  res.render('index');
+  var
+    locals = {};
+
+  if (env !== 'production') {
+    locals.localData = JSON.stringify(require('../../spec/support/test_data'));
+  }
+
+  res.render('index', locals);
 });
 
 module.exports = router;

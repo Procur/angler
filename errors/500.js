@@ -1,15 +1,16 @@
-module.exports = function(env) {
-  return handle500;
+var
+  env = process.env.NODE_ENV || 'production';
 
-  function handle500(err, req, res, next) {
-    res.status(err.status || 500);
+module.exports = function handle500(err, req, res, next) {
 
-    // no stacktraces leaked to user in production
-    res.render('error', {
-      message: err.message,
-      error: (env === 'production') ? {} : err
-    });
-  }
+
+  res.status(err.status || 500);
+
+  // no stacktraces leaked to user in production
+  res.render('error', {
+    message: err.message,
+    error: (env === 'development') ? err : {}
+  });
 };
 
 

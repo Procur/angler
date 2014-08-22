@@ -23,7 +23,7 @@
     $scope.alreadyVerified = alreadyVerified;
 
     function resendEmailVerification() {
-      ajax.post('/views/api/send_email_verification.json')
+      ajax.get('/api/user/verify_email')
         .then(user.setAll)
         .then(function() { snackbar.success('Resent email verification!'); })
         ['catch'](ajax.handleError);

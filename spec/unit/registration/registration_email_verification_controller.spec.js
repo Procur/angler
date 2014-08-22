@@ -49,11 +49,11 @@ describe('registrationEmailVerificationController', function() {
     };
 
     mockAjax = {
-      post: sinon.stub(),
+      get: sinon.stub(),
       handleError: sinon.spy()
     };
 
-    mockAjax.post.returns(mockPromise);
+    mockAjax.get.returns(mockPromise);
 
     userService = $injector.get('userService');
     userService.setAll = sinon.spy();
@@ -88,9 +88,9 @@ describe('registrationEmailVerificationController', function() {
         expect(typeof scope.resendEmailVerification).to.equal('function');
       });
 
-      it('should send a post request to resend the email verification', function() {
+      it('should send a get request to resend the email verification', function() {
         scope.resendEmailVerification();
-        expect(mockAjax.post).to.have.been.called;
+        expect(mockAjax.get).to.have.been.called;
       });
 
       it('should show a success snackbar', function() {

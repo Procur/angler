@@ -23,6 +23,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // config routes
 app.locals.title = 'Procur';
+
 routes(app);
 
 // catch errors

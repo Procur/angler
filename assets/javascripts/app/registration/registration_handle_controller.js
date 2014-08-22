@@ -21,7 +21,7 @@
     $scope.setHandle = setHandle;
 
     function setHandle() {
-      ajax.put('/views/api/set_company_handle.json', { handle: $scope.handle })
+      ajax.put('/api/company', { handle: $scope.handle })
         .then(company.setAll)
         .then(function() { $state.go('dashboard'); })
         ['catch'](ajax.handleError);

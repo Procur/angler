@@ -3,5 +3,6 @@
 ## Use
  - git clone
  - npm install
+ - export NODE_ENV='development'
  - grunt
- - http://localhost:8080/views
+ - http://localhost:3000/
