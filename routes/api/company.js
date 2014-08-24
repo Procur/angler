@@ -8,5 +8,6 @@ function create(req, res) {
 }
 
 function update(req, res) {
+  console.log(req.body);
   res.send(200, req.body);
 }

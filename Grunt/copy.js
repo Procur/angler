@@ -21,7 +21,10 @@ module.exports = {
   },
   styles: {
     expand: true,
-    src: '<%= cssPath %>/styles.css',
+    src: [
+      '<%= cssPath %>/my_procur.css',
+      '<%= cssPath %>/main.css',
+    ],
     dest: 'public/stylesheets/',
     flatten: true,
     filter: 'isFile'
@@ -30,6 +33,7 @@ module.exports = {
     expand: true,
     src: [
       '<%= imagePath %>/**/*.png',
+      '<%= imagePath %>/**/*.jpg',
       '<%= imagePath %>/**/*.ico',
     ],
     dest: 'public/images/',

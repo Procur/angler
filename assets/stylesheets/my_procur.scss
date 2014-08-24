@@ -1,0 +1,28 @@
+@import 'globals/colors';
+@import 'globals/typography';
+@import 'components/content_panel';
+@import 'components/lists';
+@import 'components/nav_panel';
+@import 'components/mobile_nav';
+@import 'components/buttons';
+@import 'components/inputs';
+@import 'components/profile_image';
+@import '../components/jcrop/css/_jcrop.scss';
+@import 'my_procur/snackbar/snackbar';
+@import 'my_procur/header/my_procur';
+@import 'my_procur/header/public_view';
+@import 'my_procur/header/registration_header';
+@import 'my_procur/registration/registration';
+@import 'my_procur/dashboard/dashboard';
+@import 'my_procur/user_account_settings/user_account_settings';
+@import 'my_procur/edit_company_profile/edit_company_profile';
+@import 'my_procur/view_company_profile/view_company_profile';
+
+body {
+  background-color: $color-white;
+  padding-bottom: 20px;
+}
+
+.container {
+  padding-bottom: 15px;
+}

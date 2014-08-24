@@ -1,0 +1,229 @@
+/* DASHBOARD HEADER */
+
+#dashboard-header {
+  background: #EDECE8;
+  min-height: 55px;
+  padding-left: 25px;
+  padding-right: 25px;
+}
+
+#subnav-header {
+  background: #333132;
+  min-height: 37px;
+  padding-left: 25px;
+  padding-right: 25px;
+}
+
+.dashboard-header-left {
+  float: left;
+}
+
+.logo-image {
+  position: relative;
+  top: 17px;
+}
+
+.ea-link-image {
+  position: relative;
+  top: 13px;
+  left: 8px;
+}
+
+.dashboard-header-right {
+  float: right;
+}
+
+.dashboard-header-right p.typeToggle {
+  display: inline;
+  position: relative;
+  top: 17px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px;
+  color: #575556;
+  letter-spacing: 0.06em;
+  margin-right: 20px;
+}
+
+.dashboard-header-right p.typeToggle:hover {
+  cursor: pointer;
+  color: #a3a3a3;
+}
+
+.dashboard-header-right p.typeToggle:hover i {
+  color: #5DC672;
+}
+
+.dashboard-header-right a.logout-link {
+  display: inline;
+  position: relative;
+  top: 17px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px;
+  color: #575556;
+  letter-spacing: 0.06em;
+}
+
+.dashboard-header-right a.logout-link:hover {
+  color: orange;
+  text-decoration: none;
+}
+
+p.userCompanyName {
+  position: relative;
+  left: 200px;
+  top: -6px;
+}
+
+#subnav-header .myprocur-label {
+  color: #e3e3e3;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px;
+  display: inline;
+  letter-spacing: 0.06em;
+  margin-right: 10px;
+  top: 7px;
+  position: relative;
+}
+
+#subnav-header .navLink {
+  color: #c3c3c3;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 300;
+  letter-spacing: 0.06em;
+  top: 7px;
+  position: relative;
+  padding: 7px 7px 10px;
+}
+
+#subnav-header .navLink:hover {
+  color: white;
+  background: black;
+  text-decoration: none;
+}
+
+/* DASHBOARD FOOTER */
+
+#dashboard-footer {
+  background: #333;
+  margin-top: 70px;
+}
+
+#dashboard-footer .navbar,
+#dashboard-footer .navbar-default,
+#dashboard-footer .navbar-fixed-top {
+  border: 0px none;
+  background: #333;
+}
+
+#dashboard-footer .navbar-text a {
+  color: #e3e3e3;
+}
+
+#dashboard-footer .linkText a {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  letter-spacing: 0.08em;
+  font-size: 10px;
+}
+
+#dashboard-footer .linkText a:hover {
+  color: #807e7e;
+  text-decoration: none;
+}
+
+#dashboard-footer .linkText a i {
+  font-size: 12px;
+  margin-right: 5px;
+  color: #807e7e;
+}
+
+#dashboard-footer .right-section p {
+  margin-left: 8px;
+  margin-right: 8px;
+  font-size: 12px;
+}
+
+#dashboard-footer .socialBar {
+  float: right;
+}
+
+#dashboard-footer .socialBar p {
+  margin-left: 8px;
+  margin-right: 8px;
+  display: inline;
+}
+
+#dashboard-footer .socialBar p a {
+  color: #807e7e;
+}
+
+#dashboard-footer .socialBar p a:hover {
+  color: white;
+}
+
+#dashboard-footer .left-section {
+  float: left;
+}
+
+#dashboard-footer .right-section {
+  float: right;
+}
+
+@media (max-width: 991px) {
+
+  #dashboard-footer nav {
+    padding-left: 25px;
+  }
+
+  #dashboard-footer {
+    margin-top: 140px;
+  }
+
+}
+
+@media (max-width: 784px) {
+
+  .navbar-fixed-bottom {
+    position: relative;
+  }
+
+  #dashboard-footer {
+    margin-top: 60px;
+  }
+
+  #dashboard-footer nav {
+    padding-right: 25px;
+  }
+
+  .left-section {
+    width: 100%;
+    text-align: center;
+  }
+
+  .right-section {
+    width: 100%;
+    text-align: center;
+  }
+  #mobile-fix {
+    padding-left: 15px;
+  }
+
+}
+
+#dash-header {
+  position: relative;
+  height: 64px;
+  width: 100%;
+  background: white;
+  margin-bottom: 0px;
+  z-index: 99999;
+}
+
+#dash-header ul {
+  position: relative;
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
+}
+

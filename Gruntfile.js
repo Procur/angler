@@ -27,8 +27,8 @@ function gruntConfig(grunt) {
     }
   }
 
-  grunt.registerTask('build:dev', ['concat:components', 'ngtemplates:dev', 'concat:dev', 'sass:dev']);
-  grunt.registerTask('build:dist', ['build:dev', 'concat:dist', 'uglify:dist', 'copy:styles', 'sass:dist', 'copy:assets']);
+  grunt.registerTask('build:dev', ['concat:components', 'ngtemplates:dev', 'concat:dev', 'sass:my_procur_dev', 'sass:main_dev']);
+  grunt.registerTask('build:dist', ['build:dev', 'concat:dist', 'uglify:dist', 'copy:styles', 'sass:my_procur_dist', 'sass:main_dist', 'copy:assets']);
   grunt.registerTask('server', ['bgShell:server']);
   grunt.registerTask('protractor', ['bgShell:protractor']);
   grunt.registerTask('test:dev', ['build:dev', 'karma:dev', 'protractor']);
