@@ -5,6 +5,7 @@
 
   definitions = [
     '$window',
+    '$rootScope',
     '_',
     'companyService',
     userService
@@ -13,7 +14,7 @@
   angular.module('pc.User')
     .factory('userService', definitions);
 
-  function userService($window, _, company) {
+  function userService($window, $rootScope, _, company) {
     var
       user,
       self;
@@ -59,6 +60,7 @@
       if (user.inactiveMode) {
         setActiveMode(user.inactiveMode);
         setInactiveMode();
+        $rootScope.$emit('activeModeChanged', user.activeMode);
       }
     }
 
