@@ -24,12 +24,26 @@
       var validationTypes = scope.validationType.split(" ");
       elm.on('blur keyup', function() {
         for (var i in validationTypes) {
-          if (validationTypes[i] === "required") requireValidation();
+          if (validationTypes[i] === 'digits') digitsValidation();
+          if (validationTypes[i] === 'text') textValidation();
+          if (validationTypes[i] === 'required') requireValidation();
           if (validationTypes[i] === 'email') emailValidation();
           if (validationTypes[i] === 'password') passwordValidation();
           if (validationTypes[i] === 'url') urlValidation();
         }
       });
+
+      function digitsValidation() {
+        //TODO see if correct
+        ctrl.$setValidity('pcDigits', /^\d+$/.test(ctrl.$viewValue));
+        errorDecorator(ctrl.$error.pcDigits && ctrl.$dirty && ctrl.$viewValue, "Must be numbers only.");
+      }
+
+      function textValidation() {
+        //TODO see if correct
+        ctrl.$setValidity('pcDigits', /^[a-zA-Z]*$/.test(ctrl.$viewValue));
+        errorDecorator(ctrl.$error.pcDigits && ctrl.$dirty && ctrl.$viewValue, "Must be Letters only.");
+      }
 
       function requireValidation() {
         ctrl.$viewValue ? ctrl.$setValidity('pcRequired', true) : ctrl.$setValidity('pcRequired', false);

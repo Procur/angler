@@ -49,5 +49,19 @@ describe('pcConfirm Directive:', function() {
     expect(confirmElement.children()[2].innerHTML).to.equal('Does not match.');
   });
 
+  it("Error message goes away", function() {
+    expect(confirmElement.children()[2]).to.be.undefined;
+    scope.field = "Valid1..";
+    scope.$digest();
+    form.email_c.$setViewValue("text");
+    confirmElement.children().trigger('blur');
+    expect(confirmElement.children()[2].innerHTML).to.equal('Does not match.');
+    form.email_c.$setViewValue("Valid1..");
+    confirmElement.children().trigger('blur');
+    expect(confirmElement.children()[2]).to.be.undefined;  
+  });
+
+
+
 
 });
