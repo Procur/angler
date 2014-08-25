@@ -12,7 +12,6 @@
     .controller('companyInformationController', definitions);
 
   function companyInformationController($scope) {
-
   }
 
 })(angular);
