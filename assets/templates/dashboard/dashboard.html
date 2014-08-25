@@ -18,14 +18,14 @@
         <ul class="list-separator">
           <li>
             <a ui-sref="user_account_settings.update_settings">
-              <span class="glyphicon glyphicon-cog"></span>
+              <span class="fa fa-cog"></span>
               Edit User Account Settings
             </a>
           </li>
 
           <li>
             <a ui-sref="view_company_profile.view_company_description">
-              <span class="glyphicon glyphicon-user"></span>
+              <span class="fa fa-users"></span>
               View My Company Profile
             </a>
           </li>
@@ -73,12 +73,12 @@
             <span ng-switch="item.complete">
               <span ng-switch-when="false">
                 <a ui-sref="{{item.link}}">
-                  <span class="glyphicon glyphicon-unchecked"></span>
+                  <span class="fa fa-circle-o"></span>
                   <h5>{{item.action}}</h5>
                 </a>
               </span>
               <span ng-switch-when="true">
-                <span class="glyphicon glyphicon-check"></span>
+                <span class="fa fa-check-circle"></span>
                 <h5>{{item.action}}</h5>
               </span>
             </span>
@@ -93,7 +93,7 @@
       <li>
         <a ui-sref="edit_company_profile">
           <div class="left-icon">
-            <span class="glyphicon glyphicon-user"></span>
+            <span class="fa fa-user"></span>
           </div>
           <h6>Company Profile</h6>
         </a>
@@ -105,7 +105,7 @@
       <li ng-repeat="feature in comingSoon track by $index" ng-mouseenter="feature.hover = true" ng-mouseleave="feature.hover = false">
         <a>
           <div class="left-icon">
-            <span class="glyphicon {{feature.icon}}"></span>
+            <span class="fa {{feature.icon}}"></span>
           </div>
           <h6>{{feature.hover ? feature.alt : feature.label}}</h6>
         </a>

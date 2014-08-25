@@ -2,13 +2,14 @@ module.exports = {
   dist: {
     options: {
       sourceMap: true,
-      sourceMapName: 'public/javascripts/build.map',
+      sourceMapName: '<%= pubJsPath %>/my_procur.map',
       compress: {
         drop_console: true
       }
     },
     files: {
-      'public/javascripts/build.min.js': ['public/javascripts/build.js']
+      '<%= pubJsPath %>/components.min.js': ['<%= pubJsPath %>/components.js'],
+      '<%= pubJsPath %>/my_procur.min.js': ['<%= pubJsPath %>/my_procur.js']
     }
   }
 };

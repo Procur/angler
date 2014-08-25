@@ -12,7 +12,7 @@
       <ul class="list-inline">
         <li ng-repeat="progress in wizard.progressBar track by $index">
           <div ng-if="!$first" class="progress-line progress-line-left"></div>
-          <span class="progress-indicator" ng-class="{'in-progress': progress.status === 0, 'not-started': progress.status === -1, 'completed': progress.status === 1}"></span>
+          <span class="progress-indicator fa " ng-class="{'fa-circle': progress.status === 0, 'fa-circle-o': progress.status === -1, 'fa-check-circle': progress.status === 1}"></span>
           <p class="text-center" ng-class="{active: progress.status === 0}">{{progress.label}}</p>
           <div ng-if="!$last" class="progress-line progress-line-right"></div>
         </li>

@@ -8,55 +8,48 @@ module.exports = {
       '<%= componentsPath %>/plupload/js/plupload.dev.js',
       '<%= componentsPath %>/jcrop/js/jquery.Jcrop.js'
     ],
-    dest: '<%= jsPath %>/components.js'
+    dest: '<%= pubJsPath %>/components.js'
   },
-  dev: {
+  my_procur: {
     options: {
       process: function(src, filepath) {
         return '\n// ' + filepath + '\n' + src;
       }
     },
     src: [
-      '<%= jsPath %>/app/third_party/*.js',
-      '<%= jsPath %>/app/ajax/ajax_module.js',
-      '<%= jsPath %>/app/ajax/*.js',
-      '<%= jsPath %>/app/file_upload/file_upload_module.js',
-      '<%= jsPath %>/app/file_upload/*.js',
-      '<%= jsPath %>/app/snackbar/snackbar_module.js',
-      '<%= jsPath %>/app/snackbar/*.js',
-      '<%= jsPath %>/app/company/company_module.js',
-      '<%= jsPath %>/app/company/*.js',
-      '<%= jsPath %>/app/buyer_supplier/buyer_supplier_module.js',
-      '<%= jsPath %>/app/buyer_supplier/*.js',
-      '<%= jsPath %>/app/user/user_module.js',
-      '<%= jsPath %>/app/user/*.js',
-      '<%= jsPath %>/app/validation/validation_module.js',
-      '<%= jsPath %>/app/validation/*.js',
-      '<%= jsPath %>/app/nav/nav_module.js',
-      '<%= jsPath %>/app/nav/*.js',
-      '<%= jsPath %>/app/registration/registration_module.js',
-      '<%= jsPath %>/app/registration/*.js',
-      '<%= jsPath %>/app/dashboard/dashboard_module.js',
-      '<%= jsPath %>/app/dashboard/*.js',
-      '<%= jsPath %>/app/view_company_profile/view_company_profile_module.js',
-      '<%= jsPath %>/app/view_company_profile/*.js',
-      '<%= jsPath %>/app/user_account_settings/user_account_settings_module.js',
-      '<%= jsPath %>/app/user_account_settings/*.js',
-      '<%= jsPath %>/app/edit_company_profile/edit_company_profile_module.js',
-      '<%= jsPath %>/app/edit_company_profile/*.js',
-      '<%= jsPath %>/app/states/states_module.js',
-      '<%= jsPath %>/app/states/*.js',
-      '<%= jsPath %>/app/templates_module.js',
-      '<%= jsPath %>/app/main_module.js',
-      '<%= jsPath %>/app/**/*.js',
+      '<%= jsPath %>/my_procur/third_party/*.js',
+      '<%= jsPath %>/my_procur/ajax/ajax_module.js',
+      '<%= jsPath %>/my_procur/ajax/*.js',
+      '<%= jsPath %>/my_procur/file_upload/file_upload_module.js',
+      '<%= jsPath %>/my_procur/file_upload/*.js',
+      '<%= jsPath %>/my_procur/snackbar/snackbar_module.js',
+      '<%= jsPath %>/my_procur/snackbar/*.js',
+      '<%= jsPath %>/my_procur/company/company_module.js',
+      '<%= jsPath %>/my_procur/company/*.js',
+      '<%= jsPath %>/my_procur/buyer_supplier/buyer_supplier_module.js',
+      '<%= jsPath %>/my_procur/buyer_supplier/*.js',
+      '<%= jsPath %>/my_procur/user/user_module.js',
+      '<%= jsPath %>/my_procur/user/*.js',
+      '<%= jsPath %>/my_procur/validation/validation_module.js',
+      '<%= jsPath %>/my_procur/validation/*.js',
+      '<%= jsPath %>/my_procur/nav/nav_module.js',
+      '<%= jsPath %>/my_procur/nav/*.js',
+      '<%= jsPath %>/my_procur/registration/registration_module.js',
+      '<%= jsPath %>/my_procur/registration/*.js',
+      '<%= jsPath %>/my_procur/dashboard/dashboard_module.js',
+      '<%= jsPath %>/my_procur/dashboard/*.js',
+      '<%= jsPath %>/my_procur/view_company_profile/view_company_profile_module.js',
+      '<%= jsPath %>/my_procur/view_company_profile/*.js',
+      '<%= jsPath %>/my_procur/user_account_settings/user_account_settings_module.js',
+      '<%= jsPath %>/my_procur/user_account_settings/*.js',
+      '<%= jsPath %>/my_procur/edit_company_profile/edit_company_profile_module.js',
+      '<%= jsPath %>/my_procur/edit_company_profile/*.js',
+      '<%= jsPath %>/my_procur/states/states_module.js',
+      '<%= jsPath %>/my_procur/states/*.js',
+      '<%= jsPath %>/my_procur/templates_module.js',
+      '<%= jsPath %>/my_procur/main_module.js',
+      '<%= jsPath %>/my_procur/**/*.js',
     ],
-    dest: '<%= jsPath %>/app.js'
-  },
-  dist: {
-    src: [
-      '<%= jsPath %>/components.js',
-      '<%= jsPath %>/app.js'
-    ],
-    dest: 'public/javascripts/build.js'
+    dest: '<%= pubJsPath %>/my_procur.js'
   }
 };

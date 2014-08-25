@@ -36,7 +36,7 @@ ul.list-checklist {
     padding: 0;
     padding-bottom: 10px;
 
-    .glyphicon {
+    .fa {
       margin-right: 10px;
     }
 
@@ -47,7 +47,7 @@ ul.list-checklist {
       }
 
     &.complete {
-      .glyphicon {
+      .fa {
         color: $color-blue-primary;
       }
 
@@ -58,7 +58,7 @@ ul.list-checklist {
     }
 
     &.incomplete {
-      .glyphicon {
+      .fa {
         color: $color-gray-light;
       }
     }

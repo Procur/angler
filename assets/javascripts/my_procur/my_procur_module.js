@@ -15,6 +15,6 @@
     'pc.ViewCompanyProfile'
   ];
 
-  angular.module('pc.Main', dependencies);
+  angular.module('pc.MyProcur', dependencies);
 
 })(angular);

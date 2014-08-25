@@ -4,7 +4,7 @@ module.exports = {
       style: 'expanded'
     },
     files: {
-      '<%= cssPath %>/my_procur.css': '<%= cssPath %>/my_procur.scss'
+      '<%= pubCssPath %>/my_procur.css': '<%= cssPath %>/my_procur.scss'
     }
   },
   my_procur_dist: {
@@ -12,7 +12,7 @@ module.exports = {
       style: 'compressed'
     },
     files: {
-      'public/stylesheets/my_procur.min.css': 'public/stylesheets/my_procur.css'
+      '<%= pubCssPath %>/my_procur.min.css': '<%= pubCssPath %>/my_procur.css'
     }
   },
   main_dev: {
@@ -20,7 +20,7 @@ module.exports = {
       style: 'expanded'
     },
     files: {
-      '<%= cssPath %>/main.css': '<%= cssPath %>/main.scss'
+      '<%= pubCssPath %>/main.css': '<%= cssPath %>/main.scss'
     }
   },
   main_dist: {
@@ -28,7 +28,7 @@ module.exports = {
       style: 'compressed'
     },
     files: {
-      'public/stylesheets/main.min.css': 'public/stylesheets/main.css'
+      '<%= pubCssPath %>/main.min.css': '<%= pubCssPath %>/main.css'
     }
   }
 };

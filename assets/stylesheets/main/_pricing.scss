@@ -1,0 +1,430 @@
+#pricing #heroArea {
+  width: 100%;
+  background: url('../../images/pricingBG.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 0% 30%;
+  height: 300px;
+  margin-bottom: 30px;
+}
+
+#pricing #heroArea .textArea {
+  background: rgba(255,255,255,0.8);
+  padding: 20px 30px;
+  margin-top: 30px;
+  float: left;
+
+}
+
+#pricing #heroArea .textArea h1 {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 22px;
+  font-weight: 300;
+  margin: 0px;
+  padding: 0px;
+  line-height: 36px;
+}
+
+#pricing #heroArea .pill {
+    border-radius: 25px 25px 25px 25px;
+    height: 50px;
+    background: rgba(0,0,0,0.7);
+    padding: 10px;
+    text-align: center;
+    margin-top: 200px;
+    line-height: 30px;
+}
+#pricing #heroArea .pill:hover {
+  background: rgba(0,0,0,0.8);
+}
+
+#pricing #heroArea a:hover {
+  text-decoration: none;
+}
+
+#pricing #heroArea a {
+  font-family: 'Montserrat', sans-serif;
+  color: white;
+  letter-spacing: 0.06em;
+}
+
+#pricing #heroContainer {
+  margin-left: 0;
+  margin-right: 0;
+  width: 100%;
+  padding-right: 30px;
+}
+
+/* Coming Soon! Section */
+
+#pricing .comingSoon h1 {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+  color: #fcab27;
+  font-size: 25px;
+  margin: 30px 0px 20px;
+}
+
+#pricing .comingSoon p {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  color: #444;
+  font-size: 16px;
+  line-height: 28px;
+}
+
+#pricing .comingSoon p b {
+  font-weight: 500;
+}
+
+#pricing #registerNow {
+  padding-top: 30px;
+  margin-bottom: 30px;
+  margin-top: 55px;
+}
+
+#pricing #registerNow a:hover {
+  text-decoration: none;
+}
+
+#pricing #registerNow .registerNowButton {
+  border: 2px solid #fcab27;
+  padding: 6px 12px;
+  color: #333132;
+  font-family: 'Montserrat', sans-serif;
+  text-transform: uppercase;
+  font-weight: 300;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-align: center;
+}
+
+#pricing #registerNow .registerNowButton:hover {
+  background: #fcab27;
+  color: white;
+  text-decoration: none;
+}
+
+#pricing #registerNow .helper {
+  float: right;
+  margin-top: 10px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: #7f7f7f;
+}
+
+/* Pricing Comparison Section */
+
+.pricingComparison #fatHR {
+  width: 25%;
+  float:left;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: 3px solid #d3d3d3;
+}
+
+.pricingComparison #fatWrapper {
+  width:100%;
+  height:30px;
+  margin-top: 30px;
+
+}
+
+.pricingComparison h1 {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+  color: #d3d3d3;
+}
+
+.pricingComparison h2 {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+  color: #7f7f7f;
+  font-size: 22px;
+  margin-top: 0;
+}
+
+#pricing .basicMember .memberTitle {
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  color: white;
+  font-weight: 300;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: #7b7c79;
+  padding: 12px;
+}
+
+#pricing .basicMember .memberPrice {
+  text-align: center;
+  font-family: 'Open Sans', sans-serif;
+  color: #333132;
+  font-weight: 300;
+  font-size: 36px;
+  background: #e8e7e3;
+  padding: 20px 0px;
+}
+
+#pricing .basicMember .memberDetails {
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  color: #7b7c79;
+  font-weight: 300;
+  font-size: 10px;
+  background: #e8e7e3;
+  padding: 10px 20px 20px;
+  padding-bottom: 40px;
+}
+
+#pricing .premiumMember .memberTitle {
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  color: white;
+  font-weight: 300;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: $color-blue-primary;
+  padding: 12px;
+}
+
+#pricing .premiumMember .memberPrice {
+  text-align: center;
+  font-family: 'Open Sans', sans-serif;
+  color: #333132;
+  font-weight: 300;
+  font-size: 36px;
+  background: #e8e7e3;
+  padding: 20px 0px;
+  padding-bottom: 0;
+}
+
+#pricing .premiumMember .memberDetails {
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  color: #7b7c79;
+  font-weight: 300;
+  font-size: 10px;
+  background: #e8e7e3;
+  padding: 10px 20px 20px;
+}
+
+#pricing .premiumMember #priceRate {
+  font-family: 'Montserrat', sans-serif;
+  color: black;
+  font-weight: 300;
+  font-size: 10px;
+}
+
+#pricing .premiumMember h4{
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  font-size: 8px;
+  letter-spacing: 0.04em;
+  color: #7f7f7f;
+  text-transform: uppercase;
+  margin: 0;
+  margin-bottom: 6px;
+}
+
+#pricing .premiumMember h3{
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 100;
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  color: #7f7f7f;
+  margin: 0;
+  margin-bottom: 3px;
+}
+
+#pricing .premiumMember h5{
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  font-size: 8px;
+  letter-spacing: 0.04em;
+  color: black;
+  text-transform: uppercase;
+  margin: 0;
+  margin-top: 7px;
+}
+
+
+#pricing .sectionTitle {
+  background: #fcab27;
+}
+
+#pricing .sectionTitle h4 {
+  font-family: 'Montserrat', sans-serif;
+  color: white;
+  font-weight: 300;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+#pricing .itemRow {
+  background: #ededed;
+  -webkit-transition: all 200ms ease-in-out;
+  -moz-transition: all 200ms ease-in-out;
+  -ms-transition: all 200ms ease-in-out;
+  -o-transition: all 200ms ease-in-out;
+  transition: all 200ms ease-in-out;
+  border-bottom: 1px dotted #d3d3d3;
+}
+
+#pricing .rowTitle {
+  padding: 10px 20px 10px 0px;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+}
+
+#pricing .checkColumn {
+  background: #e6e6e6;
+  text-align: center;
+  padding: 10px 20px;
+  font-size: 18px;
+  -webkit-transition: all 200ms ease-in-out;
+  -moz-transition: all 200ms ease-in-out;
+  -ms-transition: all 200ms ease-in-out;
+  -o-transition: all 200ms ease-in-out;
+  transition: all 200ms ease-in-out;
+}
+
+#pricing .checkColumn .fa-check {
+  color: #2da163;
+}
+
+#pricing .itemRow:hover {
+  /*Highlights a row when it is hovered over*/
+  background: #f7f7f7;
+  -webkit-transition: all 200ms ease-in-out;
+  -moz-transition: all 200ms ease-in-out;
+  -ms-transition: all 200ms ease-in-out;
+  -o-transition: all 200ms ease-in-out;
+  transition: all 200ms ease-in-out;
+
+}
+
+#pricing .itemRow:hover .checkColumn {
+  /*Highlights a row when it is hovered over*/
+  background: none transparent;
+  background: #f1f1f1;
+  -webkit-transition: all 200ms ease-in-out;
+  -moz-transition: all 200ms ease-in-out;
+  -ms-transition: all 200ms ease-in-out;
+  -o-transition: all 200ms ease-in-out;
+  transition: all 200ms ease-in-out;
+}
+
+#pricing .col-xs-3{
+  padding-right: 0px;
+}
+
+#pricing .spacerRow {
+  height: 10px;
+}
+
+#pricing .spacerRow .checkColumn {
+  padding: 0px;
+  height: 10px;
+}
+
+#pricing .startedRow .checkColumn {
+  padding: 0px;
+}
+
+#pricing .startedRow .checkColumn p {
+  font-family: 'Montserrat', sans-serif;
+  padding: 20px 20px 10px;
+}
+
+#pricing .startedRow .checkColumn .basicComingSoon {
+  background: #7b7c79;
+  padding: 8px;
+  font-family: 'Montserrat', sans-serif;
+  color: white;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+}
+
+#pricing .startedRow .checkColumn .premiumComingSoon {
+  background: $color-blue-primary;
+  padding: 8px;
+  font-family: 'Montserrat', sans-serif;
+  color: white;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+}
+
+#pricing .commonQuestions h3 {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 22px;
+  font-weight: 300;
+  color: #444;
+  margin-top: 0px;
+}
+
+#pricing .commonQuestions h4 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  font-weight: 300px;
+  letter-spacing: 0.06em;
+  border-bottom: 2px solid #d3d3d3;
+  padding-bottom: 8px;
+}
+
+#pricing .invitation h4 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  font-weight: 300px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 20px;
+  color: #333132;
+}
+
+#pricing .invitation p {
+  font-size: 13px;
+}
+
+#pricing .invitation a {
+  color: #fcab27;
+}
+
+/*
+#pricing>.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
+
+padding-right: 0
+}*/
+
+#pricing #pricingDetailsBottom {
+  margin-top: 50px;
+}
+
+#pricing #pricingDetailsAdditional a:hover{
+  text-decoration: underline;
+}
+
+#pricing #pricingDetailsAdditional a{
+  color: #ef9818;
+}
+
+#pricing .commonQuestions p {
+  margin-bottom: 20px;
+}
+
+#pricing .commonQuestions a:hover {
+  text-decoration: underline;
+}
+
+#pricing .commonQuestions a {
+  color: #ef9818;
+}
+
+#pricing .invitation h4{
+  margin-bottom: 0;
+  font-size: 11px;
+}

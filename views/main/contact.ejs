@@ -1,0 +1,216 @@
+<%- include ../partials/main/_header %>
+
+<span class="marketing-heading-bordered">
+<%- include ../partials/main/_mkt_header %>
+</span>
+
+<div id="contact">
+  <div class="container" id="contactPage">
+    <div class="row topRow">
+      <div class="col-sm-4">
+        <h4>Connect With Us</h4>
+        <ul>
+          <li><a href="http://facebook.com/procurintl" target="_blank"><i class="fa fa-facebook"></i></a></li>
+          <li><a href="http://twitter.com/procur_intl" target="_blank"><i class="fa fa-twitter"></i></a></li>
+          <li><a href="https://www.linkedin.com/company/procur" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+          <li><a href="http://pinterest.com/procurintl" target="_blank"><i class="fa fa-pinterest"></i></a></li>
+          <li><a href="http://www.good.is/members/procurintl" target="_blank"><i class="fa fa-plus-square"></i></a></li>
+        </ul>
+        <h4>Tell Us What You Think</h4>
+        <p>Please give us your feedback on our application and features in the form below!</p>
+      </div>
+      <div class="col-sm-4 middleColumn">
+        <h4>Additional Help &amp; Support</h4>
+        <p>Visit our <a class="copy-link" href="/faq" target="_blank">FAQ</a> or take a look at our <a class="copy-link" href="/earlyaccess" target="_blank">Early Access</a> page for more information on existing and upcoming features.</p>
+        <h4>Get a Look at What's Next</h4>
+        <p>Take a look at our <a class="copy-link" href="/features" target="_blank">Features</a> page for information about all our intended features.</p>
+      </div>
+      <div class="col-sm-4">
+      <h4>Sign Up for Our Mailing List</h4>
+      <form action="/contact/subscribe" method="post" id="subscriberForm">
+
+        <div class="row" id="login">
+          <div class="col-sm-8">
+            <input class="mailingListInput" type="text" name="subscriberEmail" placeholder="email@your-address.com">
+          </div>
+          <div class="col-sm-4 subscribe-submit">
+            <button type="submit">Submit</button>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="mailingListBoxes">
+              <input type="checkbox" name="chkList1" id="list1" checked>
+                <label for="list1" class="checkboxText">Procur.com Changes and Updates</label><br>
+              <input type="checkbox" name="chkList2" id="list2" checked>
+                <label for="list2" class="checkboxText">Trade &amp; Industry Newsletter</label><br>
+              <input type="checkbox" name="chkList3" id="list3" checked>
+                <label for="list3" class="checkboxText">General News &amp; Announcements</label>
+            </div>
+          </div>
+        </div>
+
+      </form>
+      </div>
+    </div>
+    <hr class="dotted">
+    <div class="row">
+      <!-- BOTTOM LEFT SECTION -->
+      <div class="col-sm-8">
+        <div class="row heroRow">
+          <div class="col-sm-12">
+            <p><span class="dark">At Procur, we are building a community and platform that is designed to be both useful and enjoyable.</span> Whether you'd like to submit feedback, have a question for Support, or have another comment or inquiry, we're glad to help. Contact us.</p>
+          </div>
+        </div>
+
+        <div class="row" id="login">
+          <div class="col-sm-12">
+            <h3>Get In Touch With Us Now</h3>
+          </div>
+          <form action="/contact" method="post" id="contactForm">
+          <div class="col-sm-5">
+            <div class="contact-email">
+              <input name="email" placeholder="email@your-address.com" type="text">
+            </div><br/>
+
+            <h5>Please select a subject:</h5>
+            <div class="styledSelect">
+              <select name="field1" class="contact-first-dropdown">
+                <option disabled selected value="">
+                  What's your reason for contacting us?*
+                </option>
+
+                <option value="Help &amp; Support">
+                  Help &amp; Support
+                </option>
+
+                <option value="Partnerships">
+                  Partnerships
+                </option>
+
+                <option value="Press &amp; Media">
+                  Press &amp; Media
+                </option>
+
+                <option value="Feedback">
+                  Feedback
+                </option>
+
+                <option value="General Inquiries">
+                  General Inquiries
+                </option>
+              </select>
+            </div>
+
+
+            <div class="styledSelect">
+              <select name="field2" class="contact-second-dropdown" disabled="disabled">
+                <option disabled selected value="">
+                  --
+                </option>
+              </select>
+            </div>
+
+          </div> <!-- END DROPDOWN SECTION -->
+          <div class="col-sm-7">
+
+            <div>
+              <textarea cols="90" form="contactForm" name="content" placeholder=
+              "Write a message here." rows="15"></textarea>
+            </div>
+
+            <div class="contact-submit">
+              <button type="submit">Send</button>
+            </div>
+
+          </div> <!-- END TEXTAREA / SUBMIT SECTION -->
+        </div>
+      </div>
+
+      <!-- BOTTOM RIGHT SECTION -->
+      <div class="col-sm-4 infoSection">
+        <h3>Departments</h3>
+
+        <div class="row">
+          <div class="col-sm-12">
+            <p>Have a specific question? Direct it to one of our departments at the email addresses below.
+          </div>
+        </div>
+
+        <div class="row emails">
+          <div class="col-sm-6">
+            <h5>General Inquiries</h5>
+            <a href="mailto:info@procur.com">info@procur.com</a>
+
+            <h5>Support</h5>
+            <a href="mailto:support@procur.com">support@procur.com</a>
+
+            <h5>Sales &amp; Membership</h5>
+            <a href="mailto:sales@procur.com">sales@procur.com</a>
+
+          </div>
+          <div class="col-sm-6">
+            <h5>Press &amp; Media</h5>
+            <a href="mailto:media@procur.com">media@procur.com</a>
+
+            <h5>Social Media</h5>
+            <a href="mailto:social@procur.com">social@procur.com</a>
+
+            <h5>Careers</h5>
+            <a href="mailto:careers@procur.com">careers@procur.com</a>
+          </div>
+        </div>
+
+        <hr class="dotted">
+
+        <div class="row">
+          <div class="col-sm-12">
+            <p>Get in touch with us directly by mail or phone.</p>
+          </div>
+
+          <div class="col-sm-6">
+          <h5>Mailing Address</h5>
+            <p>Procur Systems<br/>
+            3400 Peachtree Rd NE<br/>
+            Suite 900<br/>
+            Atlanta, GA 30326</p>
+          </div>
+          <div class="col-sm-6">
+            <h5>Telephone</h5>
+            <p>+1 866 860 3130</p>
+
+            <h5>Fax</h5>
+            <p>+1 404 900 5116</p>
+          </div>
+        </div>
+
+        <hr class="dotted">
+
+        <div class="row">
+          <div class="col-sm-12">
+            <p>MEDIA &amp; PRESS INQUIRIES:<br/>
+            Please contact <a href="mailto:media@procur.com">media@procur.com</a> for more information.
+            </p>
+          </div>
+        </div>
+
+        <hr class="dotted">
+
+        <div class="row">
+          <div class="col-sm-12">
+            <p>JOBS, CAREERS &amp; INTERNSHIPS:<br/>
+            Please contact <a href="mailto:careers@procur.com">careers@procur.com</a> to find out more about working at Procur.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include ../partials/main/_dashboard_footer %>
+
+<%- include ../partials/main/_footer %>
+

@@ -13,11 +13,11 @@ module.exports = function(config) {
     files: [
         '../../assets/components/jquery/dist/jquery.min.js',
 
-        '../../assets/javascripts/components.js',
+        '../../public/javascripts/components.js',
 
         '../../assets/components/angular-mocks/angular-mocks.js',
 
-        '../../assets/javascripts/app.js',
+        '../../public/javascripts/my_procur.js',
 
         '../unit/**/*.spec.js'
     ],
@@ -29,7 +29,7 @@ module.exports = function(config) {
     port: 8081,
 
     preprocessors: {
-      '../../assets/javascripts/app.js': ['coverage'],
+      '../../public/javascripts/my_procur.js': ['coverage'],
     },
 
     // test results reporter to use

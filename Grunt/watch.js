@@ -1,7 +1,7 @@
 module.exports = {
   scripts: {
-    files: ['<%= jsPath %>/app/**/*.js'],
-    tasks: ['concat:dev', 'concat:dist'],
+    files: ['<%= jsPath %>/my_procur/**/*.js'],
+    tasks: ['concat:my_procur'],
     options: {
 
     }
@@ -12,12 +12,12 @@ module.exports = {
       '!<%= cssPath %>/**/my_procur.css',
       '!<%= cssPath %>/**/main.css'
     ],
-    tasks: ['sass:my_procur_dev', 'sass:my_procur_dist', 'sass:main_dev', 'sass:main_dist', 'copy:styles']
+    tasks: ['sass:my_procur_dev', 'sass:main_dev']
   },
   templates:  {
     files: [
       '<%= htmlPath %>/**/*.html'
     ],
-    tasks: ['ngtemplates:dev']
+    tasks: ['ngtemplates:my_procur']
   }
 };

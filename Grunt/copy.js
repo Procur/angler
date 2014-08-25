@@ -5,27 +5,7 @@ module.exports = {
       '<%= componentsPath %>/plupload/js/Moxie.swf',
       '<%= componentsPath %>/plupload/js/Moxie.xap'
     ],
-    dest: '<%= jsPath %>/',
-    flatten: true,
-    filter: 'isFile'
-  },
-  moxieDist: {
-    expand: true,
-    src: [
-      '<%= componentsPath %>/plupload/js/Moxie.swf',
-      '<%= componentsPath %>/plupload/js/Moxie.xap'
-    ],
-    dest: 'public/javascripts/',
-    flatten: true,
-    filter: 'isFile'
-  },
-  styles: {
-    expand: true,
-    src: [
-      '<%= cssPath %>/my_procur.css',
-      '<%= cssPath %>/main.css',
-    ],
-    dest: 'public/stylesheets/',
+    dest: '<%= pubJsPath %>/',
     flatten: true,
     filter: 'isFile'
   },
@@ -36,7 +16,7 @@ module.exports = {
       '<%= imagePath %>/**/*.jpg',
       '<%= imagePath %>/**/*.ico',
     ],
-    dest: 'public/images/',
+    dest: '<%= pubImagePath %>/',
     flatten: true,
     filter: 'isFile'
   }

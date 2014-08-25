@@ -27,7 +27,7 @@ ol.nav-panel {
         -o-transition: background-color 200ms ease-in-out;
         transition: background-color 200ms ease-in-out;
 
-        .glyphicon {
+        .fa {
           line-height: 45px;
           color: $color-gray-alt-light;
           -webkit-transition: color 200ms ease-in-out;
@@ -61,7 +61,7 @@ ol.nav-panel {
 
       a .left-icon {
         background-color: lighten($color-orange-primary, 20%);
-        .glyphicon {
+        .fa {
           color: $color-white;
         }
       }

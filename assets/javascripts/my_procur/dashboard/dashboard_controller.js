@@ -33,27 +33,27 @@
     $scope.comingSoon = [
       {
         label: 'Company photos',
-        icon: 'glyphicon-camera',
+        icon: 'fa-camera',
         alt: 'Coming soon'
       },
       {
         label: 'Supplier capabilities',
-        icon: 'glyphicon-tags',
+        icon: 'fa-tags',
         alt: 'Coming soon'
       },
       {
         label: 'Downloadable files',
-        icon: 'glyphicon-download-alt',
+        icon: 'fa-download',
         alt: 'Coming soon'
       },
       {
         label: 'Community resources',
-        icon: 'glyphicon-comment',
+        icon: 'fa-comments',
         alt: 'Coming soon'
       },
       {
         label: 'Product profiles',
-        icon: 'glyphicon-picture',
+        icon: 'fa-picture-o',
         alt: 'Coming soon'
       },
     ];

@@ -1,0 +1,180 @@
+#about #heroArea {
+  width: 100%;
+  background: url('../../images/aboutBG.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 0% 30%;
+  height: 300px;
+  margin-bottom: 0px;
+}
+
+#about #heroArea .textArea {
+  background: rgba(255,255,255,0.8);
+  padding: 20px 30px;
+  margin-top: 30px;
+  float: left;
+
+}
+
+#about #heroArea .textArea #overLay {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 22px;
+  font-weight: 300;
+  margin: 0px;
+  padding: 0px;
+  line-height: 36px;
+}
+
+#about #heroArea .pill {
+    border-radius: 25px 25px 25px 25px;
+    height: 50px;
+    background: rgba(0,0,0,0.7);
+    padding: 10px;
+    text-align: center;
+    margin-top: 130px;
+    line-height: 30px;
+}
+
+#about #heroArea a {
+  font-family: 'Montserrat', sans-serif;
+  color: white;
+  letter-spacing: 0.06em;
+}
+
+#about #heroContainer {
+  margin-left: 0;
+  margin-right: 0;
+  width: 100%;
+  padding-right: 30px;
+}
+
+
+#about h1 {
+  font-family: 'Montserrat', sans-serif;
+  color: #404041;
+  letter-spacing: 0.06em;
+  font-size: 12px;
+  text-transform: uppercase;
+  margin-top: 25px;
+  border-bottom: 2px solid black;
+  padding-bottom: 10px;
+  border-color: #808080;
+}
+
+#about #second{
+  font-family: 'Open Sans', sans-serif;
+  font-size: 22px;
+  font-weight: 300;
+  color: #f8ac4c;
+  line-height: 30px;
+}
+
+#about h3 {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 17px;
+  text-transform: uppercase;
+  font-weight: 100;
+  letter-spacing: 0.06em;
+  border-bottom: 2px solid black;
+  padding-bottom: 10px;
+  border-color: #808080;
+  color: #999999;
+}
+
+#about h4 {
+  font-family: 'Montserrat', sans-serif;
+  color: #404041;
+  letter-spacing: 0.06em;
+  font-size: 10px;
+  text-transform: uppercase;
+}
+
+#about p {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  letter-spacing: 0.06em;
+  font-size: 12px;
+  line-height: 18px;
+  color: #999999;
+}
+
+#about #paragraphicalSpecial {
+  font-size: 22px;
+  line-height: 30px;
+}
+
+#about .ourPlatform {
+  line-height: 21px;
+}
+
+#about .CQR {
+  line-height: 21px;
+}
+
+#about .inBody{
+  border-bottom: 1px dotted black;
+  border-color: #CCCCCC;
+  padding: 11px;
+  padding-bottom: 20px;
+}
+
+#about .noBottomBorder {
+  border-bottom: 0px;
+}
+
+
+
+#about a {
+  color: #ef9818;
+  text-decoration: none;
+  float: right;
+}
+
+#about a:hover {
+  text-decoration: underline;
+};
+
+#about .text {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  letter-spacing: 0.06em;
+}
+
+
+
+#about #tractor {
+  padding-top: 30px;
+  padding-left:30px;
+  padding-bottom: 30px;
+}
+
+#about #train  {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    }
+
+#about .image{
+    position: relative;
+
+}
+
+#about h5 {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 17px;
+  font-weight: 200;
+  color: white;
+  position: absolute;
+  top: 20px;
+  left: 0px;
+  padding: 20px;
+  line-height: 28px;
+  background-color: blue;
+  opacity: 0.5;
+
+}
+
+#about .indentLittle {
+  padding-left: 30px;
+  padding-right: 30px;
+}

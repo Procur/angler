@@ -46,7 +46,7 @@
         font-weight: bold;
 
         &:hover {
-          .glyphicon {
+          .fa {
             color: $color-green-primary;
           }
         }
@@ -71,14 +71,14 @@
       color: $color-gray-primary;
       padding: 0;
 
-      .glyphicon {
+      .fa {
         color: $color-gray-primary;
       }
 
       &:hover, &:active, &:focus {
         color: $color-orange-primary;
 
-        .glyphicon {
+        .fa {
           color: $color-orange-primary;
         }
       }

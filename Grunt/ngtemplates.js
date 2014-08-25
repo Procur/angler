@@ -1,9 +1,9 @@
 module.exports = {
-  dev: {
+  my_procur: {
     src: [
       '<%= htmlPath %>/**/*.html'
     ],
-    dest: '<%= jsPath %>/app/templates_module.js',
+    dest: '<%= jsPath %>/my_procur/templates_module.js',
     options: {
       module: 'pc.Templates',
       standalone: true,
