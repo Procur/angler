@@ -4,11 +4,10 @@
     dependencies;
 
   dependencies = [
-    'pc.States',
-    'pc.Templates',
+    'pc.MyProcur.States',
+    'pc.MyProcur.Templates',
     'pc.Nav',
     'pc.Header',
-    'pc.Registration',
     'pc.Dashboard',
     'pc.UserAccountSettings',
     'pc.EditCompanyProfile',

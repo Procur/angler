@@ -1,0 +1,936 @@
+/* GENERAL */
+
+h1, h2, h3, h4 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+}
+
+p {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  font-size: 12px;
+  letter-spacing: 0.05em;
+}
+
+input {
+  font-family: 'Roboto', sans-serif;
+}
+
+/* REGISTRATION WIZARD */
+
+#regWizard {
+  padding-top: 80px;
+  padding-bottom: 130px;
+}
+
+#regWizard h1 {
+  text-align: center;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 18px;
+  font-weight: 300;
+  margin-bottom: 35px;
+}
+#regWizard h4 {
+  font-size: 12px;
+  margin-bottom: 0px;
+  margin-top: 0px;
+}
+#regWizard .fieldBox {
+  background: #ecebe6;
+  padding: 15px 36px;
+
+}
+
+#regWizard .countryCodeDisplay {
+  white-space: nowrap;
+  background-color: #fff;
+  height: 25px;
+  margin-top:5px;
+}
+
+#regWizard .countryCodeInput {
+  margin-top: 0px;
+  width: 90%;
+}
+
+#regWizard .topBox {
+  background: #333132;
+}
+#regWizard .topBox h1 {
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  color: white;
+  font-size: 14px;
+  font-weight: 300;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  margin: 0px;
+  padding: 25px 0px 20px;
+}
+#regWizard input {
+  border: 0px none;
+  margin: 5px 0px;
+  width: 100%;
+  height: 25px;
+  font-size: 11px;
+  padding: 0px 7px;
+  font-weight: 400;
+  color: #000;
+}
+#regWizard input.submission {
+  height: 38px;
+  background: none;
+  border: 2px solid orange;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px;
+  text-transform: uppercase;
+}
+
+#regWizard input.submission:hover {
+  background: orange;
+  color: white;
+}
+#regWizard .hqcompanyCountry {
+  height: 16px;
+}
+#regWizard .hqcompanyProvince {
+  height: 16px;
+}
+#regWizard .hqfield:disabled {
+  color: #000;
+  font-weight: 400;
+}
+#regWizard .checkbox {
+  height: auto;
+  width: auto;
+  display: inline-block;
+  margin-right: 8px;
+}
+#regWizard .terms {
+  float: left;
+  align: left;
+}
+#regWizard .checkboxtext {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 11px;
+  display: inline-block;
+  position: relative;
+  /*top: -3px;*/
+  margin: 0;
+  padding: 0;
+}
+@-moz-document url-prefix() { /* Checkboxtext vertical align fix for Firefox */
+  #regWizard .checkboxtext {
+    top: -4px;
+  }
+}
+#regWizard .styledSelect select {
+  width: 115%;
+  background: transparent;
+  border: 0px;
+  margin: 4px 0px 4px;
+  height: 18px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 11px;
+  padding: 0px 4px;
+  -webkit-appearance: none;
+  color: #7F7F7F;
+}
+#regWizard .styledSelect option { /* Dropdown font fix for Firefox */
+  color: black;
+  font-weight: 500;
+}
+#regWizard .buyerOrSupplier .col-xs-12 {
+  height: 100%;
+}
+#regWizard .styledSelect {
+  margin-top: 5px;
+  margin-bottom: 10px;
+  width: 100%;
+  overflow: hidden;
+  background: url(/images/ddarrow.png) no-repeat white;
+  background-position: right top;
+}
+#regWizard .insideForm .inputColumnL {
+  padding-right: 0px;
+}
+#regWizard .insideForm .inputColumnR {
+  padding-left: 8px;
+}
+#regWizard .breakForm {
+  margin-bottom: 20px;
+}
+#regWizard button {
+  position: absolute;
+  background: white;
+  border: 0px none;
+  top: 15px;
+  right: 4px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  display: inline;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+#regWizard .pillContainer {
+  position: relative;
+  height: 100px;
+}
+#regWizard a.pill {
+  left: 15px;
+  top: 0px;
+  position: absolute;
+  border-radius: 30px 30px 30px 30px;
+  background: #bbbdbf;
+  padding: 10px 20px;
+  font-family: 'Montserrat', sans-serif;
+  text-transform: uppercase;
+  color: #f7f7f7;
+  font-weight: 300;
+  letter-spacing: 0.07em;
+  margin-top: 30px;
+  text-decoration: none;
+  font-size: 14px;
+  width: 90%;
+}
+#regWizard a:hover.pill {
+  background: #2fa566;
+  text-decoration: none;
+}
+
+#regWizard .emailVerify a.resendLink {
+  color:#231f20;
+}
+
+#regWizard .emailVerify a.resendLink:hover{
+  text-decoration: none;
+}
+
+#regWizard .emailVerify .midBox {
+  border-bottom: 2px solid #7f7f7f;
+}
+
+#regWizard .emailVerify a.pill {
+  margin-top: 10px;
+  width:100%;
+  left: 0px;
+}
+
+#regWizard .emailVerify .pillContainer {
+  height: 40px;
+}
+
+#regWizard .emailVerify .bottomLeft {
+  margin-top: 20px;
+}
+
+#regWizard .emailVerify .lowBox {
+  padding-bottom: 30px
+}
+
+#regWizard .regWizYellowLink {
+  font-family: 'Montserrat', sans-serif;
+  color: #fbac27;
+  font-size: 7px;
+  text-transform: uppercase;
+}
+
+#regWizard .regWizYellowLink:hover {
+  text-decoration: none;
+}
+
+
+
+
+
+.progressLine {
+  position: absolute;
+  top: 11px;
+  height: 1px;
+  width: 75%;
+  border-bottom: 1px dotted #c5c5c5;
+  margin-left: 12.5%;
+  margin-right: 12.5%;
+}
+
+.progressItem i {
+  font-size: 8px;
+  background: white;
+  padding: 0px 8px;
+}
+
+.progressItem i.activeProgress {
+  color: #FF9500;
+}
+
+.progressItem i.pastProgress {
+  color: #777;
+}
+
+.progressItem p {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  text-transform: uppercase;
+  margin-top: 20px;
+  margin-bottom: 45px;
+  color: #999999;
+}
+
+.progressItem p.activeProgress {
+  color: #333321;
+}
+
+
+/* DASHBOARD HERE */
+/* HEADER */
+
+#mainHeader {
+  width: 100%;
+  height: 50px;
+  background: #7C7A79;
+}
+
+#mainHeader .logoImage {
+  display: inline;
+}
+
+#mainHeader h1 {
+  font-size: 12px;
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: 0.06em;
+  font-weight: 400;
+  display: inline;
+}
+
+#mainHeader .greetingCompany {
+ color: #BEBDBC;
+}
+
+#mainHeader ul {
+  display: inline;
+}
+
+#mainHeader ul li {
+  display: inline;
+  line-height: 50px;
+  font-family: 'Montserrat', sans-serif;
+  margin-left: 20px;
+  font-weight: 400;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: white;
+  cursor: pointer;
+}
+
+#mainHeader ul li a {
+  color: white;
+  font-weight: 400;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+}
+
+#mainHeader ul li i {
+  font-size: 20px;
+  top: 3px;
+  position: relative;
+}
+
+#subHeader {
+  width: 100%;
+  height: 35px;
+  background: #5C5C5C;
+}
+
+#subHeader ul {
+  display: inline;
+}
+
+#subHeader ul li {
+  display: inline;
+  line-height: 35px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 100;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  margin-left: 20px;
+}
+
+#subHeader ul li a {
+  color: white;
+}
+
+
+
+/* DASHBOARD */
+
+.userColumn h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 18px;
+  color: #808080;
+  border-bottom: 1px dotted #e3e3e3;
+  padding-bottom: 5px;
+  font-weight: 300;
+  margin-top: 45px;
+  letter-spacing: 0.06em;
+}
+
+.userColumn h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  border-bottom: 3px solid #e3e3e3;
+  padding-bottom: 9px;
+  margin-top: 14px;
+}
+
+.userColumn h3 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin: 0px;
+  padding: 0px;
+  letter-spacing: 0.06em;
+}
+
+.userColumn h4 {
+  font-family: 'Montserrat', sans-serif;
+  color: #404041;
+  letter-spacing: 0.06em;
+  font-size: 10px;
+  text-transform: uppercase;
+  margin-top: 25px;
+  border-bottom: 3px solid #CFCECE;
+  padding-bottom: 10px;
+}
+
+.userImageColumn {
+  padding-right: 0px;
+}
+
+.userColumn .userImage {
+  width: 100%;
+  padding-top: 35px;
+  max-width: 150px;
+}
+
+.userColumn .userColumnLinks {
+  padding-top: 25px;
+}
+
+.userColumn .userColumnLinks .userLink {
+  border-top: 1px dotted #e3e3e3;
+  border-bottom: 1px dotted #e3e3e3;
+  padding: 15px 0px;
+}
+
+.userColumn .userColumnLinks .userLink i {
+  color: #b3b3b3;
+}
+
+.userColumn .userColumnLinks .userLink a {
+  color: #4D4d4d;
+  font-family: 'Roboto', sans-serif;
+  font-size: 12px;
+  font-weight: 300;
+  letter-spacing: 0.06em;
+}
+
+.userColumn .userColumnLinks .userLink:last-child {
+  border-top: 0px none;
+  border-bottom: 1px dotted #e3e3e3;
+  padding: 15px 0px;
+
+}
+
+.userColumn .userResourceLinks a {
+  color: #4D4d4d;
+  font-family: 'Roboto', sans-serif;
+  font-size: 12px;
+  font-weight: 300;
+  letter-spacing: 0.06em;
+}
+
+.middleHeader {
+  margin-top: 25px;
+  width: 100%;
+  background: #5dc672;
+}
+
+.middleHeader h1 {
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 15px;
+  text-transform: uppercase;
+  font-weight: 300;
+  padding: 40px 20px 15px;
+  letter-spacing: 0.05em;
+  margin: 0px;
+}
+
+.middleDescription {
+  background: #f5f4f2;
+  padding: 25px 20px;
+}
+
+.middleDescription h1 {
+  padding: 0px;
+  margin: 0px 0px 15px;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+  font-size: 20px;
+  letter-spacing: 0.05em;
+}
+
+.middleDescription p {
+  margin: 0px;
+  padding: 0px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  color: #808080;
+  letter-spacing: 0.05em;
+  font-size: 12px;
+  line-height: 1.6em;
+  margin-bottom: 12px;
+}
+
+.middleDescription a {
+  color: #FD9237;
+  font-family: 'Montserrat', sans-serif;
+  text-transform: uppercase;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+}
+
+.middleList {
+  background: #EEECE9;
+  padding: 25px 20px;
+}
+
+.middleList ul {
+  margin: 0px;
+  padding: 0px;
+}
+
+.middleList ul li {
+  list-style: none;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 15px;
+  color: #4d4d4d;
+  padding-bottom: 10px;
+}
+
+.middleList a{
+  list-style: none;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 15px;
+  color: #4d4d4d;
+  padding-bottom: 10px;
+}
+
+.middleList strike {
+  color: #9C9C9C;
+}
+
+.middleList ul li i {
+  margin-right: 10px;
+  color: #b3b3b3;
+}
+
+.middleList ul li .fa-check-circle {
+margin-right: 10px;
+color: #5dc692;
+}
+
+.featuresColumn h4 {
+  font-family: 'Montserrat', sans-serif;
+  color: #404041;
+  letter-spacing: 0.06em;
+  font-size: 10px;
+  text-transform: uppercase;
+  margin-top: 25px;
+}
+
+.featuresColumn {
+  .panel {
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    margin: 0;
+
+    .panel-heading {
+      padding: 0;
+      border: none;
+
+      .panel-title {
+        margin: 0;
+
+        &:hover {
+          color: $color-white;
+        }
+
+        .rightSec {
+          font-size: 16px;
+        }
+
+        .plus {
+          display: none;
+        }
+
+        .minus {
+          display: block;
+        }
+
+        .plus, .minus {
+          font-size: 14px;
+        }
+      }
+
+      &.collapsed {
+        .plus {
+          display: block;
+        }
+
+        .minus {
+          display: none;
+        }
+      }
+    }
+
+    .panel-collapse {
+      background-color: $color-gray-primary;
+      color: $color-white;
+    }
+  }
+}
+
+
+.featuresColumn .rightSec {
+  position: relative;
+  background: #EEECE9;
+  height: 45px;
+}
+
+.featuresColumn .rightAlt {
+  background: #F3F2F0;
+}
+
+.featuresColumn a.panel-heading {
+    &:hover, &:focus {
+      text-decoration: none;
+    }
+  .panel-title {
+    font-family: 'Montserrat', sans-serif;
+    line-height: 48px;
+    margin: 0 0 0 15px;
+    font-size: 10px;
+    text-transform: uppercase;
+    color: #4d4d4d;
+    letter-spacing: 0.06em;
+  }
+}
+
+.featuresColumn .rightSec .rightSecBox {
+  float: left;
+  position: relative;
+  height: 45px;
+  width: 45px;
+  background: #F3F2F0;
+  text-align: center;
+  line-height: 45px;
+  color: #b3b3b3;
+  font-size: 16px;
+  margin-right: 15px;
+}
+
+.featuresColumn .rightAlt .rightSecBox {
+  background: #F7F6F4;
+}
+
+
+/* Auto Complete Styling */
+ul.ui-autocomplete {
+  list-style: none;
+  margin: 0px;
+  background: white;
+  padding: 0px;
+  border: 1px solid #e3e3e3;
+}
+
+.ui-autocomplete li {
+  cursor: pointer;
+  padding: 5px 0px;
+}
+
+.ui-autocomplete li:hover {
+  background: #f7f7f7;
+}
+
+.ui-autocomplete li:hover a,
+.ui-autocomplete li:hover a:hover {
+  color: #333132;
+  text-decoration: none;
+}
+
+.ui-menu-item a{
+  color: #333132;
+  padding: 0px 10px;
+  cursor: pointer;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+}
+
+.ui-autocomplete {
+  max-height: 200px;
+  max-width: 700px;
+  overflow-y: auto;
+  /* prevent horizontal scrollbar */
+  overflow-x: hidden;
+}
+/* IE 6 doesn't support max-height
+ * we use height instead, but this forces the menu to always be this tall
+ */
+* html .ui-autocomplete {
+  height: 200px;
+}
+
+.ui-autocomplete-term {
+  font-weight: bold;
+  color: #FD9237;
+}
+
+.ui-helper-hidden-accessible {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: #999999;
+  display: inline;
+}
+
+
+/* Icon Box and Item Link Styling */
+.rightSec {
+  .rightSecBox {
+    .fa {
+      color: #b3b3b3;
+    }
+  }
+}
+
+.rightSec:hover, {
+  background: #fbac27;
+  cursor: pointer;
+
+  a {
+    color: white;
+    text-decoration: none;
+
+    &:hover {
+      color: white;
+      text-decoration: none;
+    }
+  }
+
+  .rightSecBox {
+    background: #ffc65c;
+    color: white;
+
+    .fa {
+      color: white;
+    }
+  }
+
+  h3 {
+    color: white;
+  }
+}
+
+.dark {
+  color: #333132;
+}
+
+hr.separator {
+  background: none transparent;
+  border-top: 1px dotted #e3e3e3;
+}
+
+hr.darkseparator {
+  background: none transparent;
+  border-top: 1px dotted #7f7f7f;
+  margin: 50px 0px;
+}
+
+.logOutWrapper .logOut {
+  margin-top: 100px;
+}
+
+/* VALIDATION MESSAGES */
+#regWizard label.error {
+  color: #FF5A5A;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  text-transform: uppercase;
+  line-height: 1.8em;
+  width: 100%;
+  top: -15px;
+  font-weight: 500;
+}
+
+@media (max-width: 784px) {
+
+  #wizardPhone {
+    padding-left: 7px;
+  }
+
+  #regWizard .countryCodeDisplay {
+  width: 96%;
+}
+
+}
+
+#regWizard #selectHandleForm label.error {
+  display: block;
+  margin-left: -10px;
+  color: #FF5A5A;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  text-transform: uppercase;
+  line-height: 1.8em;
+  width: 100%;
+  font-weight: 500;
+}
+
+#regWizard .styledSelect label.error {
+  display: block;
+  background: #ECEBE6;
+  margin: 0;
+  padding-top: 5px;
+}
+
+#regWizard span.pos-feedback {
+  color: #5dc672;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  text-transform: uppercase;
+  line-height: 1.8em;
+  width: 100%;
+  font-weight: 500;
+}
+
+#regWizard span.neg-feedback {
+  color: #FF5A5A;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  text-transform: uppercase;
+  line-height: 1.8em;
+  width: 100%;
+  font-weight: 500;
+}
+
+#regWizard div.pos-feedback {
+  color: #5dc672;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  text-transform: uppercase;
+  line-height: 1.8em;
+  width: 100%;
+  font-weight: 500;
+}
+
+#regWizard div.neg-feedback {
+  color: #FF5A5A;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  text-transform: uppercase;
+  line-height: 1.8em;
+  width: 100%;
+  font-weight: 500;
+}
+
+/* COMPANY UPDATE */
+#tabs .styledSelect {
+  margin-top: 5px;
+  margin-bottom: 10px;
+  width: 100%;
+  overflow: hidden;
+  background: url(/images/ddarrow.png) no-repeat white;
+  background-position: right top;
+}
+
+#companyUpdate .styledSelect select {
+  width: 115%;
+  background: transparent;
+  border: 0px;
+  margin: 4px 0px 4px;
+  height: 18px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 11px;
+  padding: 0px 4px;
+  -webkit-appearance: none;
+}
+
+/*Dash*/
+
+.orangeButton {
+  font-family: 'Montserrat', sans-serif;
+  line-height: 48px;
+  margin-left: 60px;
+  font-size: 10px;
+  text-transform: uppercase;
+  color: #4d4d4d;
+  letter-spacing: 0.06em;
+  margin-top: 0;
+  margin-bottom: 0;
+  font-weight: 100;
+}
+.rightSec:hover .orangeButton:hover {
+  color: white;
+  text-decoration: none;
+}
+
+.orangeWrap:hover {
+  text-decoration: none
+}
+.realLink:hover {
+  text-decoration: none
+}
+/* Drop Down change font */
+
+#regWizard input::-webkit-input-placeholder {
+  color: #7F7F7F;
+  font-weight: 400;
+}
+
+#regWizard input::-moz-placeholder {
+  color: #7F7F7F;
+  opacity: 1;
+  font-weight: 400;
+}
+
+#tabs textarea::-webkit-input-placeholder {
+  color: #7F7F7F;
+}
+
+#faq .colRight a {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  letter-spacing: 0.06em;
+  color: #fbac27;
+  line-height: 20px;
+  font-size: 12px;
+}
+
+/*pricing margin fix/ hackky css bootstrap override*/
+#pricing .col-xs-2, #pricing .col-sm-2, #pricing .col-md-2, #pricing .col-lg-2, #pricing .col-sm-3, #pricing .col-md-3, #pricing .col-lg-3, #pricing .col-sm-4, #pricing .col-md-4, #pricing .col-lg-4, #pricing .col-sm-5, #pricing .col-md-5, #pricing .col-lg-5, #pricing .col-sm-6, #pricing .col-md-6, #pricing .col-lg-6, #pricing .col-xs-7, #pricing .col-sm-7, #pricing .col-md-7, #pricing .col-lg-7, #pricing .col-xs-8, #pricing .col-sm-8, #pricing .col-md-8, #pricing .col-lg-8, #pricing .col-xs-9, #pricing .col-sm-9, #pricing .col-md-9, #pricing .col-lg-9, #pricing .col-xs-10, #pricing .col-sm-10, #pricing .col-md-10, #pricing .col-lg-10, #pricing .col-xs-11, #pricing .col-sm-11, #pricing .col-md-11, #pricing .col-lg-11, #pricing .col-xs-12, #pricing .col-sm-12, #pricing .col-md-12, #pricing .col-lg-12 {
+
+padding-right: 0px;
+}

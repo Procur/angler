@@ -6,6 +6,6 @@
     'ui.router'
   ];
 
-  angular.module('pc.States', dependencies);
+  angular.module('pc.MyProcur.States', dependencies);
 
 })(angular);

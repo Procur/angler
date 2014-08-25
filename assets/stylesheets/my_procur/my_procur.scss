@@ -1,0 +1,26 @@
+@import '../globals/colors';
+@import '../globals/typography';
+@import '../components/content_panel';
+@import '../components/lists';
+@import '../components/nav_panel';
+@import '../components/mobile_nav';
+@import '../components/buttons';
+@import '../components/inputs';
+@import '../components/profile_image';
+@import '../../components/jcrop/css/_jcrop.scss';
+@import '../shared/snackbar';
+@import 'header/my_procur';
+@import 'header/public_view';
+@import 'dashboard';
+@import 'user_account_settings';
+@import 'edit_company_profile';
+@import 'view_company_profile';
+
+body {
+  background-color: $color-white;
+  padding-bottom: 20px;
+}
+
+.container {
+  padding-bottom: 15px;
+}

@@ -4,7 +4,7 @@ module.exports = {
       style: 'expanded'
     },
     files: {
-      '<%= pubCssPath %>/my_procur.css': '<%= cssPath %>/my_procur.scss'
+      '<%= pubCssPath %>/my_procur.css': '<%= cssPath %>/my_procur/my_procur.scss'
     }
   },
   my_procur_dist: {
@@ -20,7 +20,7 @@ module.exports = {
       style: 'expanded'
     },
     files: {
-      '<%= pubCssPath %>/main.css': '<%= cssPath %>/main.scss'
+      '<%= pubCssPath %>/main.css': '<%= cssPath %>/main/main.scss'
     }
   },
   main_dist: {
@@ -36,7 +36,7 @@ module.exports = {
       style: 'expanded'
     },
     files: {
-      '<%= pubCssPath %>/auth.css': '<%= cssPath %>/auth.scss'
+      '<%= pubCssPath %>/auth.css': '<%= cssPath %>/auth/auth.scss'
     }
   },
   auth_dist: {
@@ -45,6 +45,22 @@ module.exports = {
     },
     files: {
       '<%= pubCssPath %>/auth.min.css': '<%= pubCssPath %>/auth.css'
+    }
+  },
+  registration_dev: {
+    options: {
+      style: 'expanded'
+    },
+    files: {
+      '<%= pubCssPath %>/registration.css': '<%= cssPath %>/registration/registration.scss'
+    }
+  },
+  registration_dist: {
+    options: {
+      style: 'compressed'
+    },
+    files: {
+      '<%= pubCssPath %>/registration.min.css': '<%= pubCssPath %>/registration.css'
     }
   }
 };

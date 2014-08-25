@@ -8,83 +8,14 @@
     statesConfig
   ];
 
-  angular.module('pc.States')
+  angular.module('pc.MyProcur.States')
     .config(definition);
 
   function statesConfig($stateProvider, $urlRouterProvider) {
     $urlRouterProvider
-      .otherwise('/welcome/type')
-      .rule(registrationWizardRule);
+      .otherwise('/dashboard');
 
     $stateProvider
-      .state('registration',  {
-        url: '/welcome',
-        abstract: true,
-        views: {
-          '': {
-            templateUrl: 'registration.html',
-            controller: 'registrationController'
-          },
-          'header': {
-            templateUrl: 'registration_header.html'
-          }
-        }
-      })
-      .state('registration.type', {
-        url: '/type',
-        templateUrl: 'registration_type.html',
-        controller: 'registrationTypeController',
-        data: {
-          leadText: 'Welcome to Procur. Let\'s get started.',
-          progressStep: 0
-        }
-      })
-      .state('registration.finished_product', {
-        url: '/supplier/finished_product',
-        templateUrl: 'registration_finished_product.html',
-        controller: 'registrationStepController',
-        data: {
-          leadText: 'One quick question before we get started.',
-          progressStep: 0
-        }
-      })
-      .state('registration.finished_product_confirmation', {
-        url: '/supplier/finished_product/confirmation',
-        templateUrl: 'registration_finished_product_confirmation.html',
-        controller: 'registrationStepController',
-        data: {
-          leadText: 'Procur may not be right for you.',
-          progressStep: 0
-        }
-      })
-      .state('registration.company_information', {
-        url: '/company_information',
-        templateUrl: 'registration_company_information.html',
-        controller: 'registrationCompanyInformationController',
-        data: {
-          leadText: 'Excellent. Let\'s start with some basic information.',
-          progressStep: 1
-        }
-      })
-      .state('registration.email_verification', {
-        url: '/email_verification',
-        templateUrl: 'registration_email_verification.html',
-        controller: 'registrationEmailVerificationController',
-        data: {
-          leadText: 'Have you checked your email lately?',
-          progressStep: 2
-        }
-      })
-      .state('registration.handle', {
-        url: '/handle',
-        templateUrl: 'registration_handle.html',
-        controller: 'registrationHandleController',
-        data: {
-          leadText: 'Set your custom link',
-          progressStep: 3
-        }
-      })
-
       .state('dashboard', {
         url: '/dashboard',
         views: {
@@ -99,7 +30,6 @@
         }
       })
 
-      /*TREY LOOK HERE*/
       .state('view_company_profile', {
         url: '/view_company_profile',
         views: {
@@ -201,15 +131,6 @@
         templateUrl: 'photos.html',
         controller: 'photosController'
       });
-
-    function registrationWizardRule($injector, $location) {
-      var
-        company = $injector.get('companyService');
-
-      if (!company.isBuyer() && !company.isSupplier()) {
-        $location.path('/welcome/type').replace();
-      }
-    }
 
   }
 

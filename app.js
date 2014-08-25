@@ -3,8 +3,7 @@ var
   path = require('path'),
   favicon = require('serve-favicon'),
   logger = require('morgan'),
-  cookieParser = require('cookie-parser'),
-  bodyParser = require('body-parser'),
+  busboy = require('connect-busboy'),
   debug = require('debug')('Angler'),
   routes = require('./routes'),
   errors = require('./errors'),
@@ -15,10 +14,11 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 app.use(favicon(path.join(__dirname, 'public/images/favico.ico')));
+
 app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cookieParser());
+
+app.use(busboy());
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 // config routes

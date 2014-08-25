@@ -1,0 +1,19 @@
+<%- include ../partials/registration/_header.ejs %>
+
+<div ui-view="header"></div>
+<div class='container'>
+  <div ui-view></div>
+</div>
+
+<script>
+  var
+    pc = window.pc = window.pc || {};
+
+  <% if (localData) { %>
+    pc.localData = <%- localData %>;
+  <% } else { %>
+    pc.localData = {};
+  <% } %>
+</script>
+
+<%- include ../partials/registration/_footer.ejs %>
