@@ -10,50 +10,47 @@
       <h1>{{company.name}}</h1>
     </div>
 
-    <div ng-if='company.phoneExtension === "trey"'>
-    <p>shut up!!!</p>
-    </div>
 
-
-    <div class="company-info-box company-business-address" ng-if="location.showHq === false">
+    <div class="company-info-box company-business-address" ng-if="!location.showHq">
       <h3>
         <span class="fa fa-map-marker"></span>
         <span class="info-title">Official Business Address</span>
       </h3>
-      <p ng-if="location.companyIsHq.addressLine1 !== false">{{location.companyIsHq.addressLine1}}</p>
-      <p ng-if="location.companyIsHq.addressLine2 !== undefined">{{location.companyIsHq.addressLine2}}</p>
-      <p ng-if="location.companyIsHq.city !== undefined">{{location.companyIsHq.city}}</p>
-      <p ng-if="location.companyIsHq.province !== undefined">{{location.companyIsHq.province}}</p>
-      <p ng-if="location.companyIsHq.country !== undefined">{{location.companyIsHq.country}}</p>
+      <div ng-repeat="item in actionItems track by $index" ng-class="{complete: item.complete, incomplete: !item.complete}">
+        <div ng-if="item.complete">
+          <p>{{item.action}}</p>
+        </div>
+      </div>
     </div>
-    <div class="company-info-box company-business-address" ng-if="location.showHq === true">
+    <div class="company-info-box company-business-address" ng-if="location.showHq">
       <h3>
         <span class="glyphicon glyphicon-map-marker"></span>
         <span class="info-title">Official Business Address</span>
       </h3>
-      <p ng-if="location.companyNotHq.addressLine1 !== undefined">{{location.companyIsHq.addressLine1}}</p>
-      <p ng-if="location.companyNotHq.addressLine2 !== undefined">{{location.companyIsHq.addressLine2}}</p>
-      <p ng-if="location.companyNotHq.city !== undefined">{{location.companyIsHq.city}}</p>
-      <p ng-if="location.companyNotHq.province !== undefined">{{location.companyIsHq.province}}</p>
-      <p ng-if="location.companyNotHq.country !== undefined">{{location.companyIsHq.country}}</p>
+      <div ng-repeat="item in actionItems track by $index" ng-class="{complete: item.complete, incomplete: !item.complete}">
+        <div ng-if="item.complete">
+          <p>{{item.action}}</p>
+        </div>
+      </div>
       <h3>
         <span class="glyphicon glyphicon-map-marker"></span>
         <span class="info-title">Headquarters</span>
       </h3>
-      <p ng-if="location.companyIsHq.addressLine1 !== undefined">{{location.companyIsHq.addressLine1}}</p>
-      <p ng-if="location.companyIsHq.addressLine2 !== undefined">{{location.companyIsHq.addressLine2}}</p>
-      <p ng-if="location.companyIsHq.city !== undefined">{{location.companyIsHq.city}}</p>
-      <p ng-if="location.companyIsHq.province !== undefined">{{location.companyIsHq.province}}</p>
-      <p ng-if="location.companyIsHq.country !== undefined">{{location.companyIsHq.country}}</p>
+      <div ng-repeat="item in actionItems track by $index" ng-class="{complete: item.completeNotHq, incomplete: !item.completeNotHq}">
+        <div ng-if="item.complete">
+          <p>{{item.action}}</p>
+        </div>
+      </div>
     </div>
+
+
     <div class="company-info-box">
       <h3>
         <span class="fa fa-phone"></span>
         <span class="info-title">Company Phone &amp; Fax</span>
       </h3>
-      <p ng-if="company.phoneNumber !== undefined">Telephone: <span ng-if="company.phoneExtension !== undefined">+{{company.phoneExtension}}</span> {{company.phoneNumber}}</p>
-      <p ng-if="company.faxExtension && company.faxNumber !== undefined">Fax: +{{company.faxExtension}} {{company.faxNumber}}</p>
-      <p ng-if="company.faxNumber !==undefined"> Fax: {{company.faxNumber}}</p>
+      <p ng-if="company.phoneNumber">Telephone: <span ng-if="company.phoneExtension">+{{company.phoneExtension}}</span> {{company.phoneNumber}}</p>
+      <p ng-if="company.faxNumber"> Fax: <span ng-if="company.faxExtension">+{{company.faxExtension}}</span> {{company.faxNumber}}</p>
     </div>
     <div class="company-info-box">
       <h3>
