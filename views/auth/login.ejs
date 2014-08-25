@@ -1,0 +1,27 @@
+<%- include ../partials/auth/_header %>
+
+<span class="marketing-heading-bordered">
+<%- include ../partials/shared/_mkt_header %>
+</span>
+
+<div class="container" id="login">
+  <div class="row">
+    <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 loginForm">
+      <h1>Welcome back.<br/>Please sign in to your account: </h1>
+      <form action="/login" id="login-form" method="post">
+        <div><input type="text" name="email" placeholder="Email Address*" tabindex="1"></div>
+        <div><input type="password" name="password" placeholder="Password*" tabindex="2"></div>
+        <div class="forgotPass"><a href="/forgotpassword" tabindex="5">Forgot Your Password? Click here to reset.</a></div>
+        <div><button type="submit" class="signInButton" tabindex="3">Sign in</button></div>
+      </form>
+      <p class="or">or</p>
+      <a href="/signup">
+        <div class="registerLink" tabindex="4">New user? Create an account.</div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<%- include ../partials/shared/_dashboard_footer %>
+
+<%- include ../partials/auth/_footer %>

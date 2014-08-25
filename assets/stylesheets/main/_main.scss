@@ -191,22 +191,12 @@ input {
   letter-spacing: 0.07em;
   margin-top: 30px;
   text-decoration: none;
-  -webkit-transition: all 100ms ease-in-out;
-  -moz-transition: all 100ms ease-in-out;
-  -ms-transition: all 100ms ease-in-out;
-  -o-transition: all 100ms ease-in-out;
-  transition: all 100ms ease-in-out;
   font-size: 14px;
   width: 90%;
 }
 #regWizard a:hover.pill {
   background: #2fa566;
   text-decoration: none;
-  -webkit-transition: all 100ms ease-in-out;
-  -moz-transition: all 100ms ease-in-out;
-  -ms-transition: all 100ms ease-in-out;
-  -o-transition: all 100ms ease-in-out;
-  transition: all 100ms ease-in-out;
 }
 
 #regWizard .emailVerify a.resendLink {
@@ -580,6 +570,10 @@ color: #5dc692;
       .panel-title {
         margin: 0;
 
+        &:hover {
+          color: $color-white;
+        }
+
         .rightSec {
           font-size: 16px;
         }
@@ -724,62 +718,29 @@ ul.ui-autocomplete {
 
 /* Icon Box and Item Link Styling */
 .rightSec,
-.rightSecBox,
-.rightSec a {
-  -webkit-transition: all 200ms ease-in-out;
-  -moz-transition: all 200ms ease-in-out;
-  -ms-transition: all 200ms ease-in-out;
-  -o-transition: all 200ms ease-in-out;
-  transition: all 200ms ease-in-out;
+.rightSecBox{
+
 }
 
 .rightSec:hover {
   background: #fbac27;
-  -webkit-transition: all 200ms ease-in-out;
-  -moz-transition: all 200ms ease-in-out;
-  -ms-transition: all 200ms ease-in-out;
-  -o-transition: all 200ms ease-in-out;
-  transition: all 200ms ease-in-out;
   cursor: pointer;
 }
 
 .rightSec:hover a {
   color: white;
   text-decoration: none;
-   -webkit-transition: all 200ms ease-in-out;
-  -moz-transition: all 200ms ease-in-out;
-  -ms-transition: all 200ms ease-in-out;
-  -o-transition: all 200ms ease-in-out;
-  transition: all 200ms ease-in-out;
 }
 
 .rightSec:hover a:hover {
   color: white;
   text-decoration: none;
-  -webkit-transition: all 200ms ease-in-out;
-  -moz-transition: all 200ms ease-in-out;
-  -ms-transition: all 200ms ease-in-out;
-  -o-transition: all 200ms ease-in-out;
-  transition: all 200ms ease-in-out;
 }
 
 
 .rightSec:hover .rightSecBox {
   background: #ffc65c;
   color: white;
-  -webkit-transition: all 200ms ease-in-out;
-  -moz-transition: all 200ms ease-in-out;
-  -ms-transition: all 200ms ease-in-out;
-  -o-transition: all 200ms ease-in-out;
-  transition: all 200ms ease-in-out;
-}
-
-.transition-200 {
-  -webkit-transition: all 200ms ease-in-out;
-  -moz-transition: all 200ms ease-in-out;
-  -ms-transition: all 200ms ease-in-out;
-  -o-transition: all 200ms ease-in-out;
-  transition: all 200ms ease-in-out;
 }
 
 .dark {
@@ -924,11 +885,6 @@ hr.darkseparator {
 .rightSec:hover .orangeButton:hover {
   color: white;
   text-decoration: none;
-  -webkit-transition: all 200ms ease-in-out;
-  -moz-transition: all 200ms ease-in-out;
-  -ms-transition: all 200ms ease-in-out;
-  -o-transition: all 200ms ease-in-out;
-  transition: all 200ms ease-in-out;
 }
 
 .orangeWrap:hover {

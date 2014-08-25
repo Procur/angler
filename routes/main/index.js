@@ -38,8 +38,12 @@ router.get('/contact', function contact(req, res) {
   res.render('main/contact');
 });
 
+router.get('/thankyou', function thankYou(req, res) {
+  res.render('main/thank_you');
+});
+
 router.get('/about', function about(req, res) {
-  res.render('main/about');
+  res.render('main/about', { title: 'Product Platform for Responsible Sourcing | Procur' });
 });
 
 module.exports = router;

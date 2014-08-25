@@ -267,11 +267,6 @@
 
 #pricing .itemRow {
   background: #ededed;
-  -webkit-transition: all 200ms ease-in-out;
-  -moz-transition: all 200ms ease-in-out;
-  -ms-transition: all 200ms ease-in-out;
-  -o-transition: all 200ms ease-in-out;
-  transition: all 200ms ease-in-out;
   border-bottom: 1px dotted #d3d3d3;
 }
 
@@ -286,11 +281,6 @@
   text-align: center;
   padding: 10px 20px;
   font-size: 18px;
-  -webkit-transition: all 200ms ease-in-out;
-  -moz-transition: all 200ms ease-in-out;
-  -ms-transition: all 200ms ease-in-out;
-  -o-transition: all 200ms ease-in-out;
-  transition: all 200ms ease-in-out;
 }
 
 #pricing .checkColumn .fa-check {
@@ -300,11 +290,6 @@
 #pricing .itemRow:hover {
   /*Highlights a row when it is hovered over*/
   background: #f7f7f7;
-  -webkit-transition: all 200ms ease-in-out;
-  -moz-transition: all 200ms ease-in-out;
-  -ms-transition: all 200ms ease-in-out;
-  -o-transition: all 200ms ease-in-out;
-  transition: all 200ms ease-in-out;
 
 }
 
@@ -312,11 +297,6 @@
   /*Highlights a row when it is hovered over*/
   background: none transparent;
   background: #f1f1f1;
-  -webkit-transition: all 200ms ease-in-out;
-  -moz-transition: all 200ms ease-in-out;
-  -ms-transition: all 200ms ease-in-out;
-  -o-transition: all 200ms ease-in-out;
-  transition: all 200ms ease-in-out;
 }
 
 #pricing .col-xs-3{

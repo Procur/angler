@@ -7,11 +7,6 @@ ol.nav-panel {
   li {
     height: 45px;
     background-color: $color-tan-alt-primary;
-    -webkit-transition: background-color 200ms ease-in-out;
-    -moz-transition: background-color 200ms ease-in-out;
-    -ms-transition: background-color 200ms ease-in-out;
-    -o-transition: background-color 200ms ease-in-out;
-    transition: background-color 200ms ease-in-out;
 
     a {
       .left-icon {
@@ -21,20 +16,10 @@ ol.nav-panel {
         text-align: center;
         background-color: $color-tan-primary;
         margin-right: 15px;
-        -webkit-transition: background-color 200ms ease-in-out;
-        -moz-transition: background-color 200ms ease-in-out;
-        -ms-transition: background-color 200ms ease-in-out;
-        -o-transition: background-color 200ms ease-in-out;
-        transition: background-color 200ms ease-in-out;
 
         .fa {
           line-height: 45px;
           color: $color-gray-alt-light;
-          -webkit-transition: color 200ms ease-in-out;
-          -moz-transition: color 200ms ease-in-out;
-          -ms-transition: color 200ms ease-in-out;
-          -o-transition: color 200ms ease-in-out;
-          transition: color 200ms ease-in-out;
         }
       }
     }
@@ -46,11 +31,6 @@ ol.nav-panel {
       margin: 0;
       padding: 17px 0;
       color: $color-gray-dark;
-      -webkit-transition: color 200ms ease-in-out;
-      -moz-transition: color 200ms ease-in-out;
-      -ms-transition: color 200ms ease-in-out;
-      -o-transition: color 200ms ease-in-out;
-      transition: color 200ms ease-in-out;
     }
 
     &:hover,

@@ -144,21 +144,11 @@ border-bottom:5px solid #fe9e23;
 margin-left:auto;
 margin-right:auto;
 bottom:-10px;
--webkit-transition:all 200ms ease-in-out;
--moz-transition:all 200ms ease-in-out;
--ms-transition:all 200ms ease-in-out;
--o-transition:all 200ms ease-in-out;
-transition:all 200ms ease-in-out;
 }
 
 .navbar li:hover .hoverTri {
 position:relative;
 bottom:-5px!important;
--webkit-transition:all 200ms ease-in-out;
--moz-transition:all 200ms ease-in-out;
--ms-transition:all 200ms ease-in-out;
--o-transition:all 200ms ease-in-out;
-transition:all 200ms ease-in-out;
 }
 
 #mktHeaderLine li.active a {
@@ -168,31 +158,16 @@ color:#000!important;
 
 #mktHeaderLine a {
 color:#000;
--webkit-transition:all 350ms ease-in-out;
--moz-transition:all 350ms ease-in-out;
--ms-transition:all 350ms ease-in-out;
--o-transition:all 350ms ease-in-out;
-transition:all 350ms ease-in-out;
 text-decoration:none;
 }
 
 #mktHeaderLine a:hover {
 color:#333;
--webkit-transition:all 350ms ease-in-out;
--moz-transition:all 350ms ease-in-out;
--ms-transition:all 350ms ease-in-out;
--o-transition:all 350ms ease-in-out;
-transition:all 350ms ease-in-out;
 text-decoration:none;
 }
 
 #mktHeaderLine a:visited {
 color:#333;
--webkit-transition:all 350ms ease-in-out;
--moz-transition:all 350ms ease-in-out;
--ms-transition:all 350ms ease-in-out;
--o-transition:all 350ms ease-in-out;
-transition:all 350ms ease-in-out;
 }
 
 #mktHeaderLine .navbar-brand {

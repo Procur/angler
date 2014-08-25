@@ -30,5 +30,21 @@ module.exports = {
     files: {
       '<%= pubCssPath %>/main.min.css': '<%= pubCssPath %>/main.css'
     }
+  },
+  auth_dev: {
+    options: {
+      style: 'expanded'
+    },
+    files: {
+      '<%= pubCssPath %>/auth.css': '<%= cssPath %>/auth.scss'
+    }
+  },
+  auth_dist: {
+    options: {
+      style: 'compressed'
+    },
+    files: {
+      '<%= pubCssPath %>/auth.min.css': '<%= pubCssPath %>/auth.css'
+    }
   }
 };

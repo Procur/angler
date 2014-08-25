@@ -8,11 +8,9 @@ module.exports = {
   },
   styles: {
     files: [
-      '<%= cssPath %>/**/*.scss',
-      '!<%= cssPath %>/**/my_procur.css',
-      '!<%= cssPath %>/**/main.css'
+      '<%= cssPath %>/**/*.scss'
     ],
-    tasks: ['sass:my_procur_dev', 'sass:main_dev']
+    tasks: ['sass:my_procur_dev', 'sass:main_dev', 'sass:auth_dev']
   },
   templates:  {
     files: [
