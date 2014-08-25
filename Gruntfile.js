@@ -33,10 +33,13 @@ function gruntConfig(grunt) {
   grunt.registerTask('build:dev', [
     'concat:components',
     'ngtemplates:my_procur',
+    'ngtemplates:registration',
     'concat:my_procur',
+    'concat:registration',
     'sass:my_procur_dev',
     'sass:main_dev',
     'sass:auth_dev',
+    'sass:registration_dev',
     'copy:assets',
     'copy:moxie'
   ]);
@@ -45,7 +48,8 @@ function gruntConfig(grunt) {
     'uglify:dist',
     'sass:my_procur_dist',
     'sass:main_dist',
-    'sass:auth_dist'
+    'sass:auth_dist',
+    'sass:registration_dist'
   ]);
   grunt.registerTask('server', ['bgShell:server']);
   grunt.registerTask('protractor', ['bgShell:protractor']);
