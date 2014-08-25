@@ -16,89 +16,64 @@
       scope: {
         validationType: '@pcValidator'
       },
-      link: function (scope, elm, attrs, ctrl) {
-        var errorElement;
-        //email regex
+      link: validateInput
+    };
+
+    function validateInput(scope, elm, attrs, ctrl) {
+      var errorElement;
+      var validationTypes = scope.validationType.split(" ");
+      elm.on('blur keyup', function() {
+        for (var i in validationTypes) {
+          if (validationTypes[i] === "required") requireValidation();
+          if (validationTypes[i] === 'email') emailValidation();
+          if (validationTypes[i] === 'password') passwordValidation();
+          if (validationTypes[i] === 'url') urlValidation();
+        }
+      });
+
+      function requireValidation() {
+        ctrl.$viewValue ? ctrl.$setValidity('pcRequired', true) : ctrl.$setValidity('pcRequired', false);
+        errorDecorator(ctrl.$error.pcRequired && ctrl.$dirty, 'Required.');
+      }
+
+      function emailValidation() {
         var reEmail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        var reUrl = /^(https?|ftp):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(\#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/;
+        ctrl.$setValidity('pcEmail', reEmail.test(ctrl.$viewValue));
+        errorDecorator(ctrl.$error.pcEmail && ctrl.$dirty && ctrl.$viewValue, "Enter a Valid Email.");
+      }
+
+      function passwordValidation() {
         var rePassword = /(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z])/;
         var passMin = 8;
         var passMax = 20;
 
-        elm.on('blur keyup', function() {
+        ctrl.$setValidity('pcPassword', rePassword.test(ctrl.$viewValue));
 
-          if (scope.validationType === 'required' ) {
-            if (ctrl.$viewValue) {
-              ctrl.$setValidity('pcRequired', true);
-            } else {
-              ctrl.$setValidity('pcRequired', false);
-            }
-
-            if (ctrl.$error.pcRequired && ctrl.$dirty) {
-              if (!errorElement) {
-                errorElement = elm.after('<p class="error">Required.</p>').next();
-              }
-            }  else {
-              if (errorElement) {
-                errorElement.remove();
-                errorElement = null;
-              }
-            }
-          }
-          
-          if (scope.validationType === 'email') {
-            ctrl.$setValidity('pcEmail', reEmail.test(ctrl.$viewValue));
-            if (ctrl.$error.pcEmail && ctrl.$dirty && ctrl.$viewValue) {
-              if (!errorElement) {
-                errorElement = elm.after('<p class="error">Enter a Valid Email.</p>').next();
-              }
-            }  else {
-              if (errorElement) {
-                errorElement.remove();
-                errorElement = null;
-              }
-            }
-          }
-
-          if (scope.validationType === 'password') {
-            ctrl.$setValidity('pcPassword', rePassword.test(ctrl.$viewValue));
-            if (ctrl.$error.pcPassword && ctrl.$dirty && ctrl.$viewValue) {
-              if (!errorElement) {
-                errorElement = elm.after('<p class="error">Must contain one lower &amp; uppercase letter, and one non-alpha character (a number or a symbol.)</p>').next();
-              }
-            }  else {
-              if (errorElement) {
-                errorElement.remove();
-                errorElement = null;
-              }
-              if (ctrl.$viewValue && (ctrl.$viewValue.length < passMin || ctrl.$viewValue.length >passMax) && ctrl.$dirty) {
-                if (!errorElement) {
-                  errorElement = elm.after('<p class="error">Passwords must be between 8 and 20 characters.</p>').next();
-                }
-              } 
-              else {
-                if (errorElement) {
-                  errorElement.remove();
-                  errorElement = null;
-                }
-              }
-            }
-          }
-          if (scope.validationType === 'url') {
-            ctrl.$setValidity('pcUrl', reUrl.test(ctrl.$viewValue));
-            if (ctrl.$error.pcUrl && ctrl.$dirty && ctrl.$viewValue) {
-              if (!errorElement) {
-                errorElement = elm.after('<p class="error">Enter a Valid Url With http://.</p>').next();
-              }
-            }  else {
-              if (errorElement) {
-                errorElement.remove();
-                errorElement = null;
-              }
-            }
-          }
-        });
+        errorDecorator(ctrl.$error.pcPassword && ctrl.$dirty && ctrl.$viewValue, "Must contain one lower &amp; uppercase letter, and one non-alpha character (a number or a symbol.)" );
+        errorDecorator(ctrl.$viewValue && (ctrl.$viewValue.length < passMin || ctrl.$viewValue.length >passMax) && ctrl.$dirty, "Passwords must be between 8 and 20 characters.");
       }
+
+      function urlValidation() {
+        var reUrl = /^(https?|ftp):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(\#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/;
+
+        ctrl.$setValidity('pcUrl', reUrl.test(ctrl.$viewValue));
+        errorDecorator(ctrl.$error.pcUrl && ctrl.$dirty && ctrl.$viewValue, 'Enter a Valid Url With http://.');
+      }
+
+      function errorDecorator(boolStatement, errorMessage) {
+        if (boolStatement) {
+          if (!errorElement) errorElement = elm.after('<p class="error">'+errorMessage+'</p>').next();
+        }
+        else {
+          if (errorElement) {
+            if (errorElement[0].innerHTML == errorMessage) {
+              errorElement.remove();
+              errorElement = null;
+            }
+          }
+        }
+      }
+
     }
   }
-})(angular);
+}) (angular);
