@@ -4,8 +4,7 @@ describe('editCompanyProfileController', function() {
   var
     scope,
     controller,
-    mockUser,
-    mockCompany;
+    mockUser;
 
   beforeEach(module('pc.EditCompanyProfile'));
 
@@ -16,18 +15,23 @@ describe('editCompanyProfileController', function() {
     scope = $rootScope.$new();
 
     mockUser = {
-      name: 'John Doe'
-    };
-
-    mockCompany = {
-      name: 'Acme Inc.'
+      activeMode: 'supplier',
+      isSupplierMode: isSupplierMode,
+      isBuyerMode: isBuyerMode
     };
 
     dependencies = {
       '$scope': scope,
-      'userService': mockUser,
-      'companyService': mockCompany
+      'userService': mockUser
     };
+
+    function isSupplierMode() {
+      return mockUser.activeMode === 'supplier';
+    } 
+
+    function isBuyerMode() {
+      return mockUser.activeMode === 'buyer';
+    }
 
     controller = $controller('editCompanyProfileController', dependencies);
   }));
@@ -37,15 +41,13 @@ describe('editCompanyProfileController', function() {
   });
 
   describe('$scope', function() {
-    it('should set the user object', function() {
-      expect(scope.user).to.equal(mockUser);
+    it('should set the user\'s active mode', function() {
+      expect(scope.user.activeMode).to.equal(mockUser.activeMode);
     });
-
-    it('should set the company object', function() {
-      expect(scope.company).to.equal(mockCompany);
+    it('should set the user\'s buyer and supplier mode', function() {
+      expect(scope.user.isSupplierMode).to.equal(mockUser.isSupplierMode);
+      expect(scope.user.isBuyerMode).to.equal(mockUser.isBuyerMode);
     });
-
-
   });
 
 });
