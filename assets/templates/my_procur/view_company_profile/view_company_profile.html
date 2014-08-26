@@ -93,9 +93,12 @@
           <p class="detail-header">Languages</p>
           <p class="detail-body">TODO</p>
         </div>
-        <div class="company-col-detail">
+        <div class="company-col-detail" >
           <p class="detail-header">DUNS Number</p>
-          <p class="detail-body">TODO</p>
+          <p ng-switch="{{user.activeMode}}">
+            <p class="detail-body" ng-switch-when="supplier">{{supplier.duns}}</p>
+            <p class="detail-body" ng-switch-when="buyer">{{buyer.duns}}</p>
+          </p>
         </div>
       </div>
       <div class="col-xs-12 col-sm-6 company-col-right">

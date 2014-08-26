@@ -8,6 +8,8 @@
     'userService',
     'companyService',
     'locationService',
+    'supplierService',
+    'buyerService',
     'viewCompanyProfileService',
     viewCompanyProfileController
   ];
@@ -16,7 +18,7 @@
     .controller('viewCompanyProfileController', definitions);
 
 
-  function viewCompanyProfileController($scope, user, company, location, actionItems) {
+  function viewCompanyProfileController($scope, user, company, location, supplier, buyer, actionItems) {
 
 
     $scope.user = { activeMode: user.get("activeMode") };
@@ -33,8 +35,12 @@
 
     $scope.location = location;
 
+    $scope.supplier = { duns: supplier.get('duns') };
+
+    $scope.buyer = { duns: buyer.get('duns') };
+
     $scope.actionItems = actionItems.get();
-    console.log(actionItems);
+    console.log($scope.user);
   }
 
 })(angular);
