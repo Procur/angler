@@ -28,14 +28,8 @@
     $rootScope.$on('activeModeChanged', changeRole);
 
     function changeRole(event, data) {
-      if (data === 'buyer') {
-        role = buyer;
-        getAttributes(role);
-      }
-      else {
-        role = supplier;
-        getAttributes(role);
-      }
+      data === 'buyer' ? role = buyer : role = supplier;
+      getAttributes(role);
     }
 
     function getAttributes(role) {
