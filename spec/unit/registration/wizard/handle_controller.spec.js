@@ -1,4 +1,4 @@
-describe('registrationHandleController', function() {
+describe('companyHandleController', function() {
   var
     controller,
     scope,
@@ -7,7 +7,7 @@ describe('registrationHandleController', function() {
     mockAjax,
     companyService;
 
-  beforeEach(module('pc.Registration'));
+  beforeEach(module('pc.Wizard'));
 
   beforeEach(inject(function($rootScope, $controller, $injector) {
     var
@@ -64,7 +64,7 @@ describe('registrationHandleController', function() {
       'companyService': companyService
     };
 
-    controller = $controller('registrationHandleController', dependencies);
+    controller = $controller('companyHandleController', dependencies);
   }));
 
   it('should exist', function() {

@@ -5,7 +5,6 @@ describe('pcNav Directive', function() {
     navElement;
 
   beforeEach(module('pc.Nav'));
-  beforeEach(module('pc.Templates'));
 
   beforeEach(inject(function($rootScope, $compile) {
     scope = $rootScope.$new();

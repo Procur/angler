@@ -1,10 +1,10 @@
-describe('registrationStepController', function() {
+describe('wizardStepController', function() {
   var
     controller,
     scope,
     mockState;
 
-  beforeEach(module('pc.Registration'));
+  beforeEach(module('pc.Wizard'));
 
   beforeEach(inject(function($rootScope, $controller) {
     var
@@ -30,7 +30,7 @@ describe('registrationStepController', function() {
       '$state': mockState
     };
 
-    controller = $controller('registrationStepController', dependencies);
+    controller = $controller('wizardStepController', dependencies);
   }));
 
   it('should exist', function() {

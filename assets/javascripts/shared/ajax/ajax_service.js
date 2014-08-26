@@ -16,12 +16,6 @@
     .factory('ajaxService', definition);
 
   function ajaxService($q, _, FormData, Xhr, XHR_METHOD, snackbar) {
-    /*
-    var
-      header = { key: 'apitoken',
-                 value: user.get('apiToken')
-               };
-    */
 
     return {
       get: get,
@@ -31,27 +25,27 @@
       handleError: handleError
     };
 
-    function get(endpoint) {
-      return ajax(XHR_METHOD.GET, endpoint);
+    function get(token, endpoint) {
+      return ajax(token, XHR_METHOD.GET, endpoint);
     }
 
-    function post(endpoint, postData) {
-      return ajax(XHR_METHOD.POST, endpoint, postData);
+    function post(token, endpoint, postData) {
+      return ajax(token, XHR_METHOD.POST, endpoint, postData);
     }
 
-    function put(endpoint, putData) {
-      return ajax(XHR_METHOD.PUT, endpoint, putData);
+    function put(token, endpoint, putData) {
+      return ajax(token, XHR_METHOD.PUT, endpoint, putData);
     }
 
-    function destroy(endpoint) {
-      return ajax(XHR_METHOD.DELETE, endpoint);
+    function destroy(token, endpoint) {
+      return ajax(token, XHR_METHOD.DELETE, endpoint);
     }
 
     function handleError(err) {
       snackbar.error(err || 'There was an error processing your request at this time. Please try again.');
     }
 
-    function ajax(method, endpoint, data) {
+    function ajax(token, method, endpoint, data) {
       var
         deferred = $q.defer(),
         xhr = new Xhr(),
@@ -65,7 +59,7 @@
       }
 
       xhr.open(method, endpoint, true);
-      //xhr.setRequestHeader(header.key, header.value);
+      xhr.setRequestHeader('apitoken', token);
       xhr.send(formData);
 
       return deferred.promise;

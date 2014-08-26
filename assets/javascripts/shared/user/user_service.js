@@ -20,6 +20,7 @@
       self;
 
     user = $window.pc.localData.user ? _.cloneDeep($window.pc.localData.user) : {};
+    $window.pc.userModel = user;
     setInactiveMode();
 
     self = {

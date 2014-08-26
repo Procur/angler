@@ -1,4 +1,4 @@
-describe('registrationCompanyInformationController', function() {
+describe('companyInformationController', function() {
   var
     controller,
     scope,
@@ -8,7 +8,7 @@ describe('registrationCompanyInformationController', function() {
     companyService,
     FILE_EVENTS;
 
-  beforeEach(module('pc.Registration'));
+  beforeEach(module('pc.Wizard'));
 
   beforeEach(inject(function($rootScope, $controller, $injector) {
     var
@@ -72,7 +72,7 @@ describe('registrationCompanyInformationController', function() {
       'FILE_EVENTS': FILE_EVENTS
     };
 
-    controller = $controller('registrationCompanyInformationController', dependencies);
+    controller = $controller('companyInformationController', dependencies);
   }));
 
   it('should exist', function() {
@@ -126,7 +126,7 @@ describe('registrationCompanyInformationController', function() {
       it('should go to the email verification state on success', function() {
         scope.submitCompanyInformation();
 
-        expect(mockState.go).to.have.been.calledWith('registration.email_verification');
+        expect(mockState.go).to.have.been.calledWith('wizard.email_verification');
       });
     });
   });
