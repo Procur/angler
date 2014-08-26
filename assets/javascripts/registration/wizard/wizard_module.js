@@ -10,7 +10,8 @@
     'pc.Company',
     'pc.User',
     'pc.Snackbar',
-    'pc.FileUpload'
+    'pc.FileUpload',
+    'pc.Validation'
   ];
 
   angular.module('pc.Wizard', dependencies);

@@ -3,9 +3,7 @@
   var
     dependencies;
 
-  dependencies = [
-    
-  ]; 
+  dependencies = [];
 
   angular.module('pc.Validation', dependencies);
 

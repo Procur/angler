@@ -4,8 +4,8 @@
   definitions;
 
   definitions = [
-  pcConfirm
-  ]; 
+    pcConfirm
+  ];
 
   angular.module('pc.Validation').directive('pcConfirm', definitions);
 
@@ -18,10 +18,10 @@
         field: '=pcConfirm'
       },
       link: confirmValidation
-    }
+    };
 
     function confirmValidation (scope, elm, attrs, ctrl) {
-      var 
+      var
       errorElement,
       isConfirm;
 

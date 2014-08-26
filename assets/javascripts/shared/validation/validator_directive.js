@@ -5,9 +5,10 @@
 
   definitions = [
   pcValidator
-  ]; 
+  ];
 
-  angular.module('pc.Validation').directive('pcValidator', definitions);
+  angular.module('pc.Validation')
+    .directive('pcValidator', definitions);
 
   function pcValidator() {
 
