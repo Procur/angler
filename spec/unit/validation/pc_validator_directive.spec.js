@@ -1,4 +1,4 @@
-describe.only('pcValidator Directive:', function() {
+describe('pcValidator Directive:', function() {
 
   describe('Email validation', function() {
 

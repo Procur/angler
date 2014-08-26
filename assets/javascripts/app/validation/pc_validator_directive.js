@@ -36,25 +36,23 @@
       });
 
       function countryCodeValidation() {
-        //TODO see if correct
-        ctrl.$setValidity('pcCountryCode', /^\+[1-9]+\d{0,2}$/.test(ctrl.$viewValue));
+        var reCountryCode = /^\+[1-9]+\d{0,2}$/;
+        ctrl.$setValidity('pcCountryCode', reCountryCode.test(ctrl.$viewValue));
         errorDecorator(ctrl.$error.pcCountryCode && ctrl.$dirty && ctrl.$viewValue, "Invalid Country Code.");
       }
 
       function phoneNumberValidation() {
-        //TODO see if correct
-        ctrl.$setValidity('pcPhoneNumber', /^\d{1}[-\.\u0020\d]{6,16}$/.test(ctrl.$viewValue));
+        var rePhoneNumber = /^\d{1}[-\.\u0020\d]{6,16}$/;
+        ctrl.$setValidity('pcPhoneNumber', rePhoneNumber.test(ctrl.$viewValue));
         errorDecorator(ctrl.$error.pcPhoneNumber && ctrl.$dirty && ctrl.$viewValue, "Invalid Phone Number.");
       }
 
       function digitsValidation() {
-        //TODO see if correct
         ctrl.$setValidity('pcDigits', /^\d+$/.test(ctrl.$viewValue));
         errorDecorator(ctrl.$error.pcDigits && ctrl.$dirty && ctrl.$viewValue, "Must be numbers only.");
       }
 
       function textValidation() {
-        //TODO see if correct
         ctrl.$setValidity('pcDigits', /^[a-zA-Z]*$/.test(ctrl.$viewValue));
         errorDecorator(ctrl.$error.pcDigits && ctrl.$dirty && ctrl.$viewValue, "Must be Letters only.");
       }
@@ -92,14 +90,13 @@
         if (boolStatement) {
           if (!errorElement) errorElement = elm.after('<p class="error">'+errorMessage+'</p>').next();
         }
-        else {
-          if (errorElement) {
-            if (errorElement[0].innerHTML == errorMessage) {
-              errorElement.remove();
-              errorElement = null;
-            }
+        else if (errorElement) {
+          if (errorElement[0].innerHTML == errorMessage) {
+            errorElement.remove();
+            errorElement = null;
           }
         }
+        
       }
 
     }
