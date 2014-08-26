@@ -21,7 +21,9 @@
   function viewCompanyProfileController($scope, user, company, location, supplier, buyer, actionItems) {
 
 
-    $scope.user = { activeMode: user.get("activeMode") };
+    $scope.user = { activeMode: user.get("activeMode"),
+                    isBuyerMode: user.isBuyerMode,
+                    isSupplierMode: user.isSupplierMode};
 
     $scope.company = { name : company.get("name"),
                        phoneExtension: company.get("phoneExtension"),
@@ -35,12 +37,18 @@
 
     $scope.location = location;
 
-    $scope.supplier = { duns: supplier.get('duns') };
+    $scope.supplier = { duns: supplier.get('duns'),
+                        companyType: supplier.get('companyType'),
+                        languages: supplier.get('languages'),
+                        productCategories: supplier.get('productCategories')};
 
-    $scope.buyer = { duns: buyer.get('duns') };
+    $scope.buyer = { duns: buyer.get('duns'),
+                     companyType: buyer.get('companyType'),
+                     languages: buyer.get('languages'),
+                     productCategories: buyer.get('productCategories')};
 
     $scope.actionItems = actionItems.get();
-    console.log($scope.user);
+    console.log($scope.user.activeMode);
   }
 
 })(angular);

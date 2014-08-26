@@ -70,7 +70,18 @@
       <h3>
         <span>Product Categories</span>
       </h3>
-      <p>TODO</p>
+      <div ng-switch="user.activeMode">
+        <div ng-switch-when="supplier">
+          <div ng-repeat="product in supplier.productCategories">
+            <p class="detail-body">{{product}}</p>
+          </div>
+        </div>
+        <div ng-switch-when="buyer">
+          <div ng-repeat="product in buyer.productCategories">
+            <p class="detail-body">{{product}}</p>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="company-detail-box company-two-col-box">
       <h3>
@@ -79,7 +90,10 @@
       <div class="col-xs-12 col-sm-6 company-col-left">
         <div class="company-col-detail">
           <p class="detail-header">Type of Company</p>
-          <p class="detail-body">TODO</p>
+          <div ng-switch="user.activeMode">
+            <p class="detail-body" ng-switch-when="supplier">{{supplier.companyType}}</p>
+            <p class="detail-body" ng-switch-when="buyer">{{buyer.companyType}}</p>
+          </div>
         </div>
         <div class="company-col-detail">
           <p class="detail-header">Total # of Employees</p>
@@ -91,14 +105,25 @@
         </div>
         <div class="company-col-detail">
           <p class="detail-header">Languages</p>
-          <p class="detail-body">TODO</p>
+          <div ng-switch="user.activeMode">
+            <div ng-switch-when="supplier">
+              <div ng-repeat="language in supplier.languages">
+                <p class="detail-body">{{language}}</p>
+              </div>
+            </div>
+            <div ng-switch-when="buyer">
+              <div ng-repeat="language in buyer.languages">
+                <p class="detail-body">{{language}}</p>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="company-col-detail" >
           <p class="detail-header">DUNS Number</p>
-          <p ng-switch="{{user.activeMode}}">
+          <div ng-switch="user.activeMode">
             <p class="detail-body" ng-switch-when="supplier">{{supplier.duns}}</p>
             <p class="detail-body" ng-switch-when="buyer">{{buyer.duns}}</p>
-          </p>
+          </div>
         </div>
       </div>
       <div class="col-xs-12 col-sm-6 company-col-right">
