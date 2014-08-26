@@ -35,7 +35,6 @@
         role = supplier;
         getAttributes(role);
       }
-      console.log($scope.actor);
     }
 
     function getAttributes(role) {
