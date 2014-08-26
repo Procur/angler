@@ -13,7 +13,13 @@
     .controller('productionDetailsController', definitions);
 
   function productionDetailsController($scope, supplier) {
-    $scope.supplier = {};
+    $scope.supplier = initSupplierInformation();
+
+    function initSupplierInformation() {
+      return {
+        dba: supplier.get('dba')
+      };
+    }
   }
 
 })(angular);

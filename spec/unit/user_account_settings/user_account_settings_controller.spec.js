@@ -3,7 +3,7 @@ describe('userAccountSettingsController', function() {
     scope,
     controller;
 
-  beforeEach( module('pc.UserAccountSettings'));
+  beforeEach(module('pc.UserAccountSettings'));
 
   beforeEach(inject(function($rootScope, $controller) {
     var

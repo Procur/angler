@@ -16,7 +16,9 @@
     .controller('socialMediaController', definitions);
 
   function socialMediaController($rootScope, $scope, user, buyer, supplier) {
-    var role;
+    var
+      role;
+
     $scope.user = {
       activeMode: user.activeMode,
       isBuyerMode: user.isBuyerMode,
@@ -34,7 +36,6 @@
         role = supplier;
         getAttributes(role);
       }
-      console.log($scope.actor);
     }
 
     function getAttributes(role) {

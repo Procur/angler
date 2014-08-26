@@ -1,4 +1,3 @@
-
 describe('editCompanyProfileController', function() {
 
   var
@@ -27,7 +26,7 @@ describe('editCompanyProfileController', function() {
 
     function isSupplierMode() {
       return mockUser.activeMode === 'supplier';
-    } 
+    }
 
     function isBuyerMode() {
       return mockUser.activeMode === 'buyer';
@@ -51,4 +50,3 @@ describe('editCompanyProfileController', function() {
   });
 
 });
-
