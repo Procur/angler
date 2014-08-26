@@ -1,4 +1,4 @@
-describe('pcValidator Directive:', function() {
+describe.only('pcValidator Directive:', function() {
 
   describe('Email validation', function() {
 
@@ -329,6 +329,122 @@ describe('pcValidator Directive:', function() {
       form.email.$setViewValue('dkjfksjdk');
       textElement.children().trigger("blur");
       expect(textElement.children()[1]).to.be.undefined;
+    });
+  });
+
+  describe('Country Code Validation', function() {
+    var
+    scope,
+    compile,
+    countryCodeElement,
+    form;
+
+    beforeEach(module('pc.Validation'));
+
+
+
+    beforeEach(inject(function($compile, $rootScope){
+      scope = $rootScope.$new();
+      countryCodeElement = angular.element(
+        "<form name='form'>"+
+        "<input type='email' name='email' pc-validator='countryCode' ng-model='email'/>"+
+        "</form>");
+      $compile(countryCodeElement)(scope);
+      scope.$digest();
+      form = scope.form;
+
+
+    }));
+
+    //email errors
+    
+
+
+    it('Error message when not a country code', function() {
+      form.email.$setViewValue('123');
+      countryCodeElement.children().trigger("blur");
+      expect(countryCodeElement.children()[1].innerHTML).to.equal('Invalid Country Code.');
+    });
+
+    it('No Error message initially', function() {
+      expect(countryCodeElement.children()[1]).to.be.undefined;
+      countryCodeElement.children().trigger("blur");
+      expect(countryCodeElement.children()[1]).to.be.undefined;
+    });
+
+    it('Error message appears when wrong, and goes away when good', function() {
+      expect(countryCodeElement.children()[1]).to.be.undefined;
+      form.email.$setViewValue('+022');
+      countryCodeElement.children().trigger("blur");
+      expect(countryCodeElement.children()[1].innerHTML).to.equal('Invalid Country Code.');
+      form.email.$setViewValue('+1');
+      countryCodeElement.children().trigger("blur");
+      expect(countryCodeElement.children()[1]).to.be.undefined;
+    });
+
+    it('No Error message when there is a valid county code ', function() {
+      expect(countryCodeElement.children()[1]).to.be.undefined;
+      form.email.$setViewValue('+123');
+      countryCodeElement.children().trigger("blur");
+      expect(countryCodeElement.children()[1]).to.be.undefined;
+    });
+  });
+
+describe('Phone Number Validation', function() {
+    var
+    scope,
+    compile,
+    phoneNumberElement,
+    form;
+
+    beforeEach(module('pc.Validation'));
+
+
+
+    beforeEach(inject(function($compile, $rootScope){
+      scope = $rootScope.$new();
+      phoneNumberElement = angular.element(
+        "<form name='form'>"+
+        "<input type='email' name='email' pc-validator='phoneNumber' ng-model='email'/>"+
+        "</form>");
+      $compile(phoneNumberElement)(scope);
+      scope.$digest();
+      form = scope.form;
+
+
+    }));
+
+    //email errors
+    
+
+
+    it('Error message when not a phone number', function() {
+      form.email.$setViewValue('12357');
+      phoneNumberElement.children().trigger("blur");
+      expect(phoneNumberElement.children()[1].innerHTML).to.equal('Invalid Phone Number.');
+    });
+
+    it('No Error message initially', function() {
+      expect(phoneNumberElement.children()[1]).to.be.undefined;
+      phoneNumberElement.children().trigger("blur");
+      expect(phoneNumberElement.children()[1]).to.be.undefined;
+    });
+
+    it('Error message appears when wrong, and goes away when good', function() {
+      expect(phoneNumberElement.children()[1]).to.be.undefined;
+      form.email.$setViewValue('770/401/0916');
+      phoneNumberElement.children().trigger("blur");
+      expect(phoneNumberElement.children()[1].innerHTML).to.equal('Invalid Phone Number.');
+      form.email.$setViewValue('4042533544');
+      phoneNumberElement.children().trigger("blur");
+      expect(phoneNumberElement.children()[1]).to.be.undefined;
+    });
+
+    it('No Error Message when there is a valid phone number', function() {
+      expect(phoneNumberElement.children()[1]).to.be.undefined;
+      form.email.$setViewValue('770-401-0916');
+      phoneNumberElement.children().trigger("blur");
+      expect(phoneNumberElement.children()[1]).to.be.undefined;
     });
   });
 

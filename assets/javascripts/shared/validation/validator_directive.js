@@ -31,8 +31,22 @@
           if (validationTypes[i] === 'email') emailValidation();
           if (validationTypes[i] === 'password') passwordValidation();
           if (validationTypes[i] === 'url') urlValidation();
+          if (validationTypes[i] === 'countryCode') countryCodeValidation();
+          if (validationTypes[i] === 'phoneNumber') phoneNumberValidation();
         }
       });
+
+      function countryCodeValidation() {
+        //TODO see if correct
+        ctrl.$setValidity('pcCountryCode', /^\+[1-9]+\d{0,2}$/.test(ctrl.$viewValue));
+        errorDecorator(ctrl.$error.pcCountryCode && ctrl.$dirty && ctrl.$viewValue, "Invalid Country Code.");
+      }
+
+      function phoneNumberValidation() {
+        //TODO see if correct
+        ctrl.$setValidity('pcPhoneNumber', /^\d{1}[-\.\u0020\d]{6,16}$/.test(ctrl.$viewValue));
+        errorDecorator(ctrl.$error.pcPhoneNumber && ctrl.$dirty && ctrl.$viewValue, "Invalid Phone Number.");
+      }
 
       function digitsValidation() {
         //TODO see if correct
