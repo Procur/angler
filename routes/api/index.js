@@ -1,24 +1,60 @@
 var
   express = require('express'),
   router = express.Router(),
-  procurApi = 'https://procur.fwd.wf',
   formHelper = require('../../helpers/form_helper'),
-  request = require('request');
+  Api = require('../../lib/api');
 
-router.put('/*', formHelper, function api(req, res) {
-  request({
-    url: procurApi + req.originalUrl.replace('/api', ''),
-    method: 'PUT',
-    headers: {
-      'apitoken': req.get('apitoken')
-    },
-    body: JSON.stringify(req.formData)
-  }, function(err, response, body) {
-    if (err || (response.statusCode !== 200 && response.statusCode !== 201)) { res.send(JSON.parse(body)); }
-    else {
-      res.send(JSON.parse(body));
-    }
-  });
-});
+router.put('/*', formHelper, putApiWrapper);
+router.post('/*', formHelper, postApiWrapper);
+router.get('/*', getApiWrapper);
+router.delete('/*', deleteApiWrapper);
 
 module.exports = router;
+
+function putApiWrapper(req, res) {
+  var
+    api = new Api({ apitoken: req.get('apitoken') }),
+    path = req.originalUrl.replace('/api', '');
+
+  api.put(api.hosts.v1a + path, req.formData)
+    .then(handleResponse(res, 201))
+    .catch(api.err(res));
+}
+
+function postApiWrapper(req, res) {
+  var
+    api = new Api({ apitoken: req.get('apitoken') }),
+    path = req.originalUrl.replace('/api', '');
+
+  api.post(api.hosts.v1a + path, req.formData)
+    .then(handleResponse(res))
+    .catch(api.err(res));
+}
+
+function getApiWrapper(req, res) {
+  var
+    api = new Api({ apitoken: req.get('apitoken') }),
+    path = req.originalUrl.replace('/api', '');
+
+  api.get(api.hosts.v1a + path)
+    .then(handleResponse(res))
+    .catch(api.err(res));
+}
+
+function deleteApiWrapper(req, res) {
+  var
+    api = new Api({ apitoken: req.get('apitoken') }),
+    path = req.originalUrl.replace('/api', '');
+
+  api.del(api.hosts.v1a + path)
+    .then(handleResponse(res))
+    .catch(api.err(res));
+}
+
+function handleResponse(res, status) {
+  return sendSuccessResponse;
+
+  function sendSuccessResponse(data) {
+    res.send(status || 200, data);
+  }
+}

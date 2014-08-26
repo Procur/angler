@@ -1,4 +1,4 @@
-describe('registrationEmailVerificationController', function() {
+describe('emailVerificationController', function() {
   var
     controller,
     scope,
@@ -8,7 +8,7 @@ describe('registrationEmailVerificationController', function() {
     userService,
     snackbar;
 
-  beforeEach(module('pc.Registration'));
+  beforeEach(module('pc.Wizard'));
 
   beforeEach(inject(function($rootScope, $controller, $injector) {
     var
@@ -70,7 +70,7 @@ describe('registrationEmailVerificationController', function() {
       'snackbarService': snackbar
     };
 
-    controller = $controller('registrationEmailVerificationController', dependencies);
+    controller = $controller('emailVerificationController', dependencies);
   }));
 
   it('should exist', function() {
@@ -112,7 +112,7 @@ describe('registrationEmailVerificationController', function() {
       it('should go to the handle state if the email is already verified', function() {
         userService.set('emailVerified', true);
         scope.alreadyVerified();
-        expect(mockState.go).to.have.been.calledWith('registration.handle');
+        expect(mockState.go).to.have.been.calledWith('wizard.handle');
       });
     });
   });

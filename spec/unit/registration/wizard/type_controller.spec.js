@@ -1,12 +1,15 @@
-describe('registrationTypeController', function() {
+describe('typeController', function() {
   var
     controller,
     scope,
     mockState,
     mockUser,
-    mockCompany;
+    mockCompany,
+    mockAjax,
+    mockPromise,
+    mockResponse;
 
-  beforeEach(module('pc.Registration'));
+  beforeEach(module('pc.Wizard'));
 
   beforeEach(inject(function($rootScope, $controller) {
     var
@@ -29,21 +32,42 @@ describe('registrationTypeController', function() {
     };
 
     mockUser = {
-      set: sinon.spy()
+      set: sinon.spy(),
+      get: sinon.spy(),
+      setActiveMode: sinon.spy()
     };
 
     mockCompany = {
       set: sinon.spy()
     };
 
+    mockPromise = {
+      then: sinon.stub(),
+      catch: sinon.spy()
+    };
+
+    mockPromise.then = function(cb) {
+      cb(mockResponse);
+      return mockPromise;
+    };
+
+    mockAjax = {
+      put: sinon.stub(),
+    };
+
+    mockAjax.put = function() {
+      return mockPromise;
+    };
+
     dependencies = {
       '$scope': scope,
       '$state': mockState,
+      'ajaxService': mockAjax,
       'userService': mockUser,
       'companyService': mockCompany
     };
 
-    controller = $controller('registrationTypeController', dependencies);
+    controller = $controller('typeController', dependencies);
   }));
 
   it('should exist', function() {
@@ -57,29 +81,38 @@ describe('registrationTypeController', function() {
     });
 
     describe('selectType()', function() {
+      beforeEach(function() {
+        mockResponse = {
+          activeMode: '',
+        };
+      });
+
       it('should set selectType on scope', function() {
         expect(typeof scope.selectType).to.equal('function');
       });
 
       it('should set the user and company type', function() {
+        mockResponse.activeMode = 'supplier';
         scope.selectType('supplier');
 
         expect(mockCompany.set).to.have.been.calledWith('supplier', true);
-        expect(mockUser.set).to.have.been.calledWith('activeMode', 'supplier');
+        expect(mockUser.setActiveMode).to.have.been.calledWith('supplier');
       });
 
       it('should set the company buyer property to false and go to the finished product state', function() {
+        mockResponse.activeMode = 'supplier';
         scope.selectType('supplier');
 
         expect(mockCompany.set).to.have.been.calledWith('buyer', false);
-        expect(mockState.go).to.have.been.calledWith('registration.finished_product');
+        expect(mockState.go).to.have.been.calledWith('wizard.finished_product');
       });
 
       it('should set the company supplier property to false and go to the company information state', function() {
+        mockResponse.activeMode = 'buyer';
         scope.selectType('buyer');
 
         expect(mockCompany.set).to.have.been.calledWith('supplier', false);
-        expect(mockState.go).to.have.been.calledWith('registration.company_information');
+        expect(mockState.go).to.have.been.calledWith('wizard.company_information');
       });
     });
   });

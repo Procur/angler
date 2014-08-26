@@ -1,8 +1,6 @@
 module.exports = {
   dist: {
     options: {
-      sourceMap: true,
-      sourceMapName: '<%= pubJsPath %>/my_procur.map',
       compress: {
         drop_console: true
       }

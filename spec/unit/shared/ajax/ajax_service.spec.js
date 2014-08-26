@@ -8,6 +8,7 @@ describe('ajaxService', function() {
     mockFormDataObject,
     mockSnackbar,
     XHR_METHOD,
+    token = 'apitoken',
     result;
 
   beforeEach(module('pc.Ajax'));
@@ -16,13 +17,15 @@ describe('ajaxService', function() {
     mockXhrObject = {
       bind: sinon.spy(),
       open: sinon.spy(),
-      send: sinon.spy()
+      send: sinon.spy(),
+      setRequestHeader: sinon.spy()
     };
 
     mockXhr = function() {
       this.bind = mockXhrObject.bind;
       this.open = mockXhrObject.open;
       this.send = mockXhrObject.send;
+      this.setRequestHeader = mockXhrObject.setRequestHeader;
     };
 
     mockFormDataObject = {
@@ -56,7 +59,7 @@ describe('ajaxService', function() {
 
   describe('get()', function() {
     beforeEach(function() {
-      result = ajax.get('foo/bar');
+      result = ajax.get(token, 'foo/bar');
     });
 
     it('should return a promise', function() {
@@ -75,11 +78,15 @@ describe('ajaxService', function() {
     it('should send the xhr data', function() {
       expect(mockXhrObject.send).to.have.been.called;
     });
+
+    it('should set the request header', function() {
+      expect(mockXhrObject.setRequestHeader).to.have.been.calledWith(token);
+    });
   });
 
   describe('post()', function() {
     beforeEach(function() {
-      result = ajax.post('foo/baz', { foo: 'baz' });
+      result = ajax.post(token, 'foo/baz', { foo: 'baz' });
     });
 
     it('should return a promise', function() {
@@ -102,11 +109,15 @@ describe('ajaxService', function() {
     it('should send the xhr data', function() {
       expect(mockXhrObject.send).to.have.been.called;
     });
+
+    it('should set the request header', function() {
+      expect(mockXhrObject.setRequestHeader).to.have.been.calledWith(token);
+    });
   });
 
   describe('put()', function() {
     beforeEach(function() {
-      result = ajax.put('baz/foo', { hello: 'world' });
+      result = ajax.put(token, 'baz/foo', { hello: 'world' });
     });
 
     it('should return a promise', function() {
@@ -129,11 +140,15 @@ describe('ajaxService', function() {
     it('should send the xhr data', function() {
       expect(mockXhrObject.send).to.have.been.called;
     });
+
+    it('should set the request header', function() {
+      expect(mockXhrObject.setRequestHeader).to.have.been.calledWith(token);
+    });
   });
 
   describe('destroy()', function() {
     beforeEach(function() {
-      result = ajax.destroy('foobar');
+      result = ajax.destroy(token, 'foobar');
     });
 
     it('should return a promise', function() {
@@ -151,6 +166,10 @@ describe('ajaxService', function() {
 
     it('should send the xhr data', function() {
       expect(mockXhrObject.send).to.have.been.called;
+    });
+
+    it('should set the request header', function() {
+      expect(mockXhrObject.setRequestHeader).to.have.been.calledWith(token);
     });
   });
 

@@ -49,7 +49,7 @@
     }
 
     function goToEmailVerification() {
-      $state.go('registration.email_verification');
+      $state.go('wizard.email_verification');
     }
 
     function initCompanyInformation() {

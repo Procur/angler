@@ -31,7 +31,7 @@
 
     function alreadyVerified() {
       if (user.get('emailVerified')) {
-        $state.go('registration.handle');
+        $state.go('wizard.handle');
       }
       else {
         snackbar.error('Your email has not been verified. Please check your email or click to resend.');

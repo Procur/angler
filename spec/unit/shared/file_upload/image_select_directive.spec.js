@@ -1,30 +1,29 @@
-describe('pcImageDrop', function() {
+describe('pcImageSelect', function() {
 
   var
     scope,
     imageElement,
-    mockFileDrop,
-    mockFileDropObject,
-    mockFileDropSettings,
+    mockFileInput,
+    mockFileInputObject,
+    mockFileInputSettings,
     mockFileReader,
     mockFileReaderObject;
 
-  beforeEach(module('pc.Templates'));
   beforeEach(module('pc.FileUpload'));
 
   beforeEach(module(function($provide) {
-    mockFileDropObject = {
+    mockFileInputObject = {
       bind: sinon.spy(),
       init: sinon.spy()
     };
 
-    mockFileDropSettings = undefined;
+    mockFileInputSettings = undefined;
 
-    mockFileDrop = function(settings) {
-      mockFileDropSettings = settings;
+    mockFileInput = function(settings) {
+      mockFileInputSettings = settings;
 
-      this.bind = mockFileDropObject.bind;
-      this.init = mockFileDropObject.init;
+      this.bind = mockFileInputObject.bind;
+      this.init = mockFileInputObject.init;
     };
 
     mockFileReaderObject = {
@@ -37,14 +36,14 @@ describe('pcImageDrop', function() {
       this.readAsDataURL = mockFileReaderObject.readAsDataURL;
     };
 
-    $provide.value('FileDrop', mockFileDrop);
+    $provide.value('FileInput', mockFileInput);
     $provide.value('FileReader', mockFileReader);
   }));
 
   beforeEach(inject(function($rootScope, $compile) {
     scope = $rootScope.$new();
 
-    imageElement = angular.element('<div pc-image-drop ></div>');
+    imageElement = angular.element('<div pc-image-select ></div>');
 
     $compile(imageElement)(scope);
 
@@ -68,17 +67,19 @@ describe('pcImageDrop', function() {
     });
 
     it('should create the FileInput object tailored to images', function() {
-      expect(mockFileDropSettings.drop_zone).to.equal(imageElement[0]);
-      expect(mockFileDropSettings.accept[0].title).to.equal('Image files');
-      expect(mockFileDropSettings.accept[0].extensions).to.equal('jpg,jpeg,svg,png');
+      expect(mockFileInputSettings.browse_button).to.equal(imageElement[0]);
+      expect(mockFileInputSettings.container).to.equal(imageElement.parent()[0]);
+      expect(mockFileInputSettings.accept[0].title).to.equal('Image files');
+      expect(mockFileInputSettings.accept[0].extensions).to.equal('jpg,jpeg,svg,png');
+      expect(mockFileInputSettings.multiple).to.equal(false);
     });
 
-    it('should bind to the drop event on the file input object', function() {
-      expect(mockFileDropObject.bind).to.have.been.calledWith('drop');
+    it('should bind to the change event on the file input object', function() {
+      expect(mockFileInputObject.bind).to.have.been.calledWith('change');
     });
 
     it('should init the file input object', function() {
-      expect(mockFileDropObject.init).to.have.been.called;
+      expect(mockFileInputObject.init).to.have.been.called;
     });
 
     it('should bind to the loadend event on the file reader object', function() {

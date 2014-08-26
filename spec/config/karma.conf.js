@@ -19,6 +19,8 @@ module.exports = function(config) {
 
         '../../public/javascripts/my_procur.js',
 
+        '../../public/javascripts/registration.js',
+
         '../unit/**/*.spec.js'
     ],
 

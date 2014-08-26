@@ -22,18 +22,18 @@
     $scope.selectType = selectType;
 
     function selectType(type) {
-      ajax.put('/api/users', {activeMode: type, defaultMode: type})
+      ajax.put(user.get('apiToken'), '/api/users', {activeMode: type, defaultMode: type})
         .then(function(response) {
           company.set(response.activeMode, true);
           user.setActiveMode(response.activeMode);
 
           if (response.activeMode === 'supplier') {
             company.set('buyer', false);
-            $state.go('registration.finished_product');
+            $state.go('wizard.finished_product');
           }
           else {
             company.set('supplier', false);
-            $state.go('registration.company_information');
+            $state.go('wizard.company_information');
           }
         })
         ['catch'](ajax.handleError);

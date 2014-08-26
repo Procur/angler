@@ -2,41 +2,60 @@ var
   express = require('express'),
   router = express.Router(),
   formHelper = require('../../helpers/form_helper'),
-  request = require('request');
+  Api = require('../../lib/api'),
+  Promise = require('bluebird');
+
+router.get('/', function signup(req, res) {
+  res.redirect('/registration/signup');
+});
 
 router.get('/signup', function signup(req, res) {
   res.render('registration/signup');
 });
 
 router.post('/signup', formHelper, function doSignup(req, res) {
-  // need to verify passwords are the same
-  request({
-    url: 'https://procur.fwd.wf/signup',
-    body: JSON.stringify(req.formData),
-    method: 'POST'
-  }, function(err, response, body) {
-    if (err || (response.statusCode !== 200 && response.statusCode !== 201)) { res.send(JSON.parse(body)); }
-    else {
-      request({
-        method: 'POST',
-        url: 'https://procur.fwd.wf/login',
-        body: JSON.stringify({
-          email: req.formData.email,
-          password: req.formData.password
-        })
-      }, function(err, response, body) {
-        if (err || (response.statusCode !== 200 && response.statusCode !== 201)) { res.send(JSON.parse(body)); }
-        else {
-          var
-            locals = {};
+  var
+    api = new Api(),
+    user = req.formData;
 
-          locals.localData = JSON.stringify({ user: JSON.parse(body)} );
+  confirmPasswords()
+    .then(signUpUser)
+    .then(loginUser)
+    .then(sendResponse)
+    .catch(api.err(res));
 
-          res.render('registration/wizard', locals);
-        }
-      });
+  function confirmPasswords() {
+    return new Promise(defer);
+
+    function defer(resolve, reject) {
+      if (user.password !== user.passwordConfirmation) {
+        reject({ error: 'Passwords are not the same.' });
+      }
+      else {
+        resolve();
+      }
     }
-  });
+  }
+
+  function signUpUser() {
+    return api.post(api.hosts.v1a + '/signup', user);
+  }
+
+  function loginUser() {
+    var
+      credentials;
+
+    credentials = {
+      email: user.email,
+      password: user.password
+    };
+
+    return api.post(api.hosts.v1a + '/login', credentials);
+  }
+
+  function sendResponse(user) {
+    res.render('registration/wizard', { localData: '{ "user": ' + user + '}'});
+  }
 });
 
 router.get('/wizard', function wizard(req, res) {
