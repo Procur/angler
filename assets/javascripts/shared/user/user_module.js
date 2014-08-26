@@ -7,6 +7,9 @@
     'pc.Company'
   ];
 
-  angular.module('pc.User', dependencies);
+  angular.module('pc.User', dependencies)
+    .constant('USER_EVENTS', {
+      ACTIVE_MODE_CHANGED: 'ACTIVE_MODE_CHANGED'
+    });
 
 })(angular);

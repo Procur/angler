@@ -9,13 +9,14 @@
     'userService',
     'buyerService',
     'supplierService',
+    'USER_EVENTS',
     socialMediaController
   ];
 
   angular.module('pc.EditCompanyProfile')
     .controller('socialMediaController', definitions);
 
-  function socialMediaController($rootScope, $scope, user, buyer, supplier) {
+  function socialMediaController($rootScope, $scope, user, buyer, supplier, USER_EVENTS) {
     var role;
     $scope.user = {
       activeMode: user.activeMode,
@@ -23,7 +24,7 @@
       isSupplierMode: user.isSupplierMode
     };
 
-    $rootScope.$on('activeModeChanged', changeRole);
+    $rootScope.$on(USER_EVENTS.ACTIVE_MODE_CHANGED, changeRole);
 
     function changeRole(event, data) {
       if (data === 'buyer') {

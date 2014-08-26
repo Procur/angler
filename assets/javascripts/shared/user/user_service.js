@@ -8,13 +8,14 @@
     '$rootScope',
     '_',
     'companyService',
+    'USER_EVENTS',
     userService
   ];
 
   angular.module('pc.User')
     .factory('userService', definitions);
 
-  function userService($window, $rootScope, _, company) {
+  function userService($window, $rootScope, _, company, USER_EVENTS) {
     var
       user,
       self;
@@ -71,7 +72,7 @@
       if (user.inactiveMode) {
         setActiveMode(user.inactiveMode);
         setInactiveMode();
-        $rootScope.$emit('activeModeChanged', user.activeMode);
+        $rootScope.$broadcast(USER_EVENTS.ACTIVE_MODE_CHANGED, user.activeMode);
       }
     }
 
