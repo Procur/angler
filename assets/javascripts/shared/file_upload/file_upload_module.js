@@ -4,7 +4,8 @@
     dependencies;
 
   dependencies = [
-    'pc.Vendor.Moxie'
+    'pc.Vendor.Moxie',
+    'pc.Vendor.Jquery'
   ];
 
   angular.module('pc.FileUpload', dependencies)

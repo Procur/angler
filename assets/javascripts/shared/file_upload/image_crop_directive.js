@@ -5,6 +5,7 @@
 
   definitions = [
     '$document',
+    '$',
     'FILE_EVENTS',
     pcImageCrop
   ];
@@ -12,8 +13,8 @@
   angular.module('pc.FileUpload')
     .directive('pcImageCrop', definitions);
 
-  function pcImageCrop($document, FILE_EVENTS) {
-
+  function pcImageCrop($document, $, FILE_EVENTS) {
+    
     return {
       restrict: 'AC',
       replace: false,
