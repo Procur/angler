@@ -48,7 +48,6 @@
                      productCategories: buyer.get('productCategories')};
 
     $scope.actionItems = actionItems.get();
-    console.log($scope.user.activeMode);
   }
 
 })(angular);

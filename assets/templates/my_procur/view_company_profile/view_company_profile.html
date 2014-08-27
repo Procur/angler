@@ -1,8 +1,9 @@
 
 <div class="row company-profile" ng-controller = 'viewCompanyProfileController'>
   <div class="col-sm-12 col-md-4">
+    
     <!--IMAGE PLACEHOLDER-->
-    <img ng-src="{{user.image}}"/>
+    <!--<img ng-src="{{user.image}}"/>-->
     <div class="company-header">
       <h2>
         <span>{{user.activeMode}} profile</span>
@@ -10,7 +11,7 @@
       <h1>{{company.name}}</h1>
     </div>
 
-
+    <!--START Business Address/Headquarters-->
     <div class="company-info-box company-business-address" ng-if="!location.showHq">
       <h3>
         <span class="fa fa-map-marker"></span>
@@ -43,7 +44,7 @@
       </div>
     </div>
 
-
+    <!--START Phone/Fax-->
     <div class="company-info-box">
       <h3>
         <span class="fa fa-phone"></span>
@@ -52,6 +53,8 @@
       <p ng-if="company.phoneNumber">Telephone: <span ng-if="company.phoneExtension">+{{company.phoneExtension}}</span> {{company.phoneNumber}}</p>
       <p ng-if="company.faxNumber"> Fax: <span ng-if="company.faxExtension">+{{company.faxExtension}}</span> {{company.faxNumber}}</p>
     </div>
+
+    <!--START Email-->
     <div class="company-info-box">
       <h3>
         <span class="fa fa-send"></span>
@@ -59,6 +62,8 @@
       </h3>
       <p>{{company.email}}</p>
     </div>
+
+    <!--START Website-->
     <div class="company-info-box">
       <h3>
         <span class="fa fa-globe"></span>
@@ -66,6 +71,8 @@
       </h3>
       <a href="{{company.website}}">{{company.website}}</a>
     </div>
+
+    <!-- START Product Categories -->
     <div class="company-detail-box">
       <h3>
         <span>Product Categories</span>
@@ -83,6 +90,8 @@
         </div>
       </div>
     </div>
+
+    <!-- START Company Details -->
     <div class="company-detail-box company-two-col-box">
       <h3>
         <span>{{user.activeMode}} details</span>
@@ -133,10 +142,9 @@
         </div>
       </div>
     </div>
-
-
-
   </div>
+
+  <!-- START Right Column -->
   <div class="col-sm-12 col-md-7 col-lg-8 pull-right hidden-xs">
     <div class="profile-nav">
       <ul>
