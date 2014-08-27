@@ -68,3 +68,32 @@
   }
 
 }
+
+.checkbox {
+  display: block;
+  cursor: pointer;
+  font-size: 13px;
+  line-height:18px;
+  margin-left: -15px;
+}
+input[type=checkbox] {
+  display:none; 
+}
+.checkbox:before {
+  content: "";
+  display: inline-block;
+  margin-right: 10px;
+  width: 18px;
+  height: 18px;
+  vertical-align:middle;
+  background-color: #FFF;
+  color: #333132;
+  text-align: center;
+  /*box-shadow: inset 0px 2px 3px 0px rgba(0, 0, 0, .3), 0px 1px 0px 0px rgba(255, 255, 255, .8);*/
+  border-radius: 3px;
+}
+input[type=checkbox]:checked + .checkbox:before {
+  content: "\2713";
+  /*text-shadow: 1px 1px 1px rgba(0, 0, 0, .2);*/
+  font-size: 15px;
+}
