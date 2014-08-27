@@ -1,7 +1,7 @@
 module.exports = {
   scripts: {
     files: ['<%= jsPath %>/**/*.js'],
-    tasks: ['concat:my_procur', 'concat:registration'],
+    tasks: ['concat:my_procur', 'concat:registration', 'concat:main'],
     options: {
 
     }

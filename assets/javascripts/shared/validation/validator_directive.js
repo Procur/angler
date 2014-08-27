@@ -4,7 +4,7 @@
   definitions;
 
   definitions = [
-  pcValidator
+    pcValidator
   ];
 
   angular.module('pc.Validation')

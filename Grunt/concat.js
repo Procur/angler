@@ -81,5 +81,22 @@ module.exports = {
       '<%= jsPath %>/registration/**/*.js',
     ],
     dest: '<%= pubJsPath %>/registration.js'
+  },
+  main: {
+    options: {
+      process: function(src, filepath) {
+        return '\n// ' + filepath + '\n' + src;
+      }
+    },
+    src: [
+      '<%= jsPath %>/vendor/lodash_module.js',
+      '<%= jsPath %>/shared/snackbar/snackbar_module.js',
+      '<%= jsPath %>/shared/snackbar/*.js',
+      '<%= jsPath %>/shared/validation/validation_module.js',
+      '<%= jsPath %>/shared/validation/*.js',
+      '<%= jsPath %>/main/form_handler/form_handler_module.js',
+      '<%= jsPath %>/main/form_handler/*.js',
+    ],
+    dest: '<%= pubJsPath %>/main.js'
   }
 };

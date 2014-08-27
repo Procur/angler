@@ -36,6 +36,7 @@ function gruntConfig(grunt) {
     'ngtemplates:registration',
     'concat:my_procur',
     'concat:registration',
+    'concat:main',
     'sass:my_procur_dev',
     'sass:main_dev',
     'sass:auth_dev',

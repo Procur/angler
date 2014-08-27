@@ -5,15 +5,15 @@
 <div class="container" id="index">
 
 <!--Start Header Pic -->
-<div class="row heroImage" id="homePage">
+<div class="row heroImage" id="homePage" ng-app="pc.FormHandler" ng-controller="formHandlerController">
   <div class="col-sm-4 col-sm-offset-8 regForm" id="homeRegForm">
     <h3>Sign up now for Early Access</h3>
-    <form action="/registration/signup" id="registration-form" method="post">
-      <div><input type="text" name="firstName" placeholder="First Name*" tabindex="1"></div>
-      <div><input type="text" name="lastName" placeholder="Last Name*" tabindex="2"></div>
+    <form action="/registration/signup" id="registration-form" name="registrationForm" method="post">
+      <div><input type="text" name="firstName" placeholder="First Name*" tabindex="1" ng-model="firstName" pc-validator="required"></div>
+      <div><input type="text" name="lastName" placeholder="Last Name*" tabindex="2" ></div>
       <div><input type="text" name="email" id="regEmail" placeholder="Business Email Address*" tabindex="3"></div>
-      <div><input type="password" name="password" id="regPassword" placeholder="Create a Password*" tabindex="5"></div>
-      <div><input type="password" name="passwordConfirmation" placeholder="Confirm Password*" tabindex="6"></div>
+      <div><input type="password" name="password" id="regPassword" placeholder="Create a Password*" tabindex="5" ng-model="password"></div>
+      <div><input type="password" name="passwordConfirmation" placeholder="Confirm Password*" tabindex="6" ng-model="passwordConfirmation"></div>
       <div><button type="submit" id="data-register-button" class="registerButton" tabindex="7">Create your free account now</button></div>
     </form>
   </div>
