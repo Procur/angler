@@ -13,9 +13,6 @@
     .directive('pcImageCrop', definitions);
 
   function pcImageCrop($document, FILE_EVENTS) {
-    var
-      croppedImageDimensions = {},
-      jcrop;
 
     return {
       restrict: 'AC',
@@ -25,17 +22,15 @@
     };
 
     function link(scope, elem, attrs) {
-      scope.$on('imagePreviewHasImage', createJcrop);
+      var
+        croppedImageDimensions = {},
+        jcrop;
+
+      scope.$on(FILE_EVENTS.HAS_IMAGE, createJcrop);
 
       function createJcrop() {
-        var jcropHolder = elem.next();
-        if (jcropHolder.length > 0) {
-          jcrop.destroy();
-          createCropper();
-        }
-        else {
-          createCropper();
-        }
+        if (jcrop) { jcrop.destroy(); }
+        createCropper();
       }
 
       function createCropper() {

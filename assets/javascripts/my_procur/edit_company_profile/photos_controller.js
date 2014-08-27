@@ -33,7 +33,7 @@
       };
 
       $scope.$digest();
-      $scope.$broadcast('imagePreviewHasImage');
+      $scope.$broadcast(FILE_EVENTS.HAS_IMAGE);
     }
 
     function invalidType() {
