@@ -4,7 +4,7 @@
 
   dependencies = [
     'pc.Vendor.LoDash',
-    'pc.Company'
+    'pc.Company',
     'pc.BuyerSupplier'
   ];
 

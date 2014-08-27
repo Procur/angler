@@ -12,5 +12,3 @@ module.exports = function handle500(err, req, res, next) {
     error: (env === 'development') ? err : {}
   });
 };
-
-
