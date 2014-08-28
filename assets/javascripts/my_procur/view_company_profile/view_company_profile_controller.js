@@ -7,7 +7,6 @@
     '$scope',
     'userService',
     'companyService',
-    'locationService',
     'supplierService',
     'buyerService',
     'viewCompanyProfileService',
@@ -18,7 +17,7 @@
     .controller('viewCompanyProfileController', definitions);
 
 
-  function viewCompanyProfileController($scope, user, company, location, supplier, buyer, actionItems) {
+  function viewCompanyProfileController($scope, user, company, supplier, buyer, actionItems) {
 
 
     $scope.user = { activeMode: user.get("activeMode"),
@@ -35,7 +34,6 @@
                        employeeCount: company.get("employeeCount"),
                        industry: company.get("industry")};
 
-    $scope.location = location;
 
     $scope.supplier = { duns: supplier.get('duns'),
                         companyType: supplier.get('companyType'),

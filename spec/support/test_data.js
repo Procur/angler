@@ -133,7 +133,24 @@
       'faxNumber': '5555555555',
       'phoneExtension': '',
       'phoneNumber': '4048499521',
-      'phoneNumberCountryCode': '1'
+      'phoneNumberCountryCode': '1',
+      'location': {
+        "showHq": true,
+        "companyIsHq": {
+          "addressLine1": "Address Line 1 Placeholder",
+          "addressLine2": "Address Line 2 Placeholder",
+          "city": "City Placeholder",
+          "province": "Province Placeholder",
+          "country": "Country Placeholder"
+        },
+        "companyNotHq": {
+          "addressLine1": "HQ Address Line 1 Placeholder",
+          "addressLine2": "HQ Address Line 2 Placeholder",
+          "city": "HQ City Placeholder",
+          "province": "HQ Province Placeholder",
+          "country": "HQ Country Placeholder"
+        }
+      }
     };
   }
 
