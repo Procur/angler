@@ -5,6 +5,8 @@ spec/reports/
 tmp/
 log/
 *.swp
+log/
+tmp/
 assets/stylesheets/styles.css
 assets/javascripts/app.js
 assets/javascripts/app/templates_module.js
