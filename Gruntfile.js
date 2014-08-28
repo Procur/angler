@@ -20,8 +20,8 @@ function gruntConfig(grunt) {
     ngtemplates: require('./grunt/ngtemplates'),
     uglify: require('./grunt/uglify'),
     bgShell: require('./grunt/bgShell'),
-    karma: require('./grunt/karma')
-
+    karma: require('./grunt/karma'),
+    mochaTest: require('./grunt/mocha_test')
   });
 
   for (var task in pkg.devDependencies) {
@@ -53,11 +53,16 @@ function gruntConfig(grunt) {
     'sass:registration_dist'
   ]);
   grunt.registerTask('server', ['bgShell:server']);
+  grunt.registerTask('passenger', ['bgShell:passenger']);
   grunt.registerTask('protractor', ['bgShell:protractor']);
   grunt.registerTask('test:dev', [
     'build:dev',
     'karma:dev',
-    'protractor'
+    'protractor',
+    'mochaTest:dev'
+  ]);
+  grunt.registerTask('test:node', [
+    'mochaTest:dev'
   ]);
   grunt.registerTask('default', [
     'build:dist',

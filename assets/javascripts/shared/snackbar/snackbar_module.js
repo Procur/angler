@@ -22,7 +22,7 @@
     })
     .constant('SNACKBAR_COLORS', {
       SUCCESS: '#5CC672',
-      ERROR: '#FF5A5A',
+      ERROR: '#DD191D',
       DEFAULT: '#333132'
     });
 

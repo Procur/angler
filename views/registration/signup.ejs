@@ -1,4 +1,4 @@
-<%- include ../partials/registration/_header %>
+<%- include ../partials/registration/_signup_header %>
 
 <span class="marketing-heading-bordered">
 <%- include ../partials/shared/_mkt_header %>
@@ -8,14 +8,14 @@
   <div class="row">
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12 col-sm-offset-0">
       <div class="row">
-        <div class="col-sm-6 col-sm-push-6 signUpForm" id="regForm">
+        <div class="col-sm-6 col-sm-push-6 signUpForm" id="regForm" ng-app="pc.FormHandler" ng-controller="formHandlerController">
           <h2>Welcome to Procur.<br/>Sign up for Early Access below:</h2>
-          <form action="/registration/signup" id="signup-form" method="post" novalidate>
-            <div><input type="text" name="firstName" placeholder="First Name*"></div>
-            <div><input type="text" name="lastName" placeholder="Last Name*"></div>
-            <div><input type="text" name="email" placeholder="Business Email Address*"></div>
-            <div><input type="password" name="password" id="signUpPassword" placeholder="Create a Password*"></div>
-            <div><input type="password" name="passwordConfirmation" placeholder="Create a Password*"></div>
+          <form name="form" ng-submit="onSubmit('/registration/signup')" novalidate>
+            <div><input type="text" name="firstName" placeholder="First Name*" tabindex="1" ng-model="fields.firstName" pc-validator="required"></div>
+            <div><input type="text" name="lastName" placeholder="Last Name*" tabindex="2" ng-model="fields.lastName" pc-validator="required"></div>
+            <div><input type="text" name="email" id="regEmail" placeholder="Business Email Address*" tabindex="3" ng-model="fields.email" pc-validator="required email"></div>
+            <div><input type="password" name="password" id="regPassword" placeholder="Create a Password*" tabindex="5" ng-model="fields.password" pc-validator="required password passwordLength"></div>
+            <div><input type="password" name="passwordConfirmation" placeholder="Confirm Password*" tabindex="6" ng-model="fields.passwordConfirmation" pc-validator="required password passwordLength confirm" pc-confirm="fields.password"></div>
             <div><button type="submit" id="data-register-button" class="registerButton">Create my account</button></div>
           </form>
           <div class="orText"><p>or</p></div>
@@ -90,4 +90,4 @@
 
 <%- include ../partials/shared/_dashboard_footer %>
 
-<%- include ../partials/auth/_footer %>
+<%- include ../partials/registration/_signup_footer %>

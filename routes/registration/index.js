@@ -2,64 +2,53 @@ var
   express = require('express'),
   router = express.Router(),
   formHelper = require('../../helpers/form_helper'),
-  Api = require('../../lib/api'),
-  Promise = require('bluebird');
+  User = require('../../lib/api/user'),
+  session = require('../../lib/api').Session,
+  Promise = require('bluebird'),
+  Api = require('../../lib/api').Client;
 
-router.get('/', function signup(req, res) {
+router.get('/', getIndex);
+router.get('/signup', getSignup);
+router.post('/signup', formHelper, postSignup);
+router.get('/wizard', getWizard);
+
+module.exports = router;
+
+function getIndex(req, res) {
   res.redirect('/registration/signup');
-});
+}
 
-router.get('/signup', function signup(req, res) {
-  res.render('registration/signup');
-});
+function getSignup(req, res) {
+  res.render('registration/signup', { error: null });
+}
 
-router.post('/signup', formHelper, function doSignup(req, res) {
-  var
-    api = new Api(),
-    user = req.formData;
-
-  confirmPasswords()
-    .then(signUpUser)
-    .then(loginUser)
+function postSignup(req, res) {
+  User.create(req.formData)
+    .then(getUserCredentials)
+    .then(session.create)
     .then(sendResponse)
-    .catch(api.err(res));
+    .catch(Api.err(res));
 
-  function confirmPasswords() {
-    return new Promise(defer);
-
-    function defer(resolve, reject) {
-      if (user.password !== user.passwordConfirmation) {
-        reject({ error: 'Passwords are not the same.' });
-      }
-      else {
-        resolve();
-      }
-    }
-  }
-
-  function signUpUser() {
-    return api.post(api.hosts.v1a + '/signup', user);
-  }
-
-  function loginUser() {
-    var
-      credentials;
-
-    credentials = {
+  function getUserCredentials(user) {
+    return {
       email: user.email,
-      password: user.password
+      password: req.formData.password
     };
-
-    return api.post(api.hosts.v1a + '/login', credentials);
   }
 
   function sendResponse(user) {
-    res.render('registration/wizard', { localData: '{ "user": ' + user + '}'});
+    if (!user.apiToken) {
+      return Promise.reject('There was a problem logging in. Please try again.');
+    }
+    else {
+      res.send(200, {
+        apitoken: user.apiToken,
+        redirect: '/registration/wizard/'
+      });
+    }
   }
-});
+}
 
-router.get('/wizard', function wizard(req, res) {
+function getWizard(req, res) {
   res.render('registration/wizard', { localData: null });
-});
-
-module.exports = router;
+}

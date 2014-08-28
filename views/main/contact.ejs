@@ -4,7 +4,7 @@
 <%- include ../partials/shared/_mkt_header %>
 </span>
 
-<div id="contact">
+<div id="contact" ng-app="pc.Main">
   <div class="container" id="contactPage">
     <div class="row topRow">
       <div class="col-sm-4">
@@ -27,11 +27,11 @@
       </div>
       <div class="col-sm-4">
       <h4>Sign Up for Our Mailing List</h4>
-      <form action="/contact/subscribe" method="post" id="subscriberForm">
+      <form ng-controller="formHandlerController" name="form" ng-submit="onSubmit('/contact/subscribe')" id="subscriberForm" novalidate>
 
         <div class="row" id="login">
           <div class="col-sm-8">
-            <input class="mailingListInput" type="text" name="subscriberEmail" placeholder="email@your-address.com">
+            <input class="mailingListInput" type="text" name="subscriberEmail" placeholder="email@your-address.com" ng-model="fields.email" pc-validator="required email">
           </div>
           <div class="col-sm-4 subscribe-submit">
             <button type="submit">Submit</button>
@@ -41,11 +41,11 @@
         <div class="row">
           <div class="col-sm-12">
             <div class="mailingListBoxes">
-              <input type="checkbox" name="chkList1" id="list1" checked>
+              <input type="checkbox" name="chkList1" id="list1" ng-model="fields.chkList1" ng-init="fields.chkList1 = true">
                 <label for="list1" class="checkboxText">Procur.com Changes and Updates</label><br>
-              <input type="checkbox" name="chkList2" id="list2" checked>
+              <input type="checkbox" name="chkList2" id="list2" ng-model="fields.chkList2" ng-init="fields.chkList2 = true">
                 <label for="list2" class="checkboxText">Trade &amp; Industry Newsletter</label><br>
-              <input type="checkbox" name="chkList3" id="list3" checked>
+              <input type="checkbox" name="chkList3" id="list3" ng-model="fields.chkList3" ng-init="fields.chkList3 = true">
                 <label for="list3" class="checkboxText">General News &amp; Announcements</label>
             </div>
           </div>
@@ -68,15 +68,15 @@
           <div class="col-sm-12">
             <h3>Get In Touch With Us Now</h3>
           </div>
-          <form action="/contact" method="post" id="contactForm">
+          <form ng-controller="formHandlerController" name="form" ng-submit="onSubmit('/contact')" id="contactForm" novalidate>
           <div class="col-sm-5">
             <div class="contact-email">
-              <input name="email" placeholder="email@your-address.com" type="text">
+              <input name="email" placeholder="email@your-address.com" type="text" ng-model="fields.email" pc-validator="required email">
             </div><br/>
 
             <h5>Please select a subject:</h5>
             <div class="styledSelect">
-              <select name="field1" class="contact-first-dropdown">
+              <select name="field1" class="contact-first-dropdown" ng-model="fields.subject">
                 <option disabled selected value="">
                   What's your reason for contacting us?*
                 </option>
@@ -105,7 +105,7 @@
 
 
             <div class="styledSelect">
-              <select name="field2" class="contact-second-dropdown" disabled="disabled">
+              <select name="field2" class="contact-second-dropdown" disabled="disabled" ng-model="fields.subSubject" ng-options="opt for opt in subSubjectOptions" pc-contact-subjects>
                 <option disabled selected value="">
                   --
                 </option>
@@ -117,7 +117,7 @@
 
             <div>
               <textarea cols="90" form="contactForm" name="content" placeholder=
-              "Write a message here." rows="15"></textarea>
+              "Write a message here." rows="15" ng-model="fields.message" pc-validator="required"></textarea>
             </div>
 
             <div class="contact-submit">

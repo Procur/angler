@@ -5,15 +5,15 @@
 <div class="container" id="index">
 
 <!--Start Header Pic -->
-<div class="row heroImage" id="homePage" ng-app="pc.FormHandler" ng-controller="formHandlerController">
-  <div class="col-sm-4 col-sm-offset-8 regForm" id="homeRegForm">
+<div class="row heroImage" id="homePage">
+  <div class="col-sm-4 col-sm-offset-8 regForm" id="homeRegForm" ng-app="pc.FormHandler" ng-controller="formHandlerController">
     <h3>Sign up now for Early Access</h3>
-    <form action="/registration/signup" id="registration-form" name="registrationForm" method="post">
-      <div><input type="text" name="firstName" placeholder="First Name*" tabindex="1" ng-model="firstName" pc-validator="required"></div>
-      <div><input type="text" name="lastName" placeholder="Last Name*" tabindex="2" ></div>
-      <div><input type="text" name="email" id="regEmail" placeholder="Business Email Address*" tabindex="3"></div>
-      <div><input type="password" name="password" id="regPassword" placeholder="Create a Password*" tabindex="5" ng-model="password"></div>
-      <div><input type="password" name="passwordConfirmation" placeholder="Confirm Password*" tabindex="6" ng-model="passwordConfirmation"></div>
+    <form id="registration-form" name="form" ng-submit="onSubmit('/registration/signup')" novalidate>
+      <div><input type="text" name="firstName" placeholder="First Name*" tabindex="1" ng-model="fields.firstName" pc-validator="required"></div>
+      <div><input type="text" name="lastName" placeholder="Last Name*" tabindex="2" ng-model="fields.lastName" pc-validator="required"></div>
+      <div><input type="text" name="email" id="regEmail" placeholder="Business Email Address*" tabindex="3" ng-model="fields.email" pc-validator="required email"></div>
+      <div><input type="password" name="password" id="regPassword" placeholder="Create a Password*" tabindex="5" ng-model="fields.password" pc-validator="required password passwordLength"></div>
+      <div><input type="password" name="passwordConfirmation" placeholder="Confirm Password*" tabindex="6" ng-model="fields.passwordConfirmation" pc-validator="required password passwordLength confirm" pc-confirm="fields.password"></div>
       <div><button type="submit" id="data-register-button" class="registerButton" tabindex="7">Create your free account now</button></div>
     </form>
   </div>

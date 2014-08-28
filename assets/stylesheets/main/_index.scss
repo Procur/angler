@@ -16,6 +16,18 @@ input {
   font-family: 'Roboto', sans-serif;
 }
 
+form p.error {
+  color: $color-red-primary;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  text-transform: uppercase;
+  line-height: 1.8em;
+  width: 100%;
+  top: -15px;
+  font-weight: 500;
+  margin: -8px 0 8px 0;
+}
+
 /* REGISTRATION WIZARD */
 
 #regWizard {

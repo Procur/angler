@@ -89,13 +89,20 @@ module.exports = {
       }
     },
     src: [
+      '<%= jsPath %>/vendor/moxie_module.js',
       '<%= jsPath %>/vendor/lodash_module.js',
+      '<%= jsPath %>/shared/ajax/ajax_module.js',
+      '<%= jsPath %>/shared/ajax/*.js',
       '<%= jsPath %>/shared/snackbar/snackbar_module.js',
       '<%= jsPath %>/shared/snackbar/*.js',
       '<%= jsPath %>/shared/validation/validation_module.js',
       '<%= jsPath %>/shared/validation/*.js',
+      '<%= jsPath %>/main/form_handler/templates_module.js',
       '<%= jsPath %>/main/form_handler/form_handler_module.js',
       '<%= jsPath %>/main/form_handler/*.js',
+      '<%= jsPath %>/main/contact/**/*.js',
+      '<%= jsPath %>/main/main_module.js',
+      '<%= jsPath %>/main/**/*.js',
     ],
     dest: '<%= pubJsPath %>/main.js'
   }

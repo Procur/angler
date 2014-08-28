@@ -4,6 +4,8 @@
     dependencies;
 
   dependencies = [
+    'pc.FormHandler.Templates',
+    'pc.Ajax',
     'pc.Snackbar',
     'pc.Validation'
   ];

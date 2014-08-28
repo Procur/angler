@@ -40,5 +40,25 @@ module.exports = {
         return urlArr[urlArr.length-1];
       }
     }
+  },
+  form_handler: {
+    src: [
+      '<%= htmlPath %>/shared/snackbar/snackbar.html',
+    ],
+    dest: '<%= jsPath %>/main/form_handler/templates_module.js',
+    options: {
+      module: 'pc.FormHandler.Templates',
+      standalone: true,
+      htmlmin: {
+        collapseWhitespace: true,
+        collapseBooleanAttributes: true
+      },
+      url: function(url) {
+        var
+          urlArr = url.split('/');
+
+        return urlArr[urlArr.length-1];
+      }
+    }
   }
 };

@@ -21,6 +21,8 @@ module.exports = function(config) {
 
         '../../public/javascripts/registration.js',
 
+        '../../public/javascripts/main.js',
+
         '../unit/**/*.spec.js'
     ],
 
@@ -32,6 +34,8 @@ module.exports = function(config) {
 
     preprocessors: {
       '../../public/javascripts/my_procur.js': ['coverage'],
+      '../../public/javascripts/registration.js': ['coverage'],
+      '../../public/javascripts/main.js': ['coverage']
     },
 
     // test results reporter to use

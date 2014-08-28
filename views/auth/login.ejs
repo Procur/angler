@@ -8,9 +8,9 @@
   <div class="row">
     <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 loginForm">
       <h1>Welcome back.<br/>Please sign in to your account: </h1>
-      <form action="/login" id="login-form" method="post">
-        <div><input type="text" name="email" placeholder="Email Address*" tabindex="1"></div>
-        <div><input type="password" name="password" placeholder="Password*" tabindex="2"></div>
+      <form id="login-form" name="form" ng-app="pc.FormHandler" ng-controller="formHandlerController" ng-submit="onSubmit('/auth/login')" novalidate>
+        <div><input type="text" name="email" placeholder="Email Address*" tabindex="1" ng-model="fields.email" pc-validator="required email"></div>
+        <div><input type="password" name="password" placeholder="Password*" tabindex="2" ng-model="fields.password" pc-validator="required password passwordLength"></div>
         <div class="forgotPass"><a href="/forgotpassword" tabindex="5">Forgot Your Password? Click here to reset.</a></div>
         <div><button type="submit" class="signInButton" tabindex="3">Sign in</button></div>
       </form>

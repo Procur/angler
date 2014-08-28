@@ -3,8 +3,11 @@ var
   router = express.Router(),
   env = process.env.NODE_ENV || 'production';
 
-router.get('/', function(req, res) {
-  console.log(env);
+router.get('/', getIndex);
+
+module.exports = router;
+
+function getIndex(req, res) {
   var
     locals = {};
 
@@ -13,6 +16,4 @@ router.get('/', function(req, res) {
   }
 
   res.render('my_procur/index', locals);
-});
-
-module.exports = router;
+}
