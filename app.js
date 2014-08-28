@@ -1,6 +1,9 @@
 var
   express = require('express'),
   path = require('path'),
+  cookieParser = require('cookie-parser'),
+  csrf = require('csurf'),
+  session = require('express-session'),
   favicon = require('serve-favicon'),
   logger = require('morgan'),
   busboy = require('connect-busboy'),
@@ -14,6 +17,13 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 app.use(favicon(path.join(__dirname, 'public/images/favico.ico')));
+
+app.use(cookieParser('Magical Unicorn'));
+app.use(session({ resave: true, saveUninitialized: true, secret: 'Magical Unicorn' }));
+app.use(csrf());
+
+app.use(require('./helpers/csrf_helper'));
+app.use(require('./helpers/apitoken_helper').get);
 
 app.use(logger('dev'));
 

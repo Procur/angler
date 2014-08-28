@@ -17,7 +17,7 @@ function putApiWrapper(req, res) {
     path = req.originalUrl.replace('/api', '');
 
   // TODO: Handle files as well. They should already be attached to req on fileData
-  api.put(api.hosts.v1a + path, req.formData)
+  api.put(Api.hosts.v1a + path, req.formData)
     .then(handleResponse(res, 201))
     .catch(api.err(res));
 }
@@ -28,7 +28,7 @@ function postApiWrapper(req, res) {
     path = req.originalUrl.replace('/api', '');
 
   // TODO: Handle files as well. They should already be attached to req on fileData
-  api.post(api.hosts.v1a + path, req.formData)
+  api.post(Api.hosts.v1a + path, req.formData)
     .then(handleResponse(res))
     .catch(api.err(res));
 }
@@ -38,7 +38,7 @@ function getApiWrapper(req, res) {
     api = new Api({ apitoken: req.get('apitoken') }),
     path = req.originalUrl.replace('/api', '');
 
-  api.get(api.hosts.v1a + path)
+  api.get(Api.hosts.v1a + path)
     .then(handleResponse(res))
     .catch(api.err(res));
 }
@@ -48,7 +48,7 @@ function deleteApiWrapper(req, res) {
     api = new Api({ apitoken: req.get('apitoken') }),
     path = req.originalUrl.replace('/api', '');
 
-  api.del(api.hosts.v1a + path)
+  api.del(Api.hosts.v1a + path)
     .then(handleResponse(res))
     .catch(api.err(res));
 }

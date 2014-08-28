@@ -6,6 +6,7 @@
   definitions = [
     '$scope',
     '$window',
+    '$cookies',
     'ajaxService',
     'snackbarService',
     'VALIDATION_EVENT',
@@ -15,7 +16,7 @@
   angular.module('pc.FormHandler')
     .controller('formHandlerController', definitions);
 
-  function formHandlerController($scope, $window, ajax, snackbar, VALIDATION_EVENT) {
+  function formHandlerController($scope, $window, $cookies, ajax, snackbar, VALIDATION_EVENT) {
     if ($window.pc && $window.pc.localData && $window.pc.localData.error) {
       snackbar.error($window.pc.localData.error);
     }
@@ -37,8 +38,8 @@
         snackbar.success(res.message);
       }
 
-      if (res.apiToken) {
-        // TODO: store apiToken in session or Cookie store
+      if (res.apitoken) {
+        $cookies['pc.token'] = res.apitoken;
       }
 
       if (res.redirect) {

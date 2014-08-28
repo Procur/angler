@@ -4,6 +4,7 @@
     dependencies;
 
   dependencies = [
+    'ngCookies',
     'pc.Vendor.LoDash',
     'pc.Vendor.Moxie',
     'pc.Snackbar'

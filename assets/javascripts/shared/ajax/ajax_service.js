@@ -4,6 +4,7 @@
 
   definition = [
     '$q',
+    '$cookies',
     '_',
     'FormData',
     'Xhr',
@@ -15,7 +16,7 @@
   angular.module('pc.Ajax')
     .factory('ajaxService', definition);
 
-  function ajaxService($q, _, FormData, Xhr, XHR_METHOD, snackbar) {
+  function ajaxService($q, $cookies, _, FormData, Xhr, XHR_METHOD, snackbar) {
 
     return {
       get: get,
@@ -59,6 +60,7 @@
       }
 
       xhr.open(method, endpoint, true);
+      xhr.setRequestHeader('X-CSRF-Token', $cookies['XSRF-TOKEN']);
       xhr.setRequestHeader('apitoken', token);
       xhr.send(formData);
 

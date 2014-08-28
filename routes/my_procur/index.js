@@ -1,19 +1,20 @@
 var
   express = require('express'),
   router = express.Router(),
-  env = process.env.NODE_ENV || 'production';
+  checkToken = require('../../helpers/apitoken_helper').check,
+  addUser = require('../../helpers/user_helper').addUser;
 
-router.get('/', getIndex);
+router.get('/', checkToken, addUser, getIndex);
 
 module.exports = router;
 
 function getIndex(req, res) {
   var
-    locals = {};
+    localData;
 
-  if (env !== 'production') {
-    locals.localData = JSON.stringify(require('../../spec/support/test_data'));
-  }
+  localData = {
+    user: JSON.stringify(req.user)
+  };
 
-  res.render('my_procur/index', locals);
+  res.render('my_procur/index', localData);
 }

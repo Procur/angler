@@ -2,15 +2,16 @@ var
   express = require('express'),
   router = express.Router(),
   formHelper = require('../../helpers/form_helper'),
-  User = require('../../lib/api/user'),
-  session = require('../../lib/api').Session,
   Promise = require('bluebird'),
-  Api = require('../../lib/api').Client;
+  User = require('../../lib/api').User,
+  Session = require('../../lib/api').Session,
+  Api = require('../../lib/api').Client,
+  checkToken = require('../../helpers/apitoken_helper').check;
 
 router.get('/', getIndex);
 router.get('/signup', getSignup);
 router.post('/signup', formHelper, postSignup);
-router.get('/wizard', getWizard);
+router.get('/wizard', checkToken, getWizard);
 
 module.exports = router;
 
@@ -25,7 +26,7 @@ function getSignup(req, res) {
 function postSignup(req, res) {
   User.create(req.formData)
     .then(getUserCredentials)
-    .then(session.create)
+    .then(Session.create)
     .then(sendResponse)
     .catch(Api.err(res));
 

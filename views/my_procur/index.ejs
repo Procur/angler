@@ -9,11 +9,10 @@
   var
     pc = window.pc = window.pc || {};
 
-  <% if (localData) { %>
-    pc.localData = <%- localData %>;
-  <% } else { %>
-    pc.localData = {};
-  <% } %>
+  pc.localData = {
+    user: <%- user %>
+  };
+
 </script>
 
 <%- include ../partials/my_procur/_footer.ejs %>

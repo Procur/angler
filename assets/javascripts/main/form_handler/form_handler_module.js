@@ -4,6 +4,7 @@
     dependencies;
 
   dependencies = [
+    'ngCookies',
     'pc.FormHandler.Templates',
     'pc.Ajax',
     'pc.Snackbar',
